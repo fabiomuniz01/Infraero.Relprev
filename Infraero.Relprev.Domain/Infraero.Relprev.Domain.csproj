@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Infraero.Relprev.Domain</RootNamespace>
+    <AssemblyName>Infraero.Relprev.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>

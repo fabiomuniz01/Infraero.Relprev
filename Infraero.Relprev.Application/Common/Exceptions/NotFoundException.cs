@@ -1,0 +1,12 @@
+﻿using System;
+
+namespace Infraero.Relprev.Application.Common.Exceptions
+{
+    public class NotFoundException : Exception
+    {
+        public NotFoundException(string name, object key)
+            : base($"Entity \"{name}\" ({key}) was not found.")
+        {
+        }
+    }
+}
