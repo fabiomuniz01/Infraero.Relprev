@@ -30,8 +30,30 @@ namespace Infraero.Relprev.Infrastructure.Persistence
 
         public DbSet<Usuario> Usuarios { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //    => optionsBuilder.UseNpgsql("Host=localhost:5432;Database=IFRRELPREV;Username=postgres;Password=master");
+        public virtual DbSet<Ambiente> Ambiente { get; set; }
+        public virtual DbSet<AnexoRelato> AnexoRelato { get; set; }
+        public virtual DbSet<Assunto> Assunto { get; set; }
+        public virtual DbSet<AtribuicaoRelato> AtribuicaoRelato { get; set; }
+        public virtual DbSet<ContratoUtilizacaoSistema> ContratoUtilizacaoSistema { get; set; }
+        public virtual DbSet<Empresa> Empresa { get; set; }
+        public virtual DbSet<EmpresaLocalidade> EmpresaLocalidade { get; set; }
+        public virtual DbSet<EmpresaResponsavelTecnico> EmpresaResponsavelTecnico { get; set; }
+        public virtual DbSet<Evento> Evento { get; set; }
+        public virtual DbSet<FuncaoSistema> FuncaoSistema { get; set; }
+        public virtual DbSet<HistoricoRelato> HistoricoRelato { get; set; }
+        public virtual DbSet<Localidade> Localidade { get; set; }
+        public virtual DbSet<Perfil> Perfil { get; set; }
+        public virtual DbSet<PerfilFuncao> PerfilFuncao { get; set; }
+        public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }
+        public virtual DbSet<Relato> Relato { get; set; }
+        public virtual DbSet<ResponsavelTecnico> ResponsavelTecnico { get; set; }
+        public virtual DbSet<SituacaoAtribuicaoRelato> SituacaoAtribuicaoRelato { get; set; }
+        public virtual DbSet<SituacaoRelato> SituacaoRelato { get; set; }
+        public virtual DbSet<SubAmbiente> SubAmbiente { get; set; }
+        public virtual DbSet<SubAssunto> SubAssunto { get; set; }
+        public virtual DbSet<TipoEvento> TipoEvento { get; set; }
+        public virtual DbSet<UsuarioRelprev> UsuarioRelprev { get; set; }
+        public virtual DbSet<UsuarioLocalidade> UsuarioLocalidade { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
