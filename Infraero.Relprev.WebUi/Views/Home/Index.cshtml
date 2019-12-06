@@ -1,8 +1,68 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-}
+    ViewData["Title"] = "Sing In Relprev";
+    Layout = "~/Views/Shared/_LayoutSingIn.cshtml";
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+}
+<section class="body-sign">
+    <div class="center-sign">
+        <a href="/" class="logo float-left" style="margin-top: 15px;">
+            <img src="img/logo.png" height="54" alt="Porto Admin" />
+        </a>
+
+        <div class="panel card-sign">
+            <div class="card-title-sign mt-3 text-right">
+                <h2 class="title text-uppercase font-weight-bold m-0"><i class="fa fa-user mr-1"></i> Acesso ao Sistema</h2>
+            </div>
+            <div class="card-body">
+                <form action="@Url.Action("Index", "Dashboard")" method="post">
+                    <div class="form-group mb-3">
+                        <label>Usuário</label>
+                        <div class="input-group input-group-icon">
+                            <input name="username" type="text" class="form-control form-control-lg" />
+                            <span class="input-group-addon">
+                                <span class="icon icon-lg">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="clearfix">
+                            <label class="float-left">Senha</label>
+                            <a href="@Url.Action("RecuperarSenha", "Home")" class="float-right">Recuperar Senha</a>
+                        </div>
+                        <div class="input-group input-group-icon">
+                            <input name="pwd" type="password" class="form-control form-control-lg" />
+                            <span class="input-group-addon">
+                                <span class="icon icon-lg">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            @*<div class="checkbox-custom checkbox-default">
+                    <input id="RememberMe" name="rememberme" type="checkbox" />
+                    <label for="RememberMe">Remember Me</label>
+                </div>*@
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <button type="submit" class="btn btn-primary mt-2">Entrar</button>
+                        </div>
+                    </div>
+
+        
+
+                    @*<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>*@
+
+                </form>
+
+            </div>
+        </div>
+
+        <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2019. Todos os direitos reservados.</p>
+    </div>
+</section>

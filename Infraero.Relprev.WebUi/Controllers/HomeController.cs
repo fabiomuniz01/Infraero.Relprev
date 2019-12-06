@@ -23,6 +23,11 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View();
         }
 
+        public IActionResult RecuperarSenha()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

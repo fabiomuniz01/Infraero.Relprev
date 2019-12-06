@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "RecuperarSenha";
+    Layout = "~/Views/Shared/_LayoutSingIn.cshtml";
+}
+
+<section class="body-sign">
+    <div class="center-sign">
+        <a href="/" class="logo float-left" style="margin-top: 15px;">
+            <img src="~/img/logo.png" height="54" alt="Porto Admin" />
+        </a>
+
+        <div class="panel card-sign">
+            <div class="card-title-sign mt-3 text-right">
+                <h2 class="title text-uppercase font-weight-bold m-0"><i class="fa fa-user mr-1"></i> Recuperar Senha</h2>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <p class="m-0">Digite seu e-mail abaixo e nós lhe enviaremos instruções de redefinição!</p>
+                </div>
+
+                <form>
+                    <div class="form-group mb-0">
+                        <div class="input-group">
+                            <input name="username" type="email" placeholder="E-mail" class="form-control form-control-lg" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-lg" type="submit">Recuperar!</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <p class="text-center mt-3">Lembrou? <a href="@Url.Action("Index", "Dashboard")">Entrar!</a></p>
+                </form>
+            </div>
+        </div>
+
+        <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2017. All Rights Reserved.</p>
+    </div>
+</section>
+
