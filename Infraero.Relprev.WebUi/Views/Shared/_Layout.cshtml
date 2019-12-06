@@ -6,10 +6,10 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Left Sidebar Big Icons Light | Porto Admin - Responsive HTML5 Template 2.0.0</title>
-    <meta name="keywords" content="HTML5 Admin Template" />
-    <meta name="description" content="Porto Admin - Responsive HTML5 Template">
-    <meta name="author" content="okler.net">
+    <title>RELPREV | Relatório de Prevenção</title>
+    <meta name="keywords" content="Relprev" />
+    <meta name="description" content="Relatório de Prevenção">
+    <meta name="author" content="ntitsolutions01@gmail.com">
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -26,8 +26,8 @@
     @*<link rel="stylesheet" href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />*@
 
     <!-- Specific Page Vendor CSS -->
-    @*<link rel="stylesheet" href="~/vendor/bootstrap-multiselect/bootstrap-multiselect.css" />*@
-<link href="~/vendor/datatables/datatables.min.css" rel="stylesheet" />
+    @RenderSection("CssSpecificVendor", required:false)
+
     <!-- Theme CSS -->
     <link rel="stylesheet" href="~/css/theme.css" />
 
@@ -183,7 +183,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="layouts-default.html">
+                                    <a class="nav-link" href="@Url.Action("Index", "Usuario")">
                                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                                         <span>Usuário</span>
                                     </a>
@@ -252,6 +252,7 @@
 
     <!-- Specific Page Vendor -->
     @*<script src="~/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+    @RenderSection("ScriptsSpecificVendor", required: false)
 
     <!-- Theme Base, Components and Settings -->
     <script src="~/js/theme.js"></script>
@@ -263,8 +264,7 @@
     <script src="~/js/theme.init.js"></script>
 
     <!-- Examples -->
-    @*<script src="~/js/examples/examples.dashboard.js"></script>*@
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 
 
 </body>

@@ -7471,7 +7471,7 @@ html.dark .colorpicker:after {
 }
 
 .dataTables_wrapper .dataTables_filter input {
-	width: 100% !important;
+	width: 76% !important;
 }
 
 @media only screen and (max-width: 991px) {

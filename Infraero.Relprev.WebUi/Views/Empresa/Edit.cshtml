@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (@Html.BeginForm("Edit", "Empresa", FormMethod.Post))
+        {
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+
+                    <h2 class="card-title">Editar Empresas / Órgãos Público</h2>
+
+                </header>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Empresa</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">CPNJ </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="fullname" class="form-control" placeholder="XX.XXX.XXX/XXXX-XX" maxlength="18" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone</label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                <input id="phone" data-plugin-masked-input="" data-input-mask="(999) 999-9999" placeholder="(123) 123-1234" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-9">
+                            <button class="btn  btn-success pull-left" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="reset" class="btn btn-danger pull-left">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        }
+    </div>
+</div>
+@section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+}
+@section Scripts {
+    <script src="~/vendor/select2/js/select2.js"></script>
+
+    <script>
+        // Select2
+        (function($) {
+
+            'use strict';
+
+            if ( $.isFunction($.fn[ 'select2' ]) ) {
+
+                $(function() {
+                    $('[data-plugin-selectTwo]').each(function() {
+                        var $this = $( this ),
+                            opts = {};
+
+                        var pluginOptions = $this.data('plugin-options');
+                        if (pluginOptions)
+                            opts = pluginOptions;
+
+                        $this.themePluginSelect2(opts);
+                    });
+                });
+
+            }
+
+        }).apply(this, [jQuery]);
+
+    </script>
+}
+
+
+
