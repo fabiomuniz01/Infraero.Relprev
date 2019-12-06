@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -13,6 +14,7 @@ namespace Infraero.Relprev.Domain.Entities
             HistoricoRelato = new HashSet<HistoricoRelato>();
         }
 
+        [Key]
         public int CodRelato { get; set; }
         public int CodSituacaoRelato { get; set; }
         public int? CodLocalidade { get; set; }

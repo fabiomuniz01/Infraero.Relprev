@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
     public partial class ContratoUtilizacaoSistema : AuditableEntity
     {
+        [Key]
         public int CodContrato { get; set; }
         public int? CodLocalidade { get; set; }
         public int? CodEmpresa { get; set; }

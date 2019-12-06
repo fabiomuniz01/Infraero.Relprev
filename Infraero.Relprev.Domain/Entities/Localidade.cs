@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -16,6 +17,7 @@ namespace Infraero.Relprev.Domain.Entities
             UsuarioLocalidade = new HashSet<UsuarioLocalidade>();
         }
 
+        [Key]
         public int CodLocalidade { get; set; }
         public string DscLocalidade { get; set; }
         public string SigLocalidade { get; set; }

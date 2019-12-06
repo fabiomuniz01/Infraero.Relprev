@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -11,6 +12,7 @@ namespace Infraero.Relprev.Domain.Entities
             Relato = new HashSet<Relato>();
         }
 
+        [Key]
         public int CodSubAmbiente { get; set; }
         public string DscSubAmbiente { get; set; }
         public DateTime DatInicioVigencia { get; set; }

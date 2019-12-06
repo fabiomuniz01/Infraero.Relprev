@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
     public partial class PerfilUsuario : AuditableEntity
     {
+        [Key]
+        public int CodPerfilUsuario { get; set; }
         public int CodPerfil { get; set; }
         public int CodUsuario { get; set; }
         public DateTime DatInicioVigencia { get; set; }

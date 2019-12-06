@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -10,6 +11,7 @@ namespace Infraero.Relprev.Domain.Entities
             AtribuicaoRelato = new HashSet<AtribuicaoRelato>();
         }
 
+        [Key]
         public int CodSituacaoAtribuicao { get; set; }
         public string DscSituacaoAtribuicao { get; set; }
 

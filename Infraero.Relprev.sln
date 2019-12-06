@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FA107194-B28F-415C-BE95-5C89DAA046B9}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\DDS\53\2019-00053-001-239_SQL-DataBase.sql = ..\..\DDS\53\2019-00053-001-239_SQL-DataBase.sql
 		ReadMe.txt = ReadMe.txt
 	EndProjectSection
 EndProject

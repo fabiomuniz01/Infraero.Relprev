@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
     public partial class HistoricoRelato : AuditableEntity
     {
+        [Key]
+        public int CodHistoricoRelato { get; set; }
         public int CodHistorico { get; set; }
         public int CodRelato { get; set; }
         public int? CodUsuario { get; set; }

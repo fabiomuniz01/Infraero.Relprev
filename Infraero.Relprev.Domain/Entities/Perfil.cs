@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -12,6 +13,7 @@ namespace Infraero.Relprev.Domain.Entities
             PerfilUsuario = new HashSet<PerfilUsuario>();
         }
 
+        [Key]
         public int CodPerfil { get; set; }
         public string DscPerfil { get; set; }
         public string FlgPermiteAlteracao { get; set; }

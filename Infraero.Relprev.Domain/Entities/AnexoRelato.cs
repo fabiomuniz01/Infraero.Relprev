@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
     public partial class AnexoRelato : AuditableEntity
     {
+        [Key]
         public int CodAnexo { get; set; }
         public int CodRelato { get; set; }
         public int? CodAtribuicaoRelato { get; set; }

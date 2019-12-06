@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -12,6 +13,7 @@ namespace Infraero.Relprev.Domain.Entities
             EmpresaLocalidade = new HashSet<EmpresaLocalidade>();
         }
 
+        [Key]
         public int CodEmpresa { get; set; }
         public string NomRazaoSocial { get; set; }
         public string NumCnpj { get; set; }
