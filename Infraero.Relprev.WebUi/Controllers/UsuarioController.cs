@@ -22,6 +22,12 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Usuario/Create
+        public ActionResult CreatePerfil()
+        {
+            return View();
+        }
+
+        // GET: Usuario/Create
         public ActionResult Create()
         {
             return View();

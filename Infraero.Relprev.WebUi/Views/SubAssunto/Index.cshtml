@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <form id="form1" class="form-horizontal">
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+
+                    <h2 class="card-title">Pesquisar Sub Assuntos relacionados a ocorrências</h2>
+                </header>
+                <div class="card-body">
+                    <div class="form-group row">
+                        
+                        <div class="col-sm-12 pull-right">
+
+                            <a href="@Url.Action("Create", "SubAssunto")" id="addToTable" class="btn btn-primary pull-right">Novo  Sub Assunto  <i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped mb-0" id="datatable-default">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Sub Assunto</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>Piso Molhado na entrada A do aeroporto</td>
+                                <td class="text-center">
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="SubAssunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Piso Seco na entrada B do aeroporto</td>
+                                <td class="text-center">
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="SubAssunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Banheiro Molhado na entrada C do aeroporto</td>
+                                <td class="text-center">
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="SubAssunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+<div id="modalIcon" class="modal-block modal-header-color modal-block-danger mfp-hide">
+    <section class="card">
+        <header class="card-header">
+            <h2 class="card-title">Exclusão</h2>
+        </header>
+        <div class="card-body">
+            <div class="modal-wrapper">
+                <div class="modal-icon">
+                    <i class="fa fa-question-circle"></i>
+                </div>
+                <div class="modal-text">
+                    <p class="mb-0">Tem certeza que deseja <b>excluir</b> esse registro?</p>
+                </div>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-success modal-confirm">Sim &nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i></button>
+                    <button class="btn btn-danger modal-dismiss">Não &nbsp;&nbsp;<i class="fa fa-thumbs-o-down"></i></button>
+                </div>
+            </div>
+        </footer>
+    </section>
+</div>
+@section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+}
+@section Scripts {
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.html5.min.js"></script>
+    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.print.min.js"></script>
+    <script src="~/vendor/datatables/extras/TableTools/JSZip-2.5.0//jszip.min.js"></script>
+    <script src="~/vendor/datatables/extras/TableTools/pdfmake-0.1.32/pdfmake.min.js"></script>
+    <script src="~/vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js"></script>
+    <script src="~/js/empresa.js"></script>
+
+    <script>
+        // Tooltip
+        (function($) {
+
+            'use strict';
+
+            if ( $.isFunction( $.fn['tooltip'] ) ) {
+                $( '[data-toggle=tooltip],[rel=tooltip]' ).tooltip({ container: 'body' });
+            }
+
+        }).apply(this, [jQuery]);
+            /*
+    Name: 			UI Elements / Modals - Examples
+    Written by: 	Okler Themes - (http://www.okler.net)
+    Theme Version: 	2.0.0
+    */
+
+            (function ($) {
+
+                'use strict';
+
+                /*
+                Basic
+                */
+                $('.modal-basic').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
+                });
+
+                /*
+                Sizes
+                */
+                $('.modal-sizes').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
+                });
+
+                /*
+                Modal Dismiss
+                */
+                $(document).on('click', '.modal-dismiss', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                });
+
+            }).apply(this, [jQuery]);
+    </script>
+}
+
+

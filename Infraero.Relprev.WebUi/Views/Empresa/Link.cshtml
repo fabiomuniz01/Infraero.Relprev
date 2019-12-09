@@ -169,29 +169,66 @@
     <script src="~/js/empresa.js"></script>
 
     <script>
-        // Select2
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
+
         (function ($) {
 
             'use strict';
 
-            if ($.isFunction($.fn['select2'])) {
+            /*
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
 
-                $(function () {
-                    $('[data-plugin-selectTwo]').each(function () {
-                        var $this = $(this),
-                            opts = {};
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
 
-                        var pluginOptions = $this.data('plugin-options');
-                        if (pluginOptions)
-                            opts = pluginOptions;
-
-                        $this.themePluginSelect2(opts);
-                    });
-                });
-
-            }
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
 
         }).apply(this, [jQuery]);
+            // Select2
+            (function ($) {
+
+                'use strict';
+
+                if ($.isFunction($.fn['select2'])) {
+
+                    $(function () {
+                        $('[data-plugin-selectTwo]').each(function () {
+                            var $this = $(this),
+                                opts = {};
+
+                            var pluginOptions = $this.data('plugin-options');
+                            if (pluginOptions)
+                                opts = pluginOptions;
+
+                            $this.themePluginSelect2(opts);
+                        });
+                    });
+
+                }
+
+            }).apply(this, [jQuery]);
 
     </script>
 }

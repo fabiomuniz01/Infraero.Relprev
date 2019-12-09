@@ -19,19 +19,10 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label pull-right">&nbsp;</label>
+                        
+                        <div class="col-sm-12 pull-right">
 
-                        <div class="col-sm-5">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="button">Pesquisar <i class="fa fa-search"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 pull-right">
-
-                            <a href="@Url.Action("Create", "Assunto")" id="addToTable" class="btn btn-primary pull-right">Nova Assunto <i class="fa fa-plus"></i></a>
+                            <a href="@Url.Action("Create", "Assunto")" id="addToTable" class="btn btn-primary pull-right">Nova Assunto &nbsp;<i class="fa fa-plus"></i></a>
                         </div>
                     </div>
                     <table class="table table-bordered table-striped mb-0" id="datatable-default">
@@ -46,22 +37,22 @@
                             <tr>
                                 <td>Piso Molhado</td>
                                 <td class="text-center">
-                                    <a asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar"asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir"href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Piso Seco</td>
                                 <td class="text-center">
-                                    <a asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar"asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir"href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Banheiro Molhado</td>
                                 <td class="text-center">
-                                    <a asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar"asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir"href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -112,42 +103,52 @@
     <script src="~/js/empresa.js"></script>
 
     <script>
-        /*
-Name: 			UI Elements / Modals - Examples
-Written by: 	Okler Themes - (http://www.okler.net)
-Theme Version: 	2.0.0
-*/
-
-        (function ($) {
+        // Tooltip
+        (function($) {
 
             'use strict';
 
-            /*
-            Basic
-            */
-            $('.modal-basic').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
-            });
-
-            /*
-            Sizes
-            */
-            $('.modal-sizes').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
-            });
-
-            /*
-            Modal Dismiss
-            */
-            $(document).on('click', '.modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
-            });
+            if ( $.isFunction( $.fn['tooltip'] ) ) {
+                $( '[data-toggle=tooltip],[rel=tooltip]' ).tooltip({ container: 'body' });
+            }
 
         }).apply(this, [jQuery]);
+            /*
+    Name: 			UI Elements / Modals - Examples
+    Written by: 	Okler Themes - (http://www.okler.net)
+    Theme Version: 	2.0.0
+    */
+
+            (function ($) {
+
+                'use strict';
+
+                /*
+                Basic
+                */
+                $('.modal-basic').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
+                });
+
+                /*
+                Sizes
+                */
+                $('.modal-sizes').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
+                });
+
+                /*
+                Modal Dismiss
+                */
+                $(document).on('click', '.modal-dismiss', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                });
+
+            }).apply(this, [jQuery]);
     </script>
 }

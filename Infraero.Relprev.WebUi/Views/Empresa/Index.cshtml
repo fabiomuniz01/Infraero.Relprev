@@ -14,33 +14,12 @@
                         <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
                     </div>
 
-                    <h2 class="card-title">Empresas /Órgão Públicos</h2>
+                    <h2 class="card-title">Pesquisar Empresas /Órgão Públicos</h2>
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-1 control-label">&nbsp;</label>
-
-                        <div class="col-sm-1">
-                            <div class="radio-custom">
-                                <input type="radio" id="radioExample1" name="radioExample">
-                                <label for="radioExample1">CNPJ</label>
-                            </div>
-
-                            <div class="radio-custom radio-primary">
-                                <input type="radio" id="radioExample2" name="radioExample">
-                                <label for="radioExample2">Empresa</label>
-                            </div>
-
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="button">Pesquisar <i class="fa fa-search"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 pull-right">
+                        
+                        <div class="col-sm-12 pull-right">
 
                             <a href="@Url.Action("Create", "Empresa")" id="addToTable" class="btn btn-primary pull-right">Nova Empresa <i class="fa fa-plus"></i></a>
                         </div>
@@ -61,9 +40,9 @@
                                 <td>(61)9999-9999</td>
                                 <td>5</td>
                                 <td class="actions">
-                                    <a  asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
-                                    <a asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a  data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
+                                    <a  data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a  data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -71,9 +50,9 @@
                                 <td>(61)9999-9999</td>
                                 <td>5</td>
                                 <td class="actions">
-                                    <a  asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
-                                    <a asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a  data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -81,9 +60,9 @@
                                 <td>(61)9999-9999</td>
                                 <td>5</td>
                                 <td class="actions">
-                                    <a  asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
-                                    <a asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a  data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -132,4 +111,56 @@
     <script src="~/vendor/datatables/extras/TableTools/pdfmake-0.1.32/pdfmake.min.js"></script>
     <script src="~/vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js"></script>
     <script src="~/js/empresa.js"></script>
+    
+    <script>
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
+
+        (function ($) {
+
+            'use strict';
+
+            /*
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+
+        }).apply(this, [jQuery]);
+        // Tooltip
+        (function($) {
+
+            'use strict';
+
+            if ( $.isFunction( $.fn['tooltip'] ) ) {
+                $( '[data-toggle=tooltip],[rel=tooltip]' ).tooltip({ container: 'body' });
+            }
+
+        }).apply(this, [jQuery]);
+
+
+    </script>
 }

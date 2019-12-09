@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (@Html.BeginForm("Create", "Assunto", FormMethod.Post))
+        {
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+
+                    <h2 class="card-title">Editar assunto da Ocorrência</h2>
+
+                </header>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto </label>
+                        <div class="col-sm-9">
+                            <textarea type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição do  assunto relacionado as  ocorrências "  maxlength="50"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-9">
+                            <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <a href="@Url.Action("Index", "Assunto")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
+
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        }
+    </div>
+</div>
+@section CssSpecificVendor {
+}
+@section Scripts {
+
+}
+
+
+

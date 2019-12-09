@@ -19,29 +19,8 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-1 control-label">&nbsp;</label>
-
-                        <div class="col-sm-1">
-                            <div class="radio-custom">
-                                <input type="radio" id="radioExample1" name="radioExample">
-                                <label for="radioExample1">CPF</label>
-                            </div>
-
-                            <div class="radio-custom radio-primary">
-                                <input type="radio" id="radioExample2" name="radioExample">
-                                <label for="radioExample2">Nome</label>
-                            </div>
-
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="button">Pesquisar <i class="fa fa-search"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 pull-right">
+                        
+                        <div class="col-sm-12 pull-right">
 
                             <a href="@Url.Action("Create", "Usuario")" id="addToTable" class="btn btn-primary pull-right">Novo Usuário <i class="fa fa-plus"></i></a>
                         </div>
@@ -66,10 +45,8 @@
                                 <td>(61)9999-9999</td>
                                 <td>5</td>
                                 <td class="actions">
-                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                    <a asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -78,10 +55,8 @@
                                 <td>(61)9999-9999</td>
                                 <td>5</td>
                                 <td class="actions">
-                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                    <a asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -90,10 +65,8 @@
                                 <td>(61)9999-9999</td>
                                 <td>5</td>
                                 <td class="actions">
-                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                    <a asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>

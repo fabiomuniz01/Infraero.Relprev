@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewData["Title"] = "Finalize";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post))
+        {
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+
+                    <h2 class="card-title">Finalizar Relato de Prevenção</h2>
+
+                </header>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nº do relato </label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input readonly type="text" name="email" class="form-control" value="02081984" maxlength="100" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <select data-plugin-selectTwo class="form-control populate" disabled="disabled">
+                                <option value="AK">Alaska</option>
+                                <option value="HI">Hawaii</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input readonly id="date" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="eg.: Data da ocorrência de prevenção" class="form-control">
+                            </div>
+                        </div>
+
+                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da Ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-3 pull-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </span>
+                                <input readonly type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }' placeholder="eg.: Horário da ocorrência">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  " required maxlength="200" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <h4 class="pt-3 mb-0">Classificação do relato</h4>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do local da ocorrência" required maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Local de ocorrência   <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ocorrência" required maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do assunto" required maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Assunto<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do sub assunto" required maxlength="200" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Envolvidos na ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição dos envolvidos na ocorrência" required maxlength="500"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da Ocorrência/Nova Descrição <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição da nova ocorrência" required maxlength="200"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <table class="table table-responsive-md table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Descrição do parecer técnico</th>
+                                        <th>Responsável técnico</th>
+                                        <th>Motivo da Devolução</th>
+                                        <th>Status do parecer </th>
+                                        <th>Data e Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Foi finalizado levantamento</td>
+                                        <td>Uriel</td>
+                                        <td>Faltou material</td>
+                                        <td>Devolvido</td>
+                                        <td>05/12/2019 10:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Foi realizado sinalizaçao</td>
+                                        <td>Miguel</td>
+                                        <td>Faltou material</td>
+                                        <td>Parecer aceito</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Foi enviado para atendimento</td>
+                                        <td>Maria Flor</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Ações corretivas Recomendadas<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição das ações corretivas recomendadas" required maxlength="60"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Nome do arquivo</label>
+                        <div class="col-lg-6">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="input-append">
+                                    <div class="uneditable-input">
+                                        <i class="fa fa-file fileupload-exists"></i>
+                                        <span class="fileupload-preview"></span>
+                                    </div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileupload-exists">Alterar</span>
+                                        <span class="fileupload-new">Selecione o arquivo</span>
+                                        <input type="file" />
+                                    </span>
+                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remover</a>
+                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Anexar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <table class="table table-responsive-md table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Arquivo</th>
+                                        <th>Responsável</th>
+                                        <th>Fase do anexo</th>
+                                        <th>Data e hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>atendimento.png</td>
+                                        <td>Uriel</td>
+                                        <td>Parecer técnico</td>
+                                        <td>05/12/2019 10:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>relato.png</td>
+                                        <td>Miguel</td>
+                                        <td>Parecer técnico</td>
+                                        <td>01/12/2019 18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>atendimento.png</td>
+                                        <td>Maria Flor</td>
+                                        <td>Parecer técnico</td>
+                                        <td>05/12/2019 08:00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-9">
+                            <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button class="btn  btn-warning pull-left mr-2">Finalizar Atendimento &nbsp;&nbsp;<i class="fa fa-upload"></i></button>
+                            <a href="@Url.Action("Index", "Relato")" class="btn btn-danger pull-left mr-2">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></a>
+                            @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
+
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        }
+    </div>
+</div>
+@section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
+}
+@section Scripts {
+    <script src="~/vendor/autosize/autosize.js"></script>
+    <script src="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+}
+
+
+

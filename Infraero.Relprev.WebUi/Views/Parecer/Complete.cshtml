@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewData["Title"] = "Complete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post))
+        {
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+
+                    <h2 class="card-title">Visualizar Relatos para Atendimento Técnico</h2>
+
+                </header>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nº do relato <span class="required">*</span> </label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input readonly type="text" name="email" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Período da ocorrência</label>
+                        <div class="col-lg-6">
+                            <div class="input-daterange input-group" data-plugin-datepicker>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type="text" class="form-control" name="start" placeholder="eg.: Data de inicio do período ">
+                                <span class="input-group-addon">até</span>
+                                <input type="text" class="form-control" name="end" placeholder="eg.: Data Final do Período">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  " required maxlength="200" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <h4 class="pt-3 mb-0">Classificação</h4>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do local da ocorrência" required maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Local de ocorrência   <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ocorrência" required maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do assunto" required maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Assunto<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do sub assunto" required maxlength="200" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Envolvidos na ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Pessoas e / ou veículos envolvidos no relato" required maxlength="500"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição da ocorrência do relato" required maxlength="1000"></textarea>
+                        </div>
+                    </div><div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Parecer Técnico respondido<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição do parecer técnico" required maxlength="500"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Motivo da devolução <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição do motivo da devolução do parecer" required maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Novo parecer técnico <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição do novo parecer técnico" required maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Nome do arquivo</label>
+                        <div class="col-lg-6">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="input-append">
+                                    <div class="uneditable-input">
+                                        <i class="fa fa-file fileupload-exists"></i>
+                                        <span class="fileupload-preview"></span>
+                                    </div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileupload-exists">Alterar</span>
+                                        <span class="fileupload-new">Selecione o arquivo</span>
+                                        <input type="file" />
+                                    </span>
+                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remover</a>
+                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Anexar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-9">
+                            <a href="#" class="btn btn-success pull-left mr-2">Enviar &nbsp;&nbsp;<i class="fa fa-save"></i></a>
+                            <a href="#" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></a>
+                            @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
+
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        }
+    </div>
+</div>
+@section CssSpecificVendor {
+
+    <link rel="stylesheet" href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
+
+}
+@section Scripts {
+    <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+    <script src="~/js/empresa.js"></script>
+
+    <script>
+        // Tooltip
+        (function ($) {
+
+            'use strict';
+
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
+            }
+
+        }).apply(this, [jQuery]);
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
+
+        (function ($) {
+
+            'use strict';
+
+            /*
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+
+        }).apply(this, [jQuery]);
+    </script>
+}
+
+
+
+
+
+
+
+

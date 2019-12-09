@@ -21,25 +21,25 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Empresa</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Empresa órgão público</label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" />
+                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Nome da empresa órgão público para atendimento de relatos" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">CPNJ </label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="XX.XXX.XXX/XXXX-XX" maxlength="18" />
+                            <input type="text" name="fullname" class="form-control" data-input-mask="99.999.999/9999-99" placeholder="eg.: CNPJ da empresa / órgão público" maxlength="18" />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone</label>
-                        <div class="col-lg-4">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Telefone </label>
+                        <div class="col-sm-9">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input id="phone" data-plugin-masked-input="" data-input-mask="(999) 999-9999" placeholder="(123) 123-1234" class="form-control">
+                                <input id="phone" data-plugin-masked-input="" data-input-mask="(99) 999-9999" placeholder="eg.: Número de telefone para atendimento" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -47,8 +47,9 @@
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button type="reset" class="btn btn-danger pull-left">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <a href="@Url.Action("Index", "Empresa")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
                         </div>
                     </div>
