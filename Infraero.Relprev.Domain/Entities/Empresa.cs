@@ -5,7 +5,7 @@ using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
-    public partial class Empresa : AuditableEntity
+    public class Empresa : AuditableEntity
     {
         public Empresa()
         {
@@ -21,7 +21,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumTelefone { get; set; }
         public string EndEmpresa { get; set; }
         public string EndEmail { get; set; }
-
+        //
         public virtual ICollection<ContratoUtilizacaoSistema> ContratoUtilizacaoSistema { get; set; }
         public virtual ICollection<EmpresaLocalidade> EmpresaLocalidade { get; set; }
     }

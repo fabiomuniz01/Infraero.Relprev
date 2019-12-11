@@ -25,7 +25,7 @@ namespace Infraero.Relprev.Application.Common.Behaviours
             var userId = _currentUserService.UsuarioId;
             var userName = await _identityService.GetUserNameAsync(userId);
 
-            _logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
+            _logger.LogInformation("Infraero.Relprev Request: {Name} {@UserId} {@UserName} {@Request}",
                 requestName, userId, userName ,request);
         }
     }
