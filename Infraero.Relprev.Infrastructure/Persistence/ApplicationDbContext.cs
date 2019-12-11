@@ -1,4 +1,5 @@
-﻿using Infraero.Relprev.Application.Common.Interfaces;
+﻿using System;
+using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Domain.Common;
 using Infraero.Relprev.Domain.Entities;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -9,22 +10,20 @@ using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infraero.Relprev.Infrastructure.Persistence
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
-        private readonly IDateTime _dateTime;
 
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService,
-            IDateTime dateTime) : base(options, operationalStoreOptions)
+            ICurrentUserService currentUserService) : base(options, operationalStoreOptions)
         {
             _currentUserService = currentUserService;
-            _dateTime = dateTime;
         }
 
 
@@ -63,11 +62,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedBy = _currentUserService.UsuarioId;
-                        entry.Entity.Created = _dateTime.Now;
+                        entry.Entity.Created = new DateTime().Date;
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedBy = _currentUserService.UsuarioId;
-                        entry.Entity.LastModified = _dateTime.Now;
+                        entry.Entity.LastModified = new DateTime().Date;
                         break;
                 }
             }

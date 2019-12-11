@@ -6,9 +6,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Infraero.Relprev.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("api/[controller]")]
+    public class WeatherForecastController : ApiController
     {
         private static readonly string[] Summaries = new[]
         {

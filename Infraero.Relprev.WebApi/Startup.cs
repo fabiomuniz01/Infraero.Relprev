@@ -10,11 +10,13 @@ using Infraero.Relprev.WebApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Infraero.Relprev.WebApi
 {
@@ -33,19 +35,42 @@ namespace Infraero.Relprev.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddApplication();
-            services.AddInfrastructure(Configuration, Environment);
+            //services.AddControllers();
 
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddHttpContextAccessor();
+            services.AddSwaggerGen(c => {
 
-            services.AddHealthChecks()
-                .AddDbContextCheck<ApplicationDbContext>();
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Relprev",
+                        Version = "v1",
+                        Description = "API REST criada com o ASP.NET Core 3.1 para consulta ao Relprev",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "binnovation.ntitsolutions",
+                            Url = new Uri("https://github.com/ntitsolutions")
+                        }
+                    });
+            });
+
+            //services.AddApplication();
+            //services.AddInfrastructure(Configuration, Environment);
+
+            //services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            //services.AddHttpContextAccessor();
+
+            //services.AddHealthChecks()
+            //    .AddDbContextCheck<ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -59,24 +84,13 @@ namespace Infraero.Relprev.WebApi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCustomExceptionHandler();
-            app.UseHealthChecks("/health");
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSwaggerUi3(settings =>
-            {
-                settings.Path = "/api";
-                settings.DocumentPath = "/api/specification.json";
-            });
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();
+            //app.UseCustomExceptionHandler();
+            //app.UseHealthChecks("/health");
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+            //app.UseRouting();
+            app.UseMvc();
         }
     }
 }
