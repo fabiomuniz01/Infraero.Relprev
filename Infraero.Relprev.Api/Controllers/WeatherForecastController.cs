@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Infraero.Relprev.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class WeatherForecastController : ApiController
     {

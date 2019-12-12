@@ -115,7 +115,13 @@ namespace Infraero.Relprev.Api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthorization();
+
             app.UseAuthentication();
+
+            app.UseDeveloperExceptionPage();
+
+            //app.UseDatabaseErrorPage();
 
             //Replace UseMvc or UseSignalR with UseEndpoints.
             app.UseEndpoints(endpoints =>
