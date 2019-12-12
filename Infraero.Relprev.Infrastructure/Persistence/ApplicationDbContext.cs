@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Infraero.Relprev.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : ApiAuthorizationDbContext<IdentityUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
 
