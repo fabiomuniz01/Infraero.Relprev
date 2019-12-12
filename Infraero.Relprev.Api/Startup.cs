@@ -1,12 +1,16 @@
 using System;
+using System.Text;
 using Infraero.Relprev.Application;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Infraero.Relprev.Api
@@ -59,6 +63,37 @@ namespace Infraero.Relprev.Api
             //services.AddMvc();
             // New Ways
             services.AddRazorPages();
+
+            //JWT
+            IdentityModelEventSource.ShowPII = true; //To show detail of error and see the problem
+
+            var appSettingsSextion = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSextion);
+
+            var appSettings = appSettingsSextion.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = true;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = appSettings.Emissor,
+                    ValidAudience = appSettings.ValidoEm
+                };
+
+            });
+
+
 
 
         }
