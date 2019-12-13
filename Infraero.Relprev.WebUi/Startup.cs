@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.HttpClient.Clients.Implementations;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.HttpClient.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -34,10 +37,19 @@ namespace Infraero.Relprev.WebUi
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            string Baseurl = "https://localhost:44372";
+
+            services.Add(new ServiceDescriptor(typeof(IEmpresaClient),
+                new EmpresaClient(Baseurl, new ClientSDK("", "", ""))));
+
+
+
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AddPageRoute("/Dashboard/Index", "");
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +66,7 @@ namespace Infraero.Relprev.WebUi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

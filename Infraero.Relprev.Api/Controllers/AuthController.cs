@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Infraero.Relprev.Api.Models;
+using Infraero.Relprev.CrossCutting.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -65,7 +65,7 @@ namespace Infraero.Relprev.Api.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginUsuarioVm loginUsuarioVm)
+        public async Task<IActionResult> Login(LoginUsuarioVm obj)
         {
             try
             {
@@ -74,11 +74,11 @@ namespace Infraero.Relprev.Api.Controllers
                     return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
                 }
 
-                var result = await _signInManager.PasswordSignInAsync(loginUsuarioVm.Email, loginUsuarioVm.Password, false, true);
+                var result = await _signInManager.PasswordSignInAsync(obj.Email, obj.Password, false, true);
 
                 if (result.Succeeded)
                 {
-                    return Ok(await GerarJwt(loginUsuarioVm.Email));
+                    return Ok(await GerarJwt(obj.Email));
                 }
 
                 return BadRequest("Usuário não cadastrado.");

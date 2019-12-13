@@ -28,13 +28,14 @@ namespace Infraero.Relprev.Infrastructure.Persistence
 
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Empresa> Empresas { get; set; }
 
         public virtual DbSet<Ambiente> Ambiente { get; set; }
         public virtual DbSet<AnexoRelato> AnexoRelato { get; set; }
         public virtual DbSet<Assunto> Assunto { get; set; }
         public virtual DbSet<AtribuicaoRelato> AtribuicaoRelato { get; set; }
         public virtual DbSet<ContratoUtilizacaoSistema> ContratoUtilizacaoSistema { get; set; }
-        public virtual DbSet<Empresa> Empresa { get; set; }
+        //public virtual DbSet<Empresa> Empresa { get; set; }
         public virtual DbSet<EmpresaLocalidade> EmpresaLocalidade { get; set; }
         public virtual DbSet<EmpresaResponsavelTecnico> EmpresaResponsavelTecnico { get; set; }
         public virtual DbSet<Evento> Evento { get; set; }

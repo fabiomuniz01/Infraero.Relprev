@@ -31,6 +31,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraero.Relprev.WebApi.Int
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraero.Relprev.Api", "Infraero.Relprev.Api\Infraero.Relprev.Api.csproj", "{8482A21A-9A8F-4DFE-B5C6-BE0A382281E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraero.Relprev.HttpClient", "Infraero.Relprev.HttpClient\Infraero.Relprev.HttpClient.csproj", "{31F4AD16-6F87-48FA-802A-18D9044F3417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraero.Relprev.CrossCutting", "Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj", "{7D26FAB8-80DC-4F83-A0FD-77C9C882999C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +77,14 @@ Global
 		{8482A21A-9A8F-4DFE-B5C6-BE0A382281E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8482A21A-9A8F-4DFE-B5C6-BE0A382281E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8482A21A-9A8F-4DFE-B5C6-BE0A382281E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31F4AD16-6F87-48FA-802A-18D9044F3417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F4AD16-6F87-48FA-802A-18D9044F3417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F4AD16-6F87-48FA-802A-18D9044F3417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F4AD16-6F87-48FA-802A-18D9044F3417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D26FAB8-80DC-4F83-A0FD-77C9C882999C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D26FAB8-80DC-4F83-A0FD-77C9C882999C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D26FAB8-80DC-4F83-A0FD-77C9C882999C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D26FAB8-80DC-4F83-A0FD-77C9C882999C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +99,8 @@ Global
 		{BE3485B3-C7E1-4354-AE1A-A1F1CF34942C} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
 		{92DF9B18-5496-49EC-A9CD-E65D82C0F3BC} = {CE952BD7-AEA7-444D-BA9C-481BC3D88F02}
 		{8482A21A-9A8F-4DFE-B5C6-BE0A382281E9} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
+		{31F4AD16-6F87-48FA-802A-18D9044F3417} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
+		{7D26FAB8-80DC-4F83-A0FD-77C9C882999C} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D999A3EB-F5FD-4CC1-883F-D6567E977754}

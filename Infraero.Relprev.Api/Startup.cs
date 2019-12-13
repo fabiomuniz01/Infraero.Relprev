@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Infraero.Relprev.Application;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

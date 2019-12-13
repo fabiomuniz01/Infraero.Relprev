@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Infraero.Relprev.HttpClient.Clients.Implementations;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 
 namespace Infraero.Relprev.Application
 {
@@ -28,6 +30,7 @@ namespace Infraero.Relprev.Application
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.AddScoped<IEmpresaClient>(provider => provider.GetService<EmpresaClient>());
 
             if (environment.IsEnvironment("Test"))
             {
@@ -67,6 +70,8 @@ namespace Infraero.Relprev.Application
 
                 //services.AddTransient<IDateTime, DateTimeService>();
                 //services.AddTransient<IIdentityService, IdentityService>();
+                //services.AddTransient<IIdentityService, IdentityService>();
+                //services.AddTransient<IEmpresaClient, EmpresaClient>();
             }
 
             services.AddAuthentication()

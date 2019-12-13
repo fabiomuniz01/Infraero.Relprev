@@ -8,6 +8,7 @@ namespace Infraero.Relprev.Application.Common.Interfaces
     public interface IApplicationDbContext
     {
         DbSet<Usuario> Usuarios { get; set; }
+        DbSet<Empresa> Empresas { get; set; }
         
        
 

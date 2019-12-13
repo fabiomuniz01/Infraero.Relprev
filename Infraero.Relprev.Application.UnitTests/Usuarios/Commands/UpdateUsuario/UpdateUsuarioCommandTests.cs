@@ -13,14 +13,14 @@ namespace Infraero.Relprev.Application.UnitTests.Usuarios.Commands.UpdateUsuario
         [Fact]
         public async Task Handle_GivenValidId_ShouldUpdatePersistedUsuario()
         {
-            var command = new UpdateUsuarioCommand
+            var command = new UpdateEmpresaCommand
             {
                 Id = 1,
                 Title = "This thing is also done.",
                 Done = true
             };
 
-            var handler = new UpdateUsuarioCommand.UpdateUsuarioCommandHandler(Context);
+            var handler = new UpdateEmpresaCommand.UpdateUsuarioCommandHandler(Context);
 
             await handler.Handle(command, CancellationToken.None);
 
@@ -34,14 +34,14 @@ namespace Infraero.Relprev.Application.UnitTests.Usuarios.Commands.UpdateUsuario
         [Fact]
         public void Handle_GivenInvalidId_ThrowsException()
         {
-            var command = new UpdateUsuarioCommand
+            var command = new UpdateEmpresaCommand
             {
                 Id = 99,
                 Title = "This item doesn't exist.",
                 Done = false
             };
 
-            var sut = new UpdateUsuarioCommand.UpdateUsuarioCommandHandler(Context);
+            var sut = new UpdateEmpresaCommand.UpdateUsuarioCommandHandler(Context);
 
             Should.ThrowAsync<NotFoundException>(() => 
                 sut.Handle(command, CancellationToken.None));

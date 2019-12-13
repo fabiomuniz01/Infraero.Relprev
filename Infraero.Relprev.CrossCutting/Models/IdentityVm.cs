@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infraero.Relprev.Api.Models
+namespace Infraero.Relprev.CrossCutting.Models
 {
     
         public class RegisterUsuarioVm

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +11,15 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class EmpresaController : Controller
     {
-        public IActionResult Index()
+        private readonly IEmpresaClient _empresaClient;
+
+        public EmpresaController(IEmpresaClient empresaClient)
         {
-            return View();
+            _empresaClient = empresaClient;
         }
-        // GET: Empresa/Details/5
-        public ActionResult Details(int id)
+
+        //private readonly IEmpresa 
+        public IActionResult Index()
         {
             return View();
         }
@@ -33,10 +38,12 @@ namespace Infraero.Relprev.WebUi.Controllers
             try
             {
                 // TODO: Add insert logic here
+                var r = collection["Empresa"].ToString();
+                _empresaClient.Create(new EmpresaVm());
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
