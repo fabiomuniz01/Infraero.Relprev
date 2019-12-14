@@ -34,7 +34,7 @@ namespace Infraero.Relprev.Application.UnitTests.Common
 
             var context = new ApplicationDbContext(
                 options, operationalStoreOptions,
-                currentUserServiceMock.Object, dateTimeMock.Object);
+                currentUserServiceMock.Object);
 
             context.Database.EnsureCreated();
 

@@ -4,12 +4,12 @@ namespace Infraero.Relprev.Domain.Common
 {
     public class AuditableEntity
     {
-        public string CreatedBy { get; set; }
+        public string CriadoPor { get; set; }
 
-        public DateTime Created { get; set; }
+        public DateTime DataCriacao { get; set; }
 
-        public string LastModifiedBy { get; set; }
+        public string AlteradoPor { get; set; }
 
-        public DateTime? LastModified { get; set; }
+        public DateTime? DataAlteracao { get; set; }
     }
 }

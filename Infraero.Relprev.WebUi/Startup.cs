@@ -43,7 +43,7 @@ namespace Infraero.Relprev.WebUi
             services.Add(new ServiceDescriptor(typeof(IEmpresaClient),
                 new EmpresaClient(Baseurl, new ClientSDK("", "", ""))));
 
-
+            services.AddMvc().AddNewtonsoftJson();
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {

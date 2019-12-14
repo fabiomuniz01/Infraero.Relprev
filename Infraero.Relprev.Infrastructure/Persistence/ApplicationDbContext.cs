@@ -29,6 +29,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
 
         public virtual DbSet<Ambiente> Ambiente { get; set; }
         public virtual DbSet<AnexoRelato> AnexoRelato { get; set; }
@@ -62,12 +63,12 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedBy = _currentUserService.UsuarioId;
-                        entry.Entity.Created = new DateTime().Date;
+                        entry.Entity.CriadoPor = _currentUserService.UsuarioId;
+                        entry.Entity.DataCriacao = new DateTime().Date;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _currentUserService.UsuarioId;
-                        entry.Entity.LastModified = new DateTime().Date;
+                        entry.Entity.AlteradoPor = _currentUserService.UsuarioId;
+                        entry.Entity.DataAlteracao = new DateTime().Date;
                         break;
                 }
             }

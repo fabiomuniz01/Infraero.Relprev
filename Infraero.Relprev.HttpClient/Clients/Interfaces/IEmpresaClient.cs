@@ -1,13 +1,16 @@
-﻿using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
+using Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa;
+using Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa;
+using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
+using Infraero.Relprev.CrossCutting.Models;
 
 namespace Infraero.Relprev.HttpClient.Clients.Interfaces
 {
     public interface IEmpresaClient
     {
-        //long Create(EmpresaVm obj);
-        long Create(EmpresaVm empresaVm);
+        Task<long> CreateEmpresa(CreateEmpresaCommand command);
+        GridEmpresa GetGridEmpresa();
+        EmpresaDto GetEmpresaById(int id);
+        Task<bool> UpdateEmpresa(UpdateEmpresaCommand command);
     }
 }

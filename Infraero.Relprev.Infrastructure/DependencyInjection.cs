@@ -70,7 +70,6 @@ namespace Infraero.Relprev.Application
 
                 //services.AddTransient<IDateTime, DateTimeService>();
                 //services.AddTransient<IIdentityService, IdentityService>();
-                //services.AddTransient<IIdentityService, IdentityService>();
                 //services.AddTransient<IEmpresaClient, EmpresaClient>();
             }
 

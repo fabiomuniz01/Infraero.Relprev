@@ -1,4 +1,5 @@
-﻿using Infraero.Relprev.Application.Common.Exceptions;
+﻿using System;
+using Infraero.Relprev.Application.Common.Exceptions;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
@@ -8,12 +9,15 @@ using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
 
 namespace Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa
 {
-    public partial class UpdateEmpresaCommand : IRequest
+    public partial class UpdateEmpresaCommand : IRequest<bool>
     {
-        public EmpresaDto EmpresaDto { get; set; }
+        public int Id { get; set; }
+        public string NomRazaoSocial { get; set; }
+        public string NumCnpj { get; set; }
+        public string NumTelefone { get; set; }
+        public string AlteradoPor { get; set; }
 
-
-        public class UpdateEmpresaCommandHandler : IRequestHandler<UpdateEmpresaCommand>
+        public class UpdateEmpresaCommandHandler : IRequestHandler<UpdateEmpresaCommand, bool>
         {
             private readonly IApplicationDbContext _context;
 
@@ -22,21 +26,26 @@ namespace Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa
                 _context = context;
             }
 
-            public async Task<Unit> Handle(UpdateEmpresaCommand request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(UpdateEmpresaCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Empresas.FindAsync(request.EmpresaDto.CodEmpresa);
+                var entity = await _context.Empresas.FindAsync(request.Id);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Empresa), request.EmpresaDto.CodEmpresa);
+                    throw new NotFoundException(nameof(Empresa), request.Id);
                 }
 
-                entity.NomRazaoSocial = request.EmpresaDto.NomRazaoSocial;
+                entity.NomRazaoSocial = request.NomRazaoSocial;
+                entity.NumCnpj = request.NumCnpj;
+                entity.NumTelefone = request.NumTelefone;
+                entity.AlteradoPor = request.AlteradoPor;
+                entity.DataAlteracao = DateTime.Now;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return true;
             }
         }
+
     }
 }

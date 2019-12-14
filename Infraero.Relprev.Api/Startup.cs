@@ -42,6 +42,7 @@ namespace Infraero.Relprev.Api
             //services.AddHealthChecks()
             //    .AddDbContextCheck<ApplicationDbContext>();
 
+            services.AddCors(); // Make sure you call this previous to AddMvc
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(c => {
@@ -123,7 +124,9 @@ namespace Infraero.Relprev.Api
             app.UseDeveloperExceptionPage();
 
             //app.UseDatabaseErrorPage();
-
+            app.UseCors(
+                options => options.WithOrigins("http://example.com").AllowAnyMethod()
+            );
             //Replace UseMvc or UseSignalR with UseEndpoints.
             app.UseEndpoints(endpoints =>
             {

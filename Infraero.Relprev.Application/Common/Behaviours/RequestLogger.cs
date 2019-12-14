@@ -10,20 +10,18 @@ namespace Infraero.Relprev.Application.Common.Behaviours
     {
         private readonly ILogger _logger;
         private readonly ICurrentUserService _currentUserService;
-        private readonly IIdentityService _identityService;
 
-        public RequestLogger(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService)
+        public RequestLogger(ILogger<TRequest> logger, ICurrentUserService currentUserService)
         {
             _logger = logger;
             _currentUserService = currentUserService;
-            _identityService = identityService;
         }
 
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
             var userId = _currentUserService.UsuarioId;
-            var userName = await _identityService.GetUserNameAsync(userId);
+            var userName = "UserId";
 
             _logger.LogInformation("Infraero.Relprev Request: {Name} {@UserId} {@UserName} {@Request}",
                 requestName, userId, userName ,request);

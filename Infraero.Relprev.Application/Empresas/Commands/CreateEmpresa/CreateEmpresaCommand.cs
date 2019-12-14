@@ -1,15 +1,20 @@
-﻿using Infraero.Relprev.Application.Common.Interfaces;
+﻿using System;
+using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
 
 namespace Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa
 {
     public class CreateEmpresaCommand : IRequest<long>
     {
-        public EmpresaDto EmpresaDto { get; set; }
+        public string Nome { get; set; }
+        public string CriadoPor { get; set; }
+
+        public string Telefone { get; set; }
+
+        public string Cnpj { get; set; }
 
         public class CreateEmpresaCommandHandler : IRequestHandler<CreateEmpresaCommand, long>
         {
@@ -24,7 +29,12 @@ namespace Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa
             {
                 var entity = new Empresa
                 {
-                    NomRazaoSocial = request.EmpresaDto.NomRazaoSocial,
+                    NomRazaoSocial = request.Nome,
+                    NumCnpj = request.Cnpj,
+                    DthRegistro = DateTime.Now,
+                    NumTelefone = request.Telefone,
+                    CriadoPor = request.CriadoPor,
+                    DataCriacao = DateTime.Now
                 };
 
                 _context.Empresas.Add(entity);
@@ -34,5 +44,7 @@ namespace Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa
                 return entity.CodEmpresa;
             }
         }
+
+        
     }
 }

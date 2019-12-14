@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.Application.Empresas.Queries.GetEmpresas.GridEmpresa
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,7 +18,7 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        
+
                         <div class="col-sm-12 pull-right">
 
                             <a href="@Url.Action("Create", "Empresa")" id="addToTable" class="btn btn-primary pull-right">Nova Empresa <i class="fa fa-plus"></i></a>
@@ -28,43 +28,27 @@
                         <thead>
                             <tr>
                                 <th>Nome da empresa/ Órgão Público</th>
+                                <th>Cnpj</th>
                                 <th>Telefone</th>
                                 <th>Unidade de infraestrutura</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <td>BInnovation</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a  data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
-                                    <a  data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a  data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>NtitSolutions</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a  data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Amcom</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a  data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-Empid="2" class="on-default link-row"><i class="fa fa-link"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+                            @foreach (var item in Model.aaData)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.NomRazaoSocial)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NumCnpj)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NumTelefone)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
+                                    <td class="actions">
+                                        <a data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-id="@item.CodEmpresa" class="on-default link-row"><i class="fa fa-link"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-id="@item.CodEmpresa" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -103,15 +87,8 @@
 @section Scripts {
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.bootstrap4.min.js"></script>
-    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.html5.min.js"></script>
-    <script src="~/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.print.min.js"></script>
-    <script src="~/vendor/datatables/extras/TableTools/JSZip-2.5.0//jszip.min.js"></script>
-    <script src="~/vendor/datatables/extras/TableTools/pdfmake-0.1.32/pdfmake.min.js"></script>
-    <script src="~/vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js"></script>
-    <script src="~/js/empresa.js"></script>
-    
+    <script src="~/js/grid/empresa.js"></script>
+
     <script>
         /*
 Name: 			UI Elements / Modals - Examples
@@ -151,12 +128,12 @@ Theme Version: 	2.0.0
 
         }).apply(this, [jQuery]);
         // Tooltip
-        (function($) {
+        (function ($) {
 
             'use strict';
 
-            if ( $.isFunction( $.fn['tooltip'] ) ) {
-                $( '[data-toggle=tooltip],[rel=tooltip]' ).tooltip({ container: 'body' });
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
             }
 
         }).apply(this, [jQuery]);

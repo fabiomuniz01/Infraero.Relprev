@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa;
+using Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -21,7 +23,14 @@ namespace Infraero.Relprev.WebUi.Controllers
         //private readonly IEmpresa 
         public IActionResult Index()
         {
-            return View();
+            var response = _empresaClient.GetGridEmpresa();
+            return View(response);
+        }
+
+        public GridEmpresa GetGrid()
+        {
+            var response = _empresaClient.GetGridEmpresa();
+            return response;
         }
 
         // GET: Empresa/Create
@@ -37,9 +46,14 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                var r = collection["Empresa"].ToString();
-                _empresaClient.Create(new EmpresaVm());
+                var command = new CreateEmpresaCommand
+                {
+                    Nome = collection["empresa"].ToString(),
+                    CriadoPor = "",
+                    Cnpj = collection["cnpj"].ToString(),
+                    Telefone = collection["telefone"].ToString()
+                };
+                _empresaClient.CreateEmpresa(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -52,7 +66,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Empresa/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _empresaClient.GetEmpresaById(id);
+            return View(obj);
         }
 
         // POST: Empresa/Edit/5
@@ -62,7 +77,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new UpdateEmpresaCommand
+                {
+                    Id = id,
+                    NomRazaoSocial = collection["empresa"].ToString(),
+                    AlteradoPor = "",
+                    NumCnpj = collection["cnpj"].ToString(),
+                    NumTelefone = collection["telefone"].ToString()
+                };
+                _empresaClient.UpdateEmpresa(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -79,8 +102,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // POST: Empresa/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
@@ -104,8 +127,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // POST: Empresa/Link/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.ValidateAntiForgeryToken]
         public ActionResult Link(int id, IFormCollection collection)
         {
             try
