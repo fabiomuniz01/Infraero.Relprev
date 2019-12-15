@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Infraero.Relprev.Domain.Common;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
     public class UnidadeInfraestrutura : AuditableEntity
     {
+       
+
         [Key]
         public int CodUnidadeInfraestrutura { get; set; }
         public string CodUnidade { get; set; }

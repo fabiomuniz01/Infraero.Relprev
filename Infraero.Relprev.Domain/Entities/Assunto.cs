@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Infraero.Relprev.Domain.Common;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
-    public partial class Assunto : AuditableEntity
+    public class Assunto : AuditableEntity
     {
         public Assunto()
         {

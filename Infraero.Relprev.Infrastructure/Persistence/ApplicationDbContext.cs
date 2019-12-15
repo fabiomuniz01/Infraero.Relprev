@@ -40,10 +40,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence
 
 
         public DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
+        public DbSet<UnidadeInfraestrutura> UnidadeInfraestruturas { get; set; }
 
         public virtual DbSet<Ambiente> Ambiente { get; set; }
         public virtual DbSet<AnexoRelato> AnexoRelato { get; set; }
-        public virtual DbSet<Assunto> Assunto { get; set; }
+        public virtual DbSet<Assunto> Assuntos { get; set; }
         public virtual DbSet<AtribuicaoRelato> AtribuicaoRelato { get; set; }
         public virtual DbSet<ContratoUtilizacaoSistema> ContratoUtilizacaoSistema { get; set; }
         //public virtual DbSet<Empresa> Empresa { get; set; }
@@ -60,7 +61,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public virtual DbSet<SituacaoAtribuicaoRelato> SituacaoAtribuicaoRelato { get; set; }
         public virtual DbSet<SituacaoRelato> SituacaoRelato { get; set; }
         public virtual DbSet<SubAmbiente> SubAmbiente { get; set; }
-        public virtual DbSet<SubAssunto> SubAssunto { get; set; }
+        public virtual DbSet<SubAssunto> SubAssuntos { get; set; }
         public virtual DbSet<TipoEvento> TipoEvento { get; set; }
         public virtual DbSet<UsuarioRelprev> UsuarioRelprev { get; set; }
         public virtual DbSet<UsuarioLocalidade> UsuarioLocalidade { get; set; }
