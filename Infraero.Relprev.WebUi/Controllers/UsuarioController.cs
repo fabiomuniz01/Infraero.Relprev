@@ -1,30 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Usuarios.Commands.CreateUsuario;
+using Infraero.Relprev.Application.Usuarios.Commands.UpdateUsuario;
+using Infraero.Relprev.Application.Usuarios.Queries.GetUsuarios;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class UsuarioController : Controller
     {
-        // GET: Usuario
-        public ActionResult Index()
+        private readonly IUsuarioClient _UsuarioClient;
+
+        public UsuarioController(IUsuarioClient UsuarioClient)
         {
-            return View();
+            _UsuarioClient = UsuarioClient;
         }
 
-        // GET: Usuario/Details/5
-        public ActionResult Details(int id)
+        //private readonly IUsuario 
+        public IActionResult Index()
         {
-            return View();
+            var response = _UsuarioClient.GetGridUsuario();
+            return View(response);
         }
 
-        // GET: Usuario/Create
-        public ActionResult CreatePerfil()
+        public GridUsuario GetGrid()
         {
-            return View();
+            var response = _UsuarioClient.GetGridUsuario();
+            return response;
         }
 
         // GET: Usuario/Create
@@ -40,11 +46,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var command = new CreateUsuarioCommand
+                {
+                    NomUsuario = collection["Usuario"].ToString(),
+                    CriadoPor = "",
+                    NumCpf = collection["cnpj"].ToString(),
+                    NumTelefone = collection["telefone"].ToString()
+                };
+                _UsuarioClient.CreateUsuario(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -53,7 +66,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Usuario/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _UsuarioClient.GetUsuarioById(id);
+            return View(obj);
         }
 
         // POST: Usuario/Edit/5
@@ -63,7 +77,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new UpdateUsuarioCommand
+                {
+                    Id = id,
+                    NomUsuario = collection["Usuario"].ToString(),
+                    AlteradoPor = "",
+                    NumCpf = collection["cnpj"].ToString(),
+                    NumTelefone = collection["telefone"].ToString()
+                };
+                _UsuarioClient.UpdateUsuario(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -71,28 +93,21 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: Usuario/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: Usuario/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _UsuarioClient.DeleteUsuario(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }

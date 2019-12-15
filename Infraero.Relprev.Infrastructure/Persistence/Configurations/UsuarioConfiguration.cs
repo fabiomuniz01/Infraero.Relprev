@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            builder.Property(t => t.Title)
+            builder.Property(t => t.NomUsuario)
                 .HasMaxLength(800)
                 .IsRequired();
         }
