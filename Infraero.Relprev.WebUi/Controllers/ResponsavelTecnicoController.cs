@@ -1,24 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.UpdateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnicos.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class ResponsavelTecnicoController : Controller
     {
-        // GET: ResponsavelTecnico
-        public ActionResult Index()
+        private readonly IResponsavelTecnicoClient _ResponsavelTecnicoClient;
+
+        public ResponsavelTecnicoController(IResponsavelTecnicoClient ResponsavelTecnicoClient)
         {
-            return View();
+            _ResponsavelTecnicoClient = ResponsavelTecnicoClient;
         }
 
-        // GET: ResponsavelTecnico/Details/5
-        public ActionResult Details(int id)
+        //private readonly IResponsavelTecnico 
+        public IActionResult Index()
         {
-            return View();
+            var response = _ResponsavelTecnicoClient.GetGridResponsavelTecnico();
+            return View(response);
+        }
+
+        public GridResponsavelTecnico GetGrid()
+        {
+            var response = _ResponsavelTecnicoClient.GetGridResponsavelTecnico();
+            return response;
         }
 
         // GET: ResponsavelTecnico/Create
@@ -34,11 +46,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var command = new CreateResponsavelTecnicoCommand
+                {
+                    NomResponsavelTecnico = collection["ResponsavelTecnico"].ToString(),
+                    CriadoPor = "",
+                    NumCpf = collection["cnpj"].ToString(),
+                    NumTelefone = collection["telefone"].ToString()
+                };
+                _ResponsavelTecnicoClient.CreateResponsavelTecnico(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -47,7 +66,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: ResponsavelTecnico/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _ResponsavelTecnicoClient.GetResponsavelTecnicoById(id);
+            return View(obj);
         }
 
         // POST: ResponsavelTecnico/Edit/5
@@ -57,7 +77,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new UpdateResponsavelTecnicoCommand
+                {
+                    Id = id,
+                    NomResponsavelTecnico = collection["ResponsavelTecnico"].ToString(),
+                    AlteradoPor = "",
+                    NumCpf = collection["cnpj"].ToString(),
+                    NumTelefone = collection["telefone"].ToString()
+                };
+                _ResponsavelTecnicoClient.UpdateResponsavelTecnico(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -65,28 +93,21 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: ResponsavelTecnico/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: ResponsavelTecnico/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _ResponsavelTecnicoClient.DeleteResponsavelTecnico(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }
