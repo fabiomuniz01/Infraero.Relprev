@@ -1,24 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.SubLocals.Commands.CreateSubLocal;
+using Infraero.Relprev.Application.SubLocals.Commands.UpdateSubLocal;
+using Infraero.Relprev.Application.SubLocals.Queries.GetSubLocals;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class SubLocalController : Controller
     {
-        // GET: SubLocal
-        public ActionResult Index()
+        private readonly ISubLocalClient _SubLocalClient;
+
+        public SubLocalController(ISubLocalClient SubLocalClient)
         {
-            return View();
+            _SubLocalClient = SubLocalClient;
         }
 
-        // GET: SubLocal/Details/5
-        public ActionResult Details(int id)
+        //private readonly ISubLocal 
+        public IActionResult Index()
         {
-            return View();
+            var response = _SubLocalClient.GetGridSubLocal();
+            return View(response);
+        }
+
+        public GridSubLocal GetGrid()
+        {
+            var response = _SubLocalClient.GetGridSubLocal();
+            return response;
         }
 
         // GET: SubLocal/Create
@@ -34,11 +46,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var command = new CreateSubLocalCommand
+                {
+                    //NomSubLocal = collection["SubLocal"].ToString(),
+                    CriadoPor = "",
+                    //NumCpf = collection["cnpj"].ToString(),
+                    //NumTelefone = collection["telefone"].ToString()
+                };
+                _SubLocalClient.CreateSubLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -47,7 +66,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: SubLocal/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _SubLocalClient.GetSubLocalById(id);
+            return View(obj);
         }
 
         // POST: SubLocal/Edit/5
@@ -57,7 +77,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new UpdateSubLocalCommand
+                {
+                    Id = id,
+                    //NomSubLocal = collection["SubLocal"].ToString(),
+                    AlteradoPor = "",
+                    //NumCpf = collection["cnpj"].ToString(),
+                    //NumTelefone = collection["telefone"].ToString()
+                };
+                _SubLocalClient.UpdateSubLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -65,28 +93,21 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: SubLocal/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: SubLocal/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _SubLocalClient.DeleteSubLocal(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }

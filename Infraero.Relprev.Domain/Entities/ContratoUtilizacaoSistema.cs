@@ -24,6 +24,6 @@ namespace Infraero.Relprev.Domain.Entities
         public DateTime DthRegistro { get; set; }
 
         public virtual Empresa CodEmpresaNavigation { get; set; }
-        public virtual Localidade CodLocalidadeNavigation { get; set; }
+        public virtual Local CodLocalidadeNavigation { get; set; }
     }
 }

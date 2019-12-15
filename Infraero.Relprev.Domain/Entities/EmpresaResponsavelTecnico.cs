@@ -15,7 +15,7 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodLocalidade { get; set; }
         public int CodResponsavelTecnico { get; set; }
 
-        public virtual Localidade CodLocalidadeNavigation { get; set; }
+        public virtual Local CodLocalidadeNavigation { get; set; }
         public virtual ResponsavelTecnico CodResponsavelTecnicoNavigation { get; set; }
     }
 }

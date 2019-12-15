@@ -12,7 +12,7 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodLocalidade { get; set; }
         public DateTime DthRegistro { get; set; }
 
-        public virtual Localidade CodLocalidadeNavigation { get; set; }
+        public virtual Local CodLocalidadeNavigation { get; set; }
         public virtual Usuario CodUsuarioNavigation { get; set; }
     }
 }

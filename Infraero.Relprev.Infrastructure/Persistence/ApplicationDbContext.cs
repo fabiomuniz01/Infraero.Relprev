@@ -30,6 +30,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<ResponsavelTecnico> ResponsavelTecnicos { get; set; }
+        public DbSet<SubLocal> SubLocals { get; set; }
 
 
 
@@ -51,7 +52,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public virtual DbSet<Evento> Evento { get; set; }
         public virtual DbSet<FuncaoSistema> FuncaoSistema { get; set; }
         public virtual DbSet<HistoricoRelato> HistoricoRelato { get; set; }
-        public virtual DbSet<Localidade> Localidade { get; set; }
+        public virtual DbSet<Local> Localidade { get; set; }
         public virtual DbSet<Perfil> Perfil { get; set; }
         public virtual DbSet<PerfilFuncao> PerfilFuncao { get; set; }
         public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }

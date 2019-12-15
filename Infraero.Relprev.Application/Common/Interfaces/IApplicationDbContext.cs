@@ -10,6 +10,7 @@ namespace Infraero.Relprev.Application.Common.Interfaces
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<Empresa> Empresas { get; set; }
         DbSet<ResponsavelTecnico> ResponsavelTecnicos { get; set; }
+        DbSet<SubLocal> SubLocals { get; set; }
         
        
 

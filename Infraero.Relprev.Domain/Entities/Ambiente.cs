@@ -21,7 +21,7 @@ namespace Infraero.Relprev.Domain.Entities
         public DateTime DthRegistro { get; set; }
         public int CodLocalidade { get; set; }
 
-        public virtual Localidade CodLocalidadeNavigation { get; set; }
+        public virtual Local CodLocalidadeNavigation { get; set; }
         public virtual ICollection<Relato> Relato { get; set; }
         public virtual ICollection<SubAmbiente> SubAmbiente { get; set; }
     }

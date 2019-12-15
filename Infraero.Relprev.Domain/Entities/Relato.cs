@@ -37,7 +37,7 @@ namespace Infraero.Relprev.Domain.Entities
 
         public virtual Ambiente CodAmbienteNavigation { get; set; }
         public virtual Assunto CodAssuntoNavigation { get; set; }
-        public virtual Localidade CodLocalidadeNavigation { get; set; }
+        public virtual Local CodLocalidadeNavigation { get; set; }
         public virtual SituacaoRelato CodSituacaoRelatoNavigation { get; set; }
         public virtual SubAmbiente CodSubAmbienteNavigation { get; set; }
         public virtual SubAssunto CodSubAssuntoNavigation { get; set; }

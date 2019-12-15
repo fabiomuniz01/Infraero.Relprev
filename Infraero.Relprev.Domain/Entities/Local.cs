@@ -5,9 +5,9 @@ using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
-    public partial class Localidade : AuditableEntity
+    public partial class Local : AuditableEntity
     {
-        public Localidade()
+        public Local()
         {
             Ambiente = new HashSet<Ambiente>();
             ContratoUtilizacaoSistema = new HashSet<ContratoUtilizacaoSistema>();
