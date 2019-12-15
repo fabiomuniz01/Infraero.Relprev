@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Usuarios.Commands.CreateUsuario;
-using Infraero.Relprev.Application.Usuarios.Commands.UpdateUsuario;
-using Infraero.Relprev.Application.Usuarios.Queries.GetUsuarios;
+using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
+using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;

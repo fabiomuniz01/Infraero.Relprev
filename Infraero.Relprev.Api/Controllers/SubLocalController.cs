@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.SubLocals.Commands.CreateSubLocal;
-using Infraero.Relprev.Application.SubLocals.Commands.DeleteSubLocal;
-using Infraero.Relprev.Application.SubLocals.Commands.UpdateSubLocal;
-using Infraero.Relprev.Application.SubLocals.Queries.GetSubLocals;
+using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
+using Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal;
+using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
+using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Microsoft.AspNetCore.Mvc;
+using CreateSubLocalCommand = Infraero.Relprev.Api.Controllers.SubLocal.Commands.CreateSubLocal.CreateSubLocalCommand;
+using DeleteSubLocalCommand = Infraero.Relprev.Api.Controllers.SubLocal.Commands.DeleteSubLocal.DeleteSubLocalCommand;
+using GetGridSubLocalsQuery = Infraero.Relprev.Api.Controllers.SubLocal.Queries.GetSubLocals.GetGridSubLocalsQuery;
+using GetSubLocalByIdQuery = Infraero.Relprev.Api.Controllers.SubLocal.Queries.GetSubLocals.GetSubLocalByIdQuery;
+using GridSubLocal = Infraero.Relprev.Api.Controllers.SubLocal.Queries.GetSubLocals.GridSubLocal;
+using SubLocalDto = Infraero.Relprev.Api.Controllers.SubLocal.Queries.GetSubLocals.SubLocalDto;
+using UpdateSubLocalCommand = Infraero.Relprev.Api.Controllers.SubLocal.Commands.UpdateSubLocal.UpdateSubLocalCommand;
 
 namespace Infraero.Relprev.Api.Controllers
 {

@@ -18,10 +18,10 @@ namespace Infraero.Relprev.Domain.Entities
         }
 
         [Key]
-        public int CodLocalidade { get; set; }
-        public string DscLocalidade { get; set; }
-        public string SigLocalidade { get; set; }
-        public string EndLocalidade { get; set; }
+        public int CodLocal { get; set; }
+        public string DscLocal { get; set; }
+        public string SigLocal { get; set; }
+        public string EndLocal { get; set; }
         public DateTime DatInicioVigencia { get; set; }
         public DateTime? DatFimVigencia { get; set; }
 

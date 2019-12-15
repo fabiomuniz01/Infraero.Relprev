@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Assuntos.Commands.CreateAssunto;
-using Infraero.Relprev.Application.Assuntos.Commands.UpdateAssunto;
-using Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos;
+using Infraero.Relprev.Application.Assunto.Commands.CreateAssunto;
+using Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto;
+using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;

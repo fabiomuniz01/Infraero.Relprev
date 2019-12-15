@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.SubLocals.Commands.CreateSubLocal;
-using Infraero.Relprev.Application.SubLocals.Commands.UpdateSubLocal;
-using Infraero.Relprev.Application.SubLocals.Queries.GetSubLocals;
+using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
+using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
+using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

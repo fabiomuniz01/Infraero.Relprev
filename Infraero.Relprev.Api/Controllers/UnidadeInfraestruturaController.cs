@@ -1,8 +1,9 @@
-﻿using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraestrutura;
-using Infraero.Relprev.Application.UnidadeInfraestruturas.Queries.GetUnidadeInfraestruturas;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 
 namespace Infraero.Relprev.Api.Controllers
 {
@@ -60,7 +61,7 @@ namespace Infraero.Relprev.Api.Controllers
 
 
         [HttpPost("UpdateUnidadeInfraestrutura")]
-        public async Task<ActionResult<bool>> UpdateUnidadeInfraestrutura(Application.UnidadeInfraEstrutura.Commands.UpdateAssunto.UpdateUnidadeInfraEstruturaCommand command)
+        public async Task<ActionResult<bool>> UpdateUnidadeInfraestrutura(UpdateUnidadeInfraEstruturaCommand command)
         {
             try
             {

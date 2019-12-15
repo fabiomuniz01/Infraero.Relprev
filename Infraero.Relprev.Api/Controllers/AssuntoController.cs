@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Assuntos.Commands.CreateAssunto;
-using Infraero.Relprev.Application.Assuntos.Commands.DeleteAssunto;
-using Infraero.Relprev.Application.Assuntos.Commands.UpdateAssunto;
-using Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos;
+using Infraero.Relprev.Application.Assunto.Commands.CreateAssunto;
+using Infraero.Relprev.Application.Assunto.Commands.DeleteAssunto;
+using Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto;
+using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Infraero.Relprev.Api.Controllers

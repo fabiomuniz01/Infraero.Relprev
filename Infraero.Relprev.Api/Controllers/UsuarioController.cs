@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Usuarios.Commands.CreateUsuario;
-using Infraero.Relprev.Application.Usuarios.Commands.DeleteUsuario;
-using Infraero.Relprev.Application.Usuarios.Commands.UpdateUsuario;
-using Infraero.Relprev.Application.Usuarios.Queries.GetUsuarios;
+using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
+using Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario;
+using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Infraero.Relprev.Api.Controllers

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.CreateResponsavelTecnico;
-using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.UpdateResponsavelTecnico;
-using Infraero.Relprev.Application.ResponsavelTecnicos.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;

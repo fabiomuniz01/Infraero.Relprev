@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa;
-using Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa;
-using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
+using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
+using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
+using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;
@@ -22,9 +22,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
         }
 
-        public Task<long> CreateEmpresa(CreateEmpresaCommand command)
+        public long CreateEmpresa(CreateEmpresaCommand command)
         {
-            return PostAsync<long>($"{Resource}/CreateEmpresa", command);
+            return Post<long>($"{Resource}/CreateEmpresa", command);
         }
         public GridEmpresa GetGridEmpresa()
         {

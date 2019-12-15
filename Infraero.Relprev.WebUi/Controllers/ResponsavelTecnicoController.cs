@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.CreateResponsavelTecnico;
-using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.UpdateResponsavelTecnico;
-using Infraero.Relprev.Application.ResponsavelTecnicos.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

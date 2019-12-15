@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa;
-using Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa;
-using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
+using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
+using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
+using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

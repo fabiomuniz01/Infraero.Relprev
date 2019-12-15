@@ -1,24 +1,23 @@
-﻿using Infraero.Relprev.Application.Common.Interfaces;
-//using Infraero.Relprev.Infrastructure.Files;
-using Infraero.Relprev.Infrastructure.Identity;
-using Infraero.Relprev.Infrastructure.Persistence;
-using Infraero.Relprev.Infrastructure.Services;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.HttpClient.Clients.Implementations;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Infraero.Relprev.HttpClient.Clients.Implementations;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
+//using Infraero.Relprev.Infrastructure.Files;
 
-namespace Infraero.Relprev.Application
+namespace Infraero.Relprev.Infrastructure
 {
     public static class DependencyInjection
     {
