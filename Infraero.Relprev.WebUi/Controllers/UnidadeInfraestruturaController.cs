@@ -1,63 +1,94 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    public class UnidadeInfraestruturaController : Controller
+    public class UnidadeInfraEstruturaController : Controller
     {
-        // GET: UnidadeInfraestrutura
-        public ActionResult Index()
+        private readonly IUnidadeInfraEstruturaClient _UnidadeInfraEstruturaClient;
+
+        public UnidadeInfraEstruturaController(IUnidadeInfraEstruturaClient UnidadeInfraEstruturaClient)
         {
-            return View();
+            _UnidadeInfraEstruturaClient = UnidadeInfraEstruturaClient;
         }
 
-        // GET: UnidadeInfraestrutura/Details/5
-        public ActionResult Details(int id)
+        //private readonly IUnidadeInfraEstrutura 
+        public IActionResult Index()
         {
-            return View();
+            var response = _UnidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
+            return View(response);
         }
 
-        // GET: UnidadeInfraestrutura/Create
+        public GridUnidadeInfraEstrutura GetGrid()
+        {
+            var response = _UnidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
+            return response;
+        }
+
+        // GET: UnidadeInfraEstrutura/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UnidadeInfraestrutura/Create
+        // POST: UnidadeInfraEstrutura/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                var command = new CreateUnidadeInfraEstruturaCommand
+                {
+                    CodUnidade = collection["CodUnidade"].ToString(),
+                    Sigla = collection["Sigla"].ToString(),
+                    Descricao = collection["Descricao"].ToString(),
+                    Endereco = collection["Endereco"].ToString(),
+                    DtIniVigencia = Convert.ToDateTime(collection["DtIniVigencia"].ToString()),
+                    DtFimVigencia = Convert.ToDateTime(collection["DtFimVigencia"].ToString())
+                };
+                _UnidadeInfraEstruturaClient.CreateUnidadeInfraEstrutura(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
         }
 
-        // GET: UnidadeInfraestrutura/Edit/5
+        // GET: UnidadeInfraEstrutura/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _UnidadeInfraEstruturaClient.GetUnidadeInfraEstruturaById(id);
+            return View(obj);
         }
 
-        // POST: UnidadeInfraestrutura/Edit/5
+        // POST: UnidadeInfraEstrutura/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new UpdateUnidadeInfraEstruturaCommand
+                {
+                    CodUnidade = collection["CodUnidade"].ToString(),
+                    Sigla = collection["Sigla"].ToString(),
+                    Descricao = collection["Descricao"].ToString(),
+                    Endereco = collection["Endereco"].ToString(),
+                    DtIniVigencia = Convert.ToDateTime(collection["DtIniVigencia"].ToString()),
+                    DtFimVigencia = Convert.ToDateTime(collection["DtFimVigencia"].ToString())
+                };
+                _UnidadeInfraEstruturaClient.UpdateUnidadeInfraEstrutura(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -67,20 +98,38 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: UnidadeInfraestrutura/Delete/5
+        // POST: UnidadeInfraEstrutura/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
+        {
+            try
+            {
+                _UnidadeInfraEstruturaClient.DeleteUnidadeInfraEstrutura(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+
+
+        // GET: UnidadeInfraEstrutura/Link/5
+        public ActionResult Link(int id)
         {
             return View();
         }
 
-        // POST: UnidadeInfraestrutura/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        // POST: UnidadeInfraEstrutura/Link/5
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.ValidateAntiForgeryToken]
+        public ActionResult Link(int id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                // TODO: Add update logic here
 
                 return RedirectToAction(nameof(Index));
             }
