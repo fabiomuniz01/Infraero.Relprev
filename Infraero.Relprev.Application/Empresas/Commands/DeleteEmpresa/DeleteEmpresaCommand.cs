@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa
 {
-    public class DeleteEmpresaCommand : IRequest
+    public class DeleteEmpresaCommand : IRequest<bool>
     {
         public long Id { get; set; }
 
-        public class DeleteEmpresaCommandHandler : IRequestHandler<DeleteEmpresaCommand>
+        public class DeleteEmpresaCommandHandler : IRequestHandler<DeleteEmpresaCommand, bool>
         {
             private readonly IApplicationDbContext _context;
 
@@ -20,7 +20,7 @@ namespace Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa
                 _context = context;
             }
 
-            public async Task<Unit> Handle(DeleteEmpresaCommand request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(DeleteEmpresaCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.Empresas.FindAsync(request.Id);
 
@@ -33,7 +33,7 @@ namespace Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return true;
             }
         }
     }

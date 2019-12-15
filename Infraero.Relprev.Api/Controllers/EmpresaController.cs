@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa;
+using Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa;
 using Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
 using Microsoft.AspNetCore.Mvc;
@@ -76,5 +77,22 @@ namespace Infraero.Relprev.Api.Controllers
             }
 
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<bool>> DeleteEmpresa(int id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new DeleteEmpresaCommand { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
     }
 }
