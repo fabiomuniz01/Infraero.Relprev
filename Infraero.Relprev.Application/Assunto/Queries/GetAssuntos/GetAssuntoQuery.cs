@@ -8,44 +8,39 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infraero.Relprev.Application.Empresas.Queries.GetEmpresas
+namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
 {
-    public class GetGridEmpresasQuery : IRequest<GridEmpresa>
+    public class GetUnidadeInfraEstruturaQuery : IRequest<GridUnidadeInfraEstrutura>
     {
-        public class GetGridEmpresasQueryHandler : IRequestHandler<GetGridEmpresasQuery, GridEmpresa>
+        public class GetGridAssuntosQueryHandler : IRequestHandler<GetUnidadeInfraEstruturaQuery, GridUnidadeInfraEstrutura>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
 
-            public GetGridEmpresasQueryHandler(IApplicationDbContext context, IMapper mapper)
+            public GetGridAssuntosQueryHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<GridEmpresa> Handle(GetGridEmpresasQuery request, CancellationToken cancellationToken)
+            public async Task<GridUnidadeInfraEstrutura> Handle(GetUnidadeInfraEstruturaQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
-                    var vm = new EmpresaVm();
+                    var vm = new UnidadeInfraEstruturaVm();
 
-                    var responseModel = await _context.Empresas
-                        .ProjectTo<EmpresaDto>(_mapper.ConfigurationProvider)
-                        .OrderBy(t => t.CodEmpresa)
+                    var responseModel = await _context.Assuntos
+                        .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(t => t.CodAssunto)
                         .ToListAsync(cancellationToken);
 
-                    var grid = new GridEmpresa();
+                    var grid = new GridUnidadeInfraEstrutura();
 
                     var data = responseModel
                         .Select(
                             c =>
-                                new EmpresaDto()
+                                new UnidadeInfraEstruturaDto()
                                 {
-                                    CodEmpresa = c.CodEmpresa,
-                                    NumCnpj = c.NumCnpj,
-                                    NumTelefone = c.NumTelefone,
-                                    NomRazaoSocial = c.NomRazaoSocial,
-                                    NomEmpresa = ""
                                 });
 
                     grid.aaData = data;

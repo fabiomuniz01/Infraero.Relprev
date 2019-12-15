@@ -9,9 +9,13 @@ namespace Infraero.Relprev.Application.Common.Interfaces
     {
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<Empresa> Empresas { get; set; }
-        
-       
 
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        DbSet<UnidadeInfraestrutura> UnidadeInfraestruturas { get; set; }
+        DbSet<Assunto> Assuntos { get; set; }
+        DbSet<SubAssunto> SubAssuntos { get; set; }
+
+
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

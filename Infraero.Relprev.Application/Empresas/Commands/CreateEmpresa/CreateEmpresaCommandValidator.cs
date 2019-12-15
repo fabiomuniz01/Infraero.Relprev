@@ -2,9 +2,9 @@
 
 namespace Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa
 {
-    public class CreateEmpresaCommandValidator : AbstractValidator<CreateEmpresaCommand>
+    public class CreateUnidadeInfraestruturaCommandValidator : AbstractValidator<CreateEmpresaCommand>
     {
-        public CreateEmpresaCommandValidator()
+        public CreateUnidadeInfraestruturaCommandValidator()
         {
             
         }

@@ -5,31 +5,31 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa
+namespace Infraero.Relprev.Application.SubAssuntos.Commands.DeleteSubAssunto
 {
     public class DeleteUnidadeInfraestruturaCommand : IRequest
     {
         public long Id { get; set; }
 
-        public class DeleteEmpresaCommandHandler : IRequestHandler<DeleteUnidadeInfraestruturaCommand>
+        public class DeleteSubAssuntoCommandHandler : IRequestHandler<DeleteUnidadeInfraestruturaCommand>
         {
             private readonly IApplicationDbContext _context;
 
-            public DeleteEmpresaCommandHandler(IApplicationDbContext context)
+            public DeleteSubAssuntoCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
 
             public async Task<Unit> Handle(DeleteUnidadeInfraestruturaCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Empresas.FindAsync(request.Id);
+                var entity = await _context.SubAssuntos.FindAsync(request.Id);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Empresa), request.Id);
+                    throw new NotFoundException(nameof(SubAssunto), request.Id);
                 }
 
-                _context.Empresas.Remove(entity);
+                _context.SubAssuntos.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

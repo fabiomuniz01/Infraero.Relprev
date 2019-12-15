@@ -12,7 +12,7 @@ namespace Infraero.Relprev.Application.Empresas.Queries.GetEmpresas
         public string NumCnpj { get; set; }
         public string NumTelefone { get; set; }
 
-        public string NomUnidadeInfraestrutura { get; set; }
+        public string NomEmpresa { get; set; }
 
         //public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
 
