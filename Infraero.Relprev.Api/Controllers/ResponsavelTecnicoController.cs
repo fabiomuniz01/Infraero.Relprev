@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Empresas.Commands.CreateEmpresa;
-using Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa;
-using Infraero.Relprev.Application.Empresas.Commands.UpdateEmpresa;
-using Infraero.Relprev.Application.Empresas.Queries.GetEmpresas;
+using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.DeleteResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnicos.Commands.UpdateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnicos.Queries.GetResponsavelTecnicos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Infraero.Relprev.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class EmpresaController : ApiController
+    public class ResponsavelTecnicoController : ApiController
     {
-        [HttpPost("CreateEmpresa")]
-        public async Task<ActionResult<long>> CreateEmpresa(CreateEmpresaCommand command)
+        [HttpPost("CreateResponsavelTecnico")]
+        public async Task<ActionResult<long>> CreateResponsavelTecnico(CreateResponsavelTecnicoCommand command)
         {
             try
             {
@@ -25,15 +25,15 @@ namespace Infraero.Relprev.Api.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-            
+
         }
 
-        [HttpGet("GetGridEmpresa")]
-        public async Task<GridEmpresa> GetGridEmpresa()
+        [HttpGet("GetGridResponsavelTecnico")]
+        public async Task<GridResponsavelTecnico> GetGridResponsavelTecnico()
         {
             try
             {
-                var result = await Mediator.Send(new GetGridEmpresasQuery());
+                var result = await Mediator.Send(new GetGridResponsavelTecnicosQuery());
                 return result;
             }
             catch (Exception e)
@@ -41,15 +41,15 @@ namespace Infraero.Relprev.Api.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-            
+
         }
 
-        [HttpGet("GetEmpresaById/{id}")]
-        public async Task<EmpresaDto> GetEmpresaById(int id)
+        [HttpGet("GetResponsavelTecnicoById/{id}")]
+        public async Task<ResponsavelTecnicoDto> GetResponsavelTecnicoById(int id)
         {
             try
             {
-                var result = await Mediator.Send(new GetEmpresaByIdQuery {Id = id});
+                var result = await Mediator.Send(new GetResponsavelTecnicoByIdQuery { Id = id });
                 return result;
             }
             catch (Exception e)
@@ -57,12 +57,12 @@ namespace Infraero.Relprev.Api.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-            
+
         }
 
 
-        [HttpPost("UpdateEmpresa")]
-        public async Task<ActionResult<bool>> UpdateEmpresa(UpdateEmpresaCommand command)
+        [HttpPost("UpdateResponsavelTecnico")]
+        public async Task<ActionResult<bool>> UpdateResponsavelTecnico(UpdateResponsavelTecnicoCommand command)
         {
             try
             {
@@ -79,11 +79,11 @@ namespace Infraero.Relprev.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteEmpresa(int id)
+        public async Task<ActionResult<bool>> DeleteResponsavelTecnico(int id)
         {
             try
             {
-                var result = await Mediator.Send(new DeleteEmpresaCommand { Id = id });
+                var result = await Mediator.Send(new DeleteResponsavelTecnicoCommand { Id = id });
                 return result;
             }
             catch (Exception e)

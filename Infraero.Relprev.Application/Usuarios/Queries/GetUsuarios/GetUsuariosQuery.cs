@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infraero.Relprev.Application.Usuarios.Queries.GetUsuarios
 {
-    public class GetUsuariosQuery : IRequest<UsuariosVm>
+    public class GetUsuariosQuery : IRequest<UsuarioVm>
     {
-        public class GetUsuariosQueryHandler : IRequestHandler<GetUsuariosQuery, UsuariosVm>
+        public class GetUsuariosQueryHandler : IRequestHandler<GetUsuariosQuery, UsuarioVm>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -22,13 +22,13 @@ namespace Infraero.Relprev.Application.Usuarios.Queries.GetUsuarios
                 _mapper = mapper;
             }
 
-            public async Task<UsuariosVm> Handle(GetUsuariosQuery request, CancellationToken cancellationToken)
+            public async Task<UsuarioVm> Handle(GetUsuariosQuery request, CancellationToken cancellationToken)
             {
-                var vm = new UsuariosVm();
+                var vm = new UsuarioVm();
 
                 vm.Lists = await _context.Usuarios
                     .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
-                    .OrderBy(t => t.Title)
+                    .OrderBy(t => t.CodUsuario)
                     .ToListAsync(cancellationToken);
 
                 return vm;

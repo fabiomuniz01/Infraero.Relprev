@@ -6,9 +6,7 @@ namespace Infraero.Relprev.Application.Usuarios.Commands.CreateUsuario
     {
         public CreateUsuarioCommandValidator()
         {
-            RuleFor(v => v.Title)
-                .MaximumLength(200)
-                .NotEmpty();
+            
         }
     }
 }

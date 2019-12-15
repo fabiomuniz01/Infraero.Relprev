@@ -36,9 +36,14 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
             return Get<EmpresaDto>($"{Resource}/GetEmpresaById/{id}");
         }
 
-        public Task<bool> UpdateEmpresa(UpdateEmpresaCommand command)
+        public bool UpdateEmpresa(UpdateEmpresaCommand command)
         {
-            return PostAsync<bool>($"{Resource}/UpdateEmpresa", command);
+            return Post<bool>($"{Resource}/UpdateEmpresa", command);
+        }
+
+        public bool DeleteEmpresa(int id)
+        {
+            return Post<bool>($"{Resource}/DeleteEmpresa", id);
         }
     }
 }

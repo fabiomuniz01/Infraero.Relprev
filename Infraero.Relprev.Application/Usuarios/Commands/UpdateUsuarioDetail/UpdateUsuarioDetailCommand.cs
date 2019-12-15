@@ -5,18 +5,13 @@ using Infraero.Relprev.Domain.Enums;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Usuarios.Queries.GetUsuarios;
 
 namespace Infraero.Relprev.Application.Usuarios.Commands.UpdateUsuarioDetail
 {
     public class UpdateUsuarioDetailCommand : IRequest
     {
-        public long Id { get; set; }
-
-        public int ListId { get; set; }
-
-        public PriorityLevel Priority { get; set; }
-
-        public string Note { get; set; }
+        public UsuarioDto UsuarioDto { get; set; }
 
         public class UpdateUsuarioDetailCommandHandler : IRequestHandler<UpdateUsuarioDetailCommand>
         {
@@ -29,16 +24,14 @@ namespace Infraero.Relprev.Application.Usuarios.Commands.UpdateUsuarioDetail
 
             public async Task<Unit> Handle(UpdateUsuarioDetailCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Usuarios.FindAsync(request.Id);
+                var entity = await _context.Usuarios.FindAsync(request.UsuarioDto.CodUsuario);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Usuario), request.Id);
+                    throw new NotFoundException(nameof(Usuario), request.UsuarioDto.CodUsuario);
                 }
 
-                entity.ListId = request.ListId;
-                entity.Priority = request.Priority;
-                entity.Note = request.Note;
+                entity.DscLogin = request.UsuarioDto.NomRazaoSocial;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

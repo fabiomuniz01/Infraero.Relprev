@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa
 {
+    public class DeleteEmpresaCommand : IRequest<bool>
     public class DeleteUnidadeInfraestruturaCommand : IRequest
     {
         public long Id { get; set; }
@@ -33,7 +34,7 @@ namespace Infraero.Relprev.Application.Empresas.Commands.DeleteEmpresa
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return true;
             }
         }
     }

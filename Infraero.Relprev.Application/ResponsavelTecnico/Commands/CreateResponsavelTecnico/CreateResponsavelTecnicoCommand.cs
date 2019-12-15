@@ -5,41 +5,40 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infraero.Relprev.Application.Usuarios.Commands.CreateUsuario
+namespace Infraero.Relprev.Application.ResponsavelTecnicos.Commands.CreateResponsavelTecnico
 {
-    public class CreateUsuarioCommand : IRequest<long>
+    public class CreateResponsavelTecnicoCommand : IRequest<long>
     {
 
-        public class CreateUsuarioCommandHandler : IRequestHandler<CreateUsuarioCommand, long>
+        public class CreateResponsavelTecnicoCommandHandler : IRequestHandler<CreateResponsavelTecnicoCommand, long>
         {
             private readonly IApplicationDbContext _context;
 
-            public CreateUsuarioCommandHandler(IApplicationDbContext context)
+            public CreateResponsavelTecnicoCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
 
-            public async Task<long> Handle(CreateUsuarioCommand request, CancellationToken cancellationToken)
+            public async Task<long> Handle(CreateResponsavelTecnicoCommand request, CancellationToken cancellationToken)
             {
-                var entity = new Usuario
+                var entity = new ResponsavelTecnico
                 {
-                    NomUsuario = request.NomUsuario,
+                    NomResponsavelTecnico = request.NomResponsavelTecnico,
                     NumCpf = request.NumCpf,
-                    DthRegistro = DateTime.Now,
                     NumTelefone = request.NumTelefone,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now
                 };
 
-                _context.Usuarios.Add(entity);
+                _context.ResponsavelTecnicos.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return entity.CodUsuario;
+                return entity.CodResponsavelTecnico;
             }
         }
         public int Id { get; set; }
-        public string NomUsuario { get; set; }
+        public string NomResponsavelTecnico { get; set; }
         public string NumCpf { get; set; }
         public string NumTelefone { get; set; }
         public string DscLogin { get; set; }
@@ -48,7 +47,7 @@ namespace Infraero.Relprev.Application.Usuarios.Commands.CreateUsuario
         public string EndEmail { get; set; }
         public int QtdTentativasIncorretas { get; set; }
         public string FlgPrimeiroAcesso { get; set; }
-        public string FlgUsuarioBloqueado { get; set; }
+        public string FlgResponsavelTecnicoBloqueado { get; set; }
         public string CriadoPor { get; set; }
 
         

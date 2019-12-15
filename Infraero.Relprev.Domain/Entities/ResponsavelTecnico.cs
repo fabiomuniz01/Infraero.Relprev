@@ -17,6 +17,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string NomResponsavelTecnico { get; set; }
         public string NumCpf { get; set; }
         public string NumTelefone { get; set; }
+        public string NumDocumento { get; set; }
         public string EndEmail { get; set; }
 
         public virtual ICollection<AtribuicaoRelato> AtribuicaoRelato { get; set; }

@@ -11,6 +11,7 @@ namespace Infraero.Relprev.HttpClient.Clients.Interfaces
         Task<long> CreateEmpresa(CreateEmpresaCommand command);
         GridEmpresa GetGridEmpresa();
         EmpresaDto GetEmpresaById(int id);
-        Task<bool> UpdateEmpresa(UpdateEmpresaCommand command);
+        bool UpdateEmpresa(UpdateEmpresaCommand command);
+        bool DeleteEmpresa(int id);
     }
 }

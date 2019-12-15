@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Infraero.Relprev.Application.Usuarios.Commands.DeleteUsuario
 {
-    public class DeleteUsuarioCommand : IRequest
+    public class DeleteUsuarioCommand : IRequest<bool>
     {
         public long Id { get; set; }
 
-        public class DeleteUsuarioCommandHandler : IRequestHandler<DeleteUsuarioCommand>
+        public class DeleteUsuarioCommandHandler : IRequestHandler<DeleteUsuarioCommand, bool>
         {
             private readonly IApplicationDbContext _context;
 
@@ -20,7 +20,7 @@ namespace Infraero.Relprev.Application.Usuarios.Commands.DeleteUsuario
                 _context = context;
             }
 
-            public async Task<Unit> Handle(DeleteUsuarioCommand request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(DeleteUsuarioCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.Usuarios.FindAsync(request.Id);
 
@@ -33,7 +33,7 @@ namespace Infraero.Relprev.Application.Usuarios.Commands.DeleteUsuario
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return true;
             }
         }
     }

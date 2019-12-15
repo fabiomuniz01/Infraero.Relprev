@@ -6,9 +6,7 @@ namespace Infraero.Relprev.Application.Usuarios.Commands.UpdateUsuario
     {
         public UpdateUsuarioCommandValidator()
         {
-            RuleFor(v => v.Title)
-                .MaximumLength(200)
-                .NotEmpty();
+            
         }
     }
 }
