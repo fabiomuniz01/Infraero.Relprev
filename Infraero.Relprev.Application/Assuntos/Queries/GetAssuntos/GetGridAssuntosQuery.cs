@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
 {
-    public class GetUnidadeInfraEstruturaQuery : IRequest<GridUnidadeInfraEstrutura>
+    public class GetGridAssuntosQuery : IRequest<GridAssunto>
     {
-        public class GetGridAssuntosQueryHandler : IRequestHandler<GetUnidadeInfraEstruturaQuery, GridUnidadeInfraEstrutura>
+        public class GetGridAssuntosQueryHandler : IRequestHandler<GetGridAssuntosQuery, GridAssunto>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -23,24 +23,29 @@ namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
                 _mapper = mapper;
             }
 
-            public async Task<GridUnidadeInfraEstrutura> Handle(GetUnidadeInfraEstruturaQuery request, CancellationToken cancellationToken)
+            public async Task<GridAssunto> Handle(GetGridAssuntosQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
-                    var vm = new UnidadeInfraEstruturaVm();
+                    var vm = new AssuntoVm();
 
                     var responseModel = await _context.Assuntos
-                        .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
+                        .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodAssunto)
                         .ToListAsync(cancellationToken);
 
-                    var grid = new GridUnidadeInfraEstrutura();
+                    var grid = new GridAssunto();
 
                     var data = responseModel
                         .Select(
                             c =>
-                                new UnidadeInfraEstruturaDto()
+                                new AssuntoDto()
                                 {
+                                    CodAssunto = c.CodAssunto,
+                                    //NumCnpj = c.NumCnpj,
+                                    //NumTelefone = c.NumTelefone,
+                                    //NomRazaoSocial = c.NomRazaoSocial,
+                                    //NomUnidadeInfraestrutura = ""
                                 });
 
                     grid.aaData = data;

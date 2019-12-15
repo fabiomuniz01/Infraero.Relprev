@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
 {
-    public class GetUnidadeInfraEstruturasQuery : IRequest<UnidadeInfraEstruturaVm>
+    public class GetAssuntosQuery : IRequest<AssuntoVm>
     {
-        public class GetAssuntosQueryHandler : IRequestHandler<GetUnidadeInfraEstruturasQuery, UnidadeInfraEstruturaVm>
+        public class GetAssuntosQueryHandler : IRequestHandler<GetAssuntosQuery, AssuntoVm>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -22,12 +22,12 @@ namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
                 _mapper = mapper;
             }
 
-            public async Task<UnidadeInfraEstruturaVm> Handle(GetUnidadeInfraEstruturasQuery request, CancellationToken cancellationToken)
+            public async Task<AssuntoVm> Handle(GetAssuntosQuery request, CancellationToken cancellationToken)
             {
-                var vm = new UnidadeInfraEstruturaVm();
+                var vm = new AssuntoVm();
 
                 vm.Lists = await _context.Assuntos
-                    .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
+                    .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodAssunto)
                     .ToListAsync(cancellationToken);
 

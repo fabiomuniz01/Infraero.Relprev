@@ -3,8 +3,8 @@ using Infraero.Relprev.Application.Grid;
 
 namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
 {
-    public class GridUnidadeInfraEstrutura : ManagerMainGrid<UnidadeInfraEstruturaDto>
+    public class GridAssunto : ManagerMainGrid<AssuntoDto>
     {
-        public IEnumerable<UnidadeInfraEstruturaDto> aaData { get; set; }
+        public IEnumerable<AssuntoDto> aaData { get; set; }
     }
 }

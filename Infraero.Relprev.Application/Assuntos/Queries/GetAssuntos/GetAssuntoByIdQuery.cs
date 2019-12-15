@@ -8,15 +8,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Domain.Entities;
-using Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos;
 
 namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
 {
-    public class GetUnidadeInfraEstruturaByIdQuery : IRequest<UnidadeInfraEstruturaDto>
+    public class GetAssuntoByIdQuery : IRequest<AssuntoDto>
     {
         public int Id { get; set; }
 
-        public class GetAssuntoByIdQueryHandler : IRequestHandler<GetUnidadeInfraEstruturaByIdQuery, UnidadeInfraEstruturaDto>
+        public class GetAssuntoByIdQueryHandler : IRequestHandler<GetAssuntoByIdQuery, AssuntoDto>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -27,13 +26,13 @@ namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
                 _mapper = mapper;
             }
 
-            public async Task<UnidadeInfraEstruturaDto> Handle(GetUnidadeInfraEstruturaByIdQuery request, CancellationToken cancellationToken)
+            public async Task<AssuntoDto> Handle(GetAssuntoByIdQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
                     var responseModel = await _context.Assuntos
                         .Where(x=>x.CodAssunto==request.Id)
-                        .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
+                        .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodAssunto)
                         .FirstOrDefaultAsync(cancellationToken);
 

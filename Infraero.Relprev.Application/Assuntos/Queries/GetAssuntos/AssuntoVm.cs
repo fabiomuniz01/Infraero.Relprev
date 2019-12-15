@@ -7,8 +7,8 @@ using Infraero.Relprev.Domain.Enums;
 
 namespace Infraero.Relprev.Application.Assuntos.Queries.GetAssuntos
 {
-    public class UnidadeInfraEstruturaVm
+    public class AssuntoVm
     {
-        public List<UnidadeInfraEstruturaDto> Lists { get; set; }
+        public List<AssuntoDto> Lists { get; set; }
     }
 }

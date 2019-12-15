@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Infraero.Relprev.Application.Assuntos.Commands.DeleteAssunto
 {
-    public class DeleteUnidadeInfraEstruturaCommand : IRequest
+    public class DeleteAssuntoCommand : IRequest<bool>
     {
         public long Id { get; set; }
 
-        public class DeleteAssuntoCommandHandler : IRequestHandler<DeleteUnidadeInfraEstruturaCommand>
+        public class DeleteAssuntoCommandHandler : IRequestHandler<DeleteAssuntoCommand, bool>
         {
             private readonly IApplicationDbContext _context;
 
@@ -20,7 +20,7 @@ namespace Infraero.Relprev.Application.Assuntos.Commands.DeleteAssunto
                 _context = context;
             }
 
-            public async Task<Unit> Handle(DeleteUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(DeleteAssuntoCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.Assuntos.FindAsync(request.Id);
 
@@ -33,7 +33,7 @@ namespace Infraero.Relprev.Application.Assuntos.Commands.DeleteAssunto
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return true;
             }
         }
     }
