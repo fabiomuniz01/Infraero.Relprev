@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
+﻿using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -57,7 +56,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }

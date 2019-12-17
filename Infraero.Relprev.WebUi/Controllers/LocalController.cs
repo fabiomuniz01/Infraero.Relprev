@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Infraero.Relprev.Application.Local.Commands.CreateLocal;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class LocalController : Controller
     {
+        private readonly ILocalClient _localClient;
+
+        public LocalController(ILocalClient localClient)
+        {
+            _localClient = localClient;
+        }
+
         // GET: Local
         public ActionResult Index()
         {
-            return View();
+            var response = _localClient.GetGridLocal();
+            return View(response);
         }
 
         // GET: Local/Details/5
@@ -34,11 +43,16 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var command = new CreateLocalCommand
+                {
+                    DscLocal = collection["Descricao"].ToString(),
+                    CriadoPor = ""
+                };
+                _localClient.CreateLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }

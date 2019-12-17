@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
+﻿using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
-using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;
 

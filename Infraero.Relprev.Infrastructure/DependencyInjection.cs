@@ -30,6 +30,7 @@ namespace Infraero.Relprev.Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             services.AddScoped<IEmpresaClient>(provider => provider.GetService<EmpresaClient>());
+            services.AddScoped<ILocalClient>(provider => provider.GetService<LocalClient>());
             services.AddScoped<IUnidadeInfraEstruturaClient>(provider => provider.GetService<UnidadeInfraEstruturaClient>());
 
             if (environment.IsEnvironment("Test"))
