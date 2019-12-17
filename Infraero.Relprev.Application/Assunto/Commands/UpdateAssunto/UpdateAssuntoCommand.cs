@@ -21,16 +21,14 @@ namespace Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto
 
             public async Task<bool> Handle(UpdateAssuntoCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Assuntos.FindAsync(request.Id);
+                var entity = await _context.Assuntos.FindAsync(request.CodAssunto);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Assunto), request.Id);
+                    throw new NotFoundException(nameof(Assunto), request.CodAssunto);
                 }
 
-                //entity.NomRazaoSocial = request.NomRazaoSocial;
-                //entity.NumCnpj = request.NumCnpj;
-                //entity.NumTelefone = request.NumTelefone;
+                entity.DscAssunto = request.DscAssunto;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
 
@@ -40,7 +38,9 @@ namespace Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto
             }
         }
 
-        public int Id { get; set; }
+        public string DscAssunto { get; set; }
+
+        public int CodAssunto { get; set; }
 
         public string AlteradoPor { get; set; }
     }

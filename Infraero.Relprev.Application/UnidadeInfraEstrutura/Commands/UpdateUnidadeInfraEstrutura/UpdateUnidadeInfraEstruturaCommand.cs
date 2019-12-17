@@ -33,16 +33,17 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnid
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Assunto), request.CodUnidadeInfraestrutura);
+                    throw new NotFoundException(nameof(UnidadeInfraEstrutura), request.CodUnidadeInfraestrutura);
                 }
 
                 entity.CodUnidade = request.CodUnidade;
-                entity.CodUnidadeInfraestrutura= request.CodUnidadeInfraestrutura;
+                entity.Sigla = request.Sigla;
                 entity.Descricao = request.Descricao;
                 entity.Endereco = request.Endereco;
                 entity.DtIniVigencia = request.DtIniVigencia;
                 entity.DtFimVigencia = request.DtFimVigencia;
                 entity.DataAlteracao = DateTime.Now;
+                entity.AlteradoPor = request.AlteradorPor;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
@@ -50,5 +51,6 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnid
             }
         }
 
+        public string AlteradorPor { get; set; }
     }
 }

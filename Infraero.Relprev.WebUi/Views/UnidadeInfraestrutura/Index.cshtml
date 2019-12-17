@@ -1,7 +1,7 @@
-﻿
+﻿@model Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas.GridUnidadeInfraEstrutura
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";   
 }
 
 
@@ -19,7 +19,7 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        
+
                         <div class="col-sm-12 pull-right">
 
                             <a href="@Url.Action("Create", "UnidadeInfraestrutura")" id="addToTable" class="btn btn-primary pull-right">Nova  Unidade de Infraestrutura  <i class="fa fa-plus"></i></a>
@@ -37,40 +37,20 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <td>Unidade infraestrutura 1 </td>
-                                <td>UN1</td>
-                                <td>Ca1</td>
-                                <td>01/12/2019</td>
-                                <td>10/12/2019</td>
-                                <td class="text-center">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="UnidadeInfraestrutura" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Unidade infraestrutura 2 </td>
-                                <td>UN2</td>
-                                <td>Ca2</td>
-                                <td>01/12/2019</td>
-                                <td>10/12/2019</td>
-                                <td class="text-center">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="UnidadeInfraestrutura" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Unidade infraestrutura 3 </td>
-                                <td>UN3</td>
-                                <td>Ca3</td>
-                                <td>01/12/2019</td>
-                                <td>10/12/2019</td>
-                                <td class="text-center">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="UnidadeInfraestrutura" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+                            @foreach (var item in Model.aaData)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.CodUnidade)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Sigla)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Endereco)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DtIniVigencia)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DtFimVigencia)</td>
+                                    <td class="actions">
+                                        <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="UnidadeInfraEstrutura" asp-route-id="@item.CodUnidadeInfraestrutura" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -120,52 +100,52 @@
 
     <script>
         // Tooltip
-        (function($) {
+        (function ($) {
 
             'use strict';
 
-            if ( $.isFunction( $.fn['tooltip'] ) ) {
-                $( '[data-toggle=tooltip],[rel=tooltip]' ).tooltip({ container: 'body' });
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
             }
 
         }).apply(this, [jQuery]);
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
+
+        (function ($) {
+
+            'use strict';
+
             /*
-    Name: 			UI Elements / Modals - Examples
-    Written by: 	Okler Themes - (http://www.okler.net)
-    Theme Version: 	2.0.0
-    */
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
 
-            (function ($) {
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
 
-                'use strict';
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
 
-                /*
-                Basic
-                */
-                $('.modal-basic').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    modal: true
-                });
-
-                /*
-                Sizes
-                */
-                $('.modal-sizes').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    modal: true
-                });
-
-                /*
-                Modal Dismiss
-                */
-                $(document).on('click', '.modal-dismiss', function (e) {
-                    e.preventDefault();
-                    $.magnificPopup.close();
-                });
-
-            }).apply(this, [jQuery]);
+        }).apply(this, [jQuery]);
     </script>
 }
 

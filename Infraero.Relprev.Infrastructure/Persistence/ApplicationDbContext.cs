@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
 namespace Infraero.Relprev.Infrastructure.Persistence
@@ -63,26 +61,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public virtual DbSet<SubAmbiente> SubAmbiente { get; set; }
         public virtual DbSet<TipoEvento> TipoEvento { get; set; }
         public virtual DbSet<UsuarioLocalidade> UsuarioLocalidade { get; set; }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CriadoPor = _currentUserService.UsuarioId;
-                        entry.Entity.DataCriacao = new DateTime().Date;
-                        break;
-                    case EntityState.Modified:
-                        entry.Entity.AlteradoPor = _currentUserService.UsuarioId;
-                        entry.Entity.DataAlteracao = new DateTime().Date;
-                        break;
-                }
-            }
-
-            return base.SaveChangesAsync(cancellationToken);
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

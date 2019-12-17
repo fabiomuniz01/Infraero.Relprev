@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Assunto.Commands.CreateAssunto;
 using Infraero.Relprev.Application.Assunto.Commands.DeleteAssunto;
@@ -50,6 +51,22 @@ namespace Infraero.Relprev.Api.Controllers
             try
             {
                 var result = await Mediator.Send(new GetAssuntoByIdQuery {Id = id});
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+        }
+
+        [HttpGet("GetAssuntoAll")]
+        public async Task<List<AssuntoDto>> GetAssuntoAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetAssuntoAllQuery());
                 return result;
             }
             catch (Exception e)

@@ -22,9 +22,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
         }
 
-        public Task<long> CreateAssunto(CreateAssuntoCommand command)
+        public long CreateAssunto(CreateAssuntoCommand command)
         {
-            return PostAsync<long>($"{Resource}/CreateAssunto", command);
+            return Post<long>($"{Resource}/CreateAssunto", command);
         }
         public GridAssunto GetGridAssunto()
         {
@@ -44,6 +44,11 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         public bool DeleteAssunto(int id)
         {
             return Post<bool>($"{Resource}/DeleteAssunto", id);
+        }
+
+        public List<AssuntoDto> GetAssuntoAll()
+        {
+            return Get<List<AssuntoDto>>($"{Resource}/GetAssuntoAll");
         }
     }
 }

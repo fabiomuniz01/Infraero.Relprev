@@ -13,23 +13,23 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class UnidadeInfraEstruturaController : Controller
     {
-        private readonly IUnidadeInfraEstruturaClient _UnidadeInfraEstruturaClient;
+        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
 
-        public UnidadeInfraEstruturaController(IUnidadeInfraEstruturaClient UnidadeInfraEstruturaClient)
+        public UnidadeInfraEstruturaController(IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
         {
-            _UnidadeInfraEstruturaClient = UnidadeInfraEstruturaClient;
+            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
         }
 
         //private readonly IUnidadeInfraEstrutura 
         public IActionResult Index()
         {
-            var response = _UnidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
+            var response = _unidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
             return View(response);
         }
 
         public GridUnidadeInfraEstrutura GetGrid()
         {
-            var response = _UnidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
+            var response = _unidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
             return response;
         }
 
@@ -52,10 +52,11 @@ namespace Infraero.Relprev.WebUi.Controllers
                     Sigla = collection["Sigla"].ToString(),
                     Descricao = collection["Descricao"].ToString(),
                     Endereco = collection["Endereco"].ToString(),
-                    DtIniVigencia = Convert.ToDateTime(collection["DtIniVigencia"].ToString()),
-                    DtFimVigencia = Convert.ToDateTime(collection["DtFimVigencia"].ToString())
+                    DtIniVigencia = DateTime.ParseExact(collection["DtIniVigencia"].ToString(), "dd/MM/yyyy", null),
+                    DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
+                    CriadoPor = "Amcom Develper"
                 };
-                _UnidadeInfraEstruturaClient.CreateUnidadeInfraEstrutura(command);
+                _unidadeInfraEstruturaClient.CreateUnidadeInfraEstrutura(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -68,7 +69,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: UnidadeInfraEstrutura/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _UnidadeInfraEstruturaClient.GetUnidadeInfraEstruturaById(id);
+            var obj = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaById(id);
             return View(obj);
         }
 
@@ -81,14 +82,16 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new UpdateUnidadeInfraEstruturaCommand
                 {
+                    CodUnidadeInfraestrutura = id,
                     CodUnidade = collection["CodUnidade"].ToString(),
                     Sigla = collection["Sigla"].ToString(),
                     Descricao = collection["Descricao"].ToString(),
                     Endereco = collection["Endereco"].ToString(),
-                    DtIniVigencia = Convert.ToDateTime(collection["DtIniVigencia"].ToString()),
-                    DtFimVigencia = Convert.ToDateTime(collection["DtFimVigencia"].ToString())
+                    DtIniVigencia = DateTime.ParseExact(collection["DtIniVigencia"].ToString(), "dd/MM/yyyy", null),
+                    DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
+                    AlteradorPor = "Amcom Developer"
                 };
-                _UnidadeInfraEstruturaClient.UpdateUnidadeInfraEstrutura(command);
+                _unidadeInfraEstruturaClient.UpdateUnidadeInfraEstrutura(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -105,37 +108,12 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _UnidadeInfraEstruturaClient.DeleteUnidadeInfraEstrutura(id);
+                _unidadeInfraEstruturaClient.DeleteUnidadeInfraEstrutura(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return RedirectToAction(nameof(Index));
-            }
-        }
-
-
-
-        // GET: UnidadeInfraEstrutura/Link/5
-        public ActionResult Link(int id)
-        {
-            return View();
-        }
-
-        // POST: UnidadeInfraEstrutura/Link/5
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.ValidateAntiForgeryToken]
-        public ActionResult Link(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
             }
         }
     }

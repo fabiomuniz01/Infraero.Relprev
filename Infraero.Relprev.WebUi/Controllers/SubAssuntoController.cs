@@ -2,29 +2,65 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto;
+using Infraero.Relprev.Application.SubAssunto.Commands.UpdateSubAssunto;
+using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
+using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Domain.Entities;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class SubAssuntoController : Controller
     {
-        // GET: SubAssunto
-        public ActionResult Index()
+        private readonly ISubAssuntoClient _subAssuntoClient;
+        private readonly IAssuntoClient _assuntoClient;
+
+        public SubAssuntoController(ISubAssuntoClient subAssuntoClient, IAssuntoClient assuntoClient)
         {
-            return View();
+            _subAssuntoClient = subAssuntoClient;
+            _assuntoClient = assuntoClient;
         }
 
-        // GET: SubAssunto/Details/5
-        public ActionResult Details(int id)
+        //private readonly ISubAssunto 
+        public IActionResult Index()
         {
-            return View();
+            var response = _subAssuntoClient.GetGridSubAssunto();
+            return View(response);
+        }
+
+        public GridSubAssunto GetGrid()
+        {
+            var response = _subAssuntoClient.GetGridSubAssunto();
+            return response;
         }
 
         // GET: SubAssunto/Create
         public ActionResult Create()
         {
-            return View();
+            var result = _assuntoClient.GetAssuntoAll();
+            var listAssunto =
+                result.Select(
+                    s =>
+                        new SelectListItem()
+                        {
+                            Text =
+                                s.CodAssunto + " - " +
+                                s.DscAssunto,
+                            Value = s.CodAssunto.ToString()
+                        }).ToList();
+
+            var assunto = new SubAssuntoModel
+            {
+                ListAssunto = listAssunto
+            };
+
+            return View(assunto);
         }
 
         // POST: SubAssunto/Create
@@ -34,11 +70,17 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var command = new CreateSubAssuntoCommand
+                {
+                    CodAssunto = int.Parse(collection["CodAssunto"].ToString()),
+                    DscSubAssunto = collection["DscSubAssunto"].ToString(),
+                    CriadoPor = "Amcom Develper"
+                };
+                _subAssuntoClient.CreateSubAssunto(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -47,7 +89,26 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: SubAssunto/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _subAssuntoClient.GetSubAssuntoById(id);
+            var result = _assuntoClient.GetAssuntoAll();
+            var listAssunto =
+                result.Select(
+                    s =>
+                        new SelectListItem()
+                        {
+                            Text =
+                                s.CodAssunto + " - " +
+                                s.DscAssunto,
+                            Value = s.CodAssunto.ToString()
+                        }).ToList();
+
+            var assunto = new SubAssuntoModel
+            {
+                SubAssunto = obj,
+                ListAssunto = listAssunto
+            };
+
+            return View(assunto);
         }
 
         // POST: SubAssunto/Edit/5
@@ -57,7 +118,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new UpdateSubAssuntoCommand
+                {
+                    CodSubAssunto = id,
+                    DscSubAssunto = collection["DscSubAssunto"].ToString(),
+                    AlteradoPor = "Amcom Developer"
+                };
+                _subAssuntoClient.UpdateSubAssunto(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -65,28 +132,21 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: SubAssunto/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: SubAssunto/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _subAssuntoClient.DeleteSubAssunto(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }
