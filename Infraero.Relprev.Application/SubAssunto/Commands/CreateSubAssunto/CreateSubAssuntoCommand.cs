@@ -15,6 +15,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto
 
         public Domain.Entities.Assunto CodAssuntoNavigation { get; set; }
         public ICollection<Relato> Relato { get; set; }
+        public string CriadoPor { get; set; }
 
         public class CreateSubAssuntoCommandHandler : IRequestHandler<CreateSubAssuntoCommand, long>
         {

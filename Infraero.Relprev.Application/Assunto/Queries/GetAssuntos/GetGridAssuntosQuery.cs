@@ -42,10 +42,7 @@ namespace Infraero.Relprev.Application.Assunto.Queries.GetAssuntos
                                 new AssuntoDto()
                                 {
                                     CodAssunto = c.CodAssunto,
-                                    //NumCnpj = c.NumCnpj,
-                                    //NumTelefone = c.NumTelefone,
-                                    //NomRazaoSocial = c.NomRazaoSocial,
-                                    //NomUnidadeInfraestrutura = ""
+                                    DscAssunto = c.DscAssunto
                                 });
 
                     grid.aaData = data;

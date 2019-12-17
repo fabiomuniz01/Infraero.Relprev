@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.Application.Assunto.Queries.GetAssuntos.GridAssunto
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,7 +19,7 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        
+
                         <div class="col-sm-12 pull-right">
 
                             <a href="@Url.Action("Create", "Assunto")" id="addToTable" class="btn btn-primary pull-right">Nova Assunto &nbsp;<i class="fa fa-plus"></i></a>
@@ -33,28 +33,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach (var item in Model.aaData)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.DscAssunto)</td>
+                                <td class="actions">
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Assunto" asp-route-id="@item.CodAssunto" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        }
 
-                            <tr>
-                                <td>Piso Molhado</td>
-                                <td class="text-center">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar"asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir"href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Piso Seco</td>
-                                <td class="text-center">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar"asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir"href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Banheiro Molhado</td>
-                                <td class="text-center">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar"asp-action="Edit" asp-controller="Assunto" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir"href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -104,51 +93,51 @@
 
     <script>
         // Tooltip
-        (function($) {
+        (function ($) {
 
             'use strict';
 
-            if ( $.isFunction( $.fn['tooltip'] ) ) {
-                $( '[data-toggle=tooltip],[rel=tooltip]' ).tooltip({ container: 'body' });
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
             }
 
         }).apply(this, [jQuery]);
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
+
+        (function ($) {
+
+            'use strict';
+
             /*
-    Name: 			UI Elements / Modals - Examples
-    Written by: 	Okler Themes - (http://www.okler.net)
-    Theme Version: 	2.0.0
-    */
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
 
-            (function ($) {
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
 
-                'use strict';
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
 
-                /*
-                Basic
-                */
-                $('.modal-basic').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    modal: true
-                });
-
-                /*
-                Sizes
-                */
-                $('.modal-sizes').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    modal: true
-                });
-
-                /*
-                Modal Dismiss
-                */
-                $(document).on('click', '.modal-dismiss', function (e) {
-                    e.preventDefault();
-                    $.magnificPopup.close();
-                });
-
-            }).apply(this, [jQuery]);
+        }).apply(this, [jQuery]);
     </script>
 }

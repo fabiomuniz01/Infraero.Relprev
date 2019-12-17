@@ -23,10 +23,7 @@ namespace Infraero.Relprev.Application.Assunto.Commands.CreateAssunto
             {
                 var entity = new Domain.Entities.Assunto
                 {
-                    //NomRazaoSocial = request.Nome,
-                    //NumCnpj = request.Cnpj,
-                    //DthRegistro = DateTime.Now,
-                    //NumTelefone = request.Telefone,
+                    DscAssunto = request.DscAssunto,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now
                 };
@@ -40,5 +37,6 @@ namespace Infraero.Relprev.Application.Assunto.Commands.CreateAssunto
         }
 
         public string CriadoPor { get; set; }
+        public string DscAssunto { get; set; }
     }
 }
