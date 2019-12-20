@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infraero.Relprev.Application.Common.Interfaces
+namespace Infraero.Relprev.Application
 {
     public interface IApplicationDbContext
     {

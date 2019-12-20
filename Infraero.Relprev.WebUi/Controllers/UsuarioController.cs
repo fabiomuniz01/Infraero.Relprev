@@ -38,6 +38,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             return View();
         }
+        public ActionResult CreatePerfil()
+        {
+            return View();
+        }
 
         // POST: Usuario/Create
         [HttpPost]

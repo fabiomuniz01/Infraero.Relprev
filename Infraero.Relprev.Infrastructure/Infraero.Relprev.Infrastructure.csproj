@@ -11,6 +11,8 @@
     <Compile Remove="Persistence\Migrations\20191213062458_Relprev.Designer.cs" />
     <Compile Remove="Persistence\Migrations\20191213105124_Relprev.cs" />
     <Compile Remove="Persistence\Migrations\20191213105124_Relprev.Designer.cs" />
+    <Compile Remove="Persistence\Migrations\20191220113048_Relprev6.cs" />
+    <Compile Remove="Persistence\Migrations\20191220113048_Relprev6.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Infraero.Relprev.Application\Infraero.Relprev.Application.csproj" />
     <ProjectReference Include="..\Infraero.Relprev.HttpClient\Infraero.Relprev.HttpClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

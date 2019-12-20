@@ -3,6 +3,7 @@ using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using Infraero.Relprev.Application;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.HttpClient.Clients.Implementations;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
@@ -34,6 +35,9 @@ namespace Infraero.Relprev.Infrastructure
             services.AddScoped<IUnidadeInfraEstruturaClient>(provider => provider.GetService<UnidadeInfraEstruturaClient>());
             services.AddScoped<IAssuntoClient>(provider => provider.GetService<AssuntoClient>());
             services.AddScoped<ISubAssuntoClient>(provider => provider.GetService<SubAssuntoClient>());
+            services.AddScoped<ISubLocalClient>(provider => provider.GetService<SubLocalClient>());
+            services.AddScoped<IResponsavelTecnicoClient>(provider => provider.GetService<ResponsavelTecnicoClient>());
+            services.AddScoped<IUsuarioClient>(provider => provider.GetService<UsuarioClient>());
 
             if (environment.IsEnvironment("Test"))
             {

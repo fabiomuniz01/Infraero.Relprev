@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Reflection;
+using Infraero.Relprev.Application;
 using Microsoft.AspNetCore.Identity;
 
 namespace Infraero.Relprev.Infrastructure.Persistence

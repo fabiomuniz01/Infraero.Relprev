@@ -22,9 +22,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
         }
 
-        public Task<long> CreateUnidadeInfraEstrutura(CreateUnidadeInfraEstruturaCommand command)
+        public long CreateUnidadeInfraEstrutura(CreateUnidadeInfraEstruturaCommand command)
         {
-            return PostAsync<long>($"{Resource}/CreateUnidadeInfraEstrutura", command);
+            return Post<long>($"{Resource}/CreateUnidadeInfraEstrutura", command);
         }
         public GridUnidadeInfraEstrutura GetGridUnidadeInfraEstrutura()
         {
@@ -44,6 +44,11 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         public bool DeleteUnidadeInfraEstrutura(int id)
         {
             return Post<bool>($"{Resource}/DeleteUnidadeInfraEstrutura", id);
+        }
+
+        public List<UnidadeInfraEstruturaDto> GetUnidadeInfraEstruturaAll()
+        {
+            return Get<List<UnidadeInfraEstruturaDto>>($"{Resource}/GetUnidadeInfraEstruturaAll/");
         }
     }
 }

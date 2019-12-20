@@ -21,10 +21,8 @@ namespace Infraero.Relprev.Application.Local.Commands.CreateLocal
             {
                 var entity = new Domain.Entities.Local
                 {
-                    //NomRazaoSocial = request.Nome,
-                    //NumCnpj = request.Cnpj,
-                    //DthRegistro = DateTime.Now,
-                    //NumTelefone = request.Telefone,
+                    CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                    DscLocal = request.DscLocal,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now
                 };
@@ -41,8 +39,6 @@ namespace Infraero.Relprev.Application.Local.Commands.CreateLocal
 
         public int CodLocal { get; set; }
         public string DscLocal { get; set; }
-
-
-
+        public int CodUnidadeInfraestrutura { get; set; }
     }
 }

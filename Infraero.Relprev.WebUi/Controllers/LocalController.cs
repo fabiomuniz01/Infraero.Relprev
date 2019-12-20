@@ -3,6 +3,9 @@ using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using Infraero.Relprev.CrossCutting.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -11,10 +14,12 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class LocalController : Controller
     {
         private readonly ILocalClient _localClient;
+        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
 
-        public LocalController(ILocalClient localClient)
+        public LocalController(ILocalClient localClient, IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
         {
             _localClient = localClient;
+            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
         }
 
         // GET: Local
@@ -24,16 +29,26 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        // GET: Local/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Local/Create
         public ActionResult Create()
         {
-            return View();
+            var result = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var listUnidade =
+                result.Select(
+                    s =>
+                        new SelectListItem()
+                        {
+                            Text =
+                                s.CodUnidadeInfraestrutura + " - " +
+                                s.Descricao,
+                            Value = s.CodUnidadeInfraestrutura.ToString()
+                        }).ToList();
+            var local = new LocalModel
+            {
+                ListUnidadeInfraestrutura = listUnidade
+            };
+
+            return View(local);
         }
 
         // POST: Local/Create
@@ -45,8 +60,9 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateLocalCommand
                 {
-                    DscLocal = collection["Descricao"].ToString(),
-                    CriadoPor = ""
+                    CodUnidadeInfraestrutura = int.Parse(collection["CodUnidadeInfraestrutura"].ToString()),
+                    DscLocal = collection["DscLocal"].ToString(),
+                    CriadoPor = "Amcom Develper"
                 };
                 _localClient.CreateLocal(command);
 

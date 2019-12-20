@@ -13,23 +13,23 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class SubLocalController : Controller
     {
-        private readonly ISubLocalClient _SubLocalClient;
+        private readonly ISubLocalClient _subLocalClient;
 
-        public SubLocalController(ISubLocalClient SubLocalClient)
+        public SubLocalController(ISubLocalClient subLocalClient)
         {
-            _SubLocalClient = SubLocalClient;
+            _subLocalClient = subLocalClient;
         }
 
         //private readonly ISubLocal 
         public IActionResult Index()
         {
-            var response = _SubLocalClient.GetGridSubLocal();
+            var response = _subLocalClient.GetGridSubLocal();
             return View(response);
         }
 
         public GridSubLocal GetGrid()
         {
-            var response = _SubLocalClient.GetGridSubLocal();
+            var response = _subLocalClient.GetGridSubLocal();
             return response;
         }
 
@@ -53,7 +53,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     //NumCpf = collection["cnpj"].ToString(),
                     //NumTelefone = collection["telefone"].ToString()
                 };
-                _SubLocalClient.CreateSubLocal(command);
+                _subLocalClient.CreateSubLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -66,7 +66,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: SubLocal/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _SubLocalClient.GetSubLocalById(id);
+            var obj = _subLocalClient.GetSubLocalById(id);
             return View(obj);
         }
 
@@ -85,7 +85,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     //NumCpf = collection["cnpj"].ToString(),
                     //NumTelefone = collection["telefone"].ToString()
                 };
-                _SubLocalClient.UpdateSubLocal(command);
+                _subLocalClient.UpdateSubLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -102,7 +102,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _SubLocalClient.DeleteSubLocal(id);
+                _subLocalClient.DeleteSubLocal(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

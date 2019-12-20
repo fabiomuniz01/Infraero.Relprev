@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
@@ -49,6 +51,22 @@ namespace Infraero.Relprev.Api.Controllers
             try
             {
                 var result = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+        [HttpGet("GetUnidadeInfraestruturaAll")]
+        public async Task<List<UnidadeInfraEstruturaDto>> GetUnidadeInfraestruturaAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetUnidadeInfraEstruturaAllQuery());
                 return result;
             }
             catch (Exception e)
