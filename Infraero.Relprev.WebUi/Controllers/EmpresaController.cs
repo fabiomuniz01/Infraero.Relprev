@@ -5,6 +5,11 @@ using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Infraero.Relprev.Infrastructure;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -13,17 +18,26 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class EmpresaController : Controller
     {
         private readonly IEmpresaClient _empresaClient;
-
-        public EmpresaController(IEmpresaClient empresaClient)
+        private readonly ILogger _logger;
+        public EmpresaController(IEmpresaClient empresaClient, 
+            ILogger<CreateEmpresaCommand> logger, 
+            IScopeInformation scope)
         {
             _empresaClient = empresaClient;
+            _logger = logger;
         }
 
         //private readonly IEmpresa 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var response = _empresaClient.GetGridEmpresa();
-            return View(response);
+            //using (var http = new System.Net.Http.HttpClient(new StandardHttpMessageHandler(HttpContext, _logger)))
+            //{
+            //    var response = await http.GetAsync("https://localhost:44322/api/Empresa/GetGridEmpresa");
+            //    var test = JsonConvert.DeserializeObject<GridEmpresa>(await response.Content.ReadAsStringAsync());
+            //}
+
+            var response1 = _empresaClient.GetGridEmpresa();
+            return View(response1);
         }
 
         public GridEmpresa GetGrid()

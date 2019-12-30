@@ -15,6 +15,7 @@ using Infraero.Relprev.WebUi.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Infraero.Relprev.Infrastructure;
 
 namespace Infraero.Relprev.WebUi
 {
@@ -37,6 +38,9 @@ namespace Infraero.Relprev.WebUi
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //services.AddScoped<IScopeInformation, ScopeInformation>();
+            services.AddSingleton<IScopeInformation, ScopeInformation>();
 
             string Baseurl = "https://localhost:44372";
 

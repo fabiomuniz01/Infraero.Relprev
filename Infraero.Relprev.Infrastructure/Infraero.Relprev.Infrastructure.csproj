@@ -27,8 +27,4 @@
     <ProjectReference Include="..\Infraero.Relprev.HttpClient\Infraero.Relprev.HttpClient.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
-
 </Project>

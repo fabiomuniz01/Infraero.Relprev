@@ -37,6 +37,7 @@ namespace Infraero.Relprev.Api
             services.AddInfrastructure(Configuration, Environment);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IScopeInformation, ScopeInformation>();
 
             services.AddHttpContextAccessor();
 
@@ -45,6 +46,7 @@ namespace Infraero.Relprev.Api
 
             services.AddCors(); // Make sure you call this previous to AddMvc
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc(option => option.EnableEndpointRouting = false);
 
             services.AddSwaggerGen(c => {
 
@@ -125,17 +127,18 @@ namespace Infraero.Relprev.Api
             app.UseDeveloperExceptionPage();
 
             //app.UseDatabaseErrorPage();
-            app.UseCors(
-                options => options.WithOrigins("http://example.com").AllowAnyMethod()
-            );
+            //app.UseCors(
+            //    options => options.WithOrigins("http://example.com").AllowAnyMethod()
+            //);
             //Replace UseMvc or UseSignalR with UseEndpoints.
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller}/{action=Index}/{id?}");
+            //    endpoints.MapRazorPages();
+            //});
+            app.UseMvc();
         }
     }
 

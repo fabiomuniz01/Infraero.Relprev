@@ -67,17 +67,10 @@ namespace Infraero.Relprev.Infrastructure
             }
             else
             {
-                //services.AddIdentityServer()
-                //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
                 services.AddDefaultIdentity<IdentityUser>()
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
-
-                //services.AddTransient<IDateTime, DateTimeService>();
-                //services.AddTransient<IIdentityService, IdentityService>();
-                //services.AddTransient<IEmpresaClient, EmpresaClient>();
             }
 
             services.AddAuthentication()
