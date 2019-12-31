@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos
             {
                 try
                 {
-                    var responseModel = await Queryable.Where<Domain.Entities.SubAssunto>(_context.SubAssuntos, x=>x.CodSubAssunto==request.Id)
+                    var responseModel = await Queryable.Where<Domain.Entities.SubAssunto>(_context.SubAssunto, x=>x.CodSubAssunto==request.Id)
                         .ProjectTo<SubAssuntoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodSubAssunto)
                         .FirstOrDefaultAsync(cancellationToken);

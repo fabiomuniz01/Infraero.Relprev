@@ -26,14 +26,14 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         }
 
 
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Empresa> Empresas { get; set; }
-        public DbSet<ResponsavelTecnico> ResponsavelTecnicos { get; set; }
-        public DbSet<SubLocal> SubLocals { get; set; }
-        public DbSet<Local> Locals { get; set; }
-        public virtual DbSet<Assunto> Assuntos { get; set; }
-        public DbSet<UnidadeInfraestrutura> UnidadeInfraestruturas { get; set; }
-        public virtual DbSet<SubAssunto> SubAssuntos { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Empresa> Empresa { get; set; }
+        public DbSet<ResponsavelTecnico> ResponsavelTecnico { get; set; }
+        public DbSet<SubLocal> SubLocal { get; set; }
+        public DbSet<Local> Local { get; set; }
+        public virtual DbSet<Assunto> Assunto { get; set; }
+        public DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
+        public virtual DbSet<SubAssunto> SubAssunto { get; set; }
 
 
 

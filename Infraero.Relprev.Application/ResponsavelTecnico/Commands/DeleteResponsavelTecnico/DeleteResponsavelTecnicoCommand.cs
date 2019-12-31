@@ -21,14 +21,14 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteRespons
 
             public async Task<bool> Handle(DeleteResponsavelTecnicoCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.ResponsavelTecnicos.FindAsync(request.Id);
+                var entity = await _context.ResponsavelTecnico.FindAsync(request.Id);
 
                 if (entity == null)
                 {
                     throw new NotFoundException(nameof(ResponsavelTecnico), request.Id);
                 }
 
-                _context.ResponsavelTecnicos.Remove(entity);
+                _context.ResponsavelTecnico.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

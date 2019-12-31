@@ -7,18 +7,18 @@ namespace Infraero.Relprev.Application
 {
     public interface IApplicationDbContext
     {
-        DbSet<Domain.Entities.Usuario> Usuarios { get; set; }
-        DbSet<Domain.Entities.Empresa> Empresas { get; set; }
+        DbSet<Domain.Entities.Usuario> Usuario { get; set; }
+        DbSet<Domain.Entities.Empresa> Empresa { get; set; }
 
-        DbSet<UnidadeInfraestrutura> UnidadeInfraestruturas { get; set; }
-        DbSet<Domain.Entities.Assunto> Assuntos { get; set; }
-        DbSet<Domain.Entities.SubAssunto> SubAssuntos { get; set; }
+        DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
+        DbSet<Domain.Entities.Assunto> Assunto { get; set; }
+        DbSet<Domain.Entities.SubAssunto> SubAssunto { get; set; }
 
 
-        DbSet<Domain.Entities.ResponsavelTecnico> ResponsavelTecnicos { get; set; }
-        DbSet<Domain.Entities.SubLocal> SubLocals { get; set; }
+        DbSet<Domain.Entities.ResponsavelTecnico> ResponsavelTecnico { get; set; }
+        DbSet<Domain.Entities.SubLocal> SubLocal { get; set; }
 
-        DbSet<Domain.Entities.Local> Locals { get; set; }
+        DbSet<Domain.Entities.Local> Local { get; set; }
 
 
 

@@ -26,7 +26,7 @@ namespace Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa
 
             public async Task<bool> Handle(UpdateEmpresaCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Empresas.FindAsync(request.Id);
+                var entity = await _context.Empresa.FindAsync(request.Id);
 
                 if (entity == null)
                 {

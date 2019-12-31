@@ -36,7 +36,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto
                     Relato = request.Relato
                 };
 
-                _context.SubAssuntos.Add(entity);
+                _context.SubAssunto.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

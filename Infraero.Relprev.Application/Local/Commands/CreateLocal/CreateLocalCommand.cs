@@ -27,7 +27,7 @@ namespace Infraero.Relprev.Application.Local.Commands.CreateLocal
                     DataCriacao = DateTime.Now
                 };
 
-                _context.Locals.Add(entity);
+                _context.Local.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

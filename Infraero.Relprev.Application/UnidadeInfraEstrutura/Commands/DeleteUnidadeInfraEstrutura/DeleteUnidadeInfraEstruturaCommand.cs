@@ -22,14 +22,14 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnid
 
             public async Task<Unit> Handle(DeleteUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.UnidadeInfraestruturas.FindAsync(request.Id);
+                var entity = await _context.UnidadeInfraestrutura.FindAsync(request.Id);
 
                 if (entity == null)
                 {
                     throw new NotFoundException(nameof(UnidadeInfraestrutura), request.Id);
                 }
 
-                _context.UnidadeInfraestruturas.Remove(entity);
+                _context.UnidadeInfraestrutura.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

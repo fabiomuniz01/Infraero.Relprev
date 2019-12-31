@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.Local.Commands.DeleteLocal
 {
     public class DeleteLocalCommand : IRequest<bool>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public class DeleteLocalCommandHandler : IRequestHandler<DeleteLocalCommand, bool>
         {
@@ -21,14 +21,14 @@ namespace Infraero.Relprev.Application.Local.Commands.DeleteLocal
 
             public async Task<bool> Handle(DeleteLocalCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Locals.FindAsync(request.Id);
+                var entity = await _context.Local.FindAsync(request.Id);
 
                 if (entity == null)
                 {
                     throw new NotFoundException(nameof(Domain.Entities.Local), request.Id);
                 }
 
-                _context.Locals.Remove(entity);
+                _context.Local.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

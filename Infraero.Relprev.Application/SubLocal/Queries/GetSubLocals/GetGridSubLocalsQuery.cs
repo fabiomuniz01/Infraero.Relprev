@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
                 {
                     var vm = new SubLocalVm();
 
-                    var responseModel = await _context.SubLocals
+                    var responseModel = await _context.SubLocal
                         .ProjectTo<SubLocalDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodSubLocal)
                         .ToListAsync(cancellationToken);
@@ -42,10 +42,8 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
                                 new SubLocalDto()
                                 {
                                     CodSubLocal = c.CodSubLocal,
-                                    //NumCnpj = c.NumCnpj,
-                                    //NumTelefone = c.NumTelefone,
-                                    //NomRazaoSocial = c.NomRazaoSocial,
-                                    //NomUnidadeInfraestrutura = ""
+                                    DscSubLocal = c.DscSubLocal,
+                                    DscLocal = c.Local.DscLocal
                                 });
 
                     grid.aaData = data;

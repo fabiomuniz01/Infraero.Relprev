@@ -1,6 +1,8 @@
 ﻿using Infraero.Relprev.Domain.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infraero.Relprev.Domain.Entities
 {
@@ -17,5 +19,8 @@ namespace Infraero.Relprev.Domain.Entities
         public string Endereco { get; set; }
         public DateTime DtIniVigencia { get; set; }
         public DateTime DtFimVigencia { get; set; }
+
+        [ForeignKey("CodUnidadeInfraestrutura")]
+        public ICollection<Local> LocalList { get; set; }
     }
 }

@@ -29,8 +29,7 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
                 {
                     var vm = new LocalVm();
 
-                    var responseModel = await _context.Locals
-                        .Include(i=>i.UnidadeInfraestrutura)
+                    var responseModel = await _context.Local
                         .ProjectTo<LocalDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodLocal)
                         .ToListAsync(cancellationToken);
@@ -44,7 +43,7 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
                                 {
                                     CodLocal = c.CodLocal,
                                     DscLocal = c.DscLocal,
-                                    DscUnidade = c.DscUnidade,
+                                    DscUnidade = c.UnidadeInfraestrutura.Descricao
                                     //NomRazaoSocial = c.NomRazaoSocial,
                                     //NomUnidadeInfraestrutura = ""
                                 });

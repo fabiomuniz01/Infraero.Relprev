@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
+using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -14,10 +17,16 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class SubLocalController : Controller
     {
         private readonly ISubLocalClient _subLocalClient;
+        private readonly ILocalClient _localClient;
+        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
 
-        public SubLocalController(ISubLocalClient subLocalClient)
+        public SubLocalController(ISubLocalClient subLocalClient, 
+            ILocalClient localClient, 
+            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
         {
             _subLocalClient = subLocalClient;
+            _localClient = localClient;
+            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
         }
 
         //private readonly ISubLocal 
@@ -36,7 +45,29 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: SubLocal/Create
         public ActionResult Create()
         {
-            return View();
+            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var resultLocal = _localClient.GetLocalAll();
+            
+            var model = new SubLocalModel
+            {
+                ListUnidadeInfraestrutura = resultUnidade.Select(s =>
+                        new SelectListItem()
+                        {
+                            Text =
+                                s.CodUnidadeInfraestrutura + " - " +
+                                s.Descricao,
+                            Value = s.CodUnidadeInfraestrutura.ToString()
+                        }).ToList(),
+                ListLocal = resultLocal.Select(s =>
+                    new SelectListItem()
+                    {
+                        Text =
+                            s.CodLocal + " - " +
+                            s.DscLocal,
+                        Value = s.CodLocal.ToString()
+                    }).ToList()
+            };
+            return View(model);
         }
 
         // POST: SubLocal/Create
@@ -48,10 +79,10 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateSubLocalCommand
                 {
-                    //NomSubLocal = collection["SubLocal"].ToString(),
-                    CriadoPor = "",
-                    //NumCpf = collection["cnpj"].ToString(),
-                    //NumTelefone = collection["telefone"].ToString()
+                    CodUnidadeInfraestrutura = int.Parse(collection["CodUnidadeInfraestrutura"].ToString()),
+                    CodLocal = int.Parse(collection["CodLocal"].ToString()),
+                    DscSubLocal = collection["DscSubLocal"].ToString(),
+                    CriadoPor = "Amcom Developer"
                 };
                 _subLocalClient.CreateSubLocal(command);
 
@@ -67,7 +98,31 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Edit(int id)
         {
             var obj = _subLocalClient.GetSubLocalById(id);
-            return View(obj);
+            var resultLocal = _localClient.GetLocalAll();
+            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+
+            var model = new SubLocalModel
+            {
+                SubLocal = obj,
+                ListLocal = resultLocal.Select(s =>
+                    new SelectListItem()
+                    {
+                        Text =
+                            s.CodLocal + " - " +
+                            s.DscLocal,
+                        Value = s.CodLocal.ToString()
+                    }).ToList(),
+                ListUnidadeInfraestrutura = resultUnidade.Select(s =>
+                    new SelectListItem()
+                    {
+                        Text =
+                            s.CodUnidade + " - " +
+                            s.Descricao,
+                        Value = s.CodUnidadeInfraestrutura.ToString()
+                    }).ToList()
+            };
+
+            return View(model);
         }
 
         // POST: SubLocal/Edit/5

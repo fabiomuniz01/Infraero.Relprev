@@ -28,7 +28,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
             {
                 try
                 {
-                    var responseModel = await _context.UnidadeInfraestruturas
+                    var responseModel = await _context.UnidadeInfraestrutura
                         .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodUnidadeInfraestrutura)
                         .ToListAsync(cancellationToken);

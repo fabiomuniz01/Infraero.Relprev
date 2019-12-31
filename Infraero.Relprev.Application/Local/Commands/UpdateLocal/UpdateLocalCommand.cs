@@ -21,16 +21,15 @@ namespace Infraero.Relprev.Application.Local.Commands.UpdateLocal
 
             public async Task<bool> Handle(UpdateLocalCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Locals.FindAsync(request.Id);
+                var entity = await _context.Local.FindAsync(request.CodLocal);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Domain.Entities.Local), request.Id);
+                    throw new NotFoundException(nameof(Domain.Entities.Local), request.CodUnidadeInfraestrutura);
                 }
 
-                //entity.NomRazaoSocial = request.NomRazaoSocial;
-                //entity.NumCnpj = request.NumCnpj;
-                //entity.NumTelefone = request.NumTelefone;
+                entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
+                entity.DscLocal = request.DscLocal;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
 
@@ -40,8 +39,11 @@ namespace Infraero.Relprev.Application.Local.Commands.UpdateLocal
             }
         }
 
-        public string AlteradoPor { get; set; }
+        public string DscLocal { get; set; }
 
-        public int Id { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
+
+        public string AlteradoPor { get; set; }
+        public int CodLocal { get; set; }
     }
 }

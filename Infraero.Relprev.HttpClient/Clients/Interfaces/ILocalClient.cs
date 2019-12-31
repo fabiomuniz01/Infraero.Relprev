@@ -1,17 +1,19 @@
-﻿using Infraero.Relprev.Application.Local.Commands.CreateLocal;
+﻿using System.Collections.Generic;
+using Infraero.Relprev.Application.Local.Commands.CreateLocal;
 using Infraero.Relprev.Application.Local.Commands.UpdateLocal;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Local.Commands.DeleteLocal;
 
 namespace Infraero.Relprev.HttpClient.Clients.Interfaces
 {
     public interface ILocalClient
     {
-        Task<long> CreateLocal(CreateLocalCommand command);
+        long CreateLocal(CreateLocalCommand command);
         GridLocal GetGridLocal();
         LocalDto GetLocalById(int id);
         bool UpdateLocal(UpdateLocalCommand command);
-        bool DeleteLocal(int id);
-
+        bool DeleteLocal(DeleteLocalCommand command);
+        List<LocalDto> GetLocalAll();
     }
 }

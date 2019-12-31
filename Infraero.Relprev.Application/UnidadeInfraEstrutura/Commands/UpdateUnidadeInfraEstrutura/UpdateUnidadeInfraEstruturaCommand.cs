@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnid
 
             public async Task<bool> Handle(UpdateUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.UnidadeInfraestruturas.FindAsync(request.CodUnidadeInfraestrutura);
+                var entity = await _context.UnidadeInfraestrutura.FindAsync(request.CodUnidadeInfraestrutura);
 
                 if (entity == null)
                 {

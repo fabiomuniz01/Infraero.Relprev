@@ -30,7 +30,7 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
                     DataCriacao = DateTime.Now
                 };
 
-                _context.Usuarios.Add(entity);
+                _context.Usuario.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

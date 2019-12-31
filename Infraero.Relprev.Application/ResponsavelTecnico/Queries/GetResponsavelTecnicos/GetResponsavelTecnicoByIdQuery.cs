@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
             {
                 try
                 {
-                    var responseModel = await _context.ResponsavelTecnicos
+                    var responseModel = await _context.ResponsavelTecnico
                         .Where(x=>x.CodResponsavelTecnico==request.Id)
                         .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodResponsavelTecnico)

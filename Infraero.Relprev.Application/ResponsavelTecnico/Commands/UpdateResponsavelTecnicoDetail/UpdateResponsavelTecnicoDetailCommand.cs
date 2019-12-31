@@ -22,7 +22,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
 
             public async Task<Unit> Handle(UpdateResponsavelTecnicoDetailCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.ResponsavelTecnicos.FindAsync(request.ResponsavelTecnicoDto.CodResponsavelTecnico);
+                var entity = await _context.ResponsavelTecnico.FindAsync(request.ResponsavelTecnicoDto.CodResponsavelTecnico);
 
                 if (entity == null)
                 {

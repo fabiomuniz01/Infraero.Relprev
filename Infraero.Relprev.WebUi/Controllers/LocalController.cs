@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using Infraero.Relprev.Application.Local.Commands.DeleteLocal;
+using Infraero.Relprev.Application.Local.Commands.UpdateLocal;
 using Infraero.Relprev.CrossCutting.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
@@ -77,7 +79,23 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Local/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _localClient.GetLocalById(id);
+            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+
+            var model = new LocalModel()
+            {
+                Local = obj,
+                ListUnidadeInfraestrutura = resultUnidade.Select(s =>
+                    new SelectListItem()
+                    {
+                        Text =
+                            s.CodUnidadeInfraestrutura + " - " +
+                            s.Descricao,
+                        Value = s.CodUnidadeInfraestrutura.ToString()
+                    }).ToList()
+            };
+
+            return View(model);
         }
 
         // POST: Local/Edit/5
@@ -87,7 +105,14 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new UpdateLocalCommand
+                {
+                    CodLocal = id,
+                    CodUnidadeInfraestrutura = int.Parse(collection["CodUnidadeInfraestrutura"].ToString()),
+                    DscLocal = collection["DscLocal"].ToString(),
+                    AlteradoPor = "Amcom Developer"
+                };
+                _localClient.UpdateLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -100,7 +125,16 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Local/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                _localClient.DeleteLocal(new DeleteLocalCommand {Id = id});
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // POST: Local/Delete/5

@@ -26,7 +26,7 @@ namespace Infraero.Relprev.Application.Empresa.Queries.GetEmpresas
             {
                 var vm = new EmpresaVm();
 
-                vm.Lists = await _context.Empresas
+                vm.Lists = await _context.Empresa
                     .ProjectTo<EmpresaDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodEmpresa)
                     .ToListAsync(cancellationToken);

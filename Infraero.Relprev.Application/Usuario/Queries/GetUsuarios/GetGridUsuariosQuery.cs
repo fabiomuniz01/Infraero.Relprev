@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
                 {
                     var vm = new UsuarioVm();
 
-                    var responseModel = await _context.Usuarios
+                    var responseModel = await _context.Usuario
                         .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodUsuario)
                         .ToListAsync(cancellationToken);

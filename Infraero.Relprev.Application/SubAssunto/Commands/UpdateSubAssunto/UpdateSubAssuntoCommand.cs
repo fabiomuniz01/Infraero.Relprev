@@ -30,7 +30,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.UpdateSubAssunto
 
             public async Task<bool> Handle(UpdateSubAssuntoCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.SubAssuntos.FindAsync(request.CodSubAssunto);
+                var entity = await _context.SubAssunto.FindAsync(request.CodSubAssunto);
 
                 if (entity == null)
                 {

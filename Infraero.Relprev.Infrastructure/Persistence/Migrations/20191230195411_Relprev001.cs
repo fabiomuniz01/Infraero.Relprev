@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
-    public partial class Relprev1 : Migration
+    public partial class Relprev001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -408,6 +408,35 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UnidadeInfraestruturas",
+                columns: table => new
+                {
+                    CodUnidadeInfraestrutura = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CriadoPor = table.Column<string>(nullable: true),
+                    DataCriacao = table.Column<DateTime>(nullable: false),
+                    AlteradoPor = table.Column<string>(nullable: true),
+                    DataAlteracao = table.Column<DateTime>(nullable: true),
+                    CodUnidade = table.Column<string>(nullable: true),
+                    Sigla = table.Column<string>(nullable: true),
+                    Descricao = table.Column<string>(nullable: true),
+                    Endereco = table.Column<string>(nullable: true),
+                    DtIniVigencia = table.Column<DateTime>(nullable: false),
+                    DtFimVigencia = table.Column<DateTime>(nullable: false),
+                    EmpresaCodEmpresa = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnidadeInfraestruturas", x => x.CodUnidadeInfraestrutura);
+                    table.ForeignKey(
+                        name: "FK_UnidadeInfraestruturas_Empresas_EmpresaCodEmpresa",
+                        column: x => x.EmpresaCodEmpresa,
+                        principalTable: "Empresas",
+                        principalColumn: "CodEmpresa",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ambiente",
                 columns: table => new
                 {
@@ -521,52 +550,17 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     AlteradoPor = table.Column<string>(nullable: true),
                     DataAlteracao = table.Column<DateTime>(nullable: true),
                     DscSubLocal = table.Column<string>(nullable: true),
-                    CodLocal = table.Column<int>(nullable: false),
-                    CodLocalNavigationCodLocal = table.Column<int>(nullable: true)
+                    CodLocal = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SubLocals", x => x.CodSubLocal);
                     table.ForeignKey(
-                        name: "FK_SubLocals_Local_CodLocalNavigationCodLocal",
-                        column: x => x.CodLocalNavigationCodLocal,
-                        principalTable: "Local",
-                        principalColumn: "CodLocal",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UnidadeInfraestruturas",
-                columns: table => new
-                {
-                    CodUnidadeInfraestrutura = table.Column<int>(nullable: false),
-                    CriadoPor = table.Column<string>(nullable: true),
-                    DataCriacao = table.Column<DateTime>(nullable: false),
-                    AlteradoPor = table.Column<string>(nullable: true),
-                    DataAlteracao = table.Column<DateTime>(nullable: true),
-                    CodUnidade = table.Column<string>(nullable: true),
-                    Sigla = table.Column<string>(nullable: true),
-                    Descricao = table.Column<string>(nullable: true),
-                    Endereco = table.Column<string>(nullable: true),
-                    DtIniVigencia = table.Column<DateTime>(nullable: false),
-                    DtFimVigencia = table.Column<DateTime>(nullable: false),
-                    EmpresaCodEmpresa = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UnidadeInfraestruturas", x => x.CodUnidadeInfraestrutura);
-                    table.ForeignKey(
-                        name: "FK_UnidadeInfraestruturas_Local_CodUnidadeInfraestrutura",
-                        column: x => x.CodUnidadeInfraestrutura,
+                        name: "FK_SubLocals_Local_CodLocal",
+                        column: x => x.CodLocal,
                         principalTable: "Local",
                         principalColumn: "CodLocal",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UnidadeInfraestruturas_Empresas_EmpresaCodEmpresa",
-                        column: x => x.EmpresaCodEmpresa,
-                        principalTable: "Empresas",
-                        principalColumn: "CodEmpresa",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -801,8 +795,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     CodSituacaoRelatoNavigationCodSituacaoRelato = table.Column<int>(nullable: true),
                     CodSubAmbienteNavigationCodSubAmbiente = table.Column<int>(nullable: true),
                     CodSubAssuntoNavigationCodSubAssunto = table.Column<int>(nullable: true),
-                    CodUsuarioRelatorNavigationCodUsuario = table.Column<int>(nullable: true),
-                    SubLocalCodSubLocal = table.Column<int>(nullable: true)
+                    CodUsuarioRelatorNavigationCodUsuario = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -848,12 +841,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         column: x => x.CodUsuarioRelatorNavigationCodUsuario,
                         principalTable: "Usuarios",
                         principalColumn: "CodUsuario",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Relato_SubLocals_SubLocalCodSubLocal",
-                        column: x => x.SubLocalCodSubLocal,
-                        principalTable: "SubLocals",
-                        principalColumn: "CodSubLocal",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1181,11 +1168,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 column: "CodUsuarioRelatorNavigationCodUsuario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Relato_SubLocalCodSubLocal",
-                table: "Relato",
-                column: "SubLocalCodSubLocal");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SubAmbiente_CodAmbienteNavigationCodAmbiente",
                 table: "SubAmbiente",
                 column: "CodAmbienteNavigationCodAmbiente");
@@ -1196,9 +1178,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 column: "CodAssuntoNavigationCodAssunto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubLocals_CodLocalNavigationCodLocal",
+                name: "IX_SubLocals_CodLocal",
                 table: "SubLocals",
-                column: "CodLocalNavigationCodLocal");
+                column: "CodLocal");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UnidadeInfraestruturas_EmpresaCodEmpresa",
@@ -1264,6 +1246,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
+                name: "SubLocals");
+
+            migrationBuilder.DropTable(
                 name: "UnidadeInfraestruturas");
 
             migrationBuilder.DropTable(
@@ -1310,9 +1295,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "SubLocals");
 
             migrationBuilder.DropTable(
                 name: "Ambiente");

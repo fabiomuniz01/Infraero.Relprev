@@ -26,7 +26,7 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
             {
                 var vm = new SubLocalVm();
 
-                vm.Lists = await _context.SubLocals
+                vm.Lists = await _context.SubLocal
                     .ProjectTo<SubLocalDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodSubLocal)
                     .ToListAsync(cancellationToken);

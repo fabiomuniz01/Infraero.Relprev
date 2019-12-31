@@ -7,15 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Persistence\Migrations\20191213062458_Relprev.cs" />
-    <Compile Remove="Persistence\Migrations\20191213062458_Relprev.Designer.cs" />
-    <Compile Remove="Persistence\Migrations\20191213105124_Relprev.cs" />
-    <Compile Remove="Persistence\Migrations\20191213105124_Relprev.Designer.cs" />
-    <Compile Remove="Persistence\Migrations\20191220113048_Relprev6.cs" />
-    <Compile Remove="Persistence\Migrations\20191220113048_Relprev6.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />

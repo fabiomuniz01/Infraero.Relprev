@@ -26,7 +26,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos
             {
                 var vm = new SubAssuntoVm();
 
-                vm.Lists = await _context.SubAssuntos
+                vm.Lists = await _context.SubAssunto
                     .ProjectTo<SubAssuntoDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodSubAssunto)
                     .ToListAsync(cancellationToken);

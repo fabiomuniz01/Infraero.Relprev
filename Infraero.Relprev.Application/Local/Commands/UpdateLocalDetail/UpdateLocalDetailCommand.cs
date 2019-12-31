@@ -22,7 +22,7 @@ namespace Infraero.Relprev.Application.Local.Commands.UpdateLocalDetail
 
             public async Task<Unit> Handle(UpdateLocalDetailCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Locals.FindAsync(request.LocalDto.CodLocal);
+                var entity = await _context.Local.FindAsync(request.LocalDto.CodLocal);
 
                 if (entity == null)
                 {

@@ -26,7 +26,7 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
             {
                 var vm = new LocalVm();
 
-                vm.Lists = await _context.Locals
+                vm.Lists = await _context.Local
                     .ProjectTo<LocalDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodLocal)
                     .ToListAsync(cancellationToken);

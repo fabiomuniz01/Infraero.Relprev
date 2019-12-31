@@ -1,9 +1,12 @@
-﻿using Infraero.Relprev.Application.Local.Commands.CreateLocal;
+﻿using System.Collections.Generic;
+using Infraero.Relprev.Application.Local.Commands.CreateLocal;
 using Infraero.Relprev.Application.Local.Commands.UpdateLocal;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
+using Infraero.Relprev.Application.Local.Commands.DeleteLocal;
 
 namespace Infraero.Relprev.HttpClient.Clients.Implementations
 {
@@ -19,9 +22,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
         }
 
-        public Task<long> CreateLocal(CreateLocalCommand command)
+        public long CreateLocal(CreateLocalCommand command)
         {
-            return PostAsync<long>($"{Resource}/CreateLocal", command);
+            return Post<long>($"{Resource}/CreateLocal", command);
         }
         public GridLocal GetGridLocal()
         {
@@ -38,9 +41,14 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
             return Post<bool>($"{Resource}/UpdateLocal", command);
         }
 
-        public bool DeleteLocal(int id)
+        public bool DeleteLocal(DeleteLocalCommand command)
         {
-            return Post<bool>($"{Resource}/DeleteLocal", id);
+            return Post<bool>($"{Resource}/DeleteLocal", command);
+        }
+
+        public List<LocalDto> GetLocalAll()
+        {
+            return Get<List<LocalDto>>($"{Resource}/GetLocalAll");
         }
 
     }

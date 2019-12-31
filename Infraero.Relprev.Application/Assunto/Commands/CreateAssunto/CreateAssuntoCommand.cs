@@ -28,7 +28,7 @@ namespace Infraero.Relprev.Application.Assunto.Commands.CreateAssunto
                     DataCriacao = DateTime.Now
                 };
 
-                _context.Assuntos.Add(entity);
+                _context.Assunto.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
                 {
                     var vm = new ResponsavelTecnicoVm();
 
-                    var responseModel = await _context.ResponsavelTecnicos
+                    var responseModel = await _context.ResponsavelTecnico
                         .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodResponsavelTecnico)
                         .ToListAsync(cancellationToken);

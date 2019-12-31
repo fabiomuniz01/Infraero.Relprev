@@ -21,14 +21,14 @@ namespace Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa
 
             public async Task<bool> Handle(DeleteEmpresaCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Empresas.FindAsync(request.Id);
+                var entity = await _context.Empresa.FindAsync(request.Id);
 
                 if (entity == null)
                 {
                     throw new NotFoundException(nameof(Empresa), request.Id);
                 }
 
-                _context.Empresas.Remove(entity);
+                _context.Empresa.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

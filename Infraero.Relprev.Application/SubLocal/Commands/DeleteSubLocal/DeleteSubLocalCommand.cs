@@ -21,14 +21,14 @@ namespace Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal
 
             public async Task<bool> Handle(DeleteSubLocalCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.SubLocals.FindAsync(request.Id);
+                var entity = await _context.SubLocal.FindAsync(request.Id);
 
                 if (entity == null)
                 {
                     throw new NotFoundException(nameof(Domain.Entities.SubLocal), request.Id);
                 }
 
-                _context.SubLocals.Remove(entity);
+                _context.SubLocal.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
             {
                 try
                 {
-                    var responseModel = await Queryable.Where<Domain.Entities.SubLocal>(_context.SubLocals, x=>x.CodSubLocal==request.Id)
+                    var responseModel = await Queryable.Where<Domain.Entities.SubLocal>(_context.SubLocal, x=>x.CodSubLocal==request.Id)
                         .ProjectTo<SubLocalDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodSubLocal)
                         .FirstOrDefaultAsync(cancellationToken);

@@ -26,7 +26,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
             {
                 var vm = new UnidadeInfraEstruturaVm();
 
-                vm.Lists = await _context.UnidadeInfraestruturas
+                vm.Lists = await _context.UnidadeInfraestrutura
                     .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodUnidadeInfraestrutura)
                     .ToListAsync(cancellationToken);

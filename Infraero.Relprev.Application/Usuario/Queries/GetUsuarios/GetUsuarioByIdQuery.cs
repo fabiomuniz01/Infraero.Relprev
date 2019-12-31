@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
             {
                 try
                 {
-                    var responseModel = await Queryable.Where<Domain.Entities.Usuario>(_context.Usuarios, x=>x.CodUsuario==request.Id)
+                    var responseModel = await Queryable.Where<Domain.Entities.Usuario>(_context.Usuario, x=>x.CodUsuario==request.Id)
                         .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodUsuario)
                         .FirstOrDefaultAsync(cancellationToken);

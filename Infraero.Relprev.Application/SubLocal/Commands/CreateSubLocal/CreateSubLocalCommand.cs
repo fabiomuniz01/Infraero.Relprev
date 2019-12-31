@@ -21,15 +21,14 @@ namespace Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal
             {
                 var entity = new Domain.Entities.SubLocal
                 {
-                    //NomRazaoSocial = request.Nome,
-                    //NumCnpj = request.Cnpj,
-                    //DthRegistro = DateTime.Now,
-                    //NumTelefone = request.Telefone,
+                    CodLocal = request.CodLocal,
+                    CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                    DscSubLocal = request.DscSubLocal,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now
                 };
 
-                _context.SubLocals.Add(entity);
+                _context.SubLocal.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
@@ -38,11 +37,8 @@ namespace Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal
         }
 
         public string CriadoPor { get; set; }
-
-        public int CodSubLocal { get; set; }
         public string DscSubLocal { get; set; }
         public int CodLocal { get; set; }
-
-
+        public int CodUnidadeInfraestrutura { get; set; }
     }
 }

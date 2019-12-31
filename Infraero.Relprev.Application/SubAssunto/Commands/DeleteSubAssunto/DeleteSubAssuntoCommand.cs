@@ -21,14 +21,14 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.DeleteSubAssunto
 
             public async Task<bool> Handle(DeleteSubAssuntoCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.SubAssuntos.FindAsync(request.Id);
+                var entity = await _context.SubAssunto.FindAsync(request.Id);
 
                 if (entity == null)
                 {
                     throw new NotFoundException(nameof(SubAssunto), request.Id);
                 }
 
-                _context.SubAssuntos.Remove(entity);
+                _context.SubAssunto.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

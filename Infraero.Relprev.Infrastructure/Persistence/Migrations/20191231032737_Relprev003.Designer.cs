@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191220132136_Relprev1")]
-    partial class Relprev1
+    [Migration("20191231032737_Relprev003")]
+    partial class Relprev003
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -656,6 +656,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.HasKey("CodLocal");
 
+                    b.HasIndex("CodUnidadeInfraestrutura");
+
                     b.ToTable("Local");
                 });
 
@@ -884,9 +886,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("NumTelefoneRelator")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubLocalCodSubLocal")
-                        .HasColumnType("int");
-
                     b.HasKey("CodRelato");
 
                     b.HasIndex("CodAmbienteNavigationCodAmbiente");
@@ -902,8 +901,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasIndex("CodSubAssuntoNavigationCodSubAssunto");
 
                     b.HasIndex("CodUsuarioRelatorNavigationCodUsuario");
-
-                    b.HasIndex("SubLocalCodSubLocal");
 
                     b.ToTable("Relato");
                 });
@@ -1093,7 +1090,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<int>("CodLocal")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CodLocalNavigationCodLocal")
+                    b.Property<int>("CodUnidadeInfraestrutura")
                         .HasColumnType("int");
 
                     b.Property<string>("CriadoPor")
@@ -1110,7 +1107,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.HasKey("CodSubLocal");
 
-                    b.HasIndex("CodLocalNavigationCodLocal");
+                    b.HasIndex("CodLocal");
 
                     b.ToTable("SubLocals");
                 });
@@ -1145,7 +1142,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", b =>
                 {
                     b.Property<int>("CodUnidadeInfraestrutura")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnType("nvarchar(max)");
@@ -1578,6 +1577,15 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasForeignKey("CodUsuarioNavigationCodUsuario");
                 });
 
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Local", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", "UnidadeInfraestrutura")
+                        .WithMany("LocalList")
+                        .HasForeignKey("CodUnidadeInfraestrutura")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.PerfilFuncao", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.FuncaoSistema", "CodFuncaoNavigation")
@@ -1629,10 +1637,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioRelatorNavigation")
                         .WithMany("Relato")
                         .HasForeignKey("CodUsuarioRelatorNavigationCodUsuario");
-
-                    b.HasOne("Infraero.Relprev.Domain.Entities.SubLocal", null)
-                        .WithMany("Relato")
-                        .HasForeignKey("SubLocalCodSubLocal");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.SubAmbiente", b =>
@@ -1651,19 +1655,15 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.SubLocal", b =>
                 {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalNavigation")
-                        .WithMany()
-                        .HasForeignKey("CodLocalNavigationCodLocal");
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Local", "Local")
+                        .WithMany("SubLocalList")
+                        .HasForeignKey("CodLocal")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", b =>
                 {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Local", null)
-                        .WithMany("UnidadeInfraestrutura")
-                        .HasForeignKey("CodUnidadeInfraestrutura")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Infraero.Relprev.Domain.Entities.Empresa", null)
                         .WithMany("UnidadeInfraestrutura")
                         .HasForeignKey("EmpresaCodEmpresa");

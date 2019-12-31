@@ -9,31 +9,30 @@ using Infraero.Relprev.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infraero.Relprev.Application.Assunto.Queries.GetAssuntos
+namespace Infraero.Relprev.Application.Local.Queries.GetLocals
 {
-    public class GetLocalAllQuery : IRequest<List<AssuntoDto>>
+    public class GetLocalAllQuery : IRequest<List<LocalDto>>
     {
-        public class GetAssuntoAllQueryHandler : IRequestHandler<GetLocalAllQuery, List<AssuntoDto>>
+        public class GetLocalAllQueryHandler : IRequestHandler<GetLocalAllQuery, List<LocalDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
 
-            public GetAssuntoAllQueryHandler(IApplicationDbContext context, IMapper mapper)
+            public GetLocalAllQueryHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<List<AssuntoDto>> Handle(GetLocalAllQuery request, CancellationToken cancellationToken)
+            public async Task<List<LocalDto>> Handle(GetLocalAllQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
-                    var responseModel = await _context.Assunto
-                        .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
-                        .OrderBy(t => t.CodAssunto)
+                    var responseModel = await _context.Local
+                        .ProjectTo<LocalDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(t => t.CodLocal)
                         .ToListAsync(cancellationToken);
 
-                    
                     return responseModel;
                 }
                 catch (Exception e)

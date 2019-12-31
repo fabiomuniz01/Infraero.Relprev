@@ -66,7 +66,7 @@ namespace Infraero.Relprev.Api.Controllers
         {
             try
             {
-                var result = await Mediator.Send(new GetAssuntoAllQuery());
+                var result = await Mediator.Send(new GetLocalAllQuery());
                 return result;
             }
             catch (Exception e)

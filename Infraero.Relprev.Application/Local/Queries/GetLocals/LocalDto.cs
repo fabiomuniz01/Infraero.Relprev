@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Infraero.Relprev.Application.Common.Mappings;
+using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using System.Collections.Generic;
 
 namespace Infraero.Relprev.Application.Local.Queries.GetLocals
 {
@@ -8,11 +11,11 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
         public int CodLocal { get; set; }
         public string DscUnidade { get; set; }
         public string DscLocal { get; set; }
-
+        public ICollection<SubLocalDto> SubLocalList { get; set; }
+        public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Entities.Local, LocalDto>()
-                .ForMember(d => d.DscUnidade, opt => opt.MapFrom(s => (int)s.CodUnidadeInfraestrutura));
+            profile.CreateMap<Domain.Entities.Local, LocalDto>();
         }
     }
 }

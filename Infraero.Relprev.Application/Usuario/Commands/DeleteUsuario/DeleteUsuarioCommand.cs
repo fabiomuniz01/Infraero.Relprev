@@ -21,14 +21,14 @@ namespace Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario
 
             public async Task<bool> Handle(DeleteUsuarioCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Usuarios.FindAsync(request.Id);
+                var entity = await _context.Usuario.FindAsync(request.Id);
 
                 if (entity == null)
                 {
                     throw new NotFoundException(nameof(Domain.Entities.Usuario), request.Id);
                 }
 
-                _context.Usuarios.Remove(entity);
+                _context.Usuario.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

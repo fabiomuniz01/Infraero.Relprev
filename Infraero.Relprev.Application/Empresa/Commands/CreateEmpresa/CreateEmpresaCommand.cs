@@ -36,7 +36,7 @@ namespace Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa
                     DataCriacao = DateTime.Now
                 };
 
-                _context.Empresas.Add(entity);
+                _context.Empresa.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

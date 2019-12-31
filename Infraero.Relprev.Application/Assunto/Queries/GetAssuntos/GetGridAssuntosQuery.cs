@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Assunto.Queries.GetAssuntos
                 {
                     var vm = new AssuntoVm();
 
-                    var responseModel = await _context.Assuntos
+                    var responseModel = await _context.Assunto
                         .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodAssunto)
                         .ToListAsync(cancellationToken);

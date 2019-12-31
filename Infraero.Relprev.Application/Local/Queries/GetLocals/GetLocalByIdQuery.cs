@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
             {
                 try
                 {
-                    var responseModel = await Queryable.Where<Domain.Entities.Local>(_context.Locals, x=>x.CodLocal==request.Id)
+                    var responseModel = await Queryable.Where<Domain.Entities.Local>(_context.Local, x=>x.CodLocal==request.Id)
                         .ProjectTo<LocalDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodLocal)
                         .FirstOrDefaultAsync(cancellationToken);

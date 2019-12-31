@@ -22,7 +22,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.UpdateEmpresaDetail
 
             public async Task<Unit> Handle(UpdateSubAssuntoDetailCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.SubAssuntos.FindAsync(request.SubAssuntoDto.CodSubAssunto);
+                var entity = await _context.SubAssunto.FindAsync(request.SubAssuntoDto.CodSubAssunto);
 
                 if (entity == null)
                 {

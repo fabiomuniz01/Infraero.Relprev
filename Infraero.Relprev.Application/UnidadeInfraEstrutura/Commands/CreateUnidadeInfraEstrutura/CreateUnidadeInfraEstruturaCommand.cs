@@ -32,7 +32,6 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnid
             {
                 var entity = new UnidadeInfraestrutura
                 {
-                    CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
                     CodUnidade = request.CodUnidade,
                     Sigla = request.Sigla,
                     Descricao = request.Descricao,
@@ -43,7 +42,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnid
                     CriadoPor = request.CriadoPor
                 };
 
-                _context.UnidadeInfraestruturas.Add(entity);
+                _context.UnidadeInfraestrutura.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

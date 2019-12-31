@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                     DataCriacao = DateTime.Now
                 };
 
-                _context.ResponsavelTecnicos.Add(entity);
+                _context.ResponsavelTecnico.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

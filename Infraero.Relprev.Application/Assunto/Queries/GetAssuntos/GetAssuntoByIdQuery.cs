@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Assunto.Queries.GetAssuntos
             {
                 try
                 {
-                    var responseModel = await _context.Assuntos
+                    var responseModel = await _context.Assunto
                         .Where(x=>x.CodAssunto==request.Id)
                         .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodAssunto)

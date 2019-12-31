@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Empresa.Queries.GetEmpresas
             {
                 try
                 {
-                    var responseModel = await _context.Empresas
+                    var responseModel = await _context.Empresa
                         .Where(x=>x.CodEmpresa==request.Id)
                         .ProjectTo<EmpresaDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodEmpresa)

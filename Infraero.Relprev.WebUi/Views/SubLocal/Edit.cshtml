@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.CrossCutting.Models.SubLocalModel
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Create", "Assunto", FormMethod.Post))
+        @using (@Html.BeginForm("Edit", "SubLocal", FormMethod.Post))
         {
             <section class="card">
                 <header class="card-header">
@@ -16,26 +16,21 @@
                         <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
                     </div>
 
-                    <h2 class="card-title">Editar assunto da Ocorrência</h2>
+                    <h2 class="card-title">Editar Local da Ocorrência</h2>
 
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura </label>
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                            </select>
+                            @Html.DropDownList("CodUnidadeInfraestrutura", new SelectList(Model.ListUnidadeInfraestrutura, "Value", "Text", Model.SubLocal.Local.UnidadeInfraestrutura.CodUnidadeInfraestrutura), "SELECIONAR", new { @class = "form-control populate", name = "ddlUnidadeInfraestrutura", style = "100%" })
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Local de Ocorrência </label>
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                            </select>
+                            @Html.DropDownList("CodLocal", new SelectList(Model.ListLocal, "Value", "Text", Model.SubLocal.CodLocal), "SELECIONAR", new { @class = "form-control populate", name = "ddlLocal", style = "100%" })
+
                         </div>
                     </div>
                     <div class="form-group row">
@@ -68,15 +63,15 @@
 
     <script>
         // Select2
-        (function($) {
+        (function ($) {
 
             'use strict';
 
-            if ( $.isFunction($.fn[ 'select2' ]) ) {
+            if ($.isFunction($.fn['select2'])) {
 
-                $(function() {
-                    $('[data-plugin-selectTwo]').each(function() {
-                        var $this = $( this ),
+                $(function () {
+                    $('[data-plugin-selectTwo]').each(function () {
+                        var $this = $(this),
                             opts = {};
 
                         var pluginOptions = $this.data('plugin-options');
