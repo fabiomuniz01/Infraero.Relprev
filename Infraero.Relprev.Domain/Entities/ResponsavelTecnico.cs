@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Domain.Entities
     {
         public ResponsavelTecnico()
         {
-            AtribuicaoRelato = new HashSet<AtribuicaoRelato>();
+            UnidadeInfraestrutura = new HashSet<UnidadeInfraestrutura>();
             EmpresaResponsavelTecnico = new HashSet<EmpresaResponsavelTecnico>();
         }
 
@@ -20,7 +20,12 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumDocumento { get; set; }
         public string EndEmail { get; set; }
 
-        public virtual ICollection<AtribuicaoRelato> AtribuicaoRelato { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
+        public int CodEmpresaResponsavelTecnico { get; set; }
+
+        public virtual ICollection<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
         public virtual ICollection<EmpresaResponsavelTecnico> EmpresaResponsavelTecnico { get; set; }
+
+
     }
 }

@@ -17,7 +17,6 @@ namespace Infraero.Relprev.Api.Controllers
             try
             {
                 var result = await Mediator.Send(command);
-
                 return result;
             }
             catch (Exception e)

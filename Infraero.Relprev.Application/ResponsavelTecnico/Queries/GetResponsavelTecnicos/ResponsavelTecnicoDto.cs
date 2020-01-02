@@ -11,10 +11,13 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
         public string NumTelefone { get; set; }
         public string NumDocumento { get; set; }
         public string EndEmail { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
+        public int CodEmpresaResponsavelTecnico { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Domain.Entities.ResponsavelTecnico, ResponsavelTecnicoDto>();
+
         }
     }
 }
