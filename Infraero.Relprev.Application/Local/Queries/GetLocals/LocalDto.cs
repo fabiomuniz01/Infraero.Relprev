@@ -15,7 +15,10 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Entities.Local, LocalDto>();
+            profile.CreateMap<Domain.Entities.Local, LocalDto>().ForMember(
+                d => d.CodLocalStr, opt => opt.MapFrom(s => s.CodLocal.ToString()));
         }
+
+        public string CodLocalStr { get; set; }
     }
 }

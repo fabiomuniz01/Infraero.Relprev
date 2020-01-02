@@ -43,7 +43,7 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
                                 {
                                     CodSubLocal = c.CodSubLocal,
                                     DscSubLocal = c.DscSubLocal,
-                                    DscLocal = c.Local.DscLocal
+                                    Local = c.Local
                                 });
 
                     grid.aaData = data;

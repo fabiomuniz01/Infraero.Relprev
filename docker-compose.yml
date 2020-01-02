@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  infraero.relprev.api:
+    image: ${DOCKER_REGISTRY-}infraerorelprevapi
+    build:
+      context: .
+      dockerfile: Infraero.Relprev.Api\Dockerfile
+
+  infraero.relprev.webui:
+    image: ${DOCKER_REGISTRY-}infraerorelprevwebui
+    build:
+      context: .
+      dockerfile: Infraero.Relprev.WebUi\Dockerfile
+

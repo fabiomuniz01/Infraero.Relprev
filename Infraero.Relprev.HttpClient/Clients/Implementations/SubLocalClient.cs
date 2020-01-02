@@ -22,9 +22,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
         }
 
-        public Task<long> CreateSubLocal(CreateSubLocalCommand command)
+        public long CreateSubLocal(CreateSubLocalCommand command)
         {
-            return PostAsync<long>($"{Resource}/CreateSubLocal", command);
+            return Post<long>($"{Resource}/CreateSubLocal", command);
         }
         public GridSubLocal GetGridSubLocal()
         {

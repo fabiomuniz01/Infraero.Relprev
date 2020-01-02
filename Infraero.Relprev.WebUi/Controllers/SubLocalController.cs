@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
@@ -36,37 +38,23 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        public GridSubLocal GetGrid()
+        public JsonResult GetListLocalById(int id)
         {
-            var response = _subLocalClient.GetGridSubLocal();
-            return response;
+            var resultLocal = _localClient.GetLocalAll()
+                .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == id).ToList();
+
+            resultLocal.Insert(0, new LocalDto{ CodLocalStr="", DscLocal = "Selecionar Local de Ocorrência" });
+
+            return Json(new SelectList(resultLocal, "CodLocalStr", "DscLocal"));
         }
 
         // GET: SubLocal/Create
         public ActionResult Create()
         {
             var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
-            var resultLocal = _localClient.GetLocalAll();
             
-            var model = new SubLocalModel
-            {
-                ListUnidadeInfraestrutura = resultUnidade.Select(s =>
-                        new SelectListItem()
-                        {
-                            Text =
-                                s.CodUnidadeInfraestrutura + " - " +
-                                s.Descricao,
-                            Value = s.CodUnidadeInfraestrutura.ToString()
-                        }).ToList(),
-                ListLocal = resultLocal.Select(s =>
-                    new SelectListItem()
-                    {
-                        Text =
-                            s.CodLocal + " - " +
-                            s.DscLocal,
-                        Value = s.CodLocal.ToString()
-                    }).ToList()
-            };
+            var model = new SubLocalModel {ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao") };
+
             return View(model);
         }
 
@@ -79,8 +67,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateSubLocalCommand
                 {
-                    CodUnidadeInfraestrutura = int.Parse(collection["CodUnidadeInfraestrutura"].ToString()),
-                    CodLocal = int.Parse(collection["CodLocal"].ToString()),
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    CodLocal = int.Parse(collection["ddlLocal"].ToString()),
                     DscSubLocal = collection["DscSubLocal"].ToString(),
                     CriadoPor = "Amcom Developer"
                 };
@@ -98,28 +86,17 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Edit(int id)
         {
             var obj = _subLocalClient.GetSubLocalById(id);
-            var resultLocal = _localClient.GetLocalAll();
+
             var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+
+            var resultLocal = _localClient.GetLocalAll()
+                .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura).ToList();
 
             var model = new SubLocalModel
             {
                 SubLocal = obj,
-                ListLocal = resultLocal.Select(s =>
-                    new SelectListItem()
-                    {
-                        Text =
-                            s.CodLocal + " - " +
-                            s.DscLocal,
-                        Value = s.CodLocal.ToString()
-                    }).ToList(),
-                ListUnidadeInfraestrutura = resultUnidade.Select(s =>
-                    new SelectListItem()
-                    {
-                        Text =
-                            s.CodUnidade + " - " +
-                            s.Descricao,
-                        Value = s.CodUnidadeInfraestrutura.ToString()
-                    }).ToList()
+                ListUnidadeInfraestrutura = SetSelectedValue(new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"),obj.CodUnidadeInfraestrutura.ToString()),
+                ListLocal = new SelectList(resultLocal, "CodLocal", "DscLocal", obj.CodLocal)
             };
 
             return View(model);
@@ -164,6 +141,17 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        public static SelectList SetSelectedValue(SelectList list, string value)
+        {
+            if (value != null)
+            {
+                var selected = list.Where(x => x.Value == value).First();
+                selected.Selected = true;
+                return list;
+            }
+            return list;
         }
     }
 }

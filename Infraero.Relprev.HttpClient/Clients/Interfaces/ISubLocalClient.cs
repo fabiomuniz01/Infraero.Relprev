@@ -8,7 +8,7 @@ namespace Infraero.Relprev.HttpClient.Clients.Interfaces
 {
     public interface ISubLocalClient
     {
-        Task<long> CreateSubLocal(CreateSubLocalCommand command);
+        long CreateSubLocal(CreateSubLocalCommand command);
         GridSubLocal GetGridSubLocal();
         SubLocalDto GetSubLocalById(int id);
         bool UpdateSubLocal(UpdateSubLocalCommand command);

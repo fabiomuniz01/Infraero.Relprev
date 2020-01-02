@@ -10,6 +10,7 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
         public string DscSubLocal { get; set; }
         public string DscLocal { get; set; }
         public int CodLocal { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
         public virtual LocalDto Local { get; set; }
 
         public void Mapping(Profile profile)

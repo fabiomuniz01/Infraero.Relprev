@@ -29,7 +29,10 @@
                                     <option value="AK">Alaska</option>
                                     <option value="HI">Hawaii</option>
                                 </select>*@
-                            @Html.DropDownList("CodAssunto", @Model.ListAssunto, "SELECIONAR", new { @class = "form-control populate", name = "ddlAssunto", style = "100%" })
+                            @Html.DropDownList("CodAssunto", @Model.ListAssunto, "SELECIONAR", new
+                            {
+                                @class = "form-control populate", name = "ddlAssunto", style = "100%" 
+                            })
                         </div>
                     </div>
                     <div class="form-group row">

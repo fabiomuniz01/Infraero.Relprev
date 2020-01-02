@@ -20,7 +20,10 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<UnidadeInfraestrutura, UnidadeInfraEstruturaDto>();
+            profile.CreateMap<UnidadeInfraestrutura, UnidadeInfraEstruturaDto>().ForMember(
+                d => d.DscCodUnidadeDescricao, opt => opt.MapFrom(s => s.CodUnidade + " - " + s.Descricao));
         }
+
+        public string DscCodUnidadeDescricao { get; set; }
     }
 }

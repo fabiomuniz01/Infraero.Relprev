@@ -38,10 +38,10 @@
                             @foreach (var item in Model.aaData)
                             {
                                 <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.DscLocal)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Local.DscLocal)</td>
                                     <td>@Html.DisplayFor(modelItem => item.DscSubLocal)</td>
                                     <td class="actions">
-                                        <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Local" asp-route-id="@item.CodSubLocal" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="SubLocal" asp-route-id="@item.CodSubLocal" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
                                         <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
