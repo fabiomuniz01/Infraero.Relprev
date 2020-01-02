@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal
 {
     public class DeleteSubLocalCommand : IRequest<bool>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public class DeleteSubLocalCommandHandler : IRequestHandler<DeleteSubLocalCommand, bool>
         {
