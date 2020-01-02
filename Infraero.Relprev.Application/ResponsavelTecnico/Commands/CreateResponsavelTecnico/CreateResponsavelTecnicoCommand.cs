@@ -25,6 +25,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                     NomResponsavelTecnico = request.NomResponsavelTecnico,
                     NumCpf = request.NumCpf,
                     NumTelefone = request.NumTelefone,
+                    NumDocumento = request.NumDocumento,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now
                 };
@@ -40,6 +41,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
         public string NomResponsavelTecnico { get; set; }
         public string NumCpf { get; set; }
         public string NumTelefone { get; set; }
+        public string NumDocumento { get; set; }
         public string DscLogin { get; set; }
         public string DscSenha { get; set; }
         public DateTime DthRegistro { get; set; }
@@ -49,6 +51,6 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
         public string FlgResponsavelTecnicoBloqueado { get; set; }
         public string CriadoPor { get; set; }
 
-        
+
     }
 }

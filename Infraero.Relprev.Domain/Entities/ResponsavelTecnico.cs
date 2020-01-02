@@ -6,11 +6,7 @@ namespace Infraero.Relprev.Domain.Entities
 {
     public partial class ResponsavelTecnico : AuditableEntity
     {
-        public ResponsavelTecnico()
-        {
-            AtribuicaoRelato = new HashSet<AtribuicaoRelato>();
-            EmpresaResponsavelTecnico = new HashSet<EmpresaResponsavelTecnico>();
-        }
+  
 
         [Key]
         public int CodResponsavelTecnico { get; set; }
@@ -20,7 +16,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumDocumento { get; set; }
         public string EndEmail { get; set; }
 
-        public virtual ICollection<AtribuicaoRelato> AtribuicaoRelato { get; set; }
-        public virtual ICollection<EmpresaResponsavelTecnico> EmpresaResponsavelTecnico { get; set; }
+        public virtual AtribuicaoRelato AtribuicaoRelato { get; set; }
+        public virtual EmpresaResponsavelTecnico EmpresaResponsavelTecnico { get; set; }
     }
 }

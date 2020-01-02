@@ -39,7 +39,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View();
         }
 
-        // POST: ResponsavelTecnico/Create
+        // POST: ResponsavelTecnico/Create  
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -49,9 +49,13 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new CreateResponsavelTecnicoCommand
                 {
                     NomResponsavelTecnico = collection["ResponsavelTecnico"].ToString(),
-                    CriadoPor = "",
                     NumCpf = collection["cnpj"].ToString(),
-                    NumTelefone = collection["telefone"].ToString()
+                    NumTelefone = collection["telefone"].ToString(),
+                    NumDocumento = collection["documento"].ToString(),
+                    EndEmail = collection["email"].ToString(),
+                    CriadoPor = "Amcom Develper",
+                    DthRegistro = DateTime.Now
+
                 };
                 _ResponsavelTecnicoClient.CreateResponsavelTecnico(command);
 

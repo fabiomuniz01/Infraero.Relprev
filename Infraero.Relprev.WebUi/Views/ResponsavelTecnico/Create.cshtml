@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Create", "UnidadeInfraestrutura", FormMethod.Post))
+        @using (@Html.BeginForm("Create", "ResponsavelTecnico", FormMethod.Post))
         {
             <section class="card">
                 <header class="card-header">
@@ -24,13 +24,13 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Nome do responsável técnico " required maxlength="60" />
+                            <input type="text" name="ResponsavelTecnico" class="form-control" placeholder="eg.: Nome do responsável técnico " required maxlength="60" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Cpf <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Número do CPF do responsável técnico" required />
+                            <input type="text" name="cnpj" class="form-control" maxlength="14" placeholder="eg.: Número do CPF do responsável técnico" required />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -40,7 +40,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="email" name="email" class="form-control" placeholder="eg.: email@email.com" required />
+                                <input type="text" name="email" class="form-control" placeholder="eg.: email@email.com" required />
                             </div>
                         </div>
                         <label class="col-lg-1 control-label text-lg-right pt-2">Telefone <span class="required">*</span></label>
@@ -49,14 +49,14 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input id="phone" data-plugin-masked-input="" data-input-mask="(999) 999-9999" placeholder="eg.: Número do documento de correspondência" class="form-control" required="">
+                                <input type="text" id="telefone" placeholder="eg.: Número do documento de correspondência" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Nº do documento</label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Número do documento do responsável técnico" />
+                            <input type="text" name="documento" class="form-control" placeholder="eg.: Número do documento do responsável técnico" />
                         </div>
                     </div>
 
