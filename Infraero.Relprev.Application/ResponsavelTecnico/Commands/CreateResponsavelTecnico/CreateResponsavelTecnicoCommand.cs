@@ -24,9 +24,12 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                 {
                     NomResponsavelTecnico = request.NomResponsavelTecnico,
                     NumCpf = request.NumCpf,
+                    EndEmail = request.EndEmail,
                     NumTelefone = request.NumTelefone,
                     NumDocumento = request.NumDocumento,
                     CriadoPor = request.CriadoPor,
+                    CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                    CodEmpresaResponsavelTecnico = request.CodEmpresaResponsavelTecnico,
                     DataCriacao = DateTime.Now
                 };
 
@@ -50,6 +53,9 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
         public string FlgPrimeiroAcesso { get; set; }
         public string FlgResponsavelTecnicoBloqueado { get; set; }
         public string CriadoPor { get; set; }
+
+        public int CodUnidadeInfraestrutura { get; set; }
+        public int CodEmpresaResponsavelTecnico { get; set; }
 
 
     }

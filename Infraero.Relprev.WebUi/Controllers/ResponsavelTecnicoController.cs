@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -14,10 +16,13 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class ResponsavelTecnicoController : Controller
     {
         private readonly IResponsavelTecnicoClient _ResponsavelTecnicoClient;
+        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
 
-        public ResponsavelTecnicoController(IResponsavelTecnicoClient ResponsavelTecnicoClient)
+        public ResponsavelTecnicoController(IResponsavelTecnicoClient ResponsavelTecnicoClient,
+            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
         {
             _ResponsavelTecnicoClient = ResponsavelTecnicoClient;
+            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
         }
 
         //private readonly IResponsavelTecnico 
@@ -36,7 +41,11 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: ResponsavelTecnico/Create
         public ActionResult Create()
         {
-            return View();
+            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+
+            var model = new ResponsavelTecnicoModel { ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao") };
+
+            return View(model);
         }
 
         // POST: ResponsavelTecnico/Create  
@@ -53,6 +62,9 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefone = collection["telefone"].ToString(),
                     NumDocumento = collection["documento"].ToString(),
                     EndEmail = collection["email"].ToString(),
+                    CodEmpresaResponsavelTecnico = int.Parse(collection["ddlLocal"].ToString()),
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+
                     CriadoPor = "Amcom Develper",
                     DthRegistro = DateTime.Now
 
