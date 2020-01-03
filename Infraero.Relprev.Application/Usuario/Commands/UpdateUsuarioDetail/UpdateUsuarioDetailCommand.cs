@@ -9,7 +9,6 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
 {
     public class UpdateUsuarioDetailCommand : IRequest
     {
-        public UsuarioDto UsuarioDto { get; set; }
 
         public class UpdateUsuarioDetailCommandHandler : IRequestHandler<UpdateUsuarioDetailCommand>
         {
@@ -22,19 +21,38 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
 
             public async Task<Unit> Handle(UpdateUsuarioDetailCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Usuario.FindAsync(request.UsuarioDto.CodUsuario);
+                var entity = await _context.Usuario.FindAsync(request.CodUsuario);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Domain.Entities.Usuario), request.UsuarioDto.CodUsuario);
+                    throw new NotFoundException(nameof(Domain.Entities.Usuario), request.CodUsuario);
                 }
 
-                entity.DscLogin = request.UsuarioDto.NomUsuario;
+                entity.NomUsuario = request.NomUsuario;
+                entity.NumCpf = request.NumCpf;
+                entity.EndEmail = request.EndEmail;
+                entity.NumTelefone = request.NumTelefone;
+                entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
+                entity.CodPerfil = request.CodPerfil;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return Unit.Value;
             }
         }
+
+        public int CodUsuario { get; set; }
+
+        public int CodPerfil { get; set; }
+
+        public int CodUnidadeInfraestrutura { get; set; }
+
+        public string NumTelefone { get; set; }
+
+        public string EndEmail { get; set; }
+
+        public string NumCpf { get; set; }
+
+        public string NomUsuario { get; set; }
     }
 }
