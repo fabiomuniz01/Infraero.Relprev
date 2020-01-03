@@ -2,33 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class RelatoController : Controller
     {
         private readonly IRelatoClient _relatoClient;
+        private readonly ILogger _logger;
         private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
 
-        public RelatoController(IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IRelatoClient relatoClient)
+        public RelatoController(IRelatoClient relatoClient, ILogger<CreateRelatoCommand> logger, IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IScopeInformation scope)
         {
-            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
             _relatoClient = relatoClient;
+            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
+            _logger = logger;
         }
 
         // GET: Relato
-        public ActionResult Create()
+        public ActionResult Create(IFormCollection collection)
         {
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            try
+            {
+                var command = new CreateRelatoCommand
+                {
+                    DatOcorrencia = Convert.ToDateTime(collection["DatOcorrencia"].ToString()),
+                    HorOcorrencia = collection["DatOcorrencia"].ToString(),
+                    DscEnvolvidosOcorrencia = collection["NomUsuario"].ToString(),
+                    DscLocalOcorrenciaRelator = collection["DscLocalOcorrenciaRelator"].ToString(),
+                    DscOcorrenciaRelator = collection["DscOcorrenciaRelator"].ToString(),
+                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
+                    NomRelator = collection["NomRelator"].ToString(),
+                    EmailRelator  = collection["EmailRelator"].ToString(),
+                    NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
+                    NomEmpresaRelator = collection["NomEmpresaRelator"].ToString()
+                };
 
-            var model = new RelatoModel { ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao") };
+                _relatoClient.CreateRelato(command);
 
-            return View(model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
         public ActionResult Index()
         {

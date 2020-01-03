@@ -20,6 +20,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
+        public string DscRelato { get; set; }
 
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> Arquivos { get; set; }
