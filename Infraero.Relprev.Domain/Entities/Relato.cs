@@ -21,7 +21,6 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
         public DateTime DthRegistro { get; set; }
-        public string HorOcorrencia { get; set; }
         public string DscOcorrenciaCorrigida { get; set; }
         public int? CodUsuarioRelator { get; set; }
         public int? CodAssunto { get; set; }
