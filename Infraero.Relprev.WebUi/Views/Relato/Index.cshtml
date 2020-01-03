@@ -1,4 +1,5 @@
-﻿
+﻿@model Infraero.Relprev.Application.Relato.Queries.GetRelatos.GridRelato
+
 @{
     ViewData["Title"] = "Consultar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,7 +20,7 @@
                     <h2 class="card-title">Consultar Relato de Prevenção</h2>
                 </header>
                 <div class="card-body">
-                    
+
                     <table class="table table-bordered table-striped mb-0" id="datatable-default">
                         <thead>
                             <tr>
@@ -30,8 +31,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach (var item in Model.aaData)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.CodRelato)</td>
+                                    <td></td>
+                                    <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.HorOcorrencia)</td>
+                                </tr>
+                            }
 
-                            
                         </tbody>
                     </table>
                 </div>

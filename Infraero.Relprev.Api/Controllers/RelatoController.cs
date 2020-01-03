@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
+using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 //using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
 //using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 //using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
@@ -35,7 +36,7 @@ namespace Infraero.Relprev.Api.Controllers
         {
             try
             {
-                var result = await Mediator.Send(new GetGridRelatosQuery());
+                var result = await Mediator.Send(new GetGridRelatoQuery());
                 return result;
             }
             catch (Exception e)
