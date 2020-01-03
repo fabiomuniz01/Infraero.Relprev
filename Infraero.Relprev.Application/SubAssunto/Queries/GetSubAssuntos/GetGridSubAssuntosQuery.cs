@@ -43,9 +43,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos
                                 {
                                     CodSubAssunto = c.CodSubAssunto, 
                                     CodAssunto = c.CodAssunto,
-                                    CodAssuntoNavigation = c.CodAssuntoNavigation,
                                     DscSubAssunto = c.DscSubAssunto,
-                                    Relato = c.Relato
                                 });
 
                     grid.aaData = data;

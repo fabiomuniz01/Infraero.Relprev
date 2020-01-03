@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;

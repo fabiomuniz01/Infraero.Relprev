@@ -21,8 +21,7 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         //public virtual ICollection<RelatoArquivoDto> Arquivos { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Entities.Relato, RelatoDto>().ForMember(
-                d => d.CodRelatoStr, opt => opt.MapFrom(s => s.CodRelato.ToString()));
+            profile.CreateMap<Domain.Entities.Relato, RelatoDto>();
         }
 
     }

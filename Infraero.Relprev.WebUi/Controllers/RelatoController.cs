@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
         public ActionResult Index()
         {
-            var response = _relatoClient.GetGridLocal();
+            var response = _relatoClient.GetGridRelato();
             return View();
         }
         public ActionResult Edit()

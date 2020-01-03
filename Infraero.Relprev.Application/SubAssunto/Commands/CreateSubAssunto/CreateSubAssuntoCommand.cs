@@ -13,8 +13,6 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto
         public string DscSubAssunto { get; set; }
         public int CodAssunto { get; set; }
 
-        public Domain.Entities.Assunto CodAssuntoNavigation { get; set; }
-        public ICollection<Relato> Relato { get; set; }
         public string CriadoPor { get; set; }
 
         public class CreateSubAssuntoCommandHandler : IRequestHandler<CreateSubAssuntoCommand, long>
@@ -33,7 +31,6 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto
                     CodAssunto = request.CodAssunto,
                     DscSubAssunto = request.DscSubAssunto,
                     CodSubAssunto = request.CodSubAssunto,
-                    Relato = request.Relato
                 };
 
                 _context.SubAssunto.Add(entity);

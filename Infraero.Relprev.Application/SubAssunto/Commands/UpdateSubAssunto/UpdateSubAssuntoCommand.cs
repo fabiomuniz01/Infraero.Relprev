@@ -14,9 +14,6 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.UpdateSubAssunto
         public int CodSubAssunto { get; set; }
         public string DscSubAssunto { get; set; }
         public int CodAssunto { get; set; }
-
-        public Domain.Entities.Assunto CodAssuntoNavigation { get; set; }
-        public ICollection<Relato> Relato { get; set; }
         public string AlteradoPor { get; set; }
 
         public class UpdateSubAssuntoCommandHandler : IRequestHandler<UpdateSubAssuntoCommand, bool>
@@ -40,8 +37,6 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.UpdateSubAssunto
                 entity.CodSubAssunto = request.CodSubAssunto;
                 entity.DscSubAssunto = request.DscSubAssunto;
                 entity.CodAssunto = request.CodAssunto;
-                entity.CodAssuntoNavigation = request.CodAssuntoNavigation;
-                entity.Relato = request.Relato;
                 entity.DataAlteracao = DateTime.Now;
 
                 await _context.SaveChangesAsync(cancellationToken);
