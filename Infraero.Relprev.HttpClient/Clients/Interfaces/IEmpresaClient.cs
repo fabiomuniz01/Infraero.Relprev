@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
@@ -13,5 +14,6 @@ namespace Infraero.Relprev.HttpClient.Clients.Interfaces
         EmpresaDto GetEmpresaById(int id);
         bool UpdateEmpresa(UpdateEmpresaCommand command);
         bool DeleteEmpresa(int id);
+        List<EmpresaDto> GetEmpresaAll();
     }
 }

@@ -77,12 +77,12 @@ namespace Infraero.Relprev.Api.Controllers
 
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteResponsavelTecnico(int id)
+        [HttpPost("DeleteResponsavelTecnico")]
+        public async Task<ActionResult<bool>> DeleteResponsavelTecnico(DeleteResponsavelTecnicoCommand command)
         {
             try
             {
-                var result = await Mediator.Send(new DeleteResponsavelTecnicoCommand { Id = id });
+                var result = await Mediator.Send(command);
                 return result;
             }
             catch (Exception e)

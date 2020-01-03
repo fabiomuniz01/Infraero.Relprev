@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.CrossCutting.Models.ResponsavelTecnicoModel
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Create", "UnidadeInfraestrutura", FormMethod.Post))
+        @using (@Html.BeginForm("Edit", "ResponsavelTecnico", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -23,13 +23,13 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Nome do responsável técnico " required maxlength="60" />
+                            <input type="text" disabled="disabled" name="ResponsavelTecnico" class="form-control" placeholder="eg.: Nome do responsável técnico " required maxlength="60" value="@Model.ResponsavelTecnico.NomResponsavelTecnico" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Cpf <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Número do CPF do responsável técnico" required />
+                            <input type="text" disabled="disabled" name="NumCpf" class="form-control" placeholder="eg.: Número do CPF do responsável técnico" required value="@Model.ResponsavelTecnico.NumCpf" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -39,7 +39,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="email" name="email" class="form-control" placeholder="eg.: email@email.com" required />
+                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: email@email.com" required value="@Model.ResponsavelTecnico.EndEmail" />
                             </div>
                         </div>
                         <label class="col-lg-1 control-label text-lg-right pt-2">Telefone <span class="required">*</span></label>
@@ -48,23 +48,24 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input id="phone" data-plugin-masked-input="" data-input-mask="(999) 999-9999" placeholder="eg.: Número do documento de correspondência" class="form-control" required="">
+                                <input id="NumTelefone" name="NumTelefone" placeholder="eg.: Número do documento de correspondência" class="form-control" required value="@Model.ResponsavelTecnico.NumTelefone">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Nº do documento</label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Número do documento do responsável técnico" />
+                            <input type="text" name="NumDocumento" class="form-control" placeholder="eg.: Número do documento do responsável técnico" value="@Model.ResponsavelTecnico.NumDocumento" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestritura<span class="required">*</span></label>
 
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
+                            <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
+                                    title="Por favor selecione uma unidade de infraestrutura." required
+                                    asp-for="CodUnidadeInfraestrutura" asp-items="Model.ListUnidadeInfraestrutura">
+                                <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                     </div>
@@ -72,7 +73,7 @@
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left mr-2" >Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
                             <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
                             <a href="@Url.Action("Index", "ResponsavelTecnico")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
@@ -88,32 +89,64 @@
     <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
 }
 @section Scripts {
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
 
     <script>
         // Select2
-        (function ($) {
+            (function ($) {
 
-            'use strict';
+                'use strict';
 
-            if ($.isFunction($.fn['select2'])) {
+                var $select = $(".select2").select2({
+                    allowClear: true
+                });
 
-                $(function () {
-                    $('[data-plugin-selectTwo]').each(function () {
-                        var $this = $(this),
-                            opts = {};
+                $(".select2").each(function () {
+                    var $this = $(this),
+                        opts = {};
 
-                        var pluginOptions = $this.data('plugin-options');
-                        if (pluginOptions)
-                            opts = pluginOptions;
+                    var pluginOptions = $this.data('plugin-options');
+                    if (pluginOptions)
+                        opts = pluginOptions;
 
-                        $this.themePluginSelect2(opts);
+                    $this.themePluginSelect2(opts);
+                });
+
+            /*
+             * When you change the value the select via select2, it triggers
+             * a 'change' event, but the jquery validation plugin
+             * only re-validates on 'blur'*/
+
+            $select.on('change', function() {
+                $(this).trigger('blur');
+            });
+
+            $('#form').validate({
+                ignore: 'input[type=hidden], .select2-input, .select2-focusser'
+            });
+
+            $select.rules('add', 'required');
+
+
+                // checkbox, radio and selects
+                $("#chk-radios-form, #form").each(function() {
+                    $(this).validate({
+                        highlight: function(element) {
+                            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                        },
+                        success: function(element) {
+                            $(element).closest('.form-group').removeClass('has-error');
+                        }
                     });
                 });
 
-            }
+                $('#ddlUnidadeInfraestrutura').val(@Model.ListUnidadeInfraestrutura.SelectedValue);
+                $('#ddlUnidadeInfraestrutura').trigger('change');
 
-        }).apply(this, [jQuery]);
+
+
+            }).apply(this, [jQuery]);
 
     </script>
 }

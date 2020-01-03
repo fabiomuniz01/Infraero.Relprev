@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Models;
@@ -22,9 +23,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
         }
 
-        public Task<long> CreateResponsavelTecnico(CreateResponsavelTecnicoCommand command)
+        public long CreateResponsavelTecnico(CreateResponsavelTecnicoCommand command)
         {
-            return PostAsync<long>($"{Resource}/CreateResponsavelTecnico", command);
+            return Post<long>($"{Resource}/CreateResponsavelTecnico", command);
         }
         public GridResponsavelTecnico GetGridResponsavelTecnico()
         {
@@ -41,7 +42,7 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
             return Post<bool>($"{Resource}/UpdateResponsavelTecnico", command);
         }
 
-        public bool DeleteResponsavelTecnico(int id)
+        public bool DeleteResponsavelTecnico(DeleteResponsavelTecnicoCommand id)
         {
             return Post<bool>($"{Resource}/DeleteResponsavelTecnico", id);
         }

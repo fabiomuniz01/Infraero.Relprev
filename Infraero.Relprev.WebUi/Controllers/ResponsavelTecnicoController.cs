@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Models;
@@ -15,26 +16,28 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class ResponsavelTecnicoController : Controller
     {
-        private readonly IResponsavelTecnicoClient _ResponsavelTecnicoClient;
+        private readonly IResponsavelTecnicoClient _responsavelTecnicoClient;
         private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
+        private readonly IEmpresaClient _empresaClient;
 
-        public ResponsavelTecnicoController(IResponsavelTecnicoClient ResponsavelTecnicoClient,
-            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
+        public ResponsavelTecnicoController(IResponsavelTecnicoClient responsavelTecnicoClient,
+            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IEmpresaClient empresaClient)
         {
-            _ResponsavelTecnicoClient = ResponsavelTecnicoClient;
+            _responsavelTecnicoClient = responsavelTecnicoClient;
             _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
+            _empresaClient = empresaClient;
         }
 
         //private readonly IResponsavelTecnico 
         public IActionResult Index()
         {
-            var response = _ResponsavelTecnicoClient.GetGridResponsavelTecnico();
+            var response = _responsavelTecnicoClient.GetGridResponsavelTecnico();
             return View(response);
         }
 
         public GridResponsavelTecnico GetGrid()
         {
-            var response = _ResponsavelTecnicoClient.GetGridResponsavelTecnico();
+            var response = _responsavelTecnicoClient.GetGridResponsavelTecnico();
             return response;
         }
 
@@ -43,7 +46,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
 
-            var model = new ResponsavelTecnicoModel { ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao") };
+            var resultEmpresa = _empresaClient.GetEmpresaAll();
+
+            var model = new ResponsavelTecnicoModel
+            {
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"),
+                ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial")
+            };
 
             return View(model);
         }
@@ -58,18 +67,18 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new CreateResponsavelTecnicoCommand
                 {
                     NomResponsavelTecnico = collection["ResponsavelTecnico"].ToString(),
-                    NumCpf = collection["cnpj"].ToString(),
-                    NumTelefone = collection["telefone"].ToString(),
-                    NumDocumento = collection["documento"].ToString(),
-                    EndEmail = collection["email"].ToString(),
-                    CodEmpresaResponsavelTecnico = int.Parse(collection["ddlLocal"].ToString()),
+                    NumCpf = collection["NumCpf"].ToString(),
+                    NumTelefone = collection["NumTelefone"].ToString(),
+                    NumDocumento = collection["NumDocumento"].ToString(),
+                    EndEmail = collection["EndEmail"].ToString(),
+                    CodEmpresaResponsavelTecnico = int.Parse(collection["ddlEmpresa"].ToString()),
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
 
-                    CriadoPor = "Amcom Develper",
+                    CriadoPor = "Amcom Developer",
                     DthRegistro = DateTime.Now
 
                 };
-                _ResponsavelTecnicoClient.CreateResponsavelTecnico(command);
+                _responsavelTecnicoClient.CreateResponsavelTecnico(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -82,13 +91,23 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: ResponsavelTecnico/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _ResponsavelTecnicoClient.GetResponsavelTecnicoById(id);
-            return View(obj);
+            var obj = _responsavelTecnicoClient.GetResponsavelTecnicoById(id);
+
+            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+
+            var model = new ResponsavelTecnicoModel
+            {
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura",
+                    "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
+                ResponsavelTecnico = obj
+            };
+
+            return View(model);
         }
 
         // POST: ResponsavelTecnico/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]  
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -96,32 +115,31 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new UpdateResponsavelTecnicoCommand
                 {
                     Id = id,
-                    NomResponsavelTecnico = collection["ResponsavelTecnico"].ToString(),
-                    AlteradoPor = "",
-                    NumCpf = collection["cnpj"].ToString(),
-                    NumTelefone = collection["telefone"].ToString()
+                    NumTelefone = collection["NumTelefone"].ToString(),
+                    NumDocumento = collection["NumDocumento"].ToString(),
+                    EndEmail = collection["EndEmail"].ToString(),
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    AlteradoPor= "Amcom Developer"
                 };
-                _ResponsavelTecnicoClient.UpdateResponsavelTecnico(command);
+                _responsavelTecnicoClient.UpdateResponsavelTecnico(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
         }
 
-        // POST: ResponsavelTecnico/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             try
             {
-                _ResponsavelTecnicoClient.DeleteResponsavelTecnico(id);
+                _responsavelTecnicoClient.DeleteResponsavelTecnico(new DeleteResponsavelTecnicoCommand{Id = id});
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return RedirectToAction(nameof(Index));
             }

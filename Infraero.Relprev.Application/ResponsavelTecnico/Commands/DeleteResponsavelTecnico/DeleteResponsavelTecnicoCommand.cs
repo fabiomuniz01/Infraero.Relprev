@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteRespons
 {
     public class DeleteResponsavelTecnicoCommand : IRequest<bool>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public class DeleteResponsavelTecnicoCommandHandler : IRequestHandler<DeleteResponsavelTecnicoCommand, bool>
         {
