@@ -20,22 +20,6 @@ namespace Infraero.Relprev.Domain.Entities
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
-        public DateTime DthRegistro { get; set; }
-        public string DscOcorrenciaCorrigida { get; set; }
-        public int? CodUsuarioRelator { get; set; }
-        public int? CodAssunto { get; set; }
-        public int? CodSubAssunto { get; set; }
-
-        public virtual Ambiente CodAmbienteNavigation { get; set; }
-        public virtual Assunto CodAssuntoNavigation { get; set; }
-        public virtual Local CodLocalidadeNavigation { get; set; }
-        public virtual SituacaoRelato CodSituacaoRelatoNavigation { get; set; }
-        public virtual SubAmbiente CodSubAmbienteNavigation { get; set; }
-        public virtual SubAssunto CodSubAssuntoNavigation { get; set; }
-        public virtual Usuario CodUsuarioRelatorNavigation { get; set; }
-        public virtual ICollection<AnexoRelato> AnexoRelato { get; set; }
-        public virtual ICollection<AtribuicaoRelato> AtribuicaoRelato { get; set; }
-        public virtual ICollection<HistoricoRelato> HistoricoRelato { get; set; }
 
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> Arquivos { get; set; }
