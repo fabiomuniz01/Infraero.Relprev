@@ -21,14 +21,14 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
             {
                 var entity = new Domain.Entities.Relato
                 {
-                     DatOcorrencia = request.DatOcorrencia,
+                    DatOcorrencia = request.DatOcorrencia,
                     HorOcorrencia = request.HorOcorrencia,
                     DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
                     DscLocalOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
                     DscOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
                     DscRelato = request.DscRelato,
-                    NomRelator = request.NomRelator, 
-                    EmailRelator  = request.EmailRelator,
+                    NomRelator = request.NomRelator,
+                    EmailRelator = request.EmailRelator,
                     NumTelefoneRelator = request.NumTelefoneRelator,
                     NomEmpresaRelator = request.NomEmpresaRelator,
                     CriadoPor = request.CriadoPor,
