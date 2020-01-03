@@ -12,7 +12,7 @@ namespace Infraero.Relprev.Domain.Entities
         [Key]
         public int CodRelato { get; set; }
         public DateTime DatOcorrencia { get; set; }
-        public TimeSpan HorOcorrencia { get; set; }
+        public String HorOcorrencia { get; set; }
         public string DscLocalOcorrenciaRelator { get; set; }
         public string DscEnvolvidosOcorrencia { get; set; }
         public string DscOcorrenciaRelator { get; set; }
@@ -20,6 +20,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
+        public string DscRelato { get; set; }
 
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> Arquivos { get; set; }
