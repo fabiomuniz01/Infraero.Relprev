@@ -34,10 +34,12 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
 
                     var grid = new GridRelato();
 
-                    grid.aaData = responseModel;
+                    var data = responseModel.Select(c => c);
+
+                    grid.aaData = data;
                     grid.sEcho = 0;
-                    grid.iTotalRecords = responseModel.Count();
-                    grid.recordsFiltered = responseModel.Count();
+                    grid.iTotalRecords = data.Count();
+                    grid.recordsFiltered = data.Count();
                     grid.iTotalDisplayRecords = 1;
                     return grid;
                 }

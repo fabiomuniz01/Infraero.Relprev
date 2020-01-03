@@ -33,7 +33,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Index()
         {
             var response = _relatoClient.GetGridRelato();
-            return View();
+            return View(response);
         }
         public ActionResult Edit()
         {
