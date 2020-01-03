@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.Application.Usuario.Queries.GetUsuarios.GridUsuario
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,7 +19,7 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        
+
                         <div class="col-sm-12 pull-right">
 
                             <a href="@Url.Action("Create", "Usuario")" id="addToTable" class="btn btn-primary pull-right">Novo Usuário <i class="fa fa-plus"></i></a>
@@ -38,67 +38,20 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <td>Uriel</td>
-                                <td>999.999.999-99</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Miguel</td>
-                                <td>999.999.999-99</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Maria Flor</td>
-                                <td>999.999.999-99</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Uriel</td>
-                                <td>999.999.999-99</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Miguel</td>
-                                <td>999.999.999-99</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Maria Flor</td>
-                                <td>999.999.999-99</td>
-                                <td>(61)9999-9999</td>
-                                <td>5</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-Empid="2" class="on-default edit-row" style='color:#eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+                            @foreach (var item in Model.aaData)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.NomUsuario)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NumCpf)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DscEmail)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CodPerfil)</td>
+                                    <td></td>
+                                    <td class="actions">
+                                        <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Usuario" asp-route-id="@item.CodUsuario" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="Delete" asp-controller="Usuario" asp-route-id="@item.CodUsuario" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

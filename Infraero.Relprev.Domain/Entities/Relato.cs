@@ -8,20 +8,11 @@ namespace Infraero.Relprev.Domain.Entities
 {
     public partial class Relato : AuditableEntity
     {
-        public Relato()
-        {
-            AnexoRelato = new HashSet<AnexoRelato>();
-            AtribuicaoRelato = new HashSet<AtribuicaoRelato>();
-            HistoricoRelato = new HashSet<HistoricoRelato>();
-        }
 
         [Key]
         public int CodRelato { get; set; }
-        public int CodSituacaoRelato { get; set; }
-        public int? CodLocalidade { get; set; }
-        public int? CodAmbiente { get; set; }
-        public int? CodSubAmbiente { get; set; }
         public DateTime DatOcorrencia { get; set; }
+        public TimeSpan HorOcorrencia { get; set; }
         public string DscLocalOcorrenciaRelator { get; set; }
         public string DscEnvolvidosOcorrencia { get; set; }
         public string DscOcorrenciaRelator { get; set; }

@@ -26,8 +26,6 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
                     NumCpf = request.NumCpf,
                     EndEmail = request.EndEmail, 
                     NumTelefone = request.NumTelefone,
-
-                    DthRegistro = DateTime.Now,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now,
                     CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura

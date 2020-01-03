@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Create", "Usuario", FormMethod.Post))
+        @using (@Html.BeginForm("Create", "Usuario", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -22,13 +22,15 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Nome <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="NomUsuario" class="form-control" placeholder="eg.: John Doe" required />
+                            <input type="text" name="NomUsuario" class="form-control" placeholder="eg.: Descrição completa do nome do usuário"
+                                   title="Por favor informe a descrição completa do nome do usuário." required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Cpf <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="NumCpf" class="form-control" placeholder="eg.: John Doe" required />
+                            <input type="text" name="NumCpf" class="form-control" placeholder="eg.: Número do CPF do usuário"
+                                   title="Por favor informe o número do CPF do usuário" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -38,7 +40,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: email@email.com" required />
+                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário" required />
                             </div>
                         </div>
                         <label class="col-lg-1 control-label text-lg-right pt-2">Telefone</label>
@@ -93,32 +95,59 @@
     <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
 }
 @section Scripts {
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
 
     <script>
         // Select2
-        (function ($) {
+            (function ($) {
 
-            'use strict';
+                'use strict';
 
-            if ($.isFunction($.fn['select2'])) {
+                var $select = $(".select2").select2({
+                    allowClear: true
+                });
 
-                $(function () {
-                    $('[data-plugin-selectTwo]').each(function () {
-                        var $this = $(this),
-                            opts = {};
+                $(".select2").each(function () {
+                    var $this = $(this),
+                        opts = {};
 
-                        var pluginOptions = $this.data('plugin-options');
-                        if (pluginOptions)
-                            opts = pluginOptions;
+                    var pluginOptions = $this.data('plugin-options');
+                    if (pluginOptions)
+                        opts = pluginOptions;
 
-                        $this.themePluginSelect2(opts);
+                    $this.themePluginSelect2(opts);
+                });
+
+            /*
+             * When you change the value the select via select2, it triggers
+             * a 'change' event, but the jquery validation plugin
+             * only re-validates on 'blur'*/
+             
+            $select.on('change', function() {
+                $(this).trigger('blur');
+            });
+
+            $('#form').validate({
+                ignore: 'input[type=hidden], .select2-input, .select2-focusser'
+            });
+
+            $select.rules('add', 'required');
+
+
+                // checkbox, radio and selects
+                $("#chk-radios-form, #form").each(function() {
+                    $(this).validate({
+                        highlight: function(element) {
+                            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                        },
+                        success: function(element) {
+                            $(element).closest('.form-group').removeClass('has-error');
+                        }
                     });
                 });
 
-            }
-
-        }).apply(this, [jQuery]);
+            }).apply(this, [jQuery]);
 
     </script>
 }
