@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200103185547_Relprev015")]
+    partial class Relprev015
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -827,8 +829,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("EmailRelator")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HorOcorrencia")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<TimeSpan>("HorOcorrencia")
+                        .HasColumnType("time");
 
                     b.Property<string>("NomEmpresaRelator")
                         .HasColumnType("nvarchar(max)");

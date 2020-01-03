@@ -68,6 +68,9 @@ namespace Infraero.Relprev.WebUi
             services.Add(new ServiceDescriptor(typeof(IUsuarioClient),
                 new UsuarioClient(Baseurl, new ClientSDK("", "", ""))));
 
+            services.Add(new ServiceDescriptor(typeof(IRelatoClient),
+                new RelatoClient(Baseurl, new ClientSDK("", "", ""))));
+
             services.AddMvc().AddNewtonsoftJson();
 
             services.AddMvc().AddRazorPagesOptions(options =>

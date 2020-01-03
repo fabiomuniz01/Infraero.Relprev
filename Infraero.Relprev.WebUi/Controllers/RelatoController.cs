@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
