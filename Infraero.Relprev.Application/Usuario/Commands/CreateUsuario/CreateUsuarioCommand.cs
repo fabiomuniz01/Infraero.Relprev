@@ -24,10 +24,13 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
                 {
                     NomUsuario = request.NomUsuario,
                     NumCpf = request.NumCpf,
-                    DthRegistro = DateTime.Now,
+                    EndEmail = request.EndEmail, 
                     NumTelefone = request.NumTelefone,
+
+                    DthRegistro = DateTime.Now,
                     CriadoPor = request.CriadoPor,
-                    DataCriacao = DateTime.Now
+                    DataCriacao = DateTime.Now,
+                    CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura
                 };
 
                 _context.Usuario.Add(entity);
@@ -40,16 +43,17 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
         public int Id { get; set; }
         public string NomUsuario { get; set; }
         public string NumCpf { get; set; }
-        public string NumTelefone { get; set; }
+        public string NumTelefone { get; set; } 
         public string DscLogin { get; set; }
         public string DscSenha { get; set; }
         public DateTime DthRegistro { get; set; }
+        public DateTime DataCriacao { get; set; }
         public string EndEmail { get; set; }
         public int QtdTentativasIncorretas { get; set; }
         public string FlgPrimeiroAcesso { get; set; }
         public string FlgUsuarioBloqueado { get; set; }
         public string CriadoPor { get; set; }
 
-        
+        public int CodUnidadeInfraestrutura { get; set; } 
     }
 }

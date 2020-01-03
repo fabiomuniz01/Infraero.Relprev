@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
                     throw new NotFoundException(nameof(Domain.Entities.Usuario), request.UsuarioDto.CodUsuario);
                 }
 
-                entity.DscLogin = request.UsuarioDto.NomRazaoSocial;
+                entity.DscLogin = request.UsuarioDto.NomUsuario;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

@@ -29,7 +29,8 @@ namespace Infraero.Relprev.Domain.Entities
         public string EndEmail { get; set; }
         public int QtdTentativasIncorretas { get; set; }
         public string FlgPrimeiroAcesso { get; set; }
-        public string FlgUsuarioBloqueado { get; set; }
+        public string FlgUsuarioBloqueado { get; set; } 
+        public int CodUnidadeInfraestrutura { get; set; }
 
         public virtual ICollection<AtribuicaoRelato> AtribuicaoRelato { get; set; }
         public virtual ICollection<Evento> Evento { get; set; }

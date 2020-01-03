@@ -7,10 +7,10 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
     {
         public int CodUsuario { get; set; }
 
-        public string NomRazaoSocial { get; set; }
-        public string NumCnpj { get; set; }
+        public string NomUsuario { get; set; }
+        public string NumCnpj { get; set; } 
         public string NumTelefone { get; set; }
-
+        public int CodUnidadeInfraestrutura { get; set; }
         public string NomUnidadeInfraestrutura { get; set; }
 
         //public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }

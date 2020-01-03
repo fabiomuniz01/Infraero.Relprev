@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
+using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -14,10 +16,14 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class UsuarioController : Controller
     {
         private readonly IUsuarioClient _UsuarioClient;
+        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
 
-        public UsuarioController(IUsuarioClient UsuarioClient)
+
+        public UsuarioController(IUsuarioClient UsuarioClient,
+            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
         {
             _UsuarioClient = UsuarioClient;
+            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
         }
 
         //private readonly IUsuario 
@@ -36,7 +42,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Usuario/Create
         public ActionResult Create()
         {
-            return View();
+            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var model = new UsuarioModel { ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao") };
+            return View(model);
         }
         public ActionResult CreatePerfil()
         {
@@ -52,10 +60,14 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateUsuarioCommand
                 {
-                    NomUsuario = collection["Usuario"].ToString(),
-                    CriadoPor = "",
-                    NumCpf = collection["cnpj"].ToString(),
-                    NumTelefone = collection["telefone"].ToString()
+                    NomUsuario = collection["NomUsuario"].ToString(),
+                    NumCpf = collection["NumCpf"].ToString(),
+                    EndEmail = collection["EndEmail"].ToString(),
+                    NumTelefone = collection["NumTelefone"].ToString(),
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    DthRegistro = DateTime.Now,
+                    CriadoPor = "Amcom Develper",
+                    DataCriacao = DateTime.Now
                 };
                 _UsuarioClient.CreateUsuario(command);
 

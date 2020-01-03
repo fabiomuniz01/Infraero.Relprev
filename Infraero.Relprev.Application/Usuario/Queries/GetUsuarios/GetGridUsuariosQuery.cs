@@ -43,9 +43,8 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
                                 {
                                     CodUsuario = c.CodUsuario,
                                     NumCnpj = c.NumCnpj,
-                                    NumTelefone = c.NumTelefone,
-                                    NomRazaoSocial = c.NomRazaoSocial,
-                                    NomUnidadeInfraestrutura = ""
+                                    NumTelefone = c.NumTelefone, 
+                                    NomUnidadeInfraestrutura = c.CodUnidadeInfraestrutura.ToString()
                                 });
 
                     grid.aaData = data;
