@@ -20,7 +20,7 @@ namespace Infraero.Relprev.Application
 
         DbSet<Domain.Entities.Local> Local { get; set; }
 
-        DbSet<Relato> Relato { get; set; }
+        DbSet<Domain.Entities.Relato> Relato { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

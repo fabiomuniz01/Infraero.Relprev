@@ -9,6 +9,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class RelatoController : Controller
     {
+        private readonly IRelatoClient _relatoClient;
         // GET: Relato
         public ActionResult Create()
         {
@@ -16,6 +17,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
         public ActionResult Index()
         {
+            var response = _relatoClient.GetGridLocal();
             return View();
         }
         public ActionResult Edit()
