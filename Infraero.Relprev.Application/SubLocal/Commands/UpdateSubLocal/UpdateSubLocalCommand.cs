@@ -28,9 +28,9 @@ namespace Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal
                     throw new NotFoundException(nameof(Domain.Entities.SubLocal), request.Id);
                 }
 
-                //entity.NomRazaoSocial = request.NomRazaoSocial;
-                //entity.NumCnpj = request.NumCnpj;
-                //entity.NumTelefone = request.NumTelefone;
+                entity.CodLocal = request.CodLocal;
+                entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
+                entity.DscSubLocal = request.DscSubLocal;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
 
@@ -43,5 +43,8 @@ namespace Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal
         public string AlteradoPor { get; set; }
 
         public int Id { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
+        public int CodLocal { get; set; }
+        public string DscSubLocal { get; set; }
     }
 }

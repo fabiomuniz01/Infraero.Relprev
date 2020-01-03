@@ -1,5 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Infraero.Relprev.Application.Common.Mappings;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using Infraero.Relprev.Domain.Entities;
 
 namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos
 {
@@ -13,6 +16,9 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
         public string EndEmail { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresaResponsavelTecnico { get; set; }
+
+        public virtual ICollection<UnidadeInfraEstruturaDto> UnidadeInfraestrutura { get; set; }
+        //public virtual ICollection<EmpresaResponsavelTecnicoDto> EmpresaResponsavelTecnico { get; set; }
 
         public void Mapping(Profile profile)
         {

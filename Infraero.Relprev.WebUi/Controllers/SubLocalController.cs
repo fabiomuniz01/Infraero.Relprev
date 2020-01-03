@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
+using Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.CrossCutting.Models;
@@ -95,8 +96,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             var model = new SubLocalModel
             {
                 SubLocal = obj,
-                ListUnidadeInfraestrutura = SetSelectedValue(new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"),obj.CodUnidadeInfraestrutura.ToString()),
-                ListLocal = new SelectList(resultLocal, "CodLocal", "DscLocal", obj.CodLocal)
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao",obj.CodUnidadeInfraestrutura.ToString()),
+                ListLocal = new SelectList(resultLocal, "CodLocal", "DscLocal", obj.CodLocal.ToString())
             };
 
             return View(model);
@@ -112,10 +113,10 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new UpdateSubLocalCommand
                 {
                     Id = id,
-                    //NomSubLocal = collection["SubLocal"].ToString(),
-                    AlteradoPor = "",
-                    //NumCpf = collection["cnpj"].ToString(),
-                    //NumTelefone = collection["telefone"].ToString()
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    CodLocal = int.Parse(collection["ddlLocal"].ToString()),
+                    DscSubLocal = collection["DscSubLocal"].ToString(),
+                    AlteradoPor = "Amcom Developer",
                 };
                 _subLocalClient.UpdateSubLocal(command);
 
@@ -127,31 +128,20 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // POST: SubLocal/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             try
             {
-                _subLocalClient.DeleteSubLocal(id);
+                _subLocalClient.DeleteSubLocal(new DeleteSubLocalCommand { Id = id });
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return RedirectToAction(nameof(Index));
             }
         }
 
-        public static SelectList SetSelectedValue(SelectList list, string value)
-        {
-            if (value != null)
-            {
-                var selected = list.Where(x => x.Value == value).First();
-                selected.Selected = true;
-                return list;
-            }
-            return list;
-        }
+
     }
 }

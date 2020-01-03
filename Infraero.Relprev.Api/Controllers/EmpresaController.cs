@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Api.Filters;
 using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
@@ -65,6 +66,22 @@ namespace Infraero.Relprev.Api.Controllers
             try
             {
                 var result = await Mediator.Send(new GetEmpresaByIdQuery {Id = id});
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+        }
+        //[ClaimsAuthorize("Empresa", "Search")]
+        [HttpGet("GetEmpresaAll")]
+        public async Task<List<EmpresaDto>> GetEmpresaAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetEmpresaAllQuery());
                 return result;
             }
             catch (Exception e)

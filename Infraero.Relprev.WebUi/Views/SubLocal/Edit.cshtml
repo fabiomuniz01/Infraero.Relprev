@@ -123,6 +123,9 @@
                                     items += "<option value='" + row.value + "'>" + row.text + "</option>";
                                 });
                             $("#ddlLocal").html(items);
+
+                            $('#ddlLocal').val(@Model.SubLocal.CodLocal);
+                            $('#ddlLocal').trigger('change');
                         });
                 });
 
@@ -138,7 +141,10 @@
                     });
                 });
 
-                $("#ddlLocal").select2("val", "18");
+                $('#ddlUnidadeInfraestrutura').val(@Model.SubLocal.CodUnidadeInfraestrutura);
+                $('#ddlUnidadeInfraestrutura').trigger('change');
+
+                
 
             }).apply(this, [jQuery]);
 

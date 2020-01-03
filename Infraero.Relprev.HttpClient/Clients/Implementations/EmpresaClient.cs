@@ -1,4 +1,5 @@
-﻿using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
+﻿using System.Collections.Generic;
+using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
@@ -29,6 +30,10 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         public EmpresaDto GetEmpresaById(int id)
         {
             return Get<EmpresaDto>($"{Resource}/GetEmpresaById/{id}");
+        }
+        public List<EmpresaDto> GetEmpresaAll()
+        {
+            return Get<List<EmpresaDto>>($"{Resource}/GetEmpresaAll");
         }
 
         public bool UpdateEmpresa(UpdateEmpresaCommand command)

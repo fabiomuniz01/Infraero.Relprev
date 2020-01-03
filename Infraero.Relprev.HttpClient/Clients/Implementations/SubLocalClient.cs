@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
+using Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.CrossCutting.Models;
@@ -41,7 +42,7 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
             return Post<bool>($"{Resource}/UpdateSubLocal", command);
         }
 
-        public bool DeleteSubLocal(int id)
+        public bool DeleteSubLocal(DeleteSubLocalCommand id)
         {
             return Post<bool>($"{Resource}/DeleteSubLocal", id);
         }

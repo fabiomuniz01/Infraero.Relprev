@@ -56,7 +56,5 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
 
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresaResponsavelTecnico { get; set; }
-
-
     }
 }

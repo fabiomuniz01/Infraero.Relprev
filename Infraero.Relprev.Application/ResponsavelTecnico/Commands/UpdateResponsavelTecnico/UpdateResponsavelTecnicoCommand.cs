@@ -29,8 +29,8 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
                     throw new NotFoundException(nameof(ResponsavelTecnico), request.Id);
                 }
 
-                entity.NomResponsavelTecnico = request.NomResponsavelTecnico;
-                entity.NumCpf = request.NumCpf;
+                entity.NumDocumento = request.NumDocumento;
+                entity.EndEmail = request.EndEmail;
                 entity.NumTelefone = request.NumTelefone;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
@@ -53,5 +53,8 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
         public string FlgPrimeiroAcesso { get; set; }
         public string FlgResponsavelTecnicoBloqueado { get; set; }
         public string AlteradoPor { get; set; }
+        public string NumDocumento { get; set; }
+        public int CodEmpresaResponsavelTecnico { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
     }
 }
