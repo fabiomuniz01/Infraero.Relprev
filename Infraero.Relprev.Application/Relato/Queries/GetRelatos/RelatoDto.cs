@@ -10,7 +10,7 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
     {
         public int CodRelato { get; set; }
         public DateTime DatOcorrencia { get; set; }
-        public TimeSpan HorOcorrencia { get; set; }
+        public string HorOcorrencia { get; set; }
         public string DscLocalOcorrenciaRelator { get; set; }
         public string DscEnvolvidosOcorrencia { get; set; }
         public string DscOcorrenciaRelator { get; set; }

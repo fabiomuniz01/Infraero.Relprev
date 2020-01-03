@@ -1,22 +1,17 @@
 ﻿using Infraero.Relprev.Domain.Common;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infraero.Relprev.Domain.Entities
 {
     public class Assunto : AuditableEntity
     {
-        public Assunto()
-        {
-            Relato = new HashSet<Relato>();
-            SubAssunto = new HashSet<SubAssunto>();
-        }
-
         [Key]
         public int CodAssunto { get; set; }
         public string DscAssunto { get; set; }
 
-        public virtual ICollection<Relato> Relato { get; set; }
-        public virtual ICollection<SubAssunto> SubAssunto { get; set; }
+        [ForeignKey("CodAssunto")]
+        public ICollection<SubAssunto> SubAssuntoList { get; set; }
     }
 }
