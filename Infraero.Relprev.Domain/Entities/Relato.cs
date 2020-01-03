@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -45,5 +46,8 @@ namespace Infraero.Relprev.Domain.Entities
         public virtual ICollection<AnexoRelato> AnexoRelato { get; set; }
         public virtual ICollection<AtribuicaoRelato> AtribuicaoRelato { get; set; }
         public virtual ICollection<HistoricoRelato> HistoricoRelato { get; set; }
+
+        [ForeignKey("CodRelato")]
+        public virtual ICollection<RelatoArquivo> Arquivos { get; set; }
     }
 }
