@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
+using Infraero.Relprev.Api.Services;
 using Infraero.Relprev.Application;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
@@ -8,6 +10,7 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -104,7 +107,7 @@ namespace Infraero.Relprev.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
@@ -126,24 +129,28 @@ namespace Infraero.Relprev.Api
 
             app.UseDeveloperExceptionPage();
 
-            //app.UseDatabaseErrorPage();
-            //app.UseCors(
-            //    options => options.WithOrigins("http://example.com").AllowAnyMethod()
-            //);
-            //Replace UseMvc or UseSignalR with UseEndpoints.
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller}/{action=Index}/{id?}");
-            //    endpoints.MapRazorPages();
-            //});
             app.UseMvc();
-        }
-    }
 
-    public class CurrentUserService : ICurrentUserService
-    {
-        public string UsuarioId { get; }
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            string[] rolesNames = { "Administrador", "Usuario" };
+
+            IdentityResult result;
+
+            foreach (var namesRole in rolesNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(namesRole);
+                if (!roleExist)
+                {
+                    result = await roleManager.CreateAsync(new IdentityRole(namesRole));
+                }
+            }
+        }
     }
 }

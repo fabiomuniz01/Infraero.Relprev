@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Infraero.Relprev.Application;
 using Microsoft.AspNetCore.Identity;
 
@@ -25,6 +27,25 @@ namespace Infraero.Relprev.Infrastructure.Persistence
             _currentUserService = currentUserService;
         }
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CriadoPor = _currentUserService.UsuarioId;
+                        entry.Entity.DataCriacao = DateTime.Now;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.AlteradoPor = _currentUserService.UsuarioId;
+                        entry.Entity.DataAlteracao = DateTime.Now;
+                        break;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
 
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Empresa> Empresa { get; set; }

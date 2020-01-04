@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Models;
@@ -22,7 +23,8 @@ namespace Infraero.Relprev.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+            IConfiguration configuration, IWebHostEnvironment environment)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(

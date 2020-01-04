@@ -8,7 +8,6 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
     {
         public int CodSubLocal { get; set; }
         public string DscSubLocal { get; set; }
-        public string DscLocal { get; set; }
         public int CodLocal { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
         public virtual LocalDto Local { get; set; }

@@ -20,13 +20,15 @@ namespace Infraero.Relprev.Api.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _appSettings = appSettings.Value;
         }
 
@@ -100,6 +102,21 @@ namespace Infraero.Relprev.Api.Controllers
 
                 var identityClaims = new ClaimsIdentity();
                 identityClaims.AddClaims(await _userManager.GetClaimsAsync(user));
+                //identityClaims.AddClaims(await _userManager.GetClaimsAsync(user));
+
+                var roles = _roleManager.Roles.ToList();
+
+
+                var identity = new ClaimsIdentity();
+                foreach (var rol in roles)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, rol.Name));
+                }
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+
+
+
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
