@@ -73,9 +73,18 @@ namespace Infraero.Relprev.WebUi.Controllers
             var response = _relatoClient.GetGridRelato();
             return View(response);
         }
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return View();
+            var obj = _relatoClient.GetRelatoById(id);
+            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+
+            var model = new RelatoModel
+            {
+                Relato = obj,
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
+            };
+
+            return View(model);
         }
         public ActionResult Cancel()
         {

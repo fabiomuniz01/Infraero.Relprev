@@ -47,21 +47,21 @@ namespace Infraero.Relprev.Api.Controllers
             
         }
 
-        //[HttpGet("GetRelatoById/{id}")]
-        //public async Task<RelatoDto> GetRelatoById(int id)
-        //{
-        //    try
-        //    {
-        //        var result = await Mediator.Send(new GetRelatoByIdQuery {Id = id});
-        //        return result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e);
-        //        throw;
-        //    }
-            
-        //}
+        [HttpGet("GetRelatoById/{id}")]
+        public async Task<RelatoDto> GetRelatoById(int id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetRelatoByIdQuery { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
 
 
         //[HttpPost("UpdateRelato")]

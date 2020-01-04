@@ -27,5 +27,10 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
             return Get<GridRelato>($"{Resource}/GetGridRelato");
         }
+
+        public RelatoDto GetRelatoById(int id)
+        {
+            return Get<RelatoDto>($"{Resource}/GetRelatoById/{id}");
+        }
     }
 }

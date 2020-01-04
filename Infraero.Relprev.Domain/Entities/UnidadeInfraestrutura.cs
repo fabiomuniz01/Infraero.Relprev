@@ -22,5 +22,8 @@ namespace Infraero.Relprev.Domain.Entities
 
         [ForeignKey("CodUnidadeInfraestrutura")]
         public ICollection<Local> LocalList { get; set; }
+
+        [ForeignKey("CodUnidadeInfraestrutura")]
+        public ICollection<Relato> RelatoList { get; set; }
     }
 }

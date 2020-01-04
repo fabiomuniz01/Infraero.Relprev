@@ -19,10 +19,13 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
         //public virtual ICollection<RelatoArquivoDto> Arquivos { get; set; }
+        public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Domain.Entities.Relato, RelatoDto>();
         }
 
+        public int CodUnidadeInfraestrutura { get; set; }
     }
 }

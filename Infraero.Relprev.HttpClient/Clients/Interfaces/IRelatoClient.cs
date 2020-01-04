@@ -10,6 +10,7 @@ namespace Infraero.Relprev.HttpClient.Clients.Interfaces
     {
         long CreateRelato(CreateRelatoCommand command);
         GridRelato GetGridRelato();
+        RelatoDto GetRelatoById(int id);
 
     }
 }

@@ -21,8 +21,11 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
         public string DscRelato { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }   
 
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> Arquivos { get; set; }
+
+        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
     }
 }

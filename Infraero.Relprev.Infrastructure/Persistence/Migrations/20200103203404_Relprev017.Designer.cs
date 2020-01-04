@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200103203404_Relprev017")]
+    partial class Relprev017
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -803,9 +805,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<int?>("AmbienteCodAmbiente")
                         .HasColumnType("int");
 
-                    b.Property<int>("CodUnidadeInfraestrutura")
-                        .HasColumnType("int");
-
                     b.Property<string>("CriadoPor")
                         .HasColumnType("nvarchar(max)");
 
@@ -854,8 +853,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasKey("CodRelato");
 
                     b.HasIndex("AmbienteCodAmbiente");
-
-                    b.HasIndex("CodUnidadeInfraestrutura");
 
                     b.HasIndex("SituacaoRelatoCodSituacaoRelato");
 
@@ -1605,12 +1602,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Ambiente", null)
                         .WithMany("Relato")
                         .HasForeignKey("AmbienteCodAmbiente");
-
-                    b.HasOne("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", "UnidadeInfraestrutura")
-                        .WithMany("RelatoList")
-                        .HasForeignKey("CodUnidadeInfraestrutura")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.SituacaoRelato", null)
                         .WithMany("Relato")
