@@ -27,8 +27,6 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
             {
                 try
                 {
-                    var vm = new SubLocalVm();
-
                     var responseModel = await _context.SubLocal
                         .ProjectTo<SubLocalDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodSubLocal)

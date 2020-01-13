@@ -27,8 +27,6 @@ namespace Infraero.Relprev.Application.Empresa.Queries.GetEmpresas
             {
                 try
                 {
-                    var vm = new EmpresaVm();
-
                     var responseModel = await _context.Empresa
                         .ProjectTo<EmpresaDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodEmpresa)

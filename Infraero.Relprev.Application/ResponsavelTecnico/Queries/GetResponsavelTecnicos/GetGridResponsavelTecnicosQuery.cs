@@ -27,8 +27,6 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
             {
                 try
                 {
-                    var vm = new ResponsavelTecnicoVm();
-
                     var responseModel = await _context.ResponsavelTecnico
                         .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodResponsavelTecnico)

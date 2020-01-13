@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,30 +10,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.Perfil.Queries.GetPerfils
 {
-    public class GetPerfilAllQuery : IRequest<List<PerfilDto>>
+    public class GetPerfilByIdQuery : IRequest<PerfilDto>
     {
-        public class GetPerfilAllQueryHandler : IRequestHandler<GetPerfilAllQuery, List<PerfilDto>>
+        public int Id { get; set; }
+
+        public class GetPerfilByIdQueryHandler : IRequestHandler<GetPerfilByIdQuery, PerfilDto>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
 
-            public GetPerfilAllQueryHandler(IApplicationDbContext context, IMapper mapper)
+            public GetPerfilByIdQueryHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<List<PerfilDto>> Handle(GetPerfilAllQuery request, CancellationToken cancellationToken)
+            public async Task<PerfilDto> Handle(GetPerfilByIdQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
-                    var responseModel = await _context.Perfil
+                    var responseModel = await Queryable.Where<Domain.Entities.Perfil>(_context.Perfil, x=>x.CodPerfil==request.Id)
                         .ProjectTo<PerfilDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodPerfil)
-                        .ToListAsync(cancellationToken);
+                        .FirstOrDefaultAsync(cancellationToken);
 
-
-                    return null;
+                    
+                    return responseModel;
                 }
                 catch (Exception e)
                 {

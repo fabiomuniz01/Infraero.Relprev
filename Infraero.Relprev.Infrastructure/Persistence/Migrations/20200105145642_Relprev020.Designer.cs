@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200105145642_Relprev020")]
+    partial class Relprev020
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -681,8 +683,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("DscPerfil")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("FlgAtivo")
-                        .HasColumnType("bit");
+                    b.Property<string>("FlgAtivo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomPerfil")
                         .HasColumnType("nvarchar(max)");

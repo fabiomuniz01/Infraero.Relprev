@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.Empresa.Queries.GetEmpresas
 {
-    public class GetEmpresasQuery : IRequest<EmpresaVm>
+    public class GetEmpresasQuery : IRequest<List<EmpresaDto>>
     {
-        public class GetEmpresasQueryHandler : IRequestHandler<GetEmpresasQuery, EmpresaVm>
+        public class GetEmpresasQueryHandler : IRequestHandler<GetEmpresasQuery, List<EmpresaDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -22,16 +23,12 @@ namespace Infraero.Relprev.Application.Empresa.Queries.GetEmpresas
                 _mapper = mapper;
             }
 
-            public async Task<EmpresaVm> Handle(GetEmpresasQuery request, CancellationToken cancellationToken)
+            public async Task<List<EmpresaDto>> Handle(GetEmpresasQuery request, CancellationToken cancellationToken)
             {
-                var vm = new EmpresaVm();
-
-                vm.Lists = await _context.Empresa
+                return await _context.Empresa
                     .ProjectTo<EmpresaDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodEmpresa)
                     .ToListAsync(cancellationToken);
-
-                return vm;
             }
         }
     }

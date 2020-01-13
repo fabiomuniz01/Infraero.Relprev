@@ -32,8 +32,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
                 entity.NumDocumento = request.NumDocumento;
                 entity.EndEmail = request.EndEmail;
                 entity.NumTelefone = request.NumTelefone;
-                entity.AlteradoPor = request.AlteradoPor;
-                entity.DataAlteracao = DateTime.Now;
+                entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

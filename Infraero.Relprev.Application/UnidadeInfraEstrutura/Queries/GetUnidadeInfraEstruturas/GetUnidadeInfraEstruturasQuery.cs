@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas
 {
-    public class GetUnidadeInfraEstruturasQuery : IRequest<UnidadeInfraEstruturaVm>
+    public class GetUnidadeInfraEstruturasQuery : IRequest<List<UnidadeInfraEstruturaDto>>
     {
-        public class GetUnidadeInfraestruturasQueryHandler : IRequestHandler<GetUnidadeInfraEstruturasQuery, UnidadeInfraEstruturaVm>
+        public class GetUnidadeInfraestruturasQueryHandler : IRequestHandler<GetUnidadeInfraEstruturasQuery, List<UnidadeInfraEstruturaDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -22,16 +23,12 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
                 _mapper = mapper;
             }
 
-            public async Task<UnidadeInfraEstruturaVm> Handle(GetUnidadeInfraEstruturasQuery request, CancellationToken cancellationToken)
+            public async Task<List<UnidadeInfraEstruturaDto>> Handle(GetUnidadeInfraEstruturasQuery request, CancellationToken cancellationToken)
             {
-                var vm = new UnidadeInfraEstruturaVm();
-
-                vm.Lists = await _context.UnidadeInfraestrutura
+                return await _context.UnidadeInfraestrutura
                     .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodUnidadeInfraestrutura)
                     .ToListAsync(cancellationToken);
-
-                return vm;
             }
         }
     }

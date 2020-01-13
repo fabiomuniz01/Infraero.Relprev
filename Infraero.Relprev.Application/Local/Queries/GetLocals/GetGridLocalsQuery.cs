@@ -27,8 +27,6 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
             {
                 try
                 {
-                    var vm = new LocalVm();
-
                     var responseModel = await _context.Local
                         .ProjectTo<LocalDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodLocal)

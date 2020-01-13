@@ -66,7 +66,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateResponsavelTecnicoCommand
                 {
-                    NomResponsavelTecnico = collection["ResponsavelTecnico"].ToString(),
+                    NomResponsavelTecnico = collection["NomResponsavelTecnico"].ToString(),
                     NumCpf = collection["NumCpf"].ToString(),
                     NumTelefone = collection["NumTelefone"].ToString(),
                     NumDocumento = collection["NumDocumento"].ToString(),

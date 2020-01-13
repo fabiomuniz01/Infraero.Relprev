@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.Assunto.Queries.GetAssuntos
 {
-    public class GetAssuntosQuery : IRequest<AssuntoVm>
+    public class GetAssuntosQuery : IRequest<List<AssuntoDto>>
     {
-        public class GetAssuntosQueryHandler : IRequestHandler<GetAssuntosQuery, AssuntoVm>
+        public class GetAssuntosQueryHandler : IRequestHandler<GetAssuntosQuery, List<AssuntoDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -22,16 +23,13 @@ namespace Infraero.Relprev.Application.Assunto.Queries.GetAssuntos
                 _mapper = mapper;
             }
 
-            public async Task<AssuntoVm> Handle(GetAssuntosQuery request, CancellationToken cancellationToken)
+            public async Task<List<AssuntoDto>> Handle(GetAssuntosQuery request, CancellationToken cancellationToken)
             {
-                var vm = new AssuntoVm();
 
-                vm.Lists = await _context.Assunto
+                return await _context.Assunto
                     .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodAssunto)
                     .ToListAsync(cancellationToken);
-
-                return vm;
             }
         }
     }

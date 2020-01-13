@@ -27,8 +27,6 @@ namespace Infraero.Relprev.Application.Assunto.Queries.GetAssuntos
             {
                 try
                 {
-                    var vm = new AssuntoVm();
-
                     var responseModel = await _context.Assunto
                         .ProjectTo<AssuntoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodAssunto)

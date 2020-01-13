@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,20 +10,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.Perfil.Queries.GetPerfils
 {
-    public class GetPerfilAllQuery : IRequest<List<PerfilDto>>
+    public class GetGridPerfilsQuery : IRequest<GridPerfil>
     {
-        public class GetPerfilAllQueryHandler : IRequestHandler<GetPerfilAllQuery, List<PerfilDto>>
+        public class GetGridPerfilsQueryHandler : IRequestHandler<GetGridPerfilsQuery, GridPerfil>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
 
-            public GetPerfilAllQueryHandler(IApplicationDbContext context, IMapper mapper)
+            public GetGridPerfilsQueryHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<List<PerfilDto>> Handle(GetPerfilAllQuery request, CancellationToken cancellationToken)
+            public async Task<GridPerfil> Handle(GetGridPerfilsQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -33,8 +32,16 @@ namespace Infraero.Relprev.Application.Perfil.Queries.GetPerfils
                         .OrderBy(t => t.CodPerfil)
                         .ToListAsync(cancellationToken);
 
+                    var grid = new GridPerfil
+                    {
+                        aaData = responseModel,
+                        sEcho = 0,
+                        iTotalRecords = responseModel.Count(),
+                        recordsFiltered = responseModel.Count(),
+                        iTotalDisplayRecords = 1
+                    };
 
-                    return null;
+                    return grid;
                 }
                 catch (Exception e)
                 {
@@ -44,6 +51,5 @@ namespace Infraero.Relprev.Application.Perfil.Queries.GetPerfils
                 
             }
         }
-
     }
 }

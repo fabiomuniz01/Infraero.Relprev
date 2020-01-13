@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Perfil.Commands.CreatePerfil;
+using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
+using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
+using Infraero.Relprev.Application.Perfil.Queries.GetPerfils;
 using Infraero.Relprev.Infrastructure.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -12,48 +16,88 @@ namespace Infraero.Relprev.Api.Controllers
     [Route("api/[controller]")]
     public class PerfilController : ApiController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-
-        public PerfilController(UserManager<ApplicationUser> userManager)
+        [HttpPost("CreatePerfil")]
+        public async Task<ActionResult<long>> CreatePerfil(CreatePerfilCommand command)
         {
-            _userManager = userManager;
-        }
-
-        // GET: api/Perfil
-        [HttpGet]
-        public async Task<IEnumerable<string>> GetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
+            try
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                var result = await Mediator.Send(command);
+
+                return result;
             }
-            return new string[] { "value1", "value2" };
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
-        // GET: api/Perfil/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("GetGridPerfil")]
+        public async Task<GridPerfil> GetGridPerfil()
         {
-            return "value";
+            try
+            {
+                var result = await Mediator.Send(new GetGridPerfilsQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
-        // POST: api/Perfil
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("GetPerfilById/{id}")]
+        public async Task<PerfilDto> GetPerfilById(int id)
         {
+            try
+            {
+                var result = await Mediator.Send(new GetPerfilByIdQuery { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
-        // PUT: api/Perfil/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        [HttpPost("UpdatePerfil")]
+        public async Task<ActionResult<bool>> UpdatePerfil(UpdatePerfilCommand command)
         {
+            try
+            {
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("DeletePerfil")]
+        public async Task<ActionResult<bool>> DeletePerfil(DeletePerfilCommand command)
         {
+            try
+            {
+                var result = await Mediator.Send(command);
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
+
+
     }
 }

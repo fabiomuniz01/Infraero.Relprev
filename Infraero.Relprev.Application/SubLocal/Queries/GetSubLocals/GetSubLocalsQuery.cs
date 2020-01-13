@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
 {
-    public class GetSubLocalsQuery : IRequest<SubLocalVm>
+    public class GetSubLocalsQuery : IRequest<List<SubLocalDto>>
     {
-        public class GetSubLocalsQueryHandler : IRequestHandler<GetSubLocalsQuery, SubLocalVm>
+        public class GetSubLocalsQueryHandler : IRequestHandler<GetSubLocalsQuery, List<SubLocalDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -22,16 +23,12 @@ namespace Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals
                 _mapper = mapper;
             }
 
-            public async Task<SubLocalVm> Handle(GetSubLocalsQuery request, CancellationToken cancellationToken)
+            public async Task<List<SubLocalDto>> Handle(GetSubLocalsQuery request, CancellationToken cancellationToken)
             {
-                var vm = new SubLocalVm();
-
-                vm.Lists = await _context.SubLocal
+                return await _context.SubLocal
                     .ProjectTo<SubLocalDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodSubLocal)
                     .ToListAsync(cancellationToken);
-
-                return vm;
             }
         }
     }

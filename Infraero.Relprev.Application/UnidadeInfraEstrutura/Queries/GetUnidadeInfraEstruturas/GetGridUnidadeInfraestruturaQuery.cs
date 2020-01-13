@@ -27,8 +27,6 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
             {
                 try
                 {
-                    var vm = new UnidadeInfraEstruturaVm();
-
                     var responseModel = await _context.UnidadeInfraestrutura
                         .ProjectTo<UnidadeInfraEstruturaDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodUnidadeInfraestrutura)

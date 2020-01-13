@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos
 {
-    public class GetResponsavelTecnicosQuery : IRequest<ResponsavelTecnicoVm>
+    public class GetResponsavelTecnicosQuery : IRequest<List<ResponsavelTecnicoDto>>
     {
-        public class GetResponsavelTecnicosQueryHandler : IRequestHandler<GetResponsavelTecnicosQuery, ResponsavelTecnicoVm>
+        public class GetResponsavelTecnicosQueryHandler : IRequestHandler<GetResponsavelTecnicosQuery, List<ResponsavelTecnicoDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -22,16 +23,12 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
                 _mapper = mapper;
             }
 
-            public async Task<ResponsavelTecnicoVm> Handle(GetResponsavelTecnicosQuery request, CancellationToken cancellationToken)
+            public async Task<List<ResponsavelTecnicoDto>> Handle(GetResponsavelTecnicosQuery request, CancellationToken cancellationToken)
             {
-                var vm = new ResponsavelTecnicoVm();
-
-                vm.Lists = await _context.ResponsavelTecnico
+                return await _context.ResponsavelTecnico
                     .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.CodResponsavelTecnico)
                     .ToListAsync(cancellationToken);
-
-                return vm;
             }
         }
     }

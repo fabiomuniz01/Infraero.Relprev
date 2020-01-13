@@ -4,14 +4,8 @@ using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
 {
-    public partial class ResponsavelTecnico : AuditableEntity
+    public class ResponsavelTecnico : AuditableEntity
     {
-        public ResponsavelTecnico()
-        {
-            UnidadeInfraestrutura = new HashSet<UnidadeInfraestrutura>();
-            EmpresaResponsavelTecnico = new HashSet<EmpresaResponsavelTecnico>();
-        }
-
         [Key]
         public int CodResponsavelTecnico { get; set; }
         public string NomResponsavelTecnico { get; set; }
