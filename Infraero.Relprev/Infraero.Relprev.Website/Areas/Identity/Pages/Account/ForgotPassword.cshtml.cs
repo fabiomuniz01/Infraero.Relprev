@@ -38,9 +38,14 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Usuário não cadastrado.");
+                    return Page();
+                }
+                //|| !await _userManager.IsEmailConfirmedAsync(user))
                     // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    //return RedirectToPage("./ForgotPasswordConfirmation");
 
                 await SendForgotPasswordEmail(user);
 
@@ -65,13 +70,19 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
             message = message.Replace("%NAME%", user.FirstName);
             message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
 
-            await _emailSender.SendEmailAsync(user.Email, "Reset Your Admin Template Password",
+
+
+
+
+            await _emailSender.SendEmailAsync(user.Email, "Recupere sua senha do sistema Relprev",
                 message);
         }
 
         public class InputModel
         {
-            [Required] [EmailAddress] public string Email { get; set; }
+            [Required]
+            [RegularExpression(@"^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$", ErrorMessage = "O e-mail informado deve atender um formato padrão válido.")]
+            public string Email { get; set; }
         }
     }
 }

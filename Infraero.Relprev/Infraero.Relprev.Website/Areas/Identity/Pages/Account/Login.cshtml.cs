@@ -103,7 +103,7 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Register.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("O usuário criou uma nova conta com senha.");
 
                     // Setup database roles
                     //var userCount = _db.Users.Count();
@@ -165,8 +165,6 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result =
                     await _signInManager.PasswordSignInAsync(Login.Email, Login.Password, Login.RememberMe, true);
                 if (result.Succeeded)
@@ -180,15 +178,15 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
 
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    _logger.LogWarning("A sua conta foi bloqueada.");
+                    return RedirectToPage("./ForgotPassword");
                 }
 
                 var u = await _userManager.FindByEmailAsync(Login.Email);
                 if (u != null && !u.EmailConfirmed)
-                    ModelState.AddModelError(string.Empty, "Email address not confirmed.");
+                    ModelState.AddModelError(string.Empty, "Endereço de email não confirmado.");
                 else
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Tentativa de login inválida.");
                 return Page();
             }
 
@@ -199,7 +197,8 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
 
         public class LoginInput : IValidatableObject
         {
-            [EmailAddress] public string Email { get; set; }
+            [RegularExpression(@"^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$", ErrorMessage = "O e-mail informado deve atender um formato padrão válido.")]
+            public string Email { get; set; }
 
             [DataType(DataType.Password)] public string Password { get; set; }
 

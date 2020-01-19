@@ -40,8 +40,11 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
 
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
-                // Don't reveal that the user does not exist
-                return RedirectToPage("./ResetPasswordConfirmation");
+            {
+                ModelState.AddModelError(string.Empty, "Usuário não cadastrado.");
+                return Page();
+            }
+
 
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded) return RedirectToPage("./ResetPasswordConfirmation");
@@ -52,17 +55,18 @@ namespace Infraero.Relprev.Website.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required] [EmailAddress] public string Email { get; set; }
+            [Required]
+            [RegularExpression(@"^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$", ErrorMessage = "O e-mail informado deve atender um formato padrão válido.")]
+            [EmailAddress] public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
-                MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Formato de senha inválido, a senha deve conter no mínimo 8 digitos.",
+                MinimumLength = 8)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirm password")] [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não coincidem.")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }

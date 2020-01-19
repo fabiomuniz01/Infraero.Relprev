@@ -5,15 +5,47 @@
     // basic
     $("#form").validate({
         rules: {
+            "Login.Email": {
+                required: true,
+                email: true
+            },
             "Login.Password": {
                 required: true,
                 minlength: 8
+            },
+            "Input.Password": {
+                required: true,
+                minlength: 8
+            },
+            "Input.ConfirmPassword": {
+                required: true,
+                minlength: 8
+            },
+            "Input.Email": {
+                required: true,
+                email: true
             }
         },
         messages: {
+            "Login.Email": {
+                required: "Por favor informe seu usuário.",
+                email: "Formato de e-mail inválido."
+            },
             "Login.Password": {
                 required: "Por favor informe sua senha.",
-                minlength: jQuery.validator.format("O usuário deve informar uma senha válida, contendo no mínimo 8 dígitos")
+                minlength: jQuery.validator.format("Formato de senha inválido, a senha deve conter no mínimo 8 digitos.")
+            },
+            "Input.Password": {
+                required: "Por favor informe sua senha.",
+                minlength: jQuery.validator.format("Formato de senha inválido, a senha deve conter no mínimo 8 digitos.")
+            },
+            "Input.ConfirmPassword": {
+                required: "Por favor informe sua senha.",
+                minlength: jQuery.validator.format("Formato de senha inválido, a senha deve conter no mínimo 8 digitos.")
+            },
+            "Input.Email": {
+                required: "Por favor informe seu e-mail.",
+                email: "Formato de e-mail inválido."
             }
         },
         highlight: function (label) {

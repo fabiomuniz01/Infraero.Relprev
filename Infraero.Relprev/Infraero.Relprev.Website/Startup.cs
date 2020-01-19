@@ -1,4 +1,5 @@
-﻿using Infraero.Relprev.Data.EntityFramework;
+﻿using System;
+using Infraero.Relprev.Data.EntityFramework;
 using Infraero.Relprev.Data.Identity;
 using Infraero.Relprev.Website.Configuration;
 using Infraero.Relprev.Website.Services;
@@ -37,7 +38,9 @@ namespace Infraero.Relprev.Website
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection")));
+
+
 
             /*****
              * SQLite is used for an easy demo, no database server is required for it to work.
@@ -65,13 +68,45 @@ namespace Infraero.Relprev.Website
 
 
             services.AddDefaultIdentity<WebProfileUser>(config =>
-                {
-                    config.User.RequireUniqueEmail = true;
-                    config.SignIn.RequireConfirmedEmail = true;
-                })
+            {
+                config.User.RequireUniqueEmail = true;
+                config.SignIn.RequireConfirmedEmail = false;
+            })
                 .AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+                options.Lockout.MaxFailedAccessAttempts = 4;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
 
             // Register email service. Configured in appsettings.json
             services.AddTransient<IEmailSender, SendGridEmailService>();
