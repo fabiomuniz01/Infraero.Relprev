@@ -115,12 +115,10 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
                     if (roleCount == 0)
                     {
                         await _roleManager.CreateAsync(new IdentityRole { Name = UserRoles.Administrator });
-                        await _roleManager.CreateAsync(new IdentityRole { Name = UserRoles.SuperUser });
-                        await _roleManager.CreateAsync(new IdentityRole { Name = UserRoles.Registered });
 
                         // set this registering user as admin/everything
                         await _userManager.AddToRolesAsync(user,
-                            new[] { UserRoles.Administrator, UserRoles.SuperUser, UserRoles.Registered });
+                            new[] { UserRoles.Administrator });
                     }
 
                     await _userManager.AddToRoleAsync(user, UserRoles.Registered);

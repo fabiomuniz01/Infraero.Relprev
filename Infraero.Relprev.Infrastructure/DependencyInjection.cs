@@ -40,11 +40,12 @@ namespace Infraero.Relprev.Infrastructure
             services.AddScoped<ISubLocalClient>(provider => provider.GetService<SubLocalClient>());
             services.AddScoped<IResponsavelTecnicoClient>(provider => provider.GetService<ResponsavelTecnicoClient>());
             services.AddScoped<IUsuarioClient>(provider => provider.GetService<UsuarioClient>());
+            services.AddScoped<IPerfilClient>(provider => provider.GetService<PerfilClient>());
 
             if (environment.IsEnvironment("Test"))
             {
                 services.AddIdentityServer()
-                    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
+                    .AddApiAuthorization<WebProfileUser, ApplicationDbContext>(options =>
                     {
                         options.Clients.Add(new Client
                         {
@@ -69,7 +70,7 @@ namespace Infraero.Relprev.Infrastructure
             }
             else
             {
-                services.AddDefaultIdentity<IdentityUser>()
+                services.AddDefaultIdentity<WebProfileUser>()
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();

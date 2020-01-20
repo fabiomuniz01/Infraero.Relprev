@@ -6,5 +6,7 @@ namespace Infraero.Relprev.Application.Perfil.Queries.GetPerfils
     public class GridPerfil : ManagerMainGrid<PerfilDto>
     {
         public IEnumerable<PerfilDto> aaData { get; set; }
+        public List<string> aaDataList { get; set; }
+
     }
 }
