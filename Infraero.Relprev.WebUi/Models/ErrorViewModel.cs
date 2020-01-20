@@ -1,5 +1,3 @@
-using System;
-
 namespace Infraero.Relprev.WebUi.Models
 {
     public class ErrorViewModel

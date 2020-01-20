@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Infraero.Relprev.Infrastructure.Identity
+﻿namespace Infraero.Relprev.Infrastructure.Identity
 {
     public static class UserRoles
     {

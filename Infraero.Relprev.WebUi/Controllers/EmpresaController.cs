@@ -20,8 +20,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         private readonly IEmpresaClient _empresaClient;
         private readonly ILogger _logger;
         public EmpresaController(IEmpresaClient empresaClient, 
-            ILogger<CreateEmpresaCommand> logger, 
-            IScopeInformation scope)
+            ILogger<CreateEmpresaCommand> logger)
         {
             _empresaClient = empresaClient;
             _logger = logger;
@@ -30,12 +29,6 @@ namespace Infraero.Relprev.WebUi.Controllers
         //private readonly IEmpresa 
         public async Task<IActionResult> Index()
         {
-            //using (var http = new System.Net.Http.HttpClient(new StandardHttpMessageHandler(HttpContext, _logger)))
-            //{
-            //    var response = await http.GetAsync("https://localhost:44322/api/Empresa/GetGridEmpresa");
-            //    var test = JsonConvert.DeserializeObject<GridEmpresa>(await response.Content.ReadAsStringAsync());
-            //}
-
             var response1 = _empresaClient.GetGridEmpresa();
             return View(response1);
         }

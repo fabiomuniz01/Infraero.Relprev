@@ -18,11 +18,9 @@ namespace Infraero.Relprev.Api.Controllers
     public class EmpresaController : ApiController
     {
         private readonly ILogger<EmpresaController> _logger;
-        private readonly IScopeInformation _scopeInfo;
-        public EmpresaController(ILogger<EmpresaController> logger, IScopeInformation scopeInfo)
+        public EmpresaController(ILogger<EmpresaController> logger)
         {
             _logger = logger;
-            _scopeInfo = scopeInfo;
         }
 
         //[ClaimsAuthorize("Empresa", "Create")]

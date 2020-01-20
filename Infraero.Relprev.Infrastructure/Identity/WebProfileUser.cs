@@ -25,5 +25,8 @@ namespace Infraero.Relprev.Infrastructure.Identity
         public string Company { get; set; }
 
         [Display(Name = "Avatar Path")] public string AvatarPath { get; set; }
+
+        [Display(Name = "First Access")]
+        public DateTime? FirstAccess { get; set; }
     }
 }

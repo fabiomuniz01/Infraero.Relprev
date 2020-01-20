@@ -1,15 +1,15 @@
-﻿
+﻿@using System.Security.Claims
+
 <!doctype html>
 <html class="sidebar-light sidebar-left-big-icons">
 <head>
 
     <!-- Basic -->
-    <meta charset="UTF-8">
-
-    <title>RELPREV | Relatório de Prevenção</title>
-    <meta name="keywords" content="Relprev" />
-    <meta name="description" content="Relatório de Prevenção">
-    <meta name="author" content="ntitsolutions01@gmail.com">
+    <title>@ViewData["Title"] -Relprev</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta name="keywords" content="Infraero" />
+    <meta name="description" content="Infraero Relprev">
+    <meta name="author" content="Binnovation - NtitSolutions">
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -26,7 +26,7 @@
     @*<link rel="stylesheet" href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />*@
 
     <!-- Specific Page Vendor CSS -->
-    @RenderSection("CssSpecificVendor", required:false)
+    @RenderSection("CssSpecificVendor", required: false)
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="~/css/theme.css" />
@@ -64,8 +64,13 @@
                     <a href="#" data-toggle="dropdown">
 
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-                            <h2 class="name">BInnovation Developer</h2>
-                            <span class="role">administrator</span>
+                            <h2 class="name">@User.Identity.Name</h2>
+                            
+                            @{
+                                var result =((ClaimsIdentity)User.Identity).FindAll(ClaimTypes.Role).OrderBy(o=>o.Value).FirstOrDefault().Value;
+                            }
+
+                        <span class="role">@result</span>
                         </div>
 
                         <i class="fa custom-caret"></i>
@@ -82,7 +87,8 @@
                                 <a role="menuitem" tabindex="-1" href="@Url.Action("Index", "ConfigurarAmbiente")"><i class="fa fa-gear"></i> Configurar Ambiente</a>
                             </li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="@Url.Action("Index", "Home")"><i class="fa fa-power-off"></i> Sair</a>
+                                <a role="menuitem" tabindex="-1" href="#" onclick="document.forms['nav-logout'].submit();"><i class="fa fa-power-off"></i> Sair</a>
+                                <form class="form-inline" name="nav-logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})"></form>
                             </li>
                         </ul>
                     </div>
@@ -264,7 +270,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                
+
                             </ul>
                         </nav>
 

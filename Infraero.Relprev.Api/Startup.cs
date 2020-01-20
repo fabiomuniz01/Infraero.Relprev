@@ -40,7 +40,6 @@ namespace Infraero.Relprev.Api
             services.AddInfrastructure(Configuration, Environment);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<IScopeInformation, ScopeInformation>();
 
             services.AddHttpContextAccessor();
 
