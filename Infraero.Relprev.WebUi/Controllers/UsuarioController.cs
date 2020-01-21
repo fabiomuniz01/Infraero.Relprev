@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
@@ -17,13 +19,17 @@ namespace Infraero.Relprev.WebUi.Controllers
     {
         private readonly IUsuarioClient _UsuarioClient;
         private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
+        private readonly IEmpresaClient _empresaClient;
+        private readonly IPerfilClient _perfilClient;
 
 
         public UsuarioController(IUsuarioClient UsuarioClient,
-            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
+            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IEmpresaClient empresaClient, IPerfilClient perfilClient)
         {
             _UsuarioClient = UsuarioClient;
             _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
+            _empresaClient = empresaClient;
+            _perfilClient = perfilClient;
         }
 
         //private readonly IUsuario 
@@ -43,7 +49,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Create()
         {
             var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
-            var model = new UsuarioModel { ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao") };
+            var resultEmpresa = _empresaClient.GetEmpresaAll();
+            var resultPerfil = _perfilClient.GetPerfilAll();
+
+            var model = new UsuarioModel
+            {
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"),
+                ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"),
+                ListPerfil = new SelectList(resultPerfil, "CodPerfil","NomPerfil")
+            };
             return View(model);
         }
         public ActionResult CreatePerfil()
@@ -125,6 +139,16 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        public JsonResult GetListUnidadeById(int id)
+        {
+            var result = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll()
+                .Where(x => x.CodUnidadeInfraestrutura == id).ToList();
+
+            result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Local de Ocorrência" });
+
+            return Json(new SelectList(result, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
         }
     }
 }

@@ -128,7 +128,21 @@ namespace Infraero.Relprev.Api.Controllers
                 throw;
             }
         }
+        [HttpGet("GetPerfilAll")]
+        public async Task<List<PerfilDto>> GetPerfilAll()
+        {
+            try
+            {
+                var list = _db.Roles.Select(s => s).ToList().Select(item => new PerfilDto { NomPerfil = item.Name, CodPerfil = item.Id }).ToList();
+                return list;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
+        }
 
     }
 }

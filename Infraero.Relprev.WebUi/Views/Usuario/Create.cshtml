@@ -23,6 +23,7 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Nome <span class="required">*</span></label>
                         <div class="col-sm-9">
                             <input type="text" name="NomUsuario" class="form-control" placeholder="eg.: Descrição completa do nome do usuário"
+                                   maxlength="60"
                                    title="Por favor informe a descrição completa do nome do usuário." required />
                         </div>
                     </div>
@@ -30,6 +31,7 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Cpf <span class="required">*</span></label>
                         <div class="col-sm-9">
                             <input type="text" name="NumCpf" class="form-control" placeholder="eg.: Número do CPF do usuário"
+                                   maxlength="14"
                                    title="Por favor informe o número do CPF do usuário" required />
                         </div>
                     </div>
@@ -41,6 +43,7 @@
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário"
+                                       maxlength="40"
                                        title="Por favor informe um endereço eletrônico válido do usuário" required />
                             </div>
                         </div>
@@ -51,6 +54,7 @@
                                     <i class="fa fa-phone"></i>
                                 </span>
                                 <input id="NumTelefone" placeholder="eg.: Telefone de contato do usuário" class="form-control"
+                                       maxlength="14"
                                        title="Por favor informe o telefone de contato do usuário" required>
                             </div>
                         </div>
@@ -74,7 +78,7 @@
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
                                     title="Por favor selecione uma unidade de infraestrutura." required
-                                    asp-for="CodUnidadeInfraestrutura" asp-items='@(new SelectList(string.Empty, "CodUnidadeInfraestrutura", "DscLocal"))'>
+                                    asp-for="CodUnidadeInfraestrutura" asp-items='@(new SelectList(string.Empty, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"))'>
                                 <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>

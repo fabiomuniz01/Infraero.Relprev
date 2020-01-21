@@ -33,6 +33,24 @@
 
     $select.rules('add', 'required');
 
+    $("#ddlEmpresa").change(function () {
+
+        var url = '@Url.Content("~/")' + "Usuario/GetListUnidadeById";
+
+        var ddlSource = "#ddlEmpresa";
+
+        $.getJSON(url,
+            { id: $(ddlSource).val() },
+            function (data) {
+                var items = '';
+                $("#ddlUnidadeInfraestrutura").empty;
+                $.each(data,
+                    function (i, row) {
+                        items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                    });
+                $("#ddlUnidadeInfraestrutura").html(items);
+            });
+    });
 
     $("#form").validate({
        highlight: function (label) {

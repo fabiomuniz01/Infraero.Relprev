@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.CrossCutting.Models.UsuarioModel
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,49 +23,64 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Nome <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required />
+                            <input type="text" name="NomUsuario" class="form-control" placeholder="eg.: Descrição completa do nome do usuário" 
+                                   maxlength="60"
+                                   title="Por favor informe a descrição completa do nome do usuário." required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Cpf <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required />
+                            <input type="text" name="NumCpf" class="form-control" placeholder="eg.: Número do CPF do usuário"
+                                   maxlength="14"
+                                   title="Por favor informe o número do CPF do usuário" required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Email </label>
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Email <span class="required">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="email" name="email" class="form-control" placeholder="eg.: email@email.com" required />
+                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário"
+                                       maxlength="40"
+                                       title="Por favor informe um endereço eletrônico válido do usuário" required />
                             </div>
                         </div>
-                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone</label>
+                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone<span class="required">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input id="phone" data-plugin-masked-input="" data-input-mask="(999) 999-9999" placeholder="(123) 123-1234" class="form-control">
+                                <input id="NumTelefone" placeholder="eg.: Telefone de contato do usuário" class="form-control"
+                                       maxlength="14"
+                                       title="Por favor informe o telefone de contato do usuário" required>
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Nome da empresa <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required />
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nome da empresa<span class="required">*</span></label>
+
+                        <div class="col-lg-9">
+                            <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
+                                    title="Por favor selecione uma empresa." required
+                                    asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
+                                <option value="">Selecionar Empresa</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestritura<span class="required">*</span></label>
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestrutura<span class="required">*</span></label>
 
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
+                            <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
+                                    title="Por favor selecione uma unidade de infraestrutura." required
+                                    asp-for="CodUnidadeInfraestrutura" asp-items='@(new SelectList(string.Empty, "CodUnidadeInfraestrutura", "DscLocal"))'>
+                                <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                     </div>
@@ -73,9 +88,10 @@
                         <label class="col-lg-3 control-label text-sm-right pt-2">Tipo Perfil<span class="required">*</span></label>
 
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Administrador</option>
-                                <option value="HI">Gestor</option>
+                            <select class="form-control populate select2" name="ddlPerfil" id="ddlPerfil"
+                                    title="Por favor selecione um perfil." required
+                                    asp-for="CodPerfil" asp-items="Model.ListPerfil">
+                                <option value="">Selecionar Perfil</option>
                             </select>
                         </div>
                     </div>
@@ -103,15 +119,15 @@
 
     <script>
         // Select2
-        (function($) {
+        (function ($) {
 
             'use strict';
 
-            if ( $.isFunction($.fn[ 'select2' ]) ) {
+            if ($.isFunction($.fn['select2'])) {
 
-                $(function() {
-                    $('[data-plugin-selectTwo]').each(function() {
-                        var $this = $( this ),
+                $(function () {
+                    $('[data-plugin-selectTwo]').each(function () {
+                        var $this = $(this),
                             opts = {};
 
                         var pluginOptions = $this.data('plugin-options');
