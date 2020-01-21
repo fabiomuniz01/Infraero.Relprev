@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.Perfil.Queries.GetPerfils
 {
     public class PerfilDto : IMapFrom<Domain.Entities.Perfil>
     {
-        public int CodPerfil { get; set; }
+        public string CodPerfil { get; set; }
         public string NomPerfil { get; set; }
         public string DscPerfil { get; set; }
         public string FlgAtivo { get; set; }

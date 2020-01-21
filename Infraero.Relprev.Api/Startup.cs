@@ -130,7 +130,7 @@ namespace Infraero.Relprev.Api
 
             app.UseMvc();
 
-            CreateRoles(serviceProvider).Wait();
+            //CreateRoles(serviceProvider).Wait();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)

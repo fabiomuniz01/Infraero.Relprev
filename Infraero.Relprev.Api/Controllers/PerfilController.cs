@@ -32,28 +32,19 @@ namespace Infraero.Relprev.Api.Controllers
         }
 
         [HttpPost("CreatePerfil")]
-        public async Task<ActionResult<long>> CreatePerfil(CreatePerfilCommand command)
+        public async Task<ActionResult<bool>> CreatePerfil(CreatePerfilCommand command)
         {
             try
             {
-                //var user = await _userManager.FindByEmailAsync(command.UserIdentity);
+                var result =  await _roleManager.CreateAsync(new IdentityRole { Name = command.NomPerfil }); 
 
-                await _roleManager.CreateAsync(new IdentityRole { Name = command.NomPerfil });
-
-                // set this registering user as admin/everything
-                //await _userManager.AddToRolesAsync(user,
-                //    new[] { UserRoles.Administrator });
-
-                //await _userManager.AddToRoleAsync(user, UserRoles.Registered);
-
-                return 1;
+                return result.Succeeded;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         [HttpGet("GetGridPerfil")]
@@ -61,50 +52,34 @@ namespace Infraero.Relprev.Api.Controllers
         {
             try
             {
-                var result = await Mediator.Send(new GetGridPerfilsQuery());
+                var responseModel = _db.Roles;
 
-                try
+                var list = responseModel.Select(s => s).ToList().Select(item => new PerfilDto { NomPerfil = item.Name, CodPerfil = item.Id }).ToList();
+                var grid = new GridPerfil
                 {
-                    var responseModel = _db.Roles;
+                    aaData = list,
+                    sEcho = 0,
+                    iTotalRecords = responseModel.Count(),
+                    recordsFiltered = responseModel.Count(),
+                    iTotalDisplayRecords = 1
+                };
 
-                    var list = responseModel.Select(s => s.Name).ToList().Select(item => new PerfilDto {NomPerfil = item, DscPerfil = item}).ToList();
-                    var grid = new GridPerfil
-                    {
-                        aaData = list,
-                        sEcho = 0,
-                        iTotalRecords = responseModel.Count(),
-                        recordsFiltered = responseModel.Count(),
-                        iTotalDisplayRecords = 1
-                    };
-
-                    return grid;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
-
-
-
-
-
-                return result;
+                return grid;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         [HttpGet("GetPerfilById/{id}")]
-        public async Task<PerfilDto> GetPerfilById(int id)
+        public async Task<PerfilDto> GetPerfilById(string id)
         {
             try
             {
-                var result = await Mediator.Send(new GetPerfilByIdQuery { Id = id });
+                var result = _db.Roles.Where(x => x.Id == id).Select(item => new PerfilDto { NomPerfil = item.Name, CodPerfil = item.Id }).FirstOrDefault();
+
                 return result;
             }
             catch (Exception e)
@@ -112,18 +87,21 @@ namespace Infraero.Relprev.Api.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-
         }
-
 
         [HttpPost("UpdatePerfil")]
         public async Task<ActionResult<bool>> UpdatePerfil(UpdatePerfilCommand command)
         {
             try
             {
-                var result = await Mediator.Send(command);
+                var obj = _db.Roles.Where(x => x.Id == command.CodPerfil).FirstOrDefault();
 
-                return result;
+                obj.Name = command.NomPerfil;
+                obj.NormalizedName = command.NomPerfil.ToUpper();
+                
+                var result = await _roleManager.UpdateAsync(obj);
+
+                return result.Succeeded;
             }
             catch (Exception e)
             {
@@ -138,8 +116,11 @@ namespace Infraero.Relprev.Api.Controllers
         {
             try
             {
-                var result = await Mediator.Send(command);
-                return result;
+                var obj = _db.Roles.Where(x => x.Id == command.CodPerfil).FirstOrDefault();
+
+                var result = await _roleManager.DeleteAsync(obj);
+
+                return result.Succeeded;
             }
             catch (Exception e)
             {

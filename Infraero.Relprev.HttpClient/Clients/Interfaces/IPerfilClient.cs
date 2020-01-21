@@ -11,9 +11,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Interfaces
 {
     public interface IPerfilClient
     {
-        int CreatePerfil(CreatePerfilCommand command);
+        bool CreatePerfil(CreatePerfilCommand command);
         GridPerfil GetGridPerfil();
-        PerfilDto GetPerfilById(int id);
+        PerfilDto GetPerfilById(string id);
         bool UpdatePerfil(UpdatePerfilCommand command);
         bool DeletePerfil(DeletePerfilCommand command);
         List<PerfilDto> GetPerfilAll();

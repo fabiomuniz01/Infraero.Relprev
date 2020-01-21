@@ -44,6 +44,6 @@ namespace Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil
 
         public string NomPerfil { get; set; }
 
-        public int CodPerfil { get; set; }
+        public string CodPerfil { get; set; }
     }
 }

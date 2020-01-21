@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.Perfil.Commands.DeletePerfil
 {
     public class DeletePerfilCommand : IRequest<bool>
     {
-        public int CodPerfil { get; set; }
+        public string CodPerfil { get; set; }
 
         public class DeletePerfilCommandHandler : IRequestHandler<DeletePerfilCommand, bool>
         {

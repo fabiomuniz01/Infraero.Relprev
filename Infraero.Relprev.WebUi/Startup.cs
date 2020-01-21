@@ -111,7 +111,7 @@ namespace Infraero.Relprev.WebUi
                 config.User.RequireUniqueEmail = true;
                 config.SignIn.RequireConfirmedEmail = false;
             })
-                .AddRoles<WebProfileRole>()
+                .AddRoles<IdentityRole>()
                 //.AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

@@ -44,8 +44,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreatePerfilCommand
                 {
-                    NomPerfil = collection["NomPerfil"].ToString(),
-                    DscPerfil = collection["DscPerfil"].ToString(),
+                    NomPerfil = collection["NomPerfil"].ToString()
                 };
                 _perfilClient.CreatePerfil(command);
 
@@ -58,7 +57,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Perfil/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             var obj = _perfilClient.GetPerfilById(id);
             var model = new PerfilModel(obj);
@@ -68,15 +67,14 @@ namespace Infraero.Relprev.WebUi.Controllers
         // POST: Perfil/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
                 var command = new UpdatePerfilCommand
                 {
                     CodPerfil = id,
-                    NomPerfil = collection["NomPerfil"].ToString(),
-                    DscPerfil = collection["DscPerfil"].ToString()
+                    NomPerfil = collection["NomPerfil"].ToString()
                 };
                 _perfilClient.UpdatePerfil(command);
 
@@ -89,7 +87,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Perfil/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             try
             {
@@ -99,7 +97,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 

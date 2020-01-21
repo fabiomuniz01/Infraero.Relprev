@@ -20,16 +20,16 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
         }
 
-        public int CreatePerfil(CreatePerfilCommand command)
+        public bool CreatePerfil(CreatePerfilCommand command)
         {
-            return Post<int>($"{Resource}/CreatePerfil", command);
+            return Post<bool>($"{Resource}/CreatePerfil", command);
         }
         public GridPerfil GetGridPerfil()
         {
             return Get<GridPerfil>($"{Resource}/GetGridPerfil");
         }
 
-        public PerfilDto GetPerfilById(int id)
+        public PerfilDto GetPerfilById(string id)
         {
             return Get<PerfilDto>($"{Resource}/GetPerfilById/{id}");
         }
