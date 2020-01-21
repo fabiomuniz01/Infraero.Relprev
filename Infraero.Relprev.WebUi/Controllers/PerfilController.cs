@@ -7,12 +7,14 @@ using System.Linq;
 using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
 using Infraero.Relprev.CrossCutting.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    //[Authorize(Roles = "Gestor comercial")]
     public class PerfilController : Controller
     {
         private readonly IPerfilClient _perfilClient;
