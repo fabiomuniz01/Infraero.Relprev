@@ -31,10 +31,10 @@
                                 </select>*@
                             <div class="input-group mb-3">
                                 <input type="text" id="sigla" name="sigla" class="form-control" placeholder="eg.: Sigla" maxlength="4"
-                                       v-model="UnidadeInfraEstruturaDto.Dependencia.dep_sigla"
-                                       title="Por favor informe a sigla." required>
+                                       title="Por favor informe uma sigla para pesquisar os dados de endereço." required
+                                       v-model="params.sigla">
                                 <span class="input-group-btn">
-                                    <button id="dependencia"
+                                    <button id="dependencia" v-on:click="GetUnidadeBySigla"
                                             class="btn btn-primary" type="button">
                                         &nbsp;&nbsp;<i class="fa fa-search"></i>
                                     </button>
@@ -44,19 +44,32 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Aeroporto</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="aeroporto" name="aeroporto" class="form-control" readonly
+                                   v-model="UnidadeInfraEstruturaDto.Dependencia.dep_sigla_nome"
+                                   title="Aeroporto nao pesquisado a partir da sigla informada." required>
+                            @*<input type="hidden" id="CodDependencia" name="CodDependencia" value="UnidadeInfraEstruturaDto.Dependencia.dep_codigo" />*@
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Endereço</label>
                         <div class="col-sm-9">
-                            <input type="text" id="endereco" name="endereco" class="form-control" readonly>
+                            <input type="text" id="endereco" name="endereco" class="form-control" readonly
+                                   v-model="UnidadeInfraEstruturaDto.Dependencia.dep_endereco_logradouro"
+                                   title="Endereço nao pesquisado a partir da sigla informada." required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Complemento</label>
                         <div class="col-sm-3">
-                            <input type="text" id="complemento" name="complemento" class="form-control" readonly>
+                            <input type="text" id="complemento" name="complemento" class="form-control"
+                                   v-model="UnidadeInfraEstruturaDto.Dependencia.dep_endereco_complemento" readonly>
                         </div>
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Logradouro</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Numero</label>
                         <div class="col-sm-3">
-                            <input type="text" id="logradouro" name="logradouro" class="form-control" readonly>
+                            <input type="text" id="numero" name="numero" class="form-control"
+                                   v-model="UnidadeInfraEstruturaDto.Dependencia.dep_numero_logradouro" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -110,11 +123,14 @@
 </div>
 
 @section CssSpecificVendor {
+    <link href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 }
 
 @section Scripts {
 
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
     <script src="~/js/unidade.js"></script>
-   
+
 }

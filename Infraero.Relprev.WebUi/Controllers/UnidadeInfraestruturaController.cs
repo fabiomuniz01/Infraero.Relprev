@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
@@ -125,9 +127,31 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         public JsonResult GetUnidadeBySigla(string sigla)
         {
-            var result = _unidadeInfraEstruturaClient.GetDependenciaAll().Where(x=>x.dep_sigla.Equals(sigla.ToUpper().Trim()));
 
-            return Json(result);
+            try
+            {
+                if (string.IsNullOrEmpty(sigla))
+                {
+                    throw new Exception(
+                        "Sigla não informada.");
+                }
+                var result = _unidadeInfraEstruturaClient.GetDependenciaAll().Where(x => x.dep_sigla.Equals(sigla.ToUpper().Trim())).FirstOrDefault();
+
+                if (result ==null)
+                {
+                    throw new Exception(
+                        "Aeroporto não encontrado.");
+                }
+                
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+
+            }
+
+            
         }
     }
 }
