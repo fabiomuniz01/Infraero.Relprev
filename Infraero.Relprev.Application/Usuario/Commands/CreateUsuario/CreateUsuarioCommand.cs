@@ -52,6 +52,14 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
         public string FlgUsuarioBloqueado { get; set; }
         public string CriadoPor { get; set; }
 
-        public int CodUnidadeInfraestrutura { get; set; } 
+        public int CodUnidadeInfraestrutura { get; set; }
+        public DateTime DateRegistered { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Nome { get; set; }
+        public string Cpf { get; set; }
+        public string Telefone { get; set; }
+        public int CodEmpresa { get; set; }
+        public string CodPerfil { get; set; }
     }
 }

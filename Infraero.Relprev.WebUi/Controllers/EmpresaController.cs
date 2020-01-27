@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa;
 using Infraero.Relprev.Infrastructure;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -101,14 +102,12 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // POST: Empresa/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Delete(int id)
         {
             try
             {
-                _empresaClient.DeleteEmpresa(id);
+                _empresaClient.DeleteEmpresa(new DeleteEmpresaCommand{Id= id});
                 return RedirectToAction(nameof(Index));
             }
             catch

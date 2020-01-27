@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -36,7 +39,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: UnidadeInfraEstrutura/Create
         public ActionResult Create()
         {
-            return View();
+            var resultUnidade = _unidadeInfraEstruturaClient.GetDependenciaAll();
+
+            var model = new UnidadeInfraestruturaModel { ListDependencia = new SelectList(resultUnidade, "dep_codigo", "dep_sigla_nome") };
+            return View(model);
         }
 
         // POST: UnidadeInfraEstrutura/Create
@@ -115,6 +121,13 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        public JsonResult GetUnidadeBySigla(string sigla)
+        {
+            var result = _unidadeInfraEstruturaClient.GetDependenciaAll().Where(x=>x.dep_sigla.Equals(sigla.ToUpper().Trim()));
+
+            return Json(result);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
+using Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
@@ -41,9 +42,9 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
             return Post<bool>($"{Resource}/UpdateEmpresa", command);
         }
 
-        public bool DeleteEmpresa(int id)
+        public bool DeleteEmpresa(DeleteEmpresaCommand command)
         {
-            return Post<bool>($"{Resource}/DeleteEmpresa", id);
+            return Post<bool>($"{Resource}/DeleteEmpresa", command);
         }
     }
 }

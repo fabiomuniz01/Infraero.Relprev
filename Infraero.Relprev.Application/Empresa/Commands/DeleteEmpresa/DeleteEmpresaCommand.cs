@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa
 {
     public class DeleteEmpresaCommand : IRequest<bool>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public class DeleteEmpresaCommandHandler : IRequestHandler<DeleteEmpresaCommand, bool>
         {
@@ -25,7 +25,7 @@ namespace Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Empresa), request.Id);
+                    throw new NotFoundException(nameof(Domain.Entities.Empresa), request.Id);
                 }
 
                 _context.Empresa.Remove(entity);

@@ -25,5 +25,23 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
         }
 
         public string DscCodUnidadeDescricao { get; set; }
+
+        public class Dependencia
+        {
+            public string dep_codigo { get; set; }
+            public string dep_nome { get; set; }
+            public string dep_sigla { get; set; }
+            public string dep_sigla_nome { get; set; }
+            public string dep_endereco_logradouro { get; set; }
+            public string dep_endereco_complemento { get; set; }
+            public string dep_numero_logradouro { get; set; }
+            public string dep_endereco_bairro { get; set; }
+            public string dep_endereco_municipio { get; set; }
+            public string dep_ufe_sigla { get; set; }
+            public string dep_endereco_cep { get; set; }
+            public string dep_numero_telefone_1 { get; set; }
+        }
     }
+
+    
 }

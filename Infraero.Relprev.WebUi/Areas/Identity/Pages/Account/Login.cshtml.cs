@@ -85,9 +85,8 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
                     DateRegistered = DateTime.UtcNow,
                     UserName = Register.Email,
                     Email = Register.Email,
-                    FirstName = Register.FirstName,
-                    LastName = Register.LastName,
-                    Company = Register.Company
+                    Nome = Register.FirstName,
+                    Cpf = Register.LastName,
                 };
 
                 // If there is already a user in the system with this email, and they have not confirmed thier email
@@ -168,6 +167,24 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
 
                 var u = await _userManager.FindByEmailAsync(Login.Email);
 
+                if (u==null)
+                {
+                    ModelState.AddModelError(string.Empty, "Usuário não cadastrado.");
+                    return Page();
+                }
+
+                if (!result.Succeeded)
+                {
+                    if (result.IsLockedOut)
+                    {
+                        _logger.LogWarning("A sua conta foi bloqueada.");
+                        return RedirectToPage("./ForgotPassword");
+                    }
+
+                    ModelState.AddModelError(string.Empty, "Senha inválida.");
+                    return Page();
+                }
+
                 if (result.Succeeded)
                 {
                     if (!u.FirstAccess.HasValue)
@@ -184,31 +201,11 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
 
                         return RedirectToPage("./FirstAccessPassword", new { email, code });
                     }
-                    //else
-                    //{
+                    
                     _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
-                    //}
                 }
-
-                if (result.RequiresTwoFactor)
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Login.RememberMe });
-
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("A sua conta foi bloqueada.");
-                    return RedirectToPage("./ForgotPassword");
-                }
-
-
-                if (u != null && !u.EmailConfirmed)
-                    ModelState.AddModelError(string.Empty, "Endereço de email não confirmado.");
-                else
-                    ModelState.AddModelError(string.Empty, "Tentativa de login inválida.");
-                return Page();
             }
-
-            // If we got this far, something failed, redisplay form
             return Page();
         }
 

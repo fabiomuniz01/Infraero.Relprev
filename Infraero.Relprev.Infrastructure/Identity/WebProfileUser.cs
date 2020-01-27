@@ -14,19 +14,18 @@ namespace Infraero.Relprev.Infrastructure.Identity
         public DateTime? DateEmailConfirmed { get; set; }
 
         [Required]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
 
-        [Display(Name = "Last Name")]
-        [DisplayFormat(ConvertEmptyStringToNull = true)]
-        public string LastName { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = true)]
-        public string Company { get; set; }
-
-        [Display(Name = "Avatar Path")] public string AvatarPath { get; set; }
+        [Required]
+        [Display(Name = "Cpf")]
+        public string Cpf { get; set; }
 
         [Display(Name = "First Access")]
         public DateTime? FirstAccess { get; set; }
+
+        [Required]
+        [Display(Name = "Telefone")]
+        public string Telefone { get; set; }
     }
 }

@@ -67,7 +67,7 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
 
             var message =
                 System.IO.File.ReadAllText(Path.Combine(_host.WebRootPath, "emailtemplates/ForgotPassword.html"));
-            message = message.Replace("%NAME%", user.FirstName);
+            message = message.Replace("%NAME%", user.Nome);
             message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
 
 

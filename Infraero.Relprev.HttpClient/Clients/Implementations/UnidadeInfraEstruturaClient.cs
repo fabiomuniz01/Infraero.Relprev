@@ -50,5 +50,10 @@ namespace Infraero.Relprev.HttpClient.Clients.Implementations
         {
             return Get<List<UnidadeInfraEstruturaDto>>($"{Resource}/GetUnidadeInfraEstruturaAll/");
         }
+
+        public List<UnidadeInfraEstruturaDto.Dependencia> GetDependenciaAll()
+        {
+            return Get<List<UnidadeInfraEstruturaDto.Dependencia>>($"{Resource}/GetDependenciaAll");
+        }
     }
 }

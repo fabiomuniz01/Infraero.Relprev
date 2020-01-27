@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
@@ -16,5 +17,7 @@ namespace Infraero.Relprev.HttpClient.Clients.Interfaces
         bool DeleteUnidadeInfraEstrutura(int id);
 
         List<UnidadeInfraEstruturaDto> GetUnidadeInfraEstruturaAll();
+        List<UnidadeInfraEstruturaDto.Dependencia> GetDependenciaAll();
+        
     }
 }

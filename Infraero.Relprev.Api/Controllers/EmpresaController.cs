@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
-using Infraero.Relprev.Api.Filters;
+using Dapper;
 using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
-using Infraero.Relprev.Infrastructure;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Infraero.Relprev.Api.Controllers
 {
@@ -17,6 +18,7 @@ namespace Infraero.Relprev.Api.Controllers
     [Route("api/[controller]")]
     public class EmpresaController : ApiController
     {
+        
         private readonly ILogger<EmpresaController> _logger;
         public EmpresaController(ILogger<EmpresaController> logger)
         {
@@ -47,8 +49,8 @@ namespace Infraero.Relprev.Api.Controllers
             try
             {
                 _logger.LogInformation("API ENTRY: Inside get all empresas API call.");
-                var result = await Mediator.Send(new GetGridEmpresasQuery());
-                return result;
+                var result2 = await Mediator.Send(new GetGridEmpresasQuery());
+                return result2;
             }
             catch (Exception e)
             {
@@ -108,12 +110,12 @@ namespace Infraero.Relprev.Api.Controllers
 
         }
         //[ClaimsAuthorize("Empresa", "Delete")]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteEmpresa(int id)
+        [HttpPost("DeleteEmpresa")]
+        public async Task<ActionResult<bool>> DeleteEmpresa(DeleteEmpresaCommand command)
         {
             try
             {
-                var result = await Mediator.Send(new DeleteEmpresaCommand { Id = id });
+                var result = await Mediator.Send(command);
                 return result;
             }
             catch (Exception e)
@@ -123,6 +125,6 @@ namespace Infraero.Relprev.Api.Controllers
             }
         }
 
-
+        
     }
 }

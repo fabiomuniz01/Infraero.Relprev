@@ -20,15 +20,11 @@ namespace Infraero.Relprev.Api.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<WebProfileUser> _userManager;
-        private readonly SignInManager<WebProfileUser> _signInManager;
 
-        public PerfilController(ApplicationDbContext db, RoleManager<IdentityRole> roleManager, UserManager<WebProfileUser> userManager, SignInManager<WebProfileUser> signInManager)
+        public PerfilController(ApplicationDbContext db, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
             _roleManager = roleManager;
-            _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [HttpPost("CreatePerfil")]

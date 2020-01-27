@@ -7,6 +7,7 @@ using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.Infrastructure.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -74,14 +75,16 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateUsuarioCommand
                 {
-                    NomUsuario = collection["NomUsuario"].ToString(),
-                    NumCpf = collection["NumCpf"].ToString(),
-                    EndEmail = collection["EndEmail"].ToString(),
-                    NumTelefone = collection["NumTelefone"].ToString(),
+
+                    DateRegistered = DateTime.UtcNow,
+                    UserName = collection["EndEmail"].ToString(),
+                    Email = collection["EndEmail"].ToString(),
+                    Nome = collection["NomUsuario"].ToString(),
+                    Cpf = collection["cpf"].ToString(),
+                    Telefone = collection["NumTelefone"].ToString(),
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    DthRegistro = DateTime.Now,
-                    CriadoPor = "Amcom Develper",
-                    DataCriacao = DateTime.Now
+                    CodEmpresa = int.Parse(collection["ddlEmpresa"].ToString()),
+                    CodPerfil = collection["ddlPerfil"].ToString()
                 };
                 _UsuarioClient.CreateUsuario(command);
 

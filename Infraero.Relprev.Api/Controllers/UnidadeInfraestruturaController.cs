@@ -77,6 +77,22 @@ namespace Infraero.Relprev.Api.Controllers
 
         }
 
+        [HttpGet("GetDependenciaAll")]
+        public async Task<List<UnidadeInfraEstruturaDto.Dependencia>> GetDependenciaAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetDependenciaAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
 
         [HttpPost("UpdateUnidadeInfraestrutura")]
         public async Task<ActionResult<bool>> UpdateUnidadeInfraestrutura(UpdateUnidadeInfraEstruturaCommand command)
