@@ -18,6 +18,15 @@ var vm = new Vue({
 
             'use strict';
 
+            $('#DtIniVigencia').datepicker({
+                format: "dd/mm/yyyy",
+                language: "pt-BR"
+            });
+            $('#DtFimVigencia').datepicker({
+                format: "dd/mm/yyyy",
+                language: "pt-BR"
+            });
+
             $("#form").validate({
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -45,53 +54,56 @@ var vm = new Vue({
 
             axios.get("GetUnidadeBySigla/?sigla=" + self.params.sigla).then(result => {
 
-                if (result.data.) {
-                    
-                }
-
-
-                self.UnidadeInfraEstruturaDto.Dependencia = result.data;
-                console.log(result);
-            }).catch(error => {
-                Site.Notification("Erro ao buscar e analisar dados", error.response.data.Message, "error", 1);
-
+                if (result.data.dep_codigo === undefined) {
                     new PNotify({
-                        title: 'Regular Notice',
-                        text: 'Check me out! I\'m a notice.',
-                        type: 'custom',
-                        addclass: 'notification-primary',
-                        icon: 'fa fa-twitter'
-                    });
-
-                    new PNotify({
-                        title: 'Regular Notice',
-                        text: 'Check me out! I\'m a notice.'
-                    });
-
-                    new PNotify({
-                        title: 'Regular Notice',
-                        text: 'Check me out! I\'m a notice.',
-                        type: 'success'
-                    });
-
-                    new PNotify({
-                        title: 'Regular Notice',
-                        text: 'Check me out! I\'m a notice.',
-                        type: 'info'
-                    });
-
-                    new PNotify({
-                        title: 'Regular Notice',
-                        text: 'Check me out! I\'m a notice.',
+                        title: 'Unidade de Infraestrutura',
+                        text: result.data,
                         type: 'error'
                     });
+                } else {
+                    self.UnidadeInfraEstruturaDto.Dependencia = result.data;
+                }
 
-                    new PNotify({
-                        title: 'Regular Notice',
-                        text: 'Check me out! I\'m a notice.',
-                        addclass: 'notification-dark',
-                        icon: 'fa fa-user'
-                });
+            }).catch(error => {
+                Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
+                
+                //    new PNotify({
+                //        title: 'Regular Notice',
+                //        text: 'Check me out! I\'m a notice.',
+                //        type: 'custom',
+                //        addclass: 'notification-primary',
+                //        icon: 'fa fa-twitter'
+                //    });
+
+                //    new PNotify({
+                //        title: 'Regular Notice',
+                //        text: 'Check me out! I\'m a notice.'
+                //    });
+
+                //    new PNotify({
+                //        title: 'Regular Notice',
+                //        text: 'Check me out! I\'m a notice.',
+                //        type: 'success'
+                //    });
+
+                //    new PNotify({
+                //        title: 'Regular Notice',
+                //        text: 'Check me out! I\'m a notice.',
+                //        type: 'info'
+                //    });
+
+                //    new PNotify({
+                //        title: 'Regular Notice',
+                //        text: 'Check me out! I\'m a notice.',
+                //        type: 'error'
+                //    });
+
+                //    new PNotify({
+                //        title: 'Regular Notice',
+                //        text: 'Check me out! I\'m a notice.',
+                //        addclass: 'notification-dark',
+                //        icon: 'fa fa-user'
+                //});
             });
         }
     }

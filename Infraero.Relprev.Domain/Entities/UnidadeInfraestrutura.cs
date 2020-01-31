@@ -16,7 +16,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string Sigla { get; set; }
 
         public string Descricao { get; set; }
-        public string Endereco { get; set; }
+        public string NomUnidade { get; set; }
         public DateTime DtIniVigencia { get; set; }
         public DateTime DtFimVigencia { get; set; }
 
@@ -25,5 +25,7 @@ namespace Infraero.Relprev.Domain.Entities
 
         [ForeignKey("CodUnidadeInfraestrutura")]
         public ICollection<Relato> RelatoList { get; set; }
+
+        public string Endereco { get; set; }
     }
 }

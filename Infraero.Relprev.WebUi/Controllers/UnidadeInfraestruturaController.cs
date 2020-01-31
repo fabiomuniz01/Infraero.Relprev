@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.Entities;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
@@ -41,10 +42,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: UnidadeInfraEstrutura/Create
         public ActionResult Create()
         {
-            var resultUnidade = _unidadeInfraEstruturaClient.GetDependenciaAll();
+            //var resultUnidade = _unidadeInfraEstruturaClient.GetDependenciaAll();
 
-            var model = new UnidadeInfraestruturaModel { ListDependencia = new SelectList(resultUnidade, "dep_codigo", "dep_sigla_nome") };
-            return View(model);
+            //var model = new UnidadeInfraestruturaModel { ListDependencia = new SelectList(resultUnidade, "dep_codigo", "dep_sigla_nome") };
+            return View();
         }
 
         // POST: UnidadeInfraEstrutura/Create
@@ -56,13 +57,13 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateUnidadeInfraEstruturaCommand
                 {
-                    CodUnidade = collection["CodUnidade"].ToString(),
-                    Sigla = collection["Sigla"].ToString(),
+                    Sigla = collection["sigla"].ToString(),
+                    NomeUnidade = collection["aeroporto"].ToString(),
+                    CodUnidade = collection["codUnidade"].ToString(),
                     Descricao = collection["Descricao"].ToString(),
-                    Endereco = collection["Endereco"].ToString(),
                     DtIniVigencia = DateTime.ParseExact(collection["DtIniVigencia"].ToString(), "dd/MM/yyyy", null),
                     DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
-                    CriadoPor = "Amcom Develper"
+                    CriadoPor = User.Identity.Name
                 };
                 _unidadeInfraEstruturaClient.CreateUnidadeInfraEstrutura(command);
 
