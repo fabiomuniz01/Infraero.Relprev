@@ -22,7 +22,7 @@
                 </header>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura (Infrastructure unit) <span class="required">*</span></label>
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
                                     title="Por favor selecione uma unidade de infraestrutura." required
@@ -33,7 +33,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência</label>
+                        <label class="col-lg-3 control-label text-lg-right pt-2">
+                            Data da ocorrência (Date of occurrence)
+                        </label>
                         <div class="col-lg-3">
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -43,7 +45,9 @@
                             </div>
                         </div>
 
-                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da ocorrência</label>
+                        <label class="col-lg-2 control-label text-lg-right pt-2">
+                            Hora da ocorrência (Time of occurrence)
+                        </label>
                         <div class="col-lg-3 pull-left">
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -54,25 +58,31 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">
+                            Local da Ocorrência (Occurrence Location)<span class="required">*</span>
+                        </label>
                         <div class="col-sm-9">
                             <textarea type="text" rows="3" name="DscLocalOcorrenciaRelator" class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  " required maxlength="200"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Envolvidos na ocorrência <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">
+                            Envolvidos na ocorrência (Involved in the occurrence)<span class="required">*</span>
+                        </label>
                         <div class="col-sm-9">
                             <textarea type="text" rows="3" name="DscEnvolvidosOcorrencia" class="form-control" placeholder="eg.: Pessoas e / ou veículos envolvidos no relato" required maxlength="500"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">
+                            Descrição da ocorrência (Occurrence description) <span class="required">*</span>
+                        </label>
                         <div class="col-sm-9">
                             <textarea type="text" rows="3" name="DscOcorrenciaRelator" class="form-control" placeholder="eg.: Descrição da ocorrência do relato" required maxlength="1000"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Nome do relator </label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Nome do relator (Name of the rapporteur)</label>
                         <div class="col-sm-9">
                             <input type="text" name="NomRelator" class="form-control" placeholder="eg.: Nome do relator" maxlength="100" />
                         </div>
@@ -87,7 +97,7 @@
                                 <input type="text" name="EmailRelator" class="form-control" placeholder="eg.: E-mail do relator" maxlength="100" />
                             </div>
                         </div>
-                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone</label>
+                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone (telephone)</label>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -98,13 +108,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Organização</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Organização (Organization)</label>
                         <div class="col-sm-9">
                             <input type="text" name="NomEmpresaRelator" class="form-control" placeholder="eg.: Nome da empresa do relator" maxlength="100" />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Nome do arquivo</label>
+                        <label class="col-lg-3 control-label text-lg-right pt-2">
+                            Nome do arquivo (File name)
+                        </label>
                         <div class="col-lg-6">
                             <div class="fileupload fileupload-new" data-provides="fileupload">
                                 <div class="input-append">
@@ -124,7 +136,41 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Código </label>
+                        <label class="col-sm-2 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <table class="table table-responsive-md table-striped mb-0">
+                                <thead>
+                                <tr>
+                                    <th>Arquivo</th>
+                                    <th>Ação</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>atendimento.png</td>
+                                    <td>
+                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>relato.png</td>
+                                    <td>
+                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>atendimento.png</td>
+                                    <td>
+                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Código (Captcha)</label>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-addon">

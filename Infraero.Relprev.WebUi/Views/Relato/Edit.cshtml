@@ -35,10 +35,10 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
-                                    title="Por favor selecione uma unidade de infraestrutura." required
-                                    asp-for="CodUnidadeInfraestrutura"
+                                    title="Por favor selecione uma unidade de infraestrutura." required>
+                                    @*asp-for="CodUnidadeInfraestrutura"
                                     asp-items="Model.ListUnidadeInfraestrutura">
-                                <option value="">Selecionar Unidade de infraestrutura</option>
+                                <option value="">Selecionar Unidade de infraestrutura</option>*@
                             </select>
                         </div>
                     </div>
@@ -306,8 +306,8 @@ Theme Version: 	2.0.0
                     });
                 });
 
-                $('#ddlUnidadeInfraestrutura').val(@Model.ListUnidadeInfraestrutura.SelectedValue);
-                $('#ddlUnidadeInfraestrutura').trigger('change');
+                @*$('#ddlUnidadeInfraestrutura').val(@Model.ListUnidadeInfraestrutura.SelectedValue);
+                $('#ddlUnidadeInfraestrutura').trigger('change');*@
 
 
 

@@ -14,18 +14,12 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodUnidadeInfraestrutura { get; set; }
         public string CodUnidade { get; set; }
         public string Sigla { get; set; }
-
         public string Descricao { get; set; }
-        public string NomUnidade { get; set; }
+        public string Endereco { get; set; }
+        public string NomUnidadeÌnfraestrutura { get; set; }
         public DateTime DtIniVigencia { get; set; }
         public DateTime DtFimVigencia { get; set; }
 
-        [ForeignKey("CodUnidadeInfraestrutura")]
-        public ICollection<Local> LocalList { get; set; }
-
-        [ForeignKey("CodUnidadeInfraestrutura")]
-        public ICollection<Relato> RelatoList { get; set; }
-
-        public string Endereco { get; set; }
+        
     }
 }

@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200204023717_Relprev009")]
+    partial class Relprev009
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1143,9 +1145,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("AlteradoPor")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CodUnidade")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CriadoPor")
                         .HasColumnType("nvarchar(max)");
 
@@ -1155,25 +1154,12 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DtFimVigencia")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DtIniVigencia")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Endereco")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomUnidadeÌnfraestrutura")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sigla")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ResponsavelTecnicoCodResponsavelTecnico")
+                        .HasColumnType("int");
 
                     b.HasKey("CodUnidadeInfraestrutura");
+
+                    b.HasIndex("ResponsavelTecnicoCodResponsavelTecnico");
 
                     b.ToTable("UnidadeInfraestrutura");
                 });
@@ -1557,7 +1543,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasForeignKey("CodLocalidadeNavigationCodLocal");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", "CodResponsavelTecnicoNavigation")
-                        .WithMany()
+                        .WithMany("EmpresaResponsavelTecnico")
                         .HasForeignKey("CodResponsavelTecnicoNavigationCodResponsavelTecnico");
                 });
 
@@ -1663,6 +1649,13 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasForeignKey("CodLocal")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", null)
+                        .WithMany("UnidadeInfraestrutura")
+                        .HasForeignKey("ResponsavelTecnicoCodResponsavelTecnico");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Usuario", b =>

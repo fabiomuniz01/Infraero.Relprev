@@ -75,16 +75,16 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
         public ActionResult Edit(int id)
         {
-            var obj = _relatoClient.GetRelatoById(id);
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            //var obj = _relatoClient.GetRelatoById(id);
+            //var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
 
-            var model = new RelatoModel
-            {
-                Relato = obj,
-                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
-            };
+            //var model = new RelatoModel
+            //{
+            //    Relato = obj,
+            //    ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
+            //};
 
-            return View(model);
+            return View();
         }
         public ActionResult Cancel()
         {

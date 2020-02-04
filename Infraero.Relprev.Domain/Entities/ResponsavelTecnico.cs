@@ -17,8 +17,7 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresaResponsavelTecnico { get; set; }
 
-        public virtual ICollection<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
-        public virtual ICollection<EmpresaResponsavelTecnico> EmpresaResponsavelTecnico { get; set; }
+        
 
 
     }
