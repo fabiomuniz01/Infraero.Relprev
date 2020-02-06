@@ -9,9 +9,12 @@ using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeI
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -21,22 +24,26 @@ namespace Infraero.Relprev.WebUi.Controllers
     {
         private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
 
-        public UnidadeInfraEstruturaController(IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
+        private readonly IOptions<SettingsModel> _appSettings;
+
+        public UnidadeInfraEstruturaController(IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IOptions<SettingsModel> appSettings)
         {
             _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
+            _appSettings = appSettings;
+            ApplicationSettings.WebApiUrl = appSettings.Value.WebApiBaseUrl;
         }
 
         //private readonly IUnidadeInfraEstrutura 
-        public IActionResult Index()
-        {
-            var response = _unidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
-            return View(response);
-        }
+        //public IActionResult Index()
+        //{
+        //    var response = _unidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
+        //    return View(response);
+        //}
 
-        public GridUnidadeInfraEstrutura GetGrid()
+        public async Task<IActionResult> Index()
         {
-            var response = _unidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
-            return response;
+            var response = await ApiClientFactory.Instance.GetGridUnidadeInfraEstrutura();
+            return View(response);
         }
 
         // GET: UnidadeInfraEstrutura/Create

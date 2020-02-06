@@ -37,7 +37,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Infraero.Relprev.Api\Infraero.Relprev.Api.csproj" />
+    <ProjectReference Include="..\Infraero.Relprev.CoreApiClient\Infraero.Relprev.CoreApiClient.csproj" />
     <ProjectReference Include="..\Infraero.Relprev.HttpClient\Infraero.Relprev.HttpClient.csproj" />
     <ProjectReference Include="..\Infraero.Relprev.Infrastructure\Infraero.Relprev.Infrastructure.csproj" />
   </ItemGroup>

@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraero.Relprev.HttpClient
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraero.Relprev.CrossCutting", "Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj", "{7D26FAB8-80DC-4F83-A0FD-77C9C882999C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraero.Relprev.WebApi", "Infraero.Relprev.WebApi\Infraero.Relprev.WebApi.csproj", "{59873463-ADCC-4DCB-AE27-3DBF327C0B1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraero.Relprev.WebApi", "Infraero.Relprev.WebApi\Infraero.Relprev.WebApi.csproj", "{59873463-ADCC-4DCB-AE27-3DBF327C0B1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraero.Relprev.CoreApiClient", "Infraero.Relprev.CoreApiClient\Infraero.Relprev.CoreApiClient.csproj", "{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +135,14 @@ Global
 		{59873463-ADCC-4DCB-AE27-3DBF327C0B1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59873463-ADCC-4DCB-AE27-3DBF327C0B1C}.Release|x86.ActiveCfg = Release|Any CPU
 		{59873463-ADCC-4DCB-AE27-3DBF327C0B1C}.Release|x86.Build.0 = Release|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Debug|x86.Build.0 = Debug|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +160,7 @@ Global
 		{31F4AD16-6F87-48FA-802A-18D9044F3417} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
 		{7D26FAB8-80DC-4F83-A0FD-77C9C882999C} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
 		{59873463-ADCC-4DCB-AE27-3DBF327C0B1C} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
+		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED} = {7DB6875B-4450-40E4-9F61-4F5DD95943CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D999A3EB-F5FD-4CC1-883F-D6567E977754}

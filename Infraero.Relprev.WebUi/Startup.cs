@@ -1,6 +1,6 @@
 ﻿using System;
-using Infraero.Relprev.Api.Services;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Implementations;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.HttpClient.Http;
@@ -72,7 +72,7 @@ namespace Infraero.Relprev.WebUi
             services.Configure<SendGridSettings>(Configuration.GetSection("SendGrid"));
             services.AddSingleton(Configuration);
 
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            //services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             string Baseurl = "https://localhost:44372";
 
@@ -177,7 +177,10 @@ namespace Infraero.Relprev.WebUi
                 options.Conventions.AllowAnonymousToPage("/Privacy");
                 options.Conventions.AllowAnonymousToPage("/Terms");
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            services.Configure<SettingsModel>(Configuration.GetSection("RelprevSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

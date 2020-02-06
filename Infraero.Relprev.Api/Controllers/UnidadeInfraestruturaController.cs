@@ -6,9 +6,11 @@ using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Infraero.Relprev.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class UnidadeInfraestruturaController : ApiController
     {
