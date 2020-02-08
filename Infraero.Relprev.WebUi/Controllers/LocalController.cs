@@ -7,7 +7,10 @@ using System.Linq;
 using Infraero.Relprev.Application.Local.Commands.DeleteLocal;
 using Infraero.Relprev.Application.Local.Commands.UpdateLocal;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -15,26 +18,25 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class LocalController : Controller
     {
-        private readonly ILocalClient _localClient;
-        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-        public LocalController(ILocalClient localClient, IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
+        public LocalController(IOptions<SettingsModel> app)
         {
-            _localClient = localClient;
-            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         // GET: Local
         public ActionResult Index()
         {
-            var response = _localClient.GetGridLocal();
+            var response = ApiClientFactory.Instance.GetGridLocal();
             return View(response);
         }
 
         // GET: Local/Create
         public ActionResult Create()
         {
-            var result = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
             var listUnidade =
                 result.Select(
                     s =>
@@ -66,7 +68,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscLocal = collection["DscLocal"].ToString(),
                     CriadoPor = "Amcom Develper"
                 };
-                _localClient.CreateLocal(command);
+                ApiClientFactory.Instance.CreateLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -79,8 +81,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Local/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _localClient.GetLocalById(id);
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var obj = ApiClientFactory.Instance.GetLocalById(id);
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
             var model = new LocalModel()
             {
@@ -112,7 +114,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscLocal = collection["DscLocal"].ToString(),
                     AlteradoPor = "Amcom Developer"
                 };
-                _localClient.UpdateLocal(command);
+                ApiClientFactory.Instance.UpdateLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -127,13 +129,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _localClient.DeleteLocal(new DeleteLocalCommand {Id = id});
+                ApiClientFactory.Instance.DeleteLocal(new DeleteLocalCommand {Id = id});
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 

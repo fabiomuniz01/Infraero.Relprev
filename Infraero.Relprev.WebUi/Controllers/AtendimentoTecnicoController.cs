@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class AtendimentoTecnicoController : Controller
     {
-        // GET: AtendimentoTecnico
-        public ActionResult Index()
+        private readonly IOptions<SettingsModel> _appSettings;
+
+        public AtendimentoTecnicoController(IOptions<SettingsModel> app)
         {
-            return View();
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
     }
 }

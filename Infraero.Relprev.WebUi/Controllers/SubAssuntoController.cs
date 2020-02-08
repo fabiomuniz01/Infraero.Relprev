@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto;
+using Infraero.Relprev.Application.SubAssunto.Commands.DeleteSubAssunto;
 using Infraero.Relprev.Application.SubAssunto.Commands.UpdateSubAssunto;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Domain.Entities;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -18,32 +22,31 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class SubAssuntoController : Controller
     {
-        private readonly ISubAssuntoClient _subAssuntoClient;
-        private readonly IAssuntoClient _assuntoClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-        public SubAssuntoController(ISubAssuntoClient subAssuntoClient, IAssuntoClient assuntoClient)
+        public SubAssuntoController(IOptions<SettingsModel> app)
         {
-            _subAssuntoClient = subAssuntoClient;
-            _assuntoClient = assuntoClient;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         //private readonly ISubAssunto 
         public IActionResult Index()
         {
-            var response = _subAssuntoClient.GetGridSubAssunto();
+            var response = ApiClientFactory.Instance.GetGridSubAssunto();
             return View(response);
         }
 
         public GridSubAssunto GetGrid()
         {
-            var response = _subAssuntoClient.GetGridSubAssunto();
+            var response = ApiClientFactory.Instance.GetGridSubAssunto();
             return response;
         }
 
         // GET: SubAssunto/Create
         public ActionResult Create()
         {
-            var result = _assuntoClient.GetAssuntoAll();
+            var result = ApiClientFactory.Instance.GetAssuntoAll();
             var listAssunto =
                 result.Select(
                     s =>
@@ -76,7 +79,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubAssunto = collection["DscSubAssunto"].ToString(),
                     CriadoPor = "Amcom Develper"
                 };
-                _subAssuntoClient.CreateSubAssunto(command);
+                ApiClientFactory.Instance.CreateSubAssunto(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -89,8 +92,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: SubAssunto/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _subAssuntoClient.GetSubAssuntoById(id);
-            var result = _assuntoClient.GetAssuntoAll();
+            var obj = ApiClientFactory.Instance.GetSubAssuntoById(id);
+            var result = ApiClientFactory.Instance.GetAssuntoAll();
             var listAssunto =
                 result.Select(
                     s =>
@@ -124,7 +127,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubAssunto = collection["DscSubAssunto"].ToString(),
                     AlteradoPor = "Amcom Developer"
                 };
-                _subAssuntoClient.UpdateSubAssunto(command);
+                ApiClientFactory.Instance.UpdateSubAssunto(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -141,7 +144,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _subAssuntoClient.DeleteSubAssunto(id);
+                ApiClientFactory.Instance.DeleteSubAssunto(new DeleteSubAssuntoCommand{Id=id});
                 return RedirectToAction(nameof(Index));
             }
             catch

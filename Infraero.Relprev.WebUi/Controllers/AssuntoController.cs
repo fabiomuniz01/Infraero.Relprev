@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Assunto.Commands.CreateAssunto;
+using Infraero.Relprev.Application.Assunto.Commands.DeleteAssunto;
 using Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto;
 using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
+using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -13,24 +18,18 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class AssuntoController : Controller
     {
-        private readonly IAssuntoClient _assuntoClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-        public AssuntoController(IAssuntoClient assuntoClient)
+        public AssuntoController(IOptions<SettingsModel> app)
         {
-            _assuntoClient = assuntoClient;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        //private readonly IAssunto 
         public IActionResult Index()
         {
-            var response = _assuntoClient.GetGridAssunto();
+            var response = ApiClientFactory.Instance.GetGridAssunto();
             return View(response);
-        }
-
-        public GridAssunto GetGrid()
-        {
-            var response = _assuntoClient.GetGridAssunto();
-            return response;
         }
 
         // GET: Assunto/Create
@@ -49,9 +48,10 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new CreateAssuntoCommand
                 {
                     DscAssunto = collection["DscAssunto"].ToString(),
-                    CriadoPor = "Amcom Develper"
+                    CriadoPor = User.Identity.Name
                 };
-                _assuntoClient.CreateAssunto(command);
+                
+                var result = ApiClientFactory.Instance.CreateAssunto(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -62,11 +62,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Assunto/Edit/5
-        public ActionResult Edit(int id)
-        {
-            var obj = _assuntoClient.GetAssuntoById(id);
-            return View(obj);
-        }
+//        public async Task<ActionResult> Edit(int id)
+//        {
+//            try
+//            {
+//                var obj = await ApiClientFactory.Instance.GetAssuntoById(id);
+//            return View(obj);
+//        }
+//        catch
+//        {
+//            return View();
+//        }
+//}
 
         // POST: Assunto/Edit/5
         [HttpPost]
@@ -81,30 +88,29 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscAssunto = collection["DscAssunto"].ToString(),
                     AlteradoPor = "Amcom Developer"
                 };
-                _assuntoClient.UpdateAssunto(command);
+                var result = ApiClientFactory.Instance.UpdateAssunto(command);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
         }
 
         // POST: Assunto/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            try
-            {
-                _assuntoClient.DeleteAssunto(id);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return RedirectToAction(nameof(Index));
-            }
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    try
+        //    {
+        //        ApiClientFactory.Instance.DeleteAssunto(new DeleteAssuntoCommand {Id = 6});
+
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //}
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infraero.Relprev.WebApi.Controller
+namespace Infraero.Relprev.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

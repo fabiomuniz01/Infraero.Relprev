@@ -5,7 +5,7 @@ using System;
 using System.Net;
 using Infraero.Relprev.Infrastructure.Contracts;
 
-namespace Infraero.Relprev.WebApi.Controller
+namespace Infraero.Relprev.WebApi.Controllers
 {
     [Authorize]
     [Produces("application/json")]

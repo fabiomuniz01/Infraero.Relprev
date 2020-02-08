@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Entities;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
-using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
@@ -22,40 +17,25 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class UnidadeInfraEstruturaController : Controller
     {
-        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
-
         private readonly IOptions<SettingsModel> _appSettings;
 
-        public UnidadeInfraEstruturaController(IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IOptions<SettingsModel> appSettings)
+        public UnidadeInfraEstruturaController(IOptions<SettingsModel> app)
         {
-            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
-            _appSettings = appSettings;
-            ApplicationSettings.WebApiUrl = appSettings.Value.WebApiBaseUrl;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        //private readonly IUnidadeInfraEstrutura 
-        //public IActionResult Index()
-        //{
-        //    var response = _unidadeInfraEstruturaClient.GetGridUnidadeInfraEstrutura();
-        //    return View(response);
-        //}
-
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var response = await ApiClientFactory.Instance.GetGridUnidadeInfraEstrutura();
+            var response = ApiClientFactory.Instance.GetGridUnidadeInfraEstrutura();
             return View(response);
         }
 
-        // GET: UnidadeInfraEstrutura/Create
         public ActionResult Create()
         {
-            //var resultUnidade = _unidadeInfraEstruturaClient.GetDependenciaAll();
-
-            //var model = new UnidadeInfraestruturaModel { ListDependencia = new SelectList(resultUnidade, "dep_codigo", "dep_sigla_nome") };
             return View();
         }
 
-        // POST: UnidadeInfraEstrutura/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -72,7 +52,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
                     CriadoPor = User.Identity.Name
                 };
-                _unidadeInfraEstruturaClient.CreateUnidadeInfraEstrutura(command);
+                ApiClientFactory.Instance.CreateUnidadeInfraEstrutura(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -85,7 +65,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: UnidadeInfraEstrutura/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaById(id);
+            var obj = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(id);
             return View(obj);
         }
 
@@ -107,7 +87,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
                     AlteradorPor = "Amcom Developer"
                 };
-                _unidadeInfraEstruturaClient.UpdateUnidadeInfraEstrutura(command);
+                ApiClientFactory.Instance.UpdateUnidadeInfraEstrutura(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -124,7 +104,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _unidadeInfraEstruturaClient.DeleteUnidadeInfraEstrutura(id);
+                ApiClientFactory.Instance.DeleteUnidadeInfraEstrutura(new DeleteUnidadeInfraEstruturaCommand{Id=id});
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -143,7 +123,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     throw new Exception(
                         "Sigla não informada.");
                 }
-                var result = _unidadeInfraEstruturaClient.GetDependenciaAll().Where(x => x.dep_sigla.Equals(sigla.ToUpper().Trim())).FirstOrDefault();
+                var result = ApiClientFactory.Instance.GetDependenciaAll().Where(x => x.dep_sigla.Equals(sigla.ToUpper().Trim())).FirstOrDefault();
 
                 if (result ==null)
                 {

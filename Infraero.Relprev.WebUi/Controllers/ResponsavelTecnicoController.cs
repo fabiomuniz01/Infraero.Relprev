@@ -6,9 +6,12 @@ using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavel
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -16,37 +19,33 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class ResponsavelTecnicoController : Controller
     {
-        private readonly IResponsavelTecnicoClient _responsavelTecnicoClient;
-        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
-        private readonly IEmpresaClient _empresaClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-        public ResponsavelTecnicoController(IResponsavelTecnicoClient responsavelTecnicoClient,
-            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IEmpresaClient empresaClient)
+        public ResponsavelTecnicoController(IOptions<SettingsModel> app)
         {
-            _responsavelTecnicoClient = responsavelTecnicoClient;
-            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
-            _empresaClient = empresaClient;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         //private readonly IResponsavelTecnico 
         public IActionResult Index()
         {
-            var response = _responsavelTecnicoClient.GetGridResponsavelTecnico();
+            var response = ApiClientFactory.Instance.GetGridResponsavelTecnico();
             return View(response);
         }
 
         public GridResponsavelTecnico GetGrid()
         {
-            var response = _responsavelTecnicoClient.GetGridResponsavelTecnico();
+            var response = ApiClientFactory.Instance.GetGridResponsavelTecnico();
             return response;
         }
 
         // GET: ResponsavelTecnico/Create
         public ActionResult Create()
         {
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
-            var resultEmpresa = _empresaClient.GetEmpresaAll();
+            var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
 
             var model = new ResponsavelTecnicoModel
             {
@@ -78,7 +77,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DthRegistro = DateTime.Now
 
                 };
-                _responsavelTecnicoClient.CreateResponsavelTecnico(command);
+                ApiClientFactory.Instance.CreateResponsavelTecnico(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -91,9 +90,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: ResponsavelTecnico/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _responsavelTecnicoClient.GetResponsavelTecnicoById(id);
+            var obj = ApiClientFactory.Instance.GetResponsavelTecnicoById(id);
 
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
             var model = new ResponsavelTecnicoModel
             {
@@ -121,7 +120,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
                     AlteradoPor= "Amcom Developer"
                 };
-                _responsavelTecnicoClient.UpdateResponsavelTecnico(command);
+                ApiClientFactory.Instance.UpdateResponsavelTecnico(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -135,7 +134,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _responsavelTecnicoClient.DeleteResponsavelTecnico(new DeleteResponsavelTecnicoCommand{Id = id});
+                ApiClientFactory.Instance.DeleteResponsavelTecnico(new DeleteResponsavelTecnicoCommand{Id = id});
 
                 return RedirectToAction(nameof(Index));
             }

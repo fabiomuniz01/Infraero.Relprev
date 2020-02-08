@@ -3,14 +3,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
+using Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -18,40 +22,33 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class UsuarioController : Controller
     {
-        private readonly IUsuarioClient _UsuarioClient;
-        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
-        private readonly IEmpresaClient _empresaClient;
-        private readonly IPerfilClient _perfilClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-
-        public UsuarioController(IUsuarioClient UsuarioClient,
-            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient, IEmpresaClient empresaClient, IPerfilClient perfilClient)
+        public UsuarioController(IOptions<SettingsModel> app)
         {
-            _UsuarioClient = UsuarioClient;
-            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
-            _empresaClient = empresaClient;
-            _perfilClient = perfilClient;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         //private readonly IUsuario 
         public IActionResult Index()
         {
-            var response = _UsuarioClient.GetGridUsuario();
+            var response = ApiClientFactory.Instance.GetGridUsuario();
             return View(response);
         }
 
         public GridUsuario GetGrid()
         {
-            var response = _UsuarioClient.GetGridUsuario();
+            var response = ApiClientFactory.Instance.GetGridUsuario();
             return response;
         }
 
         // GET: Usuario/Create
         public ActionResult Create()
         {
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
-            var resultEmpresa = _empresaClient.GetEmpresaAll();
-            var resultPerfil = _perfilClient.GetPerfilAll();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+            var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
+            var resultPerfil = ApiClientFactory.Instance.GetPerfilAll();
 
             var model = new UsuarioModel
             {
@@ -86,7 +83,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodEmpresa = int.Parse(collection["ddlEmpresa"].ToString()),
                     CodPerfil = collection["ddlPerfil"].ToString()
                 };
-                _UsuarioClient.CreateUsuario(command);
+                ApiClientFactory.Instance.CreateUsuario(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -99,8 +96,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Usuario/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _UsuarioClient.GetUsuarioById(id);
-            return View(obj);
+            var obj = ApiClientFactory.Instance.GetUsuarioById(id);
+
+            var model = new UsuarioModel
+            {
+                Usuario = obj
+            };
+            return View(model);
         }
 
         // POST: Usuario/Edit/5
@@ -118,7 +120,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumCpf = collection["cnpj"].ToString(),
                     NumTelefone = collection["telefone"].ToString()
                 };
-                _UsuarioClient.UpdateUsuario(command);
+                ApiClientFactory.Instance.UpdateUsuario(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -135,7 +137,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _UsuarioClient.DeleteUsuario(id);
+                ApiClientFactory.Instance.DeleteUsuario(new DeleteUsuarioCommand {Id = id});
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -146,7 +148,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         public JsonResult GetListUnidadeById(int id)
         {
-            var result = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll()
+            var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll()
                 .Where(x => x.CodUnidadeInfraestrutura == id).ToList();
 
             result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Local de Ocorrência" });

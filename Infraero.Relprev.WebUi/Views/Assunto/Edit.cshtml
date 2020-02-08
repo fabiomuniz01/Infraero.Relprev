@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "Assunto", FormMethod.Post))
+        @using (@Html.BeginForm("Edit", "Assunto", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -24,7 +24,8 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Assunto </label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="DscAssunto" class="form-control" placeholder="eg.: Descrição do  assunto relacionado as  ocorrências "  maxlength="50">@Model.DscAssunto</textarea>
+                            <textarea type="text" rows="3" name="DscAssunto" class="form-control" 
+                                      placeholder="eg.: Descrição do  assunto relacionado as  ocorrências " maxlength="50">@Model.DscAssunto</textarea>
                         </div>
                     </div>
                 </div>
@@ -45,6 +46,32 @@
 @section CssSpecificVendor {
 }
 @section Scripts {
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
+
+    <script>
+
+        // Select2
+        (function ($) {
+
+            'use strict';
+
+
+
+            // checkbox, radio and selects
+            $("#form").each(function() {
+                $(this).validate({
+                    highlight: function(element) {
+                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    },
+                    success: function(element) {
+                        $(element).closest('.form-group').removeClass('has-error');
+                    }
+                });
+            });
+
+        }).apply(this, [jQuery]);
+
+    </script>
 
 }
 

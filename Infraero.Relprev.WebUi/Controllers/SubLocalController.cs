@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
-using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -19,29 +18,23 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class SubLocalController : Controller
     {
-        private readonly ISubLocalClient _subLocalClient;
-        private readonly ILocalClient _localClient;
-        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-        public SubLocalController(ISubLocalClient subLocalClient, 
-            ILocalClient localClient, 
-            IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
+        public SubLocalController(IOptions<SettingsModel> app)
         {
-            _subLocalClient = subLocalClient;
-            _localClient = localClient;
-            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        //private readonly ISubLocal 
         public IActionResult Index()
         {
-            var response = _subLocalClient.GetGridSubLocal();
+            var response = ApiClientFactory.Instance.GetGridSubLocal();
             return View(response);
         }
 
         public JsonResult GetListLocalById(int id)
         {
-            var resultLocal = _localClient.GetLocalAll()
+            var resultLocal = ApiClientFactory.Instance.GetLocalAll()
                 .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == id).ToList();
 
             resultLocal.Insert(0, new LocalDto{ CodLocalStr="", DscLocal = "Selecionar Local de Ocorrência" });
@@ -52,7 +45,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: SubLocal/Create
         public ActionResult Create()
         {
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
             
             var model = new SubLocalModel {ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao") };
 
@@ -73,7 +66,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubLocal = collection["DscSubLocal"].ToString(),
                     CriadoPor = "Amcom Developer"
                 };
-                _subLocalClient.CreateSubLocal(command);
+                ApiClientFactory.Instance.CreateSubLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -86,11 +79,11 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: SubLocal/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _subLocalClient.GetSubLocalById(id);
+            var obj = ApiClientFactory.Instance.GetSubLocalById(id);
 
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
-            var resultLocal = _localClient.GetLocalAll()
+            var resultLocal = ApiClientFactory.Instance.GetLocalAll()
                 .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura).ToList();
 
             var model = new SubLocalModel
@@ -118,7 +111,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubLocal = collection["DscSubLocal"].ToString(),
                     AlteradoPor = "Amcom Developer",
                 };
-                _subLocalClient.UpdateSubLocal(command);
+                ApiClientFactory.Instance.UpdateSubLocal(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -132,7 +125,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _subLocalClient.DeleteSubLocal(new DeleteSubLocalCommand { Id = id });
+                ApiClientFactory.Instance.DeleteSubLocal(new DeleteSubLocalCommand { Id = id });
 
                 return RedirectToAction(nameof(Index));
             }

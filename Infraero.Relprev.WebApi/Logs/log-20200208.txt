@@ -1,0 +1,18 @@
+2020-02-08 00:01:51.076 -03:00 [Information] web api service is started.
+2020-02-08 00:01:56.106 -03:00 [Information] HTTP "GET" "/" responded 404 in 341.3269 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 00:16:06.576 -03:00 [Information] web api service is started.
+2020-02-08 00:16:09.295 -03:00 [Information] HTTP "GET" "/" responded 404 in 408.4392 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 00:24:09.384 -03:00 [Information] web api service is started.
+2020-02-08 00:24:14.602 -03:00 [Information] HTTP "GET" "/" responded 404 in 423.7086 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 00:38:04.862 -03:00 [Information] web api service is started.
+2020-02-08 00:38:09.470 -03:00 [Information] HTTP "GET" "/" responded 404 in 233.1291 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 00:42:55.876 -03:00 [Information] web api service is started.
+2020-02-08 00:43:00.530 -03:00 [Information] HTTP "GET" "/" responded 404 in 466.9814 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 00:48:01.278 -03:00 [Information] web api service is started.
+2020-02-08 00:48:05.582 -03:00 [Information] HTTP "GET" "/" responded 404 in 301.4948 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 01:02:31.347 -03:00 [Information] web api service is started.
+2020-02-08 01:02:36.587 -03:00 [Information] HTTP "GET" "/" responded 404 in 315.5186 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 01:54:10.732 -03:00 [Information] web api service is started.
+2020-02-08 01:54:15.563 -03:00 [Information] HTTP "GET" "/" responded 404 in 478.9134 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]
+2020-02-08 01:56:44.352 -03:00 [Information] web api service is started.
+2020-02-08 01:56:47.069 -03:00 [Information] HTTP "GET" "/" responded 404 in 194.6916 ms [User:"unknown"][Protocol:"HTTP/2"][Host:"localhost:5001"][Referer:""][User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"]

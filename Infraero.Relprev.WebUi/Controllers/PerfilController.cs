@@ -1,14 +1,13 @@
 ﻿using Infraero.Relprev.Application.Perfil.Commands.CreatePerfil;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
 using Infraero.Relprev.CrossCutting.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -17,17 +16,18 @@ namespace Infraero.Relprev.WebUi.Controllers
     //[Authorize(Roles = "Gestor comercial")]
     public class PerfilController : Controller
     {
-        private readonly IPerfilClient _perfilClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-        public PerfilController(IPerfilClient perfilClient)
+        public PerfilController(IOptions<SettingsModel> app)
         {
-            _perfilClient = perfilClient;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         // GET: Perfil
         public ActionResult Index()
         {
-            var response = _perfilClient.GetGridPerfil();
+            var response = ApiClientFactory.Instance.GetGridPerfil();
             return View(response);
         }
 
@@ -48,7 +48,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 {
                     NomPerfil = collection["NomPerfil"].ToString()
                 };
-                _perfilClient.CreatePerfil(command);
+                ApiClientFactory.Instance.CreatePerfil(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -59,9 +59,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Perfil/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
-            var obj = _perfilClient.GetPerfilById(id);
+            var obj = ApiClientFactory.Instance.GetPerfilById(id);
             var model = new PerfilModel(obj);
             return View(model);
         }
@@ -78,7 +78,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodPerfil = id,
                     NomPerfil = collection["NomPerfil"].ToString()
                 };
-                _perfilClient.UpdatePerfil(command);
+                ApiClientFactory.Instance.UpdatePerfil(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -93,7 +93,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _perfilClient.DeletePerfil(new DeletePerfilCommand { CodPerfil = id});
+                ApiClientFactory.Instance.DeletePerfil(new DeletePerfilCommand { CodPerfil = id});
 
                 return RedirectToAction(nameof(Index));
             }

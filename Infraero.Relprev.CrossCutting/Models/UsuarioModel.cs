@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 
 namespace Infraero.Relprev.CrossCutting.Models
 {
@@ -13,5 +14,6 @@ namespace Infraero.Relprev.CrossCutting.Models
         public int CodPerfil { get; set; }
         public SelectList ListEmpresa { get; set; }
         public SelectList ListPerfil { get; set; }
+        public UsuarioDto Usuario { get; set; }
     }
 }

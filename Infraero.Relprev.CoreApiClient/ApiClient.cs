@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.CrossCutting.Serializater;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -13,39 +14,33 @@ namespace Infraero.Relprev.CoreApiClient
     {
 
         private readonly HttpClient _httpClient;
-        private Uri BaseEndpoint { get; set; }
-
+        private Uri BaseEndpoint { get; }
+        
         public ApiClient(Uri baseEndpoint)
         {
-            if (baseEndpoint == null)
-            {
-                throw new ArgumentNullException("baseEndpoint");
-            }
-            BaseEndpoint = baseEndpoint;
+            BaseEndpoint = baseEndpoint ?? throw new ArgumentNullException(nameof(baseEndpoint));
             _httpClient = new HttpClient();
         }
 
-        private async Task<T> GetAsync<T>(Uri requestUrl)
+        private T Get<T>(Uri requestUrl)
         {
-            try
-            {
-                addHeaders();
-                var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
-                response.EnsureSuccessStatusCode();
-                var data = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            
+            addHeaders();
+            var response = _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
+            //response.EnsureSuccessStatusCode();
+            var data = response.Result.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(data.Result);
         }
 
         /// <summary>
         /// Common method for making POST calls
         /// </summary>
+        private Task<long> Post<T>(Uri requestUrl, T content)
+        {
+            addHeaders();
+            var response = _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
+            var data = response.Result.Content.ReadAsStringAsync();
+            return Task.FromResult(JsonConvert.DeserializeObject<long>(data.Result));
+        }
         private async Task<MessageModel<T>> PostAsync<T>(Uri requestUrl, T content)
         {
             addHeaders();
@@ -93,8 +88,8 @@ namespace Infraero.Relprev.CoreApiClient
             _httpClient.DefaultRequestHeaders.Remove("userIP");
             _httpClient.DefaultRequestHeaders.Add("userIP", "192.168.1.1");
 
-            _httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+            //_httpClient.DefaultRequestHeaders.Authorization =
+            //    new AuthenticationHeaderValue("Bearer", "Your Oauth token");
         }
     }
 }

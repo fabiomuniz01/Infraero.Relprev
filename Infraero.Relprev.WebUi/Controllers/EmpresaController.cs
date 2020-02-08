@@ -1,16 +1,15 @@
 ﻿using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
-using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa;
-using Infraero.Relprev.Infrastructure;
+using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
@@ -18,26 +17,19 @@ namespace Infraero.Relprev.WebUi.Controllers
 {
     public class EmpresaController : Controller
     {
-        private readonly IEmpresaClient _empresaClient;
-        private readonly ILogger _logger;
-        public EmpresaController(IEmpresaClient empresaClient, 
-            ILogger<CreateEmpresaCommand> logger)
+        private readonly IOptions<SettingsModel> _appSettings;
+
+        public EmpresaController(IOptions<SettingsModel> app)
         {
-            _empresaClient = empresaClient;
-            _logger = logger;
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         //private readonly IEmpresa 
         public async Task<IActionResult> Index()
         {
-            var response1 = _empresaClient.GetGridEmpresa();
-            return View(response1);
-        }
-
-        public GridEmpresa GetGrid()
-        {
-            var response = _empresaClient.GetGridEmpresa();
-            return response;
+            var response = ApiClientFactory.Instance.GetGridEmpresa();
+            return View(response);
         }
 
         // GET: Empresa/Create
@@ -60,7 +52,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     Cnpj = collection["cnpj"].ToString(),
                     Telefone = collection["telefone"].ToString()
                 };
-                _empresaClient.CreateEmpresa(command);
+                ApiClientFactory.Instance.CreateEmpresa(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -73,7 +65,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Empresa/Edit/5
         public ActionResult Edit(int id)
         {
-            var obj = _empresaClient.GetEmpresaById(id);
+            var obj = ApiClientFactory.Instance.GetEmpresaById(id);
             return View(obj);
         }
 
@@ -92,7 +84,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumCnpj = collection["cnpj"].ToString(),
                     NumTelefone = collection["telefone"].ToString()
                 };
-                _empresaClient.UpdateEmpresa(command);
+                ApiClientFactory.Instance.UpdateEmpresa(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -107,10 +99,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                _empresaClient.DeleteEmpresa(new DeleteEmpresaCommand{Id= id});
+                ApiClientFactory.Instance.DeleteEmpresa(new DeleteEmpresaCommand {Id = id});
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return RedirectToAction(nameof(Index));
             }

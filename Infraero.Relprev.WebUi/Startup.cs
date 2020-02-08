@@ -7,6 +7,7 @@ using Infraero.Relprev.HttpClient.Http;
 using Infraero.Relprev.Infrastructure;
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
+using Infraero.Relprev.Infrastructure.Services;
 using Infraero.Relprev.WebUi.Configuration;
 using Infraero.Relprev.WebUi.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -72,7 +73,7 @@ namespace Infraero.Relprev.WebUi
             services.Configure<SendGridSettings>(Configuration.GetSection("SendGrid"));
             services.AddSingleton(Configuration);
 
-            //services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             string Baseurl = "https://localhost:44372";
 

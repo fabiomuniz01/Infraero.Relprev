@@ -1,34 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
-using Infraero.Relprev.Infrastructure;
+using Infraero.Relprev.WebUi.Factory;
+using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
     public class RelatoController : Controller
     {
-        private readonly IRelatoClient _relatoClient;
-        private readonly ILogger _logger;
-        private readonly IUnidadeInfraEstruturaClient _unidadeInfraEstruturaClient;
+        private readonly IOptions<SettingsModel> _appSettings;
 
-        public RelatoController(IRelatoClient relatoClient, 
-                                IUnidadeInfraEstruturaClient unidadeInfraEstruturaClient)
+        public RelatoController(IOptions<SettingsModel> app)
         {
-            _relatoClient = relatoClient;
-            _unidadeInfraEstruturaClient = unidadeInfraEstruturaClient; 
+            _appSettings = app;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         public ActionResult Create()
         {
-            var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll(); 
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll(); 
 
             var model = new RelatoModel
             {
@@ -59,7 +53,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString()
                 };
 
-                _relatoClient.CreateRelato(command);
+                ApiClientFactory.Instance.CreateRelato(command);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -70,13 +64,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
         public ActionResult Index()
         {
-            var response = _relatoClient.GetGridRelato();
+            var response = ApiClientFactory.Instance.GetGridRelato();
             return View(response);
         }
         public ActionResult Edit(int id)
         {
-            //var obj = _relatoClient.GetRelatoById(id);
-            //var resultUnidade = _unidadeInfraEstruturaClient.GetUnidadeInfraEstruturaAll();
+            //var obj = ApiClientFactory.Instance.GetRelatoById(id);
+            //var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
             //var model = new RelatoModel
             //{

@@ -39,7 +39,7 @@
                                 <td>@Html.DisplayFor(modelItem => item.DscAssunto)</td>
                                 <td class="actions">
                                     <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Assunto" asp-route-id="@item.CodAssunto" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="Delete" asp-controller="Assunto" asp-route-id="@item.CodAssunto" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         }
@@ -50,31 +50,6 @@
             </section>
         </form>
     </div>
-</div>
-<div id="modalIcon" class="modal-block modal-header-color modal-block-danger mfp-hide">
-    <section class="card">
-        <header class="card-header">
-            <h2 class="card-title">Exclusão</h2>
-        </header>
-        <div class="card-body">
-            <div class="modal-wrapper">
-                <div class="modal-icon">
-                    <i class="fa fa-question-circle"></i>
-                </div>
-                <div class="modal-text">
-                    <p class="mb-0">Tem certeza que deseja <b>excluir</b> esse registro?</p>
-                </div>
-            </div>
-        </div>
-        <footer class="card-footer">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-success modal-confirm">Sim &nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i></button>
-                    <button class="btn btn-danger modal-dismiss">Não &nbsp;&nbsp;<i class="fa fa-thumbs-o-down"></i></button>
-                </div>
-            </div>
-        </footer>
-    </section>
 </div>
 @section CssSpecificVendor {
     <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
