@@ -1,5 +1,4 @@
 ﻿using Infraero.Relprev.Application.Local.Commands.CreateLocal;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

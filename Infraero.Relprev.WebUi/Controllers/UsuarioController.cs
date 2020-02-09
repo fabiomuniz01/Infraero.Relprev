@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
-using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;

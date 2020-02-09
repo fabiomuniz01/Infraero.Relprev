@@ -15,8 +15,8 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnid
         public string Sigla { get; set; }
 
         public string Descricao { get; set; }
-        public DateTime DtIniVigencia { get; set; }
-        public DateTime DtFimVigencia { get; set; }
+        public string DtIniVigencia { get; set; }
+        public string DtFimVigencia { get; set; }
 
         public class CreateUnidadeInfraestruturaCommandHandler : IRequestHandler<CreateUnidadeInfraEstruturaCommand, long>
         {
@@ -36,8 +36,8 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnid
                     Descricao = request.Descricao,
                     NomUnidadeÌnfraestrutura = request.NomUnidadeÌnfraestrutura,
                     Endereco = request.Endereco,
-                    DtIniVigencia = request.DtIniVigencia,
-                    DtFimVigencia = request.DtFimVigencia,
+                    DtIniVigencia = Convert.ToDateTime(request.DtIniVigencia),
+                    DtFimVigencia = Convert.ToDateTime(request.DtFimVigencia),
                     CriadoPor = request.CriadoPor
                 };
 

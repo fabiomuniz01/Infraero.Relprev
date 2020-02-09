@@ -15,8 +15,8 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnid
 
         public string Descricao { get; set; }
         public string Endereco { get; set; }
-        public DateTime DtIniVigencia { get; set; }
-        public DateTime DtFimVigencia { get; set; }
+        public string DtIniVigencia { get; set; }
+        public string DtFimVigencia { get; set; }
 
         public class UpdateAssuntoCommandHandler : IRequestHandler<UpdateUnidadeInfraEstruturaCommand, bool>
         {
@@ -36,12 +36,9 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnid
                     throw new NotFoundException(nameof(UnidadeInfraEstrutura), request.CodUnidadeInfraestrutura);
                 }
 
-                entity.CodUnidade = request.CodUnidade;
-                entity.Sigla = request.Sigla;
                 entity.Descricao = request.Descricao;
-                entity.Endereco = request.Endereco;
-                entity.DtIniVigencia = request.DtIniVigencia;
-                entity.DtFimVigencia = request.DtFimVigencia;
+                entity.DtIniVigencia = Convert.ToDateTime(request.DtIniVigencia);
+                entity.DtFimVigencia = Convert.ToDateTime(request.DtFimVigencia);
                 entity.DataAlteracao = DateTime.Now;
                 entity.AlteradoPor = request.AlteradorPor;
 

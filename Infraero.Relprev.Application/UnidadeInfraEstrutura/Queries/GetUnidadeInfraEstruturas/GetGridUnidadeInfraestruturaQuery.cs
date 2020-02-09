@@ -41,6 +41,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
                                 {
                                    CodUnidade = c.CodUnidade,
                                    CodUnidadeInfraestrutura = c.CodUnidadeInfraestrutura,
+                                   NomUnidadeÌnfraestrutura = c.NomUnidadeÌnfraestrutura,
                                    Descricao = c.Descricao,
                                    DtFimVigencia = c.DtFimVigencia,
                                    DtIniVigencia = c.DtIniVigencia,

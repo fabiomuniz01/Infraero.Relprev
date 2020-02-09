@@ -44,3 +44,347 @@ Oracle.ManagedDataAccess.Client.OracleException (0x80004005): ORA-12545: Transpo
    at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
    at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
 2020-02-09 00:59:05.309 -03:00 [Information] web api service is started.
+2020-02-09 01:28:10.446 -03:00 [Information] web api service is started.
+2020-02-09 01:29:32.960 -03:00 [Information] web api service is started.
+2020-02-09 01:30:34.718 -03:00 [Information] web api service is started.
+2020-02-09 01:31:44.509 -03:00 [Information] web api service is started.
+2020-02-09 01:32:27.784 -03:00 [Information] web api service is started.
+2020-02-09 01:52:44.478 -03:00 [Information] web api service is started.
+2020-02-09 01:52:56.584 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2282.7979 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:53:36.667 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 85.5914 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:53:39.453 -03:00 [Error] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 500 in 2770.4833 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Host": "localhost:44372"), ("Request-Id": "|bd73f22d-4245e672010798b6.2."), ("userIP": "192.168.1.1")]]
+Oracle.ManagedDataAccess.Client.OracleException (0x80004005): ORA-12545: Transporte de Rede: não é possível resolver o nome do host
+ ---> OracleInternal.Network.NetworkException (0x80004005): ORA-12545: Transporte de Rede: não é possível resolver o nome do host
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Dns.InternalGetHostByName(String hostName)
+   at System.Net.Dns.GetHostAddresses(String hostNameOrAddress)
+   at OracleInternal.Network.TcpTransportAdapter.Connect(ConnectionOption conOption)
+   at OracleInternal.Network.OracleCommunication.DoConnect(String tnsDescriptor)
+   at OracleInternal.Network.OracleCommunication.Connect(String tnsDescriptor, Boolean doNAHandshake, String IName, ConnectionOption CO)
+   at OracleInternal.ServiceObjects.OracleConnectionImpl.Connect(ConnectionString cs, Boolean bOpenEndUserSession, OracleConnection connRefForCriteria, String instanceName)
+   at OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPwd, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   at OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassword, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   at OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, SecureString securedPassword, SecureString securedProxyPassword, OracleConnection connRefForCriteria)
+   at Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   at Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas.GetDependenciaAllQuery.GetDependenciaAllQueryHandler.Handle(GetDependenciaAllQuery request, CancellationToken cancellationToken) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\UnidadeInfraEstrutura\Queries\GetUnidadeInfraEstruturas\GetDependenciaAllQuery.cs:line 50
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.UnidadeInfraEstruturaController.GetDependenciaAll() in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Controllers\UnidadeInfraestruturaController.cs:line 114
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-02-09 01:55:26.252 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 38.3633 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:55:34.344 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 8081.3273 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:56:19.814 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 59.6674 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:56:59.930 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 49.3990 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:57:00.345 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 394.7267 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:57:20.910 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 18.5451 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:57:30.697 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 46.2178 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:57:31.301 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 590.0526 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:57:55.281 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 19.1780 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:58:31.102 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 43.9642 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:58:31.308 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 186.0310 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:58:42.192 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 15.1991 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:59:30.926 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 39.5480 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 01:59:34.079 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 3131.8003 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:01:51.409 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 13.5352 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:02:38.201 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 405 in 4.1474 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:"PostmanRuntime/7.22.0"]
+2020-02-09 02:02:43.501 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 15.4295 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:"PostmanRuntime/7.22.0"]
+2020-02-09 02:03:45.158 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 45.6129 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:03:45.345 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 173.6323 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:04:21.186 -03:00 [Information] web api service is started.
+2020-02-09 02:04:33.290 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1790.0352 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:04:38.258 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 79.0752 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:04:39.991 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 1721.4074 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:05:24.716 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 48.6617 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:06:36.733 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 200 in 26506.5398 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:"PostmanRuntime/7.22.0"]
+2020-02-09 02:08:00.826 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 34.7664 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:08:01.681 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 844.7358 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:08:55.124 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 20.1407 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:13:23.619 -03:00 [Information] web api service is started.
+2020-02-09 02:13:41.925 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1680.6784 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:13:47.584 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 93.6921 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:13:50.215 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 2619.7618 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:14:04.260 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 400 in 69.8827 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:15:53.919 -03:00 [Information] web api service is started.
+2020-02-09 02:16:10.195 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1557.4412 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:16:16.415 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 60.3119 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:16:18.114 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 1688.8533 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:16:28.137 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 35.6040 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:16:29.254 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 1104.3375 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:16:34.796 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 35.3925 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:16:35.385 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 574.7800 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:17:12.783 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 200 in 13601.5242 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:17:12.868 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 54.5865 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:18:53.090 -03:00 [Information] web api service is started.
+2020-02-09 02:19:04.083 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2454.0058 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:20:11.914 -03:00 [Information] web api service is started.
+2020-02-09 02:20:27.582 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1856.2760 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:21:07.638 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 66.0645 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:22:28.380 -03:00 [Information] web api service is started.
+2020-02-09 02:22:38.260 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 3521.9439 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:22:54.161 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 83.0131 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:23:04.281 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 49.3266 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:23:37.937 -03:00 [Information] web api service is started.
+2020-02-09 02:24:01.743 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1578.2629 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:24:10.608 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 68.7520 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:24:30.658 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 53.2369 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:24:34.724 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/4" responded 204 in 140.2984 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:24:38.927 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 45.0049 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:26:37.314 -03:00 [Information] web api service is started.
+2020-02-09 02:26:48.072 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2446.2999 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:26:55.241 -03:00 [Error] HTTP "POST" "/api/UnidadeInfraEstrutura/DeleteUnidadeInfraEstrutura" responded 500 in 548.9853 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|2e44afee-4a93b35fc5f8bb7d.1."), ("Content-Length": "8"), ("userIP": "192.168.1.1")]]
+System.ArgumentException: The key value at position 0 of the call to 'DbSet<UnidadeInfraestrutura>.Find' was of type 'long', which does not match the property type of 'int'.
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues, IReadOnlyList`1& keyProperties)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeInfraEstrutura.DeleteUnidadeInfraEstruturaCommand.DeleteUnidadeInfraestruturaCommandHandler.Handle(DeleteUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\UnidadeInfraEstrutura\Commands\DeleteUnidadeInfraEstrutura\DeleteUnidadeInfraEstruturaCommand.cs:line 25
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.UnidadeInfraEstruturaController.DeleteUnidadeInfraEstrutura(DeleteUnidadeInfraEstruturaCommand command) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Controllers\UnidadeInfraestruturaController.cs:line 52
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-02-09 02:26:55.542 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 54.8617 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:27:07.181 -03:00 [Error] HTTP "POST" "/api/UnidadeInfraEstrutura/DeleteUnidadeInfraEstrutura" responded 500 in 2103.8633 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|2e44aff0-4a93b35fc5f8bb7d.1."), ("Content-Length": "8"), ("userIP": "192.168.1.1")]]
+System.ArgumentException: The key value at position 0 of the call to 'DbSet<UnidadeInfraestrutura>.Find' was of type 'long', which does not match the property type of 'int'.
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues, IReadOnlyList`1& keyProperties)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeInfraEstrutura.DeleteUnidadeInfraEstruturaCommand.DeleteUnidadeInfraestruturaCommandHandler.Handle(DeleteUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\UnidadeInfraEstrutura\Commands\DeleteUnidadeInfraEstrutura\DeleteUnidadeInfraEstruturaCommand.cs:line 25
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.UnidadeInfraEstruturaController.DeleteUnidadeInfraEstrutura(DeleteUnidadeInfraEstruturaCommand command) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Controllers\UnidadeInfraestruturaController.cs:line 52
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-02-09 02:28:13.128 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 42.5530 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:29:06.072 -03:00 [Error] HTTP "POST" "/api/UnidadeInfraEstrutura/DeleteUnidadeInfraEstrutura" responded 500 in 24154.8863 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|2e44aff2-4a93b35fc5f8bb7d.1."), ("Content-Length": "8"), ("userIP": "192.168.1.1")]]
+System.ArgumentException: The key value at position 0 of the call to 'DbSet<UnidadeInfraestrutura>.Find' was of type 'long', which does not match the property type of 'int'.
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues, IReadOnlyList`1& keyProperties)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeInfraEstrutura.DeleteUnidadeInfraEstruturaCommand.DeleteUnidadeInfraestruturaCommandHandler.Handle(DeleteUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\UnidadeInfraEstrutura\Commands\DeleteUnidadeInfraEstrutura\DeleteUnidadeInfraEstruturaCommand.cs:line 25
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.UnidadeInfraEstruturaController.DeleteUnidadeInfraEstrutura(DeleteUnidadeInfraEstruturaCommand command) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Controllers\UnidadeInfraestruturaController.cs:line 52
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-02-09 02:29:06.161 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 28.2161 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:30:41.186 -03:00 [Information] web api service is started.
+2020-02-09 02:30:51.233 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2439.1246 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:31:26.142 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/DeleteUnidadeInfraEstrutura" responded 200 in 26124.5542 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:31:26.249 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 40.0195 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:31:46.059 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 39.5082 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:31:48.887 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 2810.3609 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:36:55.305 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 36.1315 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:37:16.435 -03:00 [Information] web api service is started.
+2020-02-09 02:37:39.647 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1656.0551 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:37:48.668 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 67.3384 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:37:50.432 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 1753.8611 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:38:16.084 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/CreateUnidadeInfraEstrutura" responded 200 in 5596.1460 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:38:16.141 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 28.2236 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:40:51.407 -03:00 [Information] web api service is started.
+2020-02-09 02:41:04.314 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2345.1295 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:41:11.907 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 61.2109 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:43:23.162 -03:00 [Information] web api service is started.
+2020-02-09 02:43:34.883 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2585.5933 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:45:18.071 -03:00 [Information] web api service is started.
+2020-02-09 02:45:51.320 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1537.4594 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:46:39.461 -03:00 [Information] web api service is started.
+2020-02-09 02:46:52.220 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1895.1197 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:49:44.743 -03:00 [Information] web api service is started.
+2020-02-09 02:49:54.936 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2560.3547 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:53:46.913 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 107.3842 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:54:32.231 -03:00 [Information] web api service is started.
+2020-02-09 02:54:46.879 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2025.7609 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:55:33.938 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 109.4282 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:55:54.532 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 49.3658 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:56:24.459 -03:00 [Information] web api service is started.
+2020-02-09 02:56:36.149 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2353.9152 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 02:58:07.156 -03:00 [Information] web api service is started.
+2020-02-09 02:58:17.869 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2580.6160 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:03:15.333 -03:00 [Information] web api service is started.
+2020-02-09 03:03:36.009 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1763.4001 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:03:48.473 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 204 in 146.1107 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:03:56.318 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 42.4749 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:11:23.643 -03:00 [Information] web api service is started.
+2020-02-09 03:12:04.955 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1559.2770 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:12:07.240 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 204 in 132.1888 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:12:33.317 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 204 in 67.7144 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:12:50.941 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 204 in 39.3318 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:18:04.230 -03:00 [Information] web api service is started.
+2020-02-09 03:21:14.726 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1509.7464 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:21:22.419 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 4486.1676 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:22:07.003 -03:00 [Information] web api service is started.
+2020-02-09 03:22:17.088 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2430.6240 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:22:22.251 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 2341.2695 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:24:24.970 -03:00 [Information] web api service is started.
+2020-02-09 03:24:34.185 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2771.5354 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:24:40.422 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 3694.2067 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:25:18.572 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 63.3189 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:28:03.336 -03:00 [Information] web api service is started.
+2020-02-09 03:28:18.021 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1694.0286 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:28:20.782 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 144.0034 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:30:40.959 -03:00 [Information] web api service is started.
+2020-02-09 03:30:52.077 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2642.8727 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:30:54.812 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 237.2941 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:31:17.773 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 54.6389 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:31:55.974 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 43.9674 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:00.661 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 41.2238 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:09.602 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 29.4226 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:24.237 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 42.0804 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:42.758 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 19.1192 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:50.304 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 15.5809 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:54.739 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/0" responded 204 in 35.1522 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:57.711 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 44.6007 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:32:59.996 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 34.2378 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:33:27.546 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 15.7842 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:33:35.195 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 29.0004 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:33:42.513 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 18.0443 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:34:31.208 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 21.2675 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:34:36.755 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 18.5722 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:34:41.048 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 43.8455 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:34:56.268 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 400 in 24.2645 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:40:13.697 -03:00 [Information] web api service is started.
+2020-02-09 03:41:19.643 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1907.2494 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:41:22.691 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 163.8422 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:41:33.781 -03:00 [Error] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 500 in 4381.1164 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|684c897b-459bfde96ed230ec.1."), ("Content-Length": "227"), ("userIP": "192.168.1.1")]]
+Infraero.Relprev.Application.Common.Exceptions.NotFoundException: Entity "UnidadeInfraEstrutura" (0) was not found.
+   at Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura.UpdateUnidadeInfraEstruturaCommand.UpdateAssuntoCommandHandler.Handle(UpdateUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\UnidadeInfraEstrutura\Commands\UpdateUnidadeInfraEstrutura\UpdateUnidadeInfraEstruturaCommand.cs:line 39
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.UnidadeInfraEstruturaController.UpdateUnidadeInfraEstrutura(UpdateUnidadeInfraEstruturaCommand command) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Controllers\UnidadeInfraestruturaController.cs:line 36
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev2\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-02-09 03:41:38.007 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 39.4402 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:43:47.755 -03:00 [Information] web api service is started.
+2020-02-09 03:44:03.808 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2441.2460 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:44:06.315 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 287.4640 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:44:17.790 -03:00 [Information] HTTP "POST" "/api/UnidadeInfraEstrutura/UpdateUnidadeInfraEstrutura" responded 200 in 3954.8811 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:44:17.911 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 72.2656 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:44:21.357 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 46.4424 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:54:56.211 -03:00 [Information] web api service is started.
+2020-02-09 03:55:27.383 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1801.7368 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:55:30.639 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 165.0615 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:59:09.792 -03:00 [Information] web api service is started.
+2020-02-09 03:59:30.337 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1677.5307 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 03:59:36.952 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 126.4372 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:02:04.303 -03:00 [Information] web api service is started.
+2020-02-09 04:02:14.759 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 2612.4613 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:02:17.832 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 182.7747 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:03:22.372 -03:00 [Information] web api service is started.
+2020-02-09 04:03:50.818 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1530.6771 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:03:53.710 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 180.5022 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:05:13.537 -03:00 [Information] web api service is started.
+2020-02-09 04:05:40.500 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1694.1932 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:05:44.865 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 205.0999 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:07:04.787 -03:00 [Information] web api service is started.
+2020-02-09 04:07:31.572 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1538.1804 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:07:33.547 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/5" responded 200 in 134.9812 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:07:52.346 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 47.4776 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:09:22.757 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 40.3232 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:09:28.500 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 5721.7097 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:09:35.404 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 46.2615 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:09:45.482 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 32.8770 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-09 04:09:47.772 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetDependenciaAll" responded 200 in 2275.7846 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

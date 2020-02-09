@@ -92,11 +92,11 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpGet("GetUnidadeInfraEstruturaById/{id}")]
-        public async Task<UnidadeInfraEstruturaDto> GetUnidadeInfraEstruturaById(string id)
+        public async Task<UnidadeInfraEstruturaDto> GetUnidadeInfraEstruturaById(int id)
         {
             try
             {
-                var result = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidade = id });
+                var result = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = id });
                 return result;
             }
             catch (Exception e)

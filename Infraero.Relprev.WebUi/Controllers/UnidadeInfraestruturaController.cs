@@ -49,8 +49,8 @@ namespace Infraero.Relprev.WebUi.Controllers
                     Endereco = collection["endereco"].ToString(),
                     CodUnidade = collection["CodUnidade"].ToString(),
                     Descricao = collection["Descricao"].ToString(),
-                    DtIniVigencia = DateTime.ParseExact(collection["DtIniVigencia"].ToString(), "dd/MM/yyyy", null),
-                    DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
+                    DtIniVigencia = collection["DtIniVigencia"].ToString(),
+                    DtFimVigencia = collection["DtFimVigencia"].ToString(),
                     CriadoPor = User.Identity.Name
                 };
                 ApiClientFactory.Instance.CreateUnidadeInfraEstrutura(command);
@@ -80,12 +80,9 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new UpdateUnidadeInfraEstruturaCommand
                 {
                     CodUnidadeInfraestrutura = id,
-                    CodUnidade = collection["CodUnidade"].ToString(),
-                    Sigla = collection["Sigla"].ToString().ToUpper().Trim(),
                     Descricao = collection["Descricao"].ToString(),
-                    Endereco = collection["Endereco"].ToString(),
-                    DtIniVigencia = DateTime.ParseExact(collection["DtIniVigencia"].ToString(), "dd/MM/yyyy", null),
-                    DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
+                    DtIniVigencia = collection["DtIniVigencia"].ToString(),
+                    DtFimVigencia = collection["DtFimVigencia"].ToString(),
                     AlteradorPor = User.Identity.Name
                 };
                 ApiClientFactory.Instance.UpdateUnidadeInfraEstrutura(command);
@@ -98,17 +95,14 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // POST: UnidadeInfraEstrutura/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             try
             {
-                ApiClientFactory.Instance.DeleteUnidadeInfraEstrutura(new DeleteUnidadeInfraEstruturaCommand{Id=id});
+                ApiClientFactory.Instance.DeleteUnidadeInfraEstrutura(new DeleteUnidadeInfraEstruturaCommand { Id = id });
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return RedirectToAction(nameof(Index));
             }

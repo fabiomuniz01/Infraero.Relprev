@@ -12,6 +12,7 @@ var vm = new Vue({
             sigla:""
         },
         loading: false
+
     },
     mounted: function () {
         var self = this;
@@ -69,6 +70,13 @@ var vm = new Vue({
                 self.loading = flag;
             }
         },
+        CancelarEdit: function (event) {
+            var self = this;
+
+            $("#DtIniVigencia").val("");
+            $("#DtFimVigencia").val("");
+            $("#Descricao").val("");
+        },
         GetUnidadeBySigla: function (event) {
             var self = this;
             self.ShowLoad(true, "vUnidade");
@@ -87,7 +95,7 @@ var vm = new Vue({
                 self.ShowLoad(false, "vUnidade");
 
             }).catch(error => {
-                Site.Notification("Erro ao buscar e analisar dados", "Erro ao conectar o banco de dados.", "error", 1);
+                Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
                     self.ShowLoad(false, "vUnidade");
 
                     //    new PNotify({

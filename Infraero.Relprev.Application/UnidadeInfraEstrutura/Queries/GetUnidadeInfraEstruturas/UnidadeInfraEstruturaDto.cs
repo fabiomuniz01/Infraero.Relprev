@@ -10,17 +10,17 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
         public int CodUnidadeInfraestrutura { get; set; }
         public string CodUnidade { get; set; }
         public string Sigla { get; set; }
-
         public string Descricao { get; set; }
         public string Endereco { get; set; }
-        public DateTime DtIniVigencia { get; set; }
-        public DateTime DtFimVigencia { get; set; }
-
-        //public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
+        public string NomUnidadeÌnfraestrutura { get; set; }
+        public string DtIniVigencia { get; set; }
+        public string DtFimVigencia { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<UnidadeInfraestrutura, UnidadeInfraEstruturaDto>();
+            profile.CreateMap<UnidadeInfraestrutura, UnidadeInfraEstruturaDto>()
+                .ForMember(d => d.DtFimVigencia, opt => opt.MapFrom(s => s.DtFimVigencia.ToString("dd/MM/yyyy")))
+                .ForMember(d => d.DtIniVigencia, opt => opt.MapFrom(s => s.DtIniVigencia.ToString("dd/MM/yyyy"))); 
         }
 
         public string DscCodUnidadeDescricao { get; set; }

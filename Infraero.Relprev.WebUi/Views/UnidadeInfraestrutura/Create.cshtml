@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Aeroporto</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Aeroporto <span class="required">*</span></label>
                         <div class="col-sm-9">
                             <input type="text" id="aeroporto" name="aeroporto" class="form-control" readonly
                                    v-model="UnidadeInfraEstruturaDto.Dependencia.dep_sigla_nome"
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Endereço</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Endereço <span class="required">*</span></label>
                         <div class="col-sm-9">
                             <input type="text" id="endereco" name="endereco" class="form-control" readonly
                                    v-model="UnidadeInfraEstruturaDto.Dependencia.dep_endereco_logradouro"
@@ -65,12 +65,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Complemento</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Complemento <span class="required">*</span></label>
                         <div class="col-sm-3">
                             <input type="text" id="complemento" name="complemento" class="form-control"
                                    v-model="UnidadeInfraEstruturaDto.Dependencia.dep_endereco_complemento" readonly>
                         </div>
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Numero</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Numero <span class="required">*</span></label>
                         <div class="col-sm-3">
                             <input type="text" id="numero" name="numero" class="form-control"
                                    v-model="UnidadeInfraEstruturaDto.Dependencia.dep_numero_logradouro" readonly>
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="form-group row" id="data-container">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Início de vigência</label>
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Início de vigência <span class="required">*</span></label>
                         <div class="col-lg-3">
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
 
-                        <label class="col-lg-2 control-label text-lg-right pt-2">Fim de vigência</label>
+                        <label class="col-lg-2 control-label text-lg-right pt-2">Fim de vigência <span class="required">*</span></label>
                         <div class="col-lg-3 pull-left">
                             <div class="input-group">
                                 <span class="input-group-addon">

@@ -1,10 +1,6 @@
 ﻿using System;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.HttpClient.Clients.Implementations;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
-using Infraero.Relprev.HttpClient.Http;
-using Infraero.Relprev.Infrastructure;
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Infraero.Relprev.Infrastructure.Services;
@@ -15,7 +11,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

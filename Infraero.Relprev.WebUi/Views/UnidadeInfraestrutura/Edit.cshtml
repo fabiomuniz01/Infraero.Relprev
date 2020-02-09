@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "UnidadeInfraestrutura", FormMethod.Post))
+        @using (@Html.BeginForm("Edit", "UnidadeInfraestrutura", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -18,49 +18,73 @@
                     <h2 class="card-title">Editar Unidade de Infraestrutura</h2>
 
                 </header>
-                <div class="card-body">
+                <div id="vUnidade" class="card-body" data-loading-overlay>
+
+
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Código da unidade <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Aeroporto <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" rows="3" name="CodUnidade" value="@Model.CodUnidade" class="form-control" placeholder="eg.: Código da unidade  " required maxlength="4">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Sigla <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input type="text" rows="3" name="Sigla" value="@Model.Sigla"  class="form-control" placeholder="eg.: Descrição da sigla  " required maxlength="4">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição Unidade Infraestrutura<span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="Descricao" class="form-control" placeholder="eg.: Descrição da Unidade de Infraestrutura  " required maxlength="50">@Model.Descricao</textarea>
+                            <input type="text" id="aeroporto" name="aeroporto" class="form-control" readonly
+                                   value="@Model.NomUnidadeÌnfraestrutura"
+                                   title="Aeroporto nao pesquisado a partir da sigla informada." required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Endereço <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" rows="3" name="Endereco"value="@Model.Endereco" class="form-control" placeholder="eg.: Descrição do endereço  " required maxlength="4">
+                            <input type="text" id="endereco" name="endereco" class="form-control" readonly
+                                   value="@Model.Endereco"
+                                   title="Endereço nao pesquisado a partir da sigla informada." required>
                         </div>
                     </div>
+                    @*<div class="form-group row">
+                            <label class="col-sm-3 control-label text-sm-right pt-2">Complemento</label>
+                            <div class="col-sm-3">
+                                <input type="text" id="complemento" name="complemento" class="form-control"
+                                       value="@Model.Complemento" readonly>
+                            </div>
+                            <label class="col-sm-3 control-label text-sm-right pt-2">Numero</label>
+                            <div class="col-sm-3">
+                                <input type="text" id="numero" name="numero" class="form-control"
+                                       value="@Model.Numero" readonly>
+                            </div>
+                        </div>*@
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Início de vigência</label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição Unidade Infraestrutura<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea type="text" rows="3" id="Descricao" name="Descricao" class="form-control"
+                                      placeholder="eg.: Descrição da Unidade de Infraestrutura  " maxlength="50"
+                                      title="Por favor informe a descrição da Unidade de Infraestrutura." required>@Model.Descricao</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="data-container">
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Início de vigência <span class="required">*</span></label>
                         <div class="col-lg-3">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                <input id="DtIniVigencia"name="DtIniVigencia"value="@Model.DtIniVigencia.ToString("dd/MM/yyyy")" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="__/__/____" class="form-control">
+                                <input id="DtIniVigencia" name="DtIniVigencia"
+                                       title="Por favor informe a data início de vigência." required
+                                       style="z-index: auto;"
+                                       value="@Model.DtIniVigencia"
+                                       data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
+                                       placeholder="__/__/____" class="form-control">
                             </div>
                         </div>
 
-                        <label class="col-lg-2 control-label text-lg-right pt-2">Fim de vigência</label>
+                        <label class="col-lg-2 control-label text-lg-right pt-2">Fim de vigência <span class="required">*</span></label>
                         <div class="col-lg-3 pull-left">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                <input id="DtFimVigencia"name="DtFimVigencia" value="@Model.DtFimVigencia.ToString("dd/MM/yyyy")"  data-plugin-masked-input data-input-mask="99/99/9999" placeholder="__/__/____" class="form-control">
+                                <input id="DtFimVigencia" name="DtFimVigencia"
+                                       title="Por favor informe a data fim de vigência." required
+                                       style="z-index: auto;"
+                                       value="@Model.DtFimVigencia"
+                                       data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
+                                       placeholder="__/__/____" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -69,7 +93,7 @@
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
                             <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <button type="button" class="btn btn-danger pull-left mr-2" v-on:click="CancelarEdit">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
                             <a href="@Url.Action("Index", "UnidadeInfraestrutura")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
                         </div>
@@ -80,9 +104,14 @@
     </div>
 </div>
 @section CssSpecificVendor {
-
+    <link href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 }
+
 @section Scripts {
 
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="~/js/unidade.js"></script>
 
 }

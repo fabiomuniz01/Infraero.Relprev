@@ -9,7 +9,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnid
 {
     public class DeleteUnidadeInfraEstruturaCommand : IRequest
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public class DeleteUnidadeInfraestruturaCommandHandler : IRequestHandler<DeleteUnidadeInfraEstruturaCommand>
         {

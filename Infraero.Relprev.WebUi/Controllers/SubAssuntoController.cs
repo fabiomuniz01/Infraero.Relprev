@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto;
 using Infraero.Relprev.Application.SubAssunto.Commands.DeleteSubAssunto;
 using Infraero.Relprev.Application.SubAssunto.Commands.UpdateSubAssunto;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.Domain.Entities;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
