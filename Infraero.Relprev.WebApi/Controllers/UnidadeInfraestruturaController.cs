@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Infraero.Relprev.WebApi.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
-    public class UnidadeInfraestruturaController : ApiController
+    public class UnidadeInfraEstruturaController : ApiController
     {
-        [HttpPost("CreateUnidadeInfraestrutura")]
-        public async Task<ActionResult<long>> CreateUnidadeInfraestrutura(CreateUnidadeInfraEstruturaCommand command)
+        [HttpPost("CreateUnidadeInfraEstrutura")]
+        public async Task<ActionResult<long>> CreateUnidadeInfraEstrutura(CreateUnidadeInfraEstruturaCommand command)
         {
             try
             {
@@ -27,15 +27,14 @@ namespace Infraero.Relprev.WebApi.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-
         }
-
-        [HttpGet("GetGridUnidadeInfraestrutura")]
-        public async Task<GridUnidadeInfraEstrutura> GetGridUnidadeInfraestrutura()
+        [HttpPost("UpdateUnidadeInfraEstrutura")]
+        public async Task<ActionResult<bool>> UpdateUnidadeInfraEstrutura(UpdateUnidadeInfraEstruturaCommand command)
         {
             try
             {
-                var result = await Mediator.Send(new GetGridUnidadeInfraestruturaQuery());
+                var result = await Mediator.Send(command);
+
                 return result;
             }
             catch (Exception e)
@@ -43,27 +42,25 @@ namespace Infraero.Relprev.WebApi.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
-        [HttpGet("GetUnidadeInfraestruturaById/{id}")]
-        public async Task<UnidadeInfraEstruturaDto> GetUnidadeInfraestruturaById(int id)
+        [HttpPost("DeleteUnidadeInfraEstrutura")]
+        public async Task<ActionResult<bool>> DeleteUnidadeInfraEstrutura(DeleteUnidadeInfraEstruturaCommand command)
         {
             try
             {
-                var result = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = id });
-                return result;
+                var result = await Mediator.Send(command);
+                return Ok(result);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
-        [HttpGet("GetUnidadeInfraestruturaAll")]
-        public async Task<List<UnidadeInfraEstruturaDto>> GetUnidadeInfraestruturaAll()
+        [HttpGet("GetUnidadeInfraEstruturaAll")]
+        public async Task<List<UnidadeInfraEstruturaDto>> GetUnidadeInfraEstruturaAll()
         {
             try
             {
@@ -78,12 +75,28 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
-        [HttpGet("GetDependenciaAll")]
-        public async Task<List<UnidadeInfraEstruturaDto.Dependencia>> GetDependenciaAll()
+        [HttpGet("GetGridUnidadeInfraEstrutura")]
+        public async Task<GridUnidadeInfraEstrutura> GetGridUnidadeInfraEstrutura()
         {
             try
             {
-                var result = await Mediator.Send(new GetDependenciaAllQuery());
+                //_logger.LogInformation("API ENTRY: Inside get all UnidadeInfraEstruturas API call.");
+                var result2 = await Mediator.Send(new GetGridUnidadeInfraestruturaQuery());
+                return result2;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("GetUnidadeInfraEstruturaById/{id}")]
+        public async Task<UnidadeInfraEstruturaDto> GetUnidadeInfraEstruturaById(string id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidade = id });
                 return result;
             }
             catch (Exception e)
@@ -91,17 +104,14 @@ namespace Infraero.Relprev.WebApi.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
-
-        [HttpPost("UpdateUnidadeInfraestrutura")]
-        public async Task<ActionResult<bool>> UpdateUnidadeInfraestrutura(UpdateUnidadeInfraEstruturaCommand command)
+        [HttpGet("GetDependenciaAll")]
+        public async Task<List<UnidadeInfraEstruturaDto.Dependencia>> GetDependenciaAll()
         {
             try
             {
-                var result = await Mediator.Send(command);
-
+                var result = await Mediator.Send(new GetDependenciaAllQuery());
                 return result;
             }
             catch (Exception e)

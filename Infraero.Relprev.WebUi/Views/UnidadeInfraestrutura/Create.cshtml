@@ -32,6 +32,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" id="sigla" name="sigla" class="form-control" placeholder="eg.: Sigla" maxlength="4"
                                        title="Por favor informe uma sigla para pesquisar os dados de endereço." required
+                                       onkeyup="this.value = this.value.toUpperCase();"
                                        style="z-index: auto;"
                                        v-model="params.sigla">
                                 <span class="input-group-btn">
@@ -51,7 +52,7 @@
                             <input type="text" id="aeroporto" name="aeroporto" class="form-control" readonly
                                    v-model="UnidadeInfraEstruturaDto.Dependencia.dep_sigla_nome"
                                    title="Aeroporto nao pesquisado a partir da sigla informada." required>
-                            @*<input type="hidden" id="CodDependencia" name="CodDependencia" value="UnidadeInfraEstruturaDto.Dependencia.dep_codigo" />*@
+                            <input type="hidden" id="CodUnidade" name="CodUnidade" :value="UnidadeInfraEstruturaDto.Dependencia.dep_codigo" />
                             <input type="hidden">
                         </div>
                     </div>

@@ -35,6 +35,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnid
                     Sigla = request.Sigla,
                     Descricao = request.Descricao,
                     NomUnidadeÌnfraestrutura = request.NomUnidadeÌnfraestrutura,
+                    Endereco = request.Endereco,
                     DtIniVigencia = request.DtIniVigencia,
                     DtFimVigencia = request.DtFimVigencia,
                     CriadoPor = request.CriadoPor
@@ -48,9 +49,10 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnid
             }
         }
 
+        public string Endereco { get; set; }
+
         public string NomUnidadeÌnfraestrutura { get; set; }
 
         public string CriadoPor { get; set; }
-        public string NomeUnidade { get; set; }
     }
 }

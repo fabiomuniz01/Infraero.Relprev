@@ -44,9 +44,10 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateUnidadeInfraEstruturaCommand
                 {
-                    Sigla = collection["sigla"].ToString(),
-                    NomeUnidade = collection["aeroporto"].ToString(),
-                    CodUnidade = collection["codUnidade"].ToString(),
+                    Sigla = collection["sigla"].ToString().ToUpper().Trim(),
+                    NomUnidadeÌnfraestrutura = collection["aeroporto"].ToString(),
+                    Endereco = collection["endereco"].ToString(),
+                    CodUnidade = collection["CodUnidade"].ToString(),
                     Descricao = collection["Descricao"].ToString(),
                     DtIniVigencia = DateTime.ParseExact(collection["DtIniVigencia"].ToString(), "dd/MM/yyyy", null),
                     DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
@@ -80,12 +81,12 @@ namespace Infraero.Relprev.WebUi.Controllers
                 {
                     CodUnidadeInfraestrutura = id,
                     CodUnidade = collection["CodUnidade"].ToString(),
-                    Sigla = collection["Sigla"].ToString(),
+                    Sigla = collection["Sigla"].ToString().ToUpper().Trim(),
                     Descricao = collection["Descricao"].ToString(),
                     Endereco = collection["Endereco"].ToString(),
                     DtIniVigencia = DateTime.ParseExact(collection["DtIniVigencia"].ToString(), "dd/MM/yyyy", null),
                     DtFimVigencia = DateTime.ParseExact(collection["DtFimVigencia"].ToString(), "dd/MM/yyyy", null),
-                    AlteradorPor = "Amcom Developer"
+                    AlteradorPor = User.Identity.Name
                 };
                 ApiClientFactory.Instance.UpdateUnidadeInfraEstrutura(command);
 
@@ -123,7 +124,16 @@ namespace Infraero.Relprev.WebUi.Controllers
                     throw new Exception(
                         "Sigla não informada.");
                 }
-                var result = ApiClientFactory.Instance.GetDependenciaAll().Where(x => x.dep_sigla.Equals(sigla.ToUpper().Trim())).FirstOrDefault();
+
+                var exists = ApiClientFactory.Instance
+                    .GetUnidadeInfraEstruturaAll().Any(x => x.Sigla.Equals(sigla.ToUpper().Trim()));
+                if (exists)
+                {
+                    throw new Exception(
+                        "Já existe uma unidade de infraestrutura cadastrada com esta sigla.");
+                }
+
+                var result = ApiClientFactory.Instance.GetDependenciaAll().FirstOrDefault(x => x.dep_sigla.Equals(sigla.ToUpper().Trim()));
 
                 if (result ==null)
                 {

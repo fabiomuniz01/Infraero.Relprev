@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infraero.Relprev.Application\Infraero.Relprev.Application.csproj" />
-    <ProjectReference Include="..\Infraero.Relprev.HttpClient\Infraero.Relprev.HttpClient.csproj" />
+    <ProjectReference Include="..\Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj" />
   </ItemGroup>
 
   <ItemGroup>

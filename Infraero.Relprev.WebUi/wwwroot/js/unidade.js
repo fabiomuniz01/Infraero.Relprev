@@ -87,7 +87,7 @@ var vm = new Vue({
                 self.ShowLoad(false, "vUnidade");
 
             }).catch(error => {
-                Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
+                Site.Notification("Erro ao buscar e analisar dados", "Erro ao conectar o banco de dados.", "error", 1);
                     self.ShowLoad(false, "vUnidade");
 
                     //    new PNotify({

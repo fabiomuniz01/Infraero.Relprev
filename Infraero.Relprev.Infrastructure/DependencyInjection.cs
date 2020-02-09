@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using Infraero.Relprev.Application;
-using Infraero.Relprev.Application.Common.Interfaces;
-using Infraero.Relprev.HttpClient.Clients.Implementations;
-using Infraero.Relprev.HttpClient.Clients.Interfaces;
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication;
@@ -17,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-//using Infraero.Relprev.Infrastructure.Files;
 
 namespace Infraero.Relprev.Infrastructure
 {
@@ -32,15 +27,6 @@ namespace Infraero.Relprev.Infrastructure
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-            services.AddScoped<IEmpresaClient>(provider => provider.GetService<EmpresaClient>());
-            services.AddScoped<ILocalClient>(provider => provider.GetService<LocalClient>());
-            services.AddScoped<IUnidadeInfraEstruturaClient>(provider => provider.GetService<UnidadeInfraEstruturaClient>());
-            services.AddScoped<IAssuntoClient>(provider => provider.GetService<AssuntoClient>());
-            services.AddScoped<ISubAssuntoClient>(provider => provider.GetService<SubAssuntoClient>());
-            services.AddScoped<ISubLocalClient>(provider => provider.GetService<SubLocalClient>());
-            services.AddScoped<IResponsavelTecnicoClient>(provider => provider.GetService<ResponsavelTecnicoClient>());
-            services.AddScoped<IUsuarioClient>(provider => provider.GetService<UsuarioClient>());
-            services.AddScoped<IPerfilClient>(provider => provider.GetService<PerfilClient>());
 
             if (environment.IsEnvironment("Test"))
             {

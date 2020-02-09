@@ -75,38 +75,6 @@ namespace Infraero.Relprev.WebUi
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-            string Baseurl = "https://localhost:44372";
-
-            services.Add(new ServiceDescriptor(typeof(IEmpresaClient),
-                new EmpresaClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(IUnidadeInfraEstruturaClient),
-                new UnidadeInfraEstruturaClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(IAssuntoClient),
-                new AssuntoClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(ISubAssuntoClient),
-                new SubAssuntoClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(ILocalClient),
-                new LocalClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(ISubLocalClient),
-                new SubLocalClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(IResponsavelTecnicoClient),
-                new ResponsavelTecnicoClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(IUsuarioClient),
-                new UsuarioClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(IPerfilClient),
-                new PerfilClient(Baseurl, new ClientSDK("", "", ""))));
-
-            services.Add(new ServiceDescriptor(typeof(IRelatoClient),
-                new RelatoClient(Baseurl, new ClientSDK("", "", ""))));
-
             services.AddDefaultIdentity<WebProfileUser>(config =>
             {
                 config.User.RequireUniqueEmail = true;

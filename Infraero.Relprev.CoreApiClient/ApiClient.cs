@@ -26,7 +26,6 @@ namespace Infraero.Relprev.CoreApiClient
         {
             addHeaders();
             var response = _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
-            //response.EnsureSuccessStatusCode();
             var data = response.Result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(data.Result);
         }

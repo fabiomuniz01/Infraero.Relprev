@@ -33,7 +33,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeI
 
             public IDbConnection GetConnection()
             {
-                var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("OracleConnection").Value;
+                var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("OracleDbConnectionString").Value;
                 var conn = new OracleConnection(connectionString);
                 return conn;
             }
