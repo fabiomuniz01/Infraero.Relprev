@@ -1,0 +1,76 @@
+2020-02-10 00:30:46.757 -03:00 [Information] web api service is started.
+2020-02-10 00:31:54.377 -03:00 [Information] web api service is started.
+2020-02-10 00:32:41.236 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 2604.1273 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:32:53.834 -03:00 [Information] HTTP "POST" "/api/Empresa/GetEmpresaByCnpj" responded 200 in 193.9420 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:33:11.248 -03:00 [Information] HTTP "POST" "/api/Empresa/CreateEmpresa" responded 200 in 493.2031 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:33:23.212 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 34.1828 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:33:36.049 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 31.7741 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:35:51.360 -03:00 [Information] web api service is started.
+2020-02-10 00:36:31.677 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 2215.9092 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:36:55.524 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 81.6102 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:37:28.030 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 41.7956 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:37:41.198 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 51.8616 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:39:39.651 -03:00 [Information] web api service is started.
+2020-02-10 00:39:57.589 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 2352.4061 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:40:44.913 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 87.8614 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:40:52.989 -03:00 [Information] HTTP "POST" "/api/Empresa/DeleteEmpresa" responded 200 in 855.3101 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:40:56.988 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 28.3430 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:41:17.671 -03:00 [Information] HTTP "POST" "/api/Empresa/GetEmpresaByCnpj" responded 200 in 92.8580 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:41:30.833 -03:00 [Information] HTTP "POST" "/api/Empresa/CreateEmpresa" responded 200 in 163.2352 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:41:34.532 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 22.4149 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:41:41.547 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 33.1268 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:41:49.626 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 28.1360 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:42:57.807 -03:00 [Information] web api service is started.
+2020-02-10 00:44:48.096 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 2023.1331 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:44:51.216 -03:00 [Information] HTTP "POST" "/api/Empresa/DeleteEmpresa" responded 200 in 585.6071 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:44:51.283 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 42.6399 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:44:57.256 -03:00 [Information] HTTP "POST" "/api/Empresa/GetEmpresaByCnpj" responded 200 in 69.1970 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:45:01.187 -03:00 [Information] HTTP "POST" "/api/Empresa/CreateEmpresa" responded 200 in 168.7766 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:45:01.260 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 25.9220 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:45:17.891 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 57.9848 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:53:43.977 -03:00 [Information] web api service is started.
+2020-02-10 00:58:36.206 -03:00 [Information] web api service is started.
+2020-02-10 00:58:47.219 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 3710.6476 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:58:52.175 -03:00 [Information] HTTP "POST" "/api/Empresa/DeleteEmpresa" responded 200 in 762.1420 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:58:52.308 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 85.6523 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:58:54.537 -03:00 [Information] HTTP "POST" "/api/Empresa/DeleteEmpresa" responded 200 in 80.9868 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:58:54.590 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 24.5215 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:59:00.214 -03:00 [Information] HTTP "POST" "/api/Empresa/GetEmpresaByCnpj" responded 200 in 52.0807 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:59:05.704 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 38.0397 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:59:09.004 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaById/9" responded 200 in 47.0016 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:59:13.328 -03:00 [Information] HTTP "POST" "/api/Empresa/UpdateEmpresa" responded 200 in 88.1527 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 00:59:13.414 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 43.0511 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:01:02.159 -03:00 [Information] web api service is started.
+2020-02-10 01:01:22.360 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 2754.8203 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:01:27.026 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaById/9" responded 200 in 300.5608 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:01:31.991 -03:00 [Information] HTTP "POST" "/api/Empresa/UpdateEmpresa" responded 200 in 440.9730 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:01:32.069 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 43.6423 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:01:35.885 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 68.3658 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:02:09.446 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 29.3919 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:02:13.032 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaById/9" responded 200 in 55.7371 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:02:15.772 -03:00 [Information] HTTP "POST" "/api/Empresa/UpdateEmpresa" responded 200 in 50.7720 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:02:18.048 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 33.1692 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:02:46.931 -03:00 [Information] web api service is started.
+2020-02-10 01:03:00.874 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 2375.3452 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:03:05.645 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaById/9" responded 200 in 171.0857 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:03:22.074 -03:00 [Information] HTTP "POST" "/api/Empresa/UpdateEmpresa" responded 200 in 378.5535 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:03:22.173 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 51.6853 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:15:52.229 -03:00 [Information] web api service is started.
+2020-02-10 01:16:19.659 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 1517.0924 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:17:08.861 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 119.8249 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:17:09.022 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaById/9" responded 200 in 140.5838 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:24:40.739 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 53.7366 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:24:56.905 -03:00 [Information] web api service is started.
+2020-02-10 01:25:26.068 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 1547.4181 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:25:28.760 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 97.4784 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 01:25:28.913 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaById/9" responded 200 in 131.9252 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 02:30:19.787 -03:00 [Information] web api service is started.
+2020-02-10 02:30:39.071 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 3510.4087 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 02:30:43.539 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 212.8438 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 02:30:43.760 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaById/9" responded 200 in 192.6510 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-10 02:37:04.427 -03:00 [Information] web api service is started.
+2020-02-10 02:37:16.849 -03:00 [Information] web api service is started.
+2020-02-10 02:43:41.290 -03:00 [Information] web api service is started.
+2020-02-10 02:43:51.304 -03:00 [Information] web api service is started.
+2020-02-10 02:44:10.347 -03:00 [Information] web api service is started.
+2020-02-10 02:46:38.528 -03:00 [Information] web api service is started.

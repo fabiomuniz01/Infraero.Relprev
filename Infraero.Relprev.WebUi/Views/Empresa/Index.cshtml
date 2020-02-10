@@ -87,8 +87,8 @@
 @section Scripts {
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/js/grid/empresa.js"></script>
-
+    <script src="~/js/formatTable.js"></script>
+    
     <script>
         /*
 Name: 			UI Elements / Modals - Examples
@@ -100,6 +100,22 @@ Theme Version: 	2.0.0
 
             'use strict';
 
+            switch (@ViewBag.CrudMessage) {
+                case 1:
+                    new PNotify({
+                        title: 'Empresa',
+                        text: 'Cadastro realizado com sucesso!',
+                        type: 'success'
+                    });
+                case 2:
+                    new PNotify({
+                        title: 'Empresa',
+                        text: 'Dados alterados com sucesso.',
+                        type: 'warning'
+                    });
+                default:
+            }
+            
             /*
             Basic
             */

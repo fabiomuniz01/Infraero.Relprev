@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -6,6 +8,7 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Infraero.Relprev.Infrastructure.Services;
 using Infraero.Relprev.WebUi.Configuration;
 using Infraero.Relprev.WebUi.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -100,20 +103,31 @@ namespace Infraero.Relprev.WebUi
                 options.User.RequireUniqueEmail = false;
             });
 
+
+
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
+                options.Cookie.Name = "RelprevCookieLogin";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-                options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.LoginPath = "/Identity/Account/Login";
                 options.SlidingExpiration = true;
+                //options.EventsType = typeof(RelprevCookieAuthenticationEvents);
+                // ReturnUrlParameter requires 
+                //using Microsoft.AspNetCore.Authentication.Cookies;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+
+
+
             });
 
             // Register email service. Configured in appsettings.json
             services.AddTransient<IEmailSender, SendGridEmailService>();
-
+            services.AddTransient<RelprevCookieAuthenticationEvents>();
 
             services.AddBreadcrumbs(GetType().Assembly, options =>
             {
@@ -146,7 +160,32 @@ namespace Infraero.Relprev.WebUi
 
             services.Configure<SettingsModel>(Configuration.GetSection("RelprevSettings"));
         }
+        public class RelprevCookieAuthenticationEvents : CookieAuthenticationEvents
+        {
 
+            //public override Task ValidatePrincipal(CookieValidatePrincipalContext context)
+            //{
+            //    // first remove the old claim
+            //    var claim = context.Principal.FindFirst(ClaimTypes.Upn);
+            //    if (claim != null)
+            //    {
+            //        ((ClaimsIdentity)context.Principal.Identity).RemoveClaim(claim);
+            //    }
+
+            //    var usu = new UserManager<WebProfileUser>();
+
+            //    string newUserCpf = .FindByEmailAsync(((ClaimsIdentity)context.Principal.Identity).Name).Result.Cpf;
+
+            //    // add the new claim
+            //    ((ClaimsIdentity)context.Principal.Identity).AddClaim(new Claim(ClaimTypes.Upn, newAccountNo));
+
+            //    // replace the claims
+            //    context.ReplacePrincipal(context.Principal);
+            //    context.ShouldRenew = true;
+
+            //    return Task.CompletedTask;
+            //}
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

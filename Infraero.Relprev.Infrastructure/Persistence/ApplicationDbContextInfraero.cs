@@ -27,6 +27,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
             _currentUserService = currentUserService;
         }
 
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
@@ -55,6 +56,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public virtual DbSet<Assunto> Assunto { get; set; }
         public DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
         public virtual DbSet<SubAssunto> SubAssunto { get; set; }
+        public DbSet<VinculoUnidadeEmpresa> VinculoUnidadeEmpresa { get; set; }
+
 
 
 

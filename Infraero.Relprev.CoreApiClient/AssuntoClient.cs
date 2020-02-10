@@ -17,7 +17,7 @@ namespace Infraero.Relprev.CoreApiClient
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceAssunto}/CreateAssunto"));
-            return Post(requestUrl, command);
+            return PostAsync<long, CreateAssuntoCommand>(requestUrl, command);
         }
         public Task<long> UpdateAssunto(UpdateAssuntoCommand command)
         {

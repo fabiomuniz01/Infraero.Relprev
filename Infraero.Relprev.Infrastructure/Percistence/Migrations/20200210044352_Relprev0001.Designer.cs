@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
+namespace Infraero.Relprev.Infrastructure.Percistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200204024320_Relprev010")]
-    partial class Relprev010
+    [Migration("20200210044352_Relprev0001")]
+    partial class Relprev0001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -375,6 +375,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CpfCriadoPor")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CriadoPor")
@@ -1270,6 +1273,42 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasIndex("CodUsuarioNavigationCodUsuario");
 
                     b.ToTable("UsuarioLocalidade");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.VinculoUnidadeEmpresa", b =>
+                {
+                    b.Property<int>("CodVinculoUnidadeEmpresa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CodEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodUnidadeInfraestrutura")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NomEmpresa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomUnidadeInfraestrutura")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CodVinculoUnidadeEmpresa");
+
+                    b.ToTable("VinculoUnidadeEmpresa");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Infrastructure.Identity.WebProfileUser", b =>

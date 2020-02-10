@@ -14,6 +14,8 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumCnpj { get; set; }
         public DateTime DthRegistro { get; set; }
         public string NumTelefone { get; set; }
+        public string CpfCriadoPor { get; set; }
+
        
     }
 }

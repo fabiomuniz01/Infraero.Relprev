@@ -57,6 +57,14 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceEmpresa}/GetEmpresaById/{id}"));
             return Get<EmpresaDto>(requestUrl);
         }
+        public Task<EmpresaDto> GetEmpresaByCnpj (string cnpj)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceEmpresa}/GetEmpresaByCnpj"));
+            return PostAsync<EmpresaDto,string>(requestUrl, cnpj);
+        }
+
+
 
         #endregion
 

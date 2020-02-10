@@ -89,5 +89,20 @@ namespace Infraero.Relprev.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpPost("GetEmpresaByCnpj")]
+        public async Task<EmpresaDto> GetEmpresaByCnpj([FromBody]string cnpj)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetEmpresaByCnpjQuery { Cnpj = cnpj });
+                return result ?? new EmpresaDto();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

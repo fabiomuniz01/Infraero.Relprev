@@ -48,13 +48,13 @@ namespace Infraero.Relprev.CoreApiClient
             var data = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<MessageModel<T>>(data);
         }
-        private async Task<MessageModel<T1>> PostAsync<T1, T2>(Uri requestUrl, T2 content)
+        private async Task<T1> PostAsync<T1, T2>(Uri requestUrl, T2 content)
         {
             addHeaders();
             var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T2>(content));
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<MessageModel<T1>>(data);
+            return JsonConvert.DeserializeObject<T1>(data);
         }
 
         private Uri CreateRequestUri(string relativePath, string queryString = "")

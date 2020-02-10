@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -201,7 +202,8 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
 
                         return RedirectToPage("./FirstAccessPassword", new { email, code });
                     }
-                    
+                    //await _userManager.AddClaimAsync(u, new Claim(ClaimTypes.Upn, u.Cpf));
+
                     _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
                 }

@@ -10,10 +10,9 @@ namespace Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa
     {
         public string Nome { get; set; }
         public string CriadoPor { get; set; }
-
         public string Telefone { get; set; }
-
         public string Cnpj { get; set; }
+        public string CpfCriadoPor { get; set; }
 
         public class CreateEmpresaCommandHandler : IRequestHandler<CreateEmpresaCommand, long>
         {
@@ -33,6 +32,7 @@ namespace Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa
                     DthRegistro = DateTime.Now,
                     NumTelefone = request.Telefone,
                     CriadoPor = request.CriadoPor,
+                    CpfCriadoPor = request.CpfCriadoPor,
                     DataCriacao = DateTime.Now
                 };
 

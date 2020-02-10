@@ -5,9 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
@@ -18,16 +22,28 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class EmpresaController : Controller
     {
         private readonly IOptions<SettingsModel> _appSettings;
+        private readonly UserManager<WebProfileUser> _userManager;
 
-        public EmpresaController(IOptions<SettingsModel> app)
+        public EmpresaController(IOptions<SettingsModel> app, UserManager<WebProfileUser> userManager)
         {
             _appSettings = app;
+            _userManager = userManager;
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         //private readonly IEmpresa 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? crud)
         {
+            if (crud==(int) EnumCrud.Created)
+            {
+                ViewBag.CrudMessage = (int)EnumCrud.Created;
+            }
+            else if (crud == (int)EnumCrud.Updated)
+            {
+                ViewBag.CrudMessage = (int)EnumCrud.Updated;
+            }
+            
+
             var response = ApiClientFactory.Instance.GetGridEmpresa();
             return View(response);
         }
@@ -48,13 +64,16 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new CreateEmpresaCommand
                 {
                     Nome = collection["empresa"].ToString(),
-                    CriadoPor = "",
+                    CriadoPor = User.Identity.Name,
                     Cnpj = collection["cnpj"].ToString(),
-                    Telefone = collection["telefone"].ToString()
+                    Telefone = collection["telefone"].ToString(),
+                    CpfCriadoPor = _userManager.FindByEmailAsync(User.Identity.Name).Result.Cpf
+
                 };
                 ApiClientFactory.Instance.CreateEmpresa(command);
 
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
             {
@@ -86,7 +105,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 };
                 ApiClientFactory.Instance.UpdateEmpresa(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
             catch
             {
@@ -108,12 +127,53 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        public JsonResult GetEmpresaByCnpj(string cnpj)
+        {
+
+            try
+            {
+                if (string.IsNullOrEmpty(cnpj))
+                {
+                    throw new Exception(
+                        "Cnpj não informado.");
+                }
+
+                var result = ApiClientFactory.Instance.GetEmpresaByCnpj(cnpj);
+                if (result.Result.CodEmpresa!=0)
+                {
+                    throw new Exception(
+                        "Já existe uma empresa cadastrada com esse cnpj.");
+                }
+
+                return Json(false);
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+
+            }
+
+
+        }
+
 
 
         // GET: Empresa/Link/5
         public ActionResult Link(int id)
         {
-            return View();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+
+            var obj = ApiClientFactory.Instance.GetEmpresaById(id);
+
+            var model = new EmpresaModel
+            {
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"),
+                Empresa = obj
+            };
+
+            return View(model);
         }
 
         // POST: Empresa/Link/5

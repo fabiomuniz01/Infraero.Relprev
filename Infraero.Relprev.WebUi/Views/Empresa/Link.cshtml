@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.CrossCutting.Models.EmpresaModel
 @{
     ViewData["Title"] = "Link";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Link", "Empresa", FormMethod.Post))
+        @using (@Html.BeginForm("Link", "Empresa", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -24,37 +24,40 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Empresa de Atendimento <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Nome da empresa de atendimento de relatos" required />
+                            <input type="text" name="empresa" value="@Model.Empresa.NomRazaoSocial" class="form-control" placeholder="eg.: Nome da empresa de atendimento de relatos" readonly />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">CPNJ <span class="required">*</span> </label>
                         <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: CNPJ da empresa de atendimento" maxlength="18" required />
+                            <input type="text" name="cnpj" value="@Model.Empresa.NumCnpj" class="form-control" placeholder="eg.: CNPJ da empresa de atendimento" maxlength="18" readonly />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidades de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
+                            <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
+                                    title="Por favor selecione uma unidade de infraestrutura." required
+                                    asp-for="CodUnidadeInfraestrutura"
+                                    asp-items="Model.ListUnidadeInfraestrutura">
+                                <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Tipo de ação <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ação" maxlength="30" required />
-                        </div>
-                    </div>
+                    @*<div class="form-group row">
+                            <label class="col-sm-3 control-label text-sm-right pt-2">Tipo de ação <span class="required">*</span></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ação" maxlength="30" required />
+                            </div>
+                        </div>*@
                 </div>
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            @*<button class="btn  btn-success pull-left" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                                <button type="reset" class="btn btn-danger pull-left">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>*@
-                            <button class="btn  btn-primary pull-left" style="margin-right: 10px;">Adicionar &nbsp;&nbsp;<i class="fa fa-plus-circle"></i></button>
+                            <button class="btn  btn-success pull-left" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="reset" class="btn btn-danger pull-left">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <a href="@Url.Action("Index", "Empresa")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
+
                         </div>
                     </div>
                 </footer>
@@ -81,52 +84,25 @@
                         <thead>
                             <tr>
                                 <th>Empresa/ Órgão Público</th>
-                                <th>CNPJ</th>
                                 <th>Unidade de infraestrutura</th>
-                                <th>Situaçao</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                        @foreach (var item in Model.GridVinculoUnidadeEmpresa.aaData)
+                        {
                             <tr>
-                                <td>BInnovation</td>
-                                <td>54.861.144/0001-61</td>
-                                <td>Brasília</td>
-                                <td>Unidade Vinculada</td>
+                                <td>@Html.DisplayFor(modelItem => item.NomEmpresa)</td>
+                                <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
                                 <td class="actions">
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="Delete" asp-controller="Empresa" asp-route-id="@item.CodEmpresa" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>NtitSolutions</td>
-                                <td>53.478.824/0001-38</td>
-                                <td>Brasília</td>
-                                <td>Unidade Vinculada</td>
-                                <td class="actions">
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Amcom</td>
-                                <td>88.841.188/0001-41</td>
-                                <td>Blumenau</td>
-                                <td>Unidade Vinculada</td>
-                                <td class="actions">
-                                    <a href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+                        }
                         </tbody>
                     </table>
                 </div>
-                <footer class="card-footer">
-                    <div class="row justify-content-end">
-                        <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button type="reset" class="btn btn-danger pull-left">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
-                        </div>
-                    </div>
-                </footer>
+                
             </section>
         }
     </div>
@@ -163,72 +139,64 @@
     <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
 }
 @section Scripts {
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
     <script src="~/js/empresa.js"></script>
 
     <script>
-        /*
-Name: 			UI Elements / Modals - Examples
-Written by: 	Okler Themes - (http://www.okler.net)
-Theme Version: 	2.0.0
-*/
 
+        // Select2
         (function ($) {
 
             'use strict';
 
-            /*
-            Basic
-            */
-            $('.modal-basic').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
+            var $select = $(".select2").select2({
+                allowClear: true
+            });
+
+            $(".select2").each(function () {
+                var $this = $(this),
+                    opts = {};
+
+                var pluginOptions = $this.data('plugin-options');
+                if (pluginOptions)
+                    opts = pluginOptions;
+
+                $this.themePluginSelect2(opts);
             });
 
             /*
-            Sizes
-            */
-            $('.modal-sizes').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
+     * When you change the value the select via select2, it triggers
+     * a 'change' event, but the jquery validation plugin
+     * only re-validates on 'blur'*/
+
+            $select.on('change', function () {
+                $(this).trigger('blur');
             });
 
-            /*
-            Modal Dismiss
-            */
-            $(document).on('click', '.modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
+
+            $("#form").validate({
+                highlight: function (label) {
+                    $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                success: function (label) {
+                    $(label).closest('.form-group').removeClass('has-error');
+                    label.remove();
+                },
+                errorPlacement: function (error, element) {
+                    var placement = element.closest('.input-group');
+                    if (!placement.get(0)) {
+                        placement = element;
+                    }
+                    if (error.text() !== '') {
+                        placement.after(error);
+                    }
+                }
             });
 
         }).apply(this, [jQuery]);
-            // Select2
-            (function ($) {
-
-                'use strict';
-
-                if ($.isFunction($.fn['select2'])) {
-
-                    $(function () {
-                        $('[data-plugin-selectTwo]').each(function () {
-                            var $this = $(this),
-                                opts = {};
-
-                            var pluginOptions = $this.data('plugin-options');
-                            if (pluginOptions)
-                                opts = pluginOptions;
-
-                            $this.themePluginSelect2(opts);
-                        });
-                    });
-
-                }
-
-            }).apply(this, [jQuery]);
 
     </script>
 }
