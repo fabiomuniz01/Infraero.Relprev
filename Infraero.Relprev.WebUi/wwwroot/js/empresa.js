@@ -1,7 +1,4 @@
 ﻿
-
-
-
 var vm = new Vue({
     el: "#form",
     data: {
@@ -16,7 +13,22 @@ var vm = new Vue({
 
             'use strict';
 
+            var $numCnpj = $("#cnpj");
+            $numCnpj.mask('00.000.000/0000-00', { reverse: false });
+
+            var $numTel = $("#Telefone");
+            $numTel.mask('(00) 0000-0000');
+
             $("#form").validate({
+                rules: {
+                    cnpj: { cnpj: true, required: true }
+                },
+                messages: {
+                    cnpj: { cnpj: 'CNPJ inválido', required: "Por favor informe o CNPJ da empresa / órgão público" }
+                },
+                //submitHandler: function (form) {
+                //    alert('ok');
+                //},
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },
@@ -34,6 +46,55 @@ var vm = new Vue({
                     }
                 }
             });
+
+            jQuery.validator.addMethod("cnpj",
+                function(value, element) {
+
+                    var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
+                    if (value.length == 0) {
+                        return false;
+                    }
+
+                    value = value.replace(/\D+/g, '');
+                    digitos_iguais = 1;
+
+                    for (i = 0; i < value.length - 1; i++)
+                        if (value.charAt(i) != value.charAt(i + 1)) {
+                            digitos_iguais = 0;
+                            break;
+                        }
+                    if (digitos_iguais)
+                        return false;
+
+                    tamanho = value.length - 2;
+                    numeros = value.substring(0, tamanho);
+                    digitos = value.substring(tamanho);
+                    soma = 0;
+                    pos = tamanho - 7;
+                    for (i = tamanho; i >= 1; i--) {
+                        soma += numeros.charAt(tamanho - i) * pos--;
+                        if (pos < 2)
+                            pos = 9;
+                    }
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                    if (resultado != digitos.charAt(0)) {
+                        return false;
+                    }
+                    tamanho = tamanho + 1;
+                    numeros = value.substring(0, tamanho);
+                    soma = 0;
+                    pos = tamanho - 7;
+                    for (i = tamanho; i >= 1; i--) {
+                        soma += numeros.charAt(tamanho - i) * pos--;
+                        if (pos < 2)
+                            pos = 9;
+                    }
+
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+
+                    return (resultado == digitos.charAt(1));
+                },
+                "Informe um CNPJ válido");
 
         }).apply(this, [jQuery]);
     },
@@ -60,9 +121,8 @@ var vm = new Vue({
         CancelarEdit: function (event) {
             var self = this;
 
-            //$("#DtIniVigencia").val("");
-            //$("#DtFimVigencia").val("");
-            //$("#Descricao").val("");
+            $("#ddlUnidadeInfraestrutura").select2("val", "0");
+            
         },
         ExisteCnpj: function () {
             var self = this;
@@ -83,44 +143,6 @@ var vm = new Vue({
             }).catch(error => {
                 Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
                     self.ShowLoad(false, "vEmpresa");
-
-                    //    new PNotify({
-                //        title: 'Regular Notice',
-                //        text: 'Check me out! I\'m a notice.',
-                //        type: 'custom',
-                //        addclass: 'notification-primary',
-                //        icon: 'fa fa-twitter'
-                //    });
-
-                //    new PNotify({
-                //        title: 'Regular Notice',
-                //        text: 'Check me out! I\'m a notice.'
-                //    });
-
-                //    new PNotify({
-                //        title: 'Regular Notice',
-                //        text: 'Check me out! I\'m a notice.',
-                //        type: 'success'
-                //    });
-
-                //    new PNotify({
-                //        title: 'Regular Notice',
-                //        text: 'Check me out! I\'m a notice.',
-                //        type: 'info'
-                //    });
-
-                //    new PNotify({
-                //        title: 'Regular Notice',
-                //        text: 'Check me out! I\'m a notice.',
-                //        type: 'error'
-                //    });
-
-                //    new PNotify({
-                //        title: 'Regular Notice',
-                //        text: 'Check me out! I\'m a notice.',
-                //        addclass: 'notification-dark',
-                //        icon: 'fa fa-user'
-                //});
             });
         }
     }

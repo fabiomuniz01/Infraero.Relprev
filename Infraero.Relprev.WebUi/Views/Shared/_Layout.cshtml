@@ -41,7 +41,9 @@
 </head>
 <body>
     <section class="body">
-
+        @{
+            var userRole = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role).Value;
+        }
         <!-- start: header -->
         <header class="header">
             <div class="logo-container">
@@ -116,156 +118,164 @@
                                         <span>Home</span>
                                     </a>
                                 </li>
-                                <li class="nav-parent nav-expanded nav-active">
-                                    <a class="nav-link" href="#">
-                                        <i class="fa fa-edit" aria-hidden="true"></i>
-                                        <span>Cadastros</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "UnidadeInfraestrutura")">
-                                                Unidade Infraestrutura
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "Empresa")">
-                                                Empresa
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "ResponsavelTecnico")">
-                                                Responsável Técnico
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "Assunto")">
-                                                Assunto
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "SubAssunto")">
-                                                Sub Assunto
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "Local")">
-                                                Local
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "SubLocal")">
-                                                Sub Local
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "Usuario")">
-                                                Usuário
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "Perfil")">
-                                                Perfil
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("CreatePerfil", "Usuario")">
-                                                Perfil Usuário
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-parent nav-expanded">
-                                    <a class="nav-link" href="#">
-                                        <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                        <span>Relatos</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Create", "Relato")">
-                                                Cadastrar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Index", "Relato")">
-                                                Consultar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Edit", "Relato")">
-                                                Classificar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Cancel", "Relato")">
-                                                Cancelar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Finalize", "Relato")">
-                                                Finalizar
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a class="nav-link" href="@Url.Action("Index", "AtribuirRespRelato")">
-                                        <i class="fa fa-plug" aria-hidden="true"></i>
-                                        <span>Atribuir <br />Responsável/Relato</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a class="nav-link" href="@Url.Action("Index", "AtendimentoTecnico")">
-                                        <i class="fa fa-tty" aria-hidden="true"></i>
-                                        <span>Atendimento Técnico</span>
-                                    </a>
-                                </li>
+                                @if (userRole == "Administrador")
+                                {
+                                    <li class="nav-parent nav-expanded nav-active">
+                                        <a class="nav-link" href="#">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                            <span>Cadastros</span>
+                                        </a>
+                                        <ul class="nav nav-children">
 
 
-                                <li class="nav-parent nav-expanded">
-                                    <a class="nav-link" href="#">
-                                        <i class="fa fa-file-word-o" aria-hidden="true"></i>
-                                        <span>Parecer Técnico</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Complete", "Parecer")">
-                                                Complementar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Evaluate", "Parecer")">
-                                                Avaliar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Reply", "Parecer")">
-                                                Responder
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-parent nav-expanded">
-                                    <a class="nav-link" href="#">
-                                        <i class="fa fa-download" aria-hidden="true"></i>
-                                        <span>Contrato SmartStream</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Import", "ImportarContrato")">
-                                                Importar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="@Url.Action("Configure", "ImportarContrato")">
-                                                Configurar
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "UnidadeInfraestrutura")">
+                                                    Unidade Infraestrutura
+                                                </a>
+                                            </li>
 
-                            </ul>
+
+
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Empresa")">
+                                                    Empresa
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "ResponsavelTecnico")">
+                                                    Responsável Técnico
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Assunto")">
+                                                    Assunto
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "SubAssunto")">
+                                                    Sub Assunto
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Local")">
+                                                    Local
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "SubLocal")">
+                                                    Sub Local
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Usuario")">
+                                                    Usuário
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Perfil")">
+                                                    Perfil
+                                                </a>
+                                            </li>
+                                            @*<li>
+                        <a class="nav-link" href="@Url.Action("CreatePerfil", "Usuario")">
+                            Perfil Usuário
+                        </a>
+                    </li>*@
+                                        </ul>
+                                    </li>
+                                }
+                                    <li class="nav-parent nav-expanded">
+                                        <a class="nav-link" href="#">
+                                            <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                            <span>Relatos</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Create", "Relato")">
+                                                    Cadastrar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Relato")">
+                                                    Consultar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Edit", "Relato")">
+                                                    Classificar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Cancel", "Relato")">
+                                                    Cancelar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Finalize", "Relato")">
+                                                    Finalizar
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a class="nav-link" href="@Url.Action("Index", "AtribuirRespRelato")">
+                                            <i class="fa fa-plug" aria-hidden="true"></i>
+                                            <span>Atribuir <br />Responsável/Relato</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="nav-link" href="@Url.Action("Index", "AtendimentoTecnico")">
+                                            <i class="fa fa-tty" aria-hidden="true"></i>
+                                            <span>Atendimento Técnico</span>
+                                        </a>
+                                    </li>
+
+
+                                    <li class="nav-parent nav-expanded">
+                                        <a class="nav-link" href="#">
+                                            <i class="fa fa-file-word-o" aria-hidden="true"></i>
+                                            <span>Parecer Técnico</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Complete", "Parecer")">
+                                                    Complementar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Evaluate", "Parecer")">
+                                                    Avaliar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Reply", "Parecer")">
+                                                    Responder
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent nav-expanded">
+                                        <a class="nav-link" href="#">
+                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                            <span>Contrato SmartStream</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Import", "ImportarContrato")">
+                                                    Importar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Configure", "ImportarContrato")">
+                                                    Configurar
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
                         </nav>
 
 

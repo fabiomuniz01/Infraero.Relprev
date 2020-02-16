@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeInfraEstrutura;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
@@ -11,11 +11,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
-using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    public class UnidadeInfraEstruturaController : Controller
+    public class UnidadeInfraEstruturaController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
 
@@ -25,8 +24,10 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? crud)
         {
+            SetCrudMessage(crud);
+
             var response = ApiClientFactory.Instance.GetGridUnidadeInfraEstrutura();
             return View(response);
         }
@@ -55,7 +56,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 };
                 ApiClientFactory.Instance.CreateUnidadeInfraEstrutura(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
             {
@@ -87,7 +88,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 };
                 ApiClientFactory.Instance.UpdateUnidadeInfraEstrutura(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
             catch
             {
@@ -100,7 +101,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             try
             {
                 ApiClientFactory.Instance.DeleteUnidadeInfraEstrutura(new DeleteUnidadeInfraEstruturaCommand { Id = id });
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
             }
             catch (Exception e)
             {
@@ -139,6 +140,10 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception ex)
             {
+                if (ex.Source == "Newtonsoft.Json")
+                {
+                    return Json("Erro ao estabelecer conexao com o banco de dados.");
+                }
                 return Json(ex.Message);
 
             }

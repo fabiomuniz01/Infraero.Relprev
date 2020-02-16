@@ -23,6 +23,7 @@ using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure;
 using Infraero.Relprev.WebApi.Middlewares;
 using Infraero.Relprev.WebApi.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infraero.Relprev.WebApi
 {
@@ -135,6 +136,27 @@ namespace Infraero.Relprev.WebApi
             });
 
             services.AddSwaggerExamplesFromAssemblyOf<Program>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+                options.Lockout.MaxFailedAccessAttempts = 4;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
 
             var logger = new LoggerConfiguration()
                .Enrich.FromLogContext()

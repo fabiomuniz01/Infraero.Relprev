@@ -47,7 +47,7 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
                     // Don't reveal that the user does not exist or is not confirmed
                     //return RedirectToPage("./ForgotPasswordConfirmation");
 
-                await SendForgotPasswordEmail(user);
+                await SendForgotPasswordEmail(user, Input.Email);
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
@@ -55,13 +55,13 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private async Task SendForgotPasswordEmail(WebProfileUser user)
+        private async Task SendForgotPasswordEmail(WebProfileUser user, string email)
         {
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             var callbackUrl = Url.Page(
                 "/Account/ResetPassword",
                 null,
-                new { code },
+                new { code, email },
                 Request.Scheme);
 
 

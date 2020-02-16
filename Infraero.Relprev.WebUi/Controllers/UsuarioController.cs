@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
@@ -17,7 +19,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
 
@@ -28,8 +30,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         //private readonly IUsuario 
-        public IActionResult Index()
+        public IActionResult Index(int? crud)
         {
+            SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridUsuario();
             return View(response);
         }
@@ -43,18 +46,29 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Usuario/Create
         public ActionResult Create()
         {
-            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+            
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
             var resultPerfil = ApiClientFactory.Instance.GetPerfilAll();
-
+            
             var model = new UsuarioModel
             {
-                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"),
+                ListUnidadeInfraestrutura = new SelectList(new List<UnidadeInfraEstruturaDto>(), "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"),
                 ListPerfil = new SelectList(resultPerfil, "CodPerfil","NomPerfil")
             };
             return View(model);
         }
+
+        public JsonResult GetUnidadeByIdEmpresa(int id)
+        {
+            var result = ApiClientFactory.Instance.GetEmpresaAll().FirstOrDefault(x => x.CodEmpresa == id)
+                .VinculoUnidadeEmpresaList.ToList().Select(s=> new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura, NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura }).ToList();
+
+            result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = 0, NomUnidadeÌnfraestrutura = "Selecionar Unidade de infraestrutura" });
+
+            return Json(new SelectList(result, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"));
+        }
+
         public ActionResult CreatePerfil()
         {
             return View();
@@ -70,7 +84,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new CreateUsuarioCommand
                 {
 
-                    DateRegistered = DateTime.UtcNow,
                     UserName = collection["EndEmail"].ToString(),
                     Email = collection["EndEmail"].ToString(),
                     Nome = collection["NomUsuario"].ToString(),
@@ -80,6 +93,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodEmpresa = int.Parse(collection["ddlEmpresa"].ToString()),
                     CodPerfil = collection["ddlPerfil"].ToString()
                 };
+
                 ApiClientFactory.Instance.CreateUsuario(command);
 
                 return RedirectToAction(nameof(Index));
@@ -151,6 +165,37 @@ namespace Infraero.Relprev.WebUi.Controllers
             result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Local de Ocorrência" });
 
             return Json(new SelectList(result, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
+        }
+
+        public JsonResult GetUsuarioByCpf(string cpf)
+        {
+
+            try
+            {
+                if (string.IsNullOrEmpty(cpf))
+                {
+                    throw new Exception(
+                        "Cpf não informado.");
+                }
+
+                var result = ApiClientFactory.Instance.GetUsuarioByCpf(cpf);
+                if (result.Result.CodUsuario != null)
+                {
+                    throw new Exception(
+                        "Já existe um usuário cadastrado com esse cpf.");
+                }
+
+                return Json(false);
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+
+            }
+
+
         }
     }
 }

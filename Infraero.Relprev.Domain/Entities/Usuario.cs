@@ -10,12 +10,13 @@ namespace Infraero.Relprev.Domain.Entities
     {
         [Key]
         public int CodUsuario { get; set; }
+        public string CodUsuarioLogin { get; set; }
         public string NomUsuario { get; set; }
         public string NumCpf { get; set; }
         public string EndEmail { get; set; }
         public string NumTelefone { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
-        public int CodPerfil { get; set; }
+        public string CodPerfil { get; set; }
+        public int CodEmpresa { get; set; }
     }
 }

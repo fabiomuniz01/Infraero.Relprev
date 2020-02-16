@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.VinculoUnidadeEmpresa.Commands.DeleteVinc
 {
     public class DeleteVinculoUnidadeEmpresaCommand : IRequest<bool>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public class DeleteVinculoUnidadeEmpresaCommandHandler : IRequestHandler<DeleteVinculoUnidadeEmpresaCommand, bool>
         {

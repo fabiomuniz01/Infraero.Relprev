@@ -3,8 +3,11 @@ using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa;
+using Infraero.Relprev.Application.VinculoUnidadeEmpresa.Commands.CreateVinculoUnidadeEmpresa;
+using Infraero.Relprev.Application.VinculoUnidadeEmpresa.Commands.DeleteVinculoUnidadeEmpresa;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -19,7 +22,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    public class EmpresaController : Controller
+    public class EmpresaController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
         private readonly UserManager<WebProfileUser> _userManager;
@@ -34,15 +37,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         //private readonly IEmpresa 
         public async Task<IActionResult> Index(int? crud)
         {
-            if (crud==(int) EnumCrud.Created)
-            {
-                ViewBag.CrudMessage = (int)EnumCrud.Created;
-            }
-            else if (crud == (int)EnumCrud.Updated)
-            {
-                ViewBag.CrudMessage = (int)EnumCrud.Updated;
-            }
-            
+            SetCrudMessage(crud);
 
             var response = ApiClientFactory.Instance.GetGridEmpresa();
             return View(response);
@@ -99,7 +94,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 {
                     Id = id,
                     NomRazaoSocial = collection["empresa"].ToString(),
-                    AlteradoPor = "",
+                    AlteradoPor = User.Identity.Name,
                     NumCnpj = collection["cnpj"].ToString(),
                     NumTelefone = collection["telefone"].ToString()
                 };
@@ -119,7 +114,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             try
             {
                 ApiClientFactory.Instance.DeleteEmpresa(new DeleteEmpresaCommand {Id = id});
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
             }
             catch (Exception e)
             {
@@ -165,12 +160,16 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
+            var resultVinculo = ApiClientFactory.Instance.GetGridVinculoUnidadeEmpresa();
+            resultVinculo.aaData = resultVinculo.aaData.ToList().Where(x => x.CodEmpresa == id);
+
             var obj = ApiClientFactory.Instance.GetEmpresaById(id);
 
             var model = new EmpresaModel
             {
-                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"),
-                Empresa = obj
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                Empresa = obj,
+                GridVinculoUnidadeEmpresa = resultVinculo
             };
 
             return View(model);
@@ -183,13 +182,34 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var command = new CreateVinculoUnidadeEmpresaCommand
+                {
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    NomUnidadeInfraestrutura = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(int.Parse(collection["ddlUnidadeInfraestrutura"].ToString())).NomUnidadeÌnfraestrutura,
+                    CodEmpresa = id,
+                    NomEmpresa = collection["empresa"].ToString()
+                };
+                ApiClientFactory.Instance.CreateVinculoUnidadeEmpresa(command);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return View();
+            }
+        }
+
+        
+        public ActionResult DeleteLink(int id)
+        {
+            try
+            {
+                ApiClientFactory.Instance.DeleteVinculoUnidadeEmpresa(new DeleteVinculoUnidadeEmpresaCommand {Id = id});
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
         }
     }

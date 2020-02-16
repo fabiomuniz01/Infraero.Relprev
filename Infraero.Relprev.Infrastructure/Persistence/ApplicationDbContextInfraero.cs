@@ -35,11 +35,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CriadoPor = _currentUserService.UsuarioId;
+                        //entry.Entity.CriadoPor = _currentUserService.UsuarioId;
                         entry.Entity.DataCriacao = DateTime.Now;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.AlteradoPor = _currentUserService.UsuarioId;
+                        //entry.Entity.AlteradoPor = _currentUserService.UsuarioId;
                         entry.Entity.DataAlteracao = DateTime.Now;
                         break;
                 }
@@ -57,6 +57,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
         public virtual DbSet<SubAssunto> SubAssunto { get; set; }
         public DbSet<VinculoUnidadeEmpresa> VinculoUnidadeEmpresa { get; set; }
+        //public DbSet<EmpresasInfraero> EmpresasInfraero { get; set; }
 
 
 

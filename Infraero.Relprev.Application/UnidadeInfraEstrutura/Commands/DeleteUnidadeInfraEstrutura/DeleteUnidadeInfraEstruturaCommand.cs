@@ -7,11 +7,11 @@ using MediatR;
 
 namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeInfraEstrutura
 {
-    public class DeleteUnidadeInfraEstruturaCommand : IRequest
+    public class DeleteUnidadeInfraEstruturaCommand : IRequest<bool>
     {
         public int Id { get; set; }
 
-        public class DeleteUnidadeInfraestruturaCommandHandler : IRequestHandler<DeleteUnidadeInfraEstruturaCommand>
+        public class DeleteUnidadeInfraestruturaCommandHandler : IRequestHandler<DeleteUnidadeInfraEstruturaCommand, bool>
         {
             private readonly IApplicationDbContext _context;
 
@@ -20,7 +20,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnid
                 _context = context;
             }
 
-            public async Task<Unit> Handle(DeleteUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(DeleteUnidadeInfraEstruturaCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.UnidadeInfraestrutura.FindAsync(request.Id);
 
@@ -31,9 +31,9 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnid
 
                 _context.UnidadeInfraestrutura.Remove(entity);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                var result = await _context.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return true;
             }
         }
     }

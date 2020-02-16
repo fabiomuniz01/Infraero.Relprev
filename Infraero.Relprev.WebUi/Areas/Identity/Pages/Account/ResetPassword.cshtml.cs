@@ -20,22 +20,27 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
 
         [BindProperty] public InputModel Input { get; set; }
 
-        public IActionResult OnGet(string code = null)
+        public IActionResult OnGet(string code = null, string email=null)
         {
-            if (code == null)
-            {
-                return BadRequest("A code must be supplied for password reset.");
-            }
+            //if (code == null)
+            //{
+            //    return BadRequest("Um código deve ser fornecido para redefinição de senha.");
+            //}
+            //if (email == null)
+            //{
+            //    return BadRequest("Um email deve ser fornecido para redefinição de senha.");
+            //}
 
             Input = new InputModel
             {
-                Code = code
+                Code = code,
+                Email = email
             };
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
-        {
+         {
             if (!ModelState.IsValid) return Page();
 
             var user = await _userManager.FindByEmailAsync(Input.Email);
@@ -66,7 +71,7 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")] [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não coincidem.")]
+            [Display(Name = "Confirm password")] [Compare("Password", ErrorMessage = "As senhas informadas não conferem.")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }

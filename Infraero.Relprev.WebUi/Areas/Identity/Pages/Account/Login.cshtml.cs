@@ -179,6 +179,7 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
                     if (result.IsLockedOut)
                     {
                         _logger.LogWarning("A sua conta foi bloqueada.");
+                        ModelState.AddModelError(string.Empty, "A sua conta foi bloqueada.");
                         return RedirectToPage("./ForgotPassword");
                     }
 

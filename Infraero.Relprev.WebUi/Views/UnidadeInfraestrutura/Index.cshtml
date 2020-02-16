@@ -89,13 +89,35 @@
 @section Scripts {
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/js/empresa.js"></script>
+    <script src="~/js/formatTable.js"></script>
 
     <script>
         // Tooltip
         (function ($) {
 
             'use strict';
+
+            var crub = @ViewBag.CrudMessage;
+
+            if (crub===1) {
+                new PNotify({
+                    title: 'Unidade Infraestrutura',
+                    text: 'Cadastro realizado com sucesso!',
+                    type: 'success'
+                });
+            }else if (crub === 2) {
+                new PNotify({
+                    title: 'Unidade Infraestrutura',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning'
+                });
+            }else if (crub === 3) {
+                new PNotify({
+                    title: 'Unidade Infraestrutura',
+                    text: 'Registro excluído com sucesso.',
+                    type: 'error'
+                });
+            }
 
             if ($.isFunction($.fn['tooltip'])) {
                 $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });

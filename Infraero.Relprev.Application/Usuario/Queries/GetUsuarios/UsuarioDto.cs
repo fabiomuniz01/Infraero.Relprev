@@ -6,7 +6,7 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
 {
     public class UsuarioDto : IMapFrom<Domain.Entities.Usuario>
     {
-        public int CodUsuario { get; set; }
+        public string CodUsuario { get; set; }
         public string NomUsuario { get; set; }
         public string NumCpf { get; set; }
         public string DscEmail { get; set; }
@@ -14,6 +14,7 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodPerfil { get; set; }
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
+        public string DscPerfil { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -93,7 +93,7 @@ namespace Infraero.Relprev.WebUi
                 options.Password.RequiredUniqueChars = 1;
 
                 // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
                 options.Lockout.MaxFailedAccessAttempts = 4;
                 options.Lockout.AllowedForNewUsers = true;
 

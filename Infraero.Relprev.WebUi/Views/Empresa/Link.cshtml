@@ -40,7 +40,7 @@
                                     title="Por favor selecione uma unidade de infraestrutura." required
                                     asp-for="CodUnidadeInfraestrutura"
                                     asp-items="Model.ListUnidadeInfraestrutura">
-                                <option value="">Selecionar Unidade de infraestrutura</option>
+                                <option value="0">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button type="reset" class="btn btn-danger pull-left">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <button class="btn  btn-success pull-left mr-2" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="reset" class="btn btn-danger pull-left mr-2 " v-on:click="CancelarEdit">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
                             <a href="@Url.Action("Index", "Empresa")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
                         </div>
@@ -89,20 +89,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach (var item in Model.GridVinculoUnidadeEmpresa.aaData)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.NomEmpresa)</td>
-                                <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="Delete" asp-controller="Empresa" asp-route-id="@item.CodEmpresa" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                        }
+                            @foreach (var item in Model.GridVinculoUnidadeEmpresa.aaData)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.NomEmpresa)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
+                                    <td class="actions">
+                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="DeleteLink" asp-controller="Empresa" asp-route-id="@item.CodVinculoUnidadeEmpresa" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
-                
+
             </section>
         }
     </div>
@@ -143,6 +143,7 @@
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
+    <script src="~/js/formatTable.js"></script>
     <script src="~/js/empresa.js"></script>
 
     <script>

@@ -43,7 +43,7 @@ namespace Infraero.Relprev.Application.Empresa.Queries.GetEmpresas
                                     NumCnpj = c.NumCnpj,
                                     NumTelefone = c.NumTelefone,
                                     NomRazaoSocial = c.NomRazaoSocial,
-                                    NomUnidadeInfraestrutura = ""
+                                    NomUnidadeInfraestrutura = string.Join("</br>", c.VinculoUnidadeEmpresaList.Select(s => s.NomUnidadeInfraestrutura))
                                 });
 
                     grid.aaData = data;

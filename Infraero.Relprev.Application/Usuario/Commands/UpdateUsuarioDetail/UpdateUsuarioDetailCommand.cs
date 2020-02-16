@@ -34,6 +34,9 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
                 entity.NumTelefone = request.NumTelefone;
                 entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
                 entity.CodPerfil = request.CodPerfil;
+                entity.CodEmpresa = request.CodEmpresa;
+                entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
+                entity.CodPerfil = request.CodPerfil;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
@@ -41,9 +44,11 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
             }
         }
 
+        public int CodEmpresa { get; set; }
+
         public int CodUsuario { get; set; }
 
-        public int CodPerfil { get; set; }
+        public string CodPerfil { get; set; }
 
         public int CodUnidadeInfraestrutura { get; set; }
 

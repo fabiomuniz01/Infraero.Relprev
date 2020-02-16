@@ -58,7 +58,14 @@ namespace Infraero.Relprev.CoreApiClient
             return Get<UsuarioDto>(requestUrl);
         }
 
+        public Task<UsuarioDto> GetUsuarioByCpf(string cpf)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceUsuario}/GetUsuarioByCpf"));
+            return PostAsync<UsuarioDto, string>(requestUrl, cpf);
+        }
+
         #endregion
-        
+
     }
 }

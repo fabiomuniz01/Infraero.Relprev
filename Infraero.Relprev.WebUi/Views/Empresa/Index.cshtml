@@ -30,7 +30,7 @@
                                 <th>Nome da empresa/ Órgão Público</th>
                                 <th>Cnpj</th>
                                 <th>Telefone</th>
-                                <th>Unidade de infraestrutura</th>
+                                <th style="width: 100px;">Unidade Infraestrutura</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -41,7 +41,17 @@
                                     <td>@Html.DisplayFor(modelItem => item.NomRazaoSocial)</td>
                                     <td>@Html.DisplayFor(modelItem => item.NumCnpj)</td>
                                     <td>@Html.DisplayFor(modelItem => item.NumTelefone)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
+                                    <td>
+                                        <button type="button" class="mb-1 mt-1 mr-1 btn btn-xs btn-primary"
+                                                data-toggle="popover"
+                                                data-container="body"
+                                                data-placement="top"
+                                                title="Lista de Unidades Vinculadas"
+                                                data-html="true"
+                                                data-content="@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)">
+                                            <i class="fa fa-eye"></i> Ver todos
+                                        </button>
+                                    </td>
                                     <td class="actions">
                                         <a data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-id="@item.CodEmpresa" class="on-default link-row"><i class="fa fa-link"></i></a>
                                         <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Empresa" asp-route-id="@item.CodEmpresa" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
@@ -56,39 +66,19 @@
         </form>
     </div>
 </div>
-<div id="modalIcon" class="modal-block modal-header-color modal-block-danger mfp-hide">
-    <section class="card">
-        <header class="card-header">
-            <h2 class="card-title">Exclusão</h2>
-        </header>
-        <div class="card-body">
-            <div class="modal-wrapper">
-                <div class="modal-icon">
-                    <i class="fa fa-question-circle"></i>
-                </div>
-                <div class="modal-text">
-                    <p class="mb-0">Tem certeza que deseja <b>excluir</b> esse registro?</p>
-                </div>
-            </div>
-        </div>
-        <footer class="card-footer">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-success modal-confirm">Sim &nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i></button>
-                    <button class="btn btn-danger modal-dismiss">Não &nbsp;&nbsp;<i class="fa fa-thumbs-o-down"></i></button>
-                </div>
-            </div>
-        </footer>
-    </section>
-</div>
 @section CssSpecificVendor {
     <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+    <style>
+        .popover {
+            min-width: 35em !important;
+        }
+    </style>
 }
 @section Scripts {
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/js/formatTable.js"></script>
-    
+
     <script>
         /*
 Name: 			UI Elements / Modals - Examples
@@ -100,22 +90,28 @@ Theme Version: 	2.0.0
 
             'use strict';
 
-            switch (@ViewBag.CrudMessage) {
-                case 1:
-                    new PNotify({
-                        title: 'Empresa',
-                        text: 'Cadastro realizado com sucesso!',
-                        type: 'success'
-                    });
-                case 2:
-                    new PNotify({
-                        title: 'Empresa',
-                        text: 'Dados alterados com sucesso.',
-                        type: 'warning'
-                    });
-                default:
+            var crub = @ViewBag.CrudMessage;
+
+            if (crub===1) {
+                new PNotify({
+                    title: 'Empresa',
+                    text: 'Cadastro realizado com sucesso!',
+                    type: 'success'
+                });
+            }else if (crub === 2) {
+                new PNotify({
+                    title: 'Empresa',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning'
+                });
+            }else if (crub === 3) {
+                new PNotify({
+                    title: 'Empresa',
+                    text: 'Registro excluído com sucesso.',
+                    type: 'error'
+                });
             }
-            
+
             /*
             Basic
             */

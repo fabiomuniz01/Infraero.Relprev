@@ -75,6 +75,22 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
         }
 
+        [HttpGet("GetEmpresaAll")]
+        public async Task<List<EmpresaDto>> GetEmpresaAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetEmpresaAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
         [HttpGet("GetEmpresaById/{id}")]
         public async Task<EmpresaDto> GetEmpresaById(int id)
         {
@@ -104,5 +120,6 @@ namespace Infraero.Relprev.WebApi.Controllers
                 throw;
             }
         }
+
     }
 }

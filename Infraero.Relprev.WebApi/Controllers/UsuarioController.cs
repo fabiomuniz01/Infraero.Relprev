@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario;
@@ -49,11 +51,13 @@ namespace Infraero.Relprev.WebApi.Controllers
                 }
 
                 // Create the user in the database
-                result = await _userManager.CreateAsync(user, "123456");
-
+                result = await _userManager.CreateAsync(user, "12345678");
+                var userRole = _db.Roles.FirstOrDefault(x => x.Id == command.CodPerfil).Name;
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, UserRoles.Registered);
+                    await _userManager.AddToRoleAsync(user, userRole);
+                    command.Id = user.Id;
+                    var resultUsu = await Mediator.Send(command);
 
                 }
 
@@ -74,8 +78,28 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                var result = await Mediator.Send(new GetGridUsuariosQuery());
-                return result;
+                var responseModel = _userManager.Users;
+                var userRoles = _db.UserRoles;
+                var roles = _db.Roles;
+
+                var list = responseModel.Select(item => new UsuarioDto
+                {
+                    NomUsuario = item.Nome, NumCpf = item.Cpf, DscEmail = item.Email,
+                    DscPerfil = roles
+                        .Where(x => x.Id == userRoles.Where(s => s.UserId == item.Id).Select(s => s.RoleId)
+                                        .FirstOrDefault()).Select(s => s.Name).FirstOrDefault()
+                }).ToList();
+
+                var grid = new GridUsuario
+                {
+                    aaData = list,
+                    sEcho = 0,
+                    iTotalRecords = responseModel.Count(),
+                    recordsFiltered = responseModel.Count(),
+                    iTotalDisplayRecords = 1
+                };
+
+                return grid;
             }
             catch (Exception e)
             {
@@ -126,6 +150,21 @@ namespace Infraero.Relprev.WebApi.Controllers
             {
                 var result = await Mediator.Send(new DeleteUsuarioCommand { Id = id });
                 return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPost("GetUsuarioByCpf")]
+        public async Task<UsuarioDto> GetUsuarioByCpf([FromBody]string cpf)
+        {
+            try
+            {
+                var result =  _db.Users.FirstOrDefault(user => user.Cpf == cpf);
+                return await Task.FromResult(result ==null? new UsuarioDto() : new UsuarioDto {CodUsuario = result.Id});
             }
             catch (Exception e)
             {

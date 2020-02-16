@@ -73,7 +73,7 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")] [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não coincidem.")]
+            [Display(Name = "Confirm password")] [Compare("Password", ErrorMessage = "As senhas informadas não conferem.")]
             public string ConfirmPassword { get; set; }
             public string Code { get; set; }
         }

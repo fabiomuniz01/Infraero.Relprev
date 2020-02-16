@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Infraero.Relprev.Domain.Common;
 
 namespace Infraero.Relprev.Domain.Entities
@@ -16,6 +17,9 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumTelefone { get; set; }
         public string CpfCriadoPor { get; set; }
 
-       
+        [ForeignKey("CodEmpresa")]
+        public ICollection<VinculoUnidadeEmpresa> VinculoUnidadeEmpresaList { get; set; }
+
+
     }
 }

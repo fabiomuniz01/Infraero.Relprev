@@ -19,7 +19,8 @@
             },
             "Input.ConfirmPassword": {
                 required: true,
-                minlength: 8
+                minlength: 8,
+                equalTo: "#Input.Password"
             },
             "Input.Email": {
                 required: true,
@@ -41,7 +42,8 @@
             },
             "Input.ConfirmPassword": {
                 required: "Por favor informe sua senha.",
-                minlength: jQuery.validator.format("Formato de senha inválido, a senha deve conter no mínimo 8 digitos.")
+                minlength: jQuery.validator.format("Formato de senha inválido, a senha deve conter no mínimo 8 digitos."),
+                equalTo: "As senhas digitadas são diferentes. Por favor, repita a operação."
             },
             "Input.Email": {
                 required: "Por favor informe seu e-mail.",
