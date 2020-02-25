@@ -5,8 +5,11 @@ using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.DeleteUnidadeI
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.UpdateUnidadeInfraEstrutura;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,6 +17,7 @@ using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class UnidadeInfraEstruturaController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -24,6 +28,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
+        [ClaimsAuthorize("Unidade", "Consultar")]
         public IActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -32,11 +37,13 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
+        [ClaimsAuthorize("Unidade", "Incluir")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [ClaimsAuthorize("Unidade", "Incluir")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -64,14 +71,14 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: UnidadeInfraEstrutura/Edit/5
+        [ClaimsAuthorize("Unidade", "Alterar")]
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(id);
             return View(obj);
         }
 
-        // POST: UnidadeInfraEstrutura/Edit/5
+        [ClaimsAuthorize("Unidade", "Alterar")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -96,6 +103,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("Unidade", "Excluir")]
         public ActionResult Delete(int id)
         {
             try
@@ -109,6 +117,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("Unidade", "Consultar")]
         public JsonResult GetUnidadeBySigla(string sigla)
         {
 

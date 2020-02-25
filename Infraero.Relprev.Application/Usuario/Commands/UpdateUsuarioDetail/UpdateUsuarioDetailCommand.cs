@@ -30,7 +30,8 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
 
                 entity.NomUsuario = request.NomUsuario;
                 entity.NumCpf = request.NumCpf;
-                entity.EndEmail = request.EndEmail;
+                entity.Email = request.Email;
+                entity.NomPerfil = request.NomPerfil;
                 entity.NumTelefone = request.NumTelefone;
                 entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
                 entity.CodPerfil = request.CodPerfil;
@@ -44,6 +45,8 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
             }
         }
 
+        public string NomPerfil { get; set; }
+
         public int CodEmpresa { get; set; }
 
         public int CodUsuario { get; set; }
@@ -54,7 +57,7 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuarioDetail
 
         public string NumTelefone { get; set; }
 
-        public string EndEmail { get; set; }
+        public string Email { get; set; }
 
         public string NumCpf { get; set; }
 

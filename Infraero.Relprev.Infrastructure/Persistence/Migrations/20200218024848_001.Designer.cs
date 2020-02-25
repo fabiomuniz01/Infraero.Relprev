@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200216141936_Relprev001")]
-    partial class Relprev001
+    [Migration("20200218024848_001")]
+    partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1213,6 +1213,12 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DscEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DscPerfil")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EndEmail")
                         .HasColumnType("nvarchar(max)");

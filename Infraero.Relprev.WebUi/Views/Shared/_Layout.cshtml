@@ -1,4 +1,8 @@
 ﻿@using System.Security.Claims
+@using Infraero.Relprev.Infrastructure.Identity
+@using Infraero.Relprev.WebUi.Services
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 <!doctype html>
 <html class="sidebar-light sidebar-left-big-icons">
@@ -43,6 +47,9 @@
     <section class="body">
         @{
             var userRole = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role).Value;
+
+            var requirement = new UserInRoleRequirement(userRole);
+
         }
         <!-- start: header -->
         <header class="header">
@@ -113,12 +120,13 @@
 
                             <ul class="nav nav-main">
                                 <li>
-                                    <a class="nav-link" href="layouts-default.html">
+                                    <a class="nav-link" href="@Url.Action("Index", "Dashboard")">
                                         <i class="fa fa-home" aria-hidden="true"></i>
                                         <span>Home</span>
                                     </a>
                                 </li>
-                                @if (userRole == "Administrador")
+
+                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
                                 {
                                     <li class="nav-parent nav-expanded nav-active">
                                         <a class="nav-link" href="#">
@@ -176,14 +184,13 @@
                                                     Perfil
                                                 </a>
                                             </li>
-                                            @*<li>
-                        <a class="nav-link" href="@Url.Action("CreatePerfil", "Usuario")">
-                            Perfil Usuário
-                        </a>
-                    </li>*@
                                         </ul>
                                     </li>
+
                                 }
+
+                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.UsuarioPublico }, requirement)).Succeeded)
+                                {
                                     <li class="nav-parent nav-expanded">
                                         <a class="nav-link" href="#">
                                             <i class="fa fa-comments-o" aria-hidden="true"></i>
@@ -217,22 +224,27 @@
                                             </li>
                                         </ul>
                                     </li>
-
+                                }
+                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
+                                {
                                     <li>
                                         <a class="nav-link" href="@Url.Action("Index", "AtribuirRespRelato")">
                                             <i class="fa fa-plug" aria-hidden="true"></i>
                                             <span>Atribuir <br />Responsável/Relato</span>
                                         </a>
                                     </li>
-
+                                }
+                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
+                                {
                                     <li>
                                         <a class="nav-link" href="@Url.Action("Index", "AtendimentoTecnico")">
                                             <i class="fa fa-tty" aria-hidden="true"></i>
                                             <span>Atendimento Técnico</span>
                                         </a>
                                     </li>
-
-
+                                }
+                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
+                                {
                                     <li class="nav-parent nav-expanded">
                                         <a class="nav-link" href="#">
                                             <i class="fa fa-file-word-o" aria-hidden="true"></i>
@@ -256,6 +268,9 @@
                                             </li>
                                         </ul>
                                     </li>
+                                }
+                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
+                                {
                                     <li class="nav-parent nav-expanded">
                                         <a class="nav-link" href="#">
                                             <i class="fa fa-download" aria-hidden="true"></i>
@@ -274,8 +289,8 @@
                                             </li>
                                         </ul>
                                     </li>
-
-                                </ul>
+                                }
+                            </ul>
                         </nav>
 
 

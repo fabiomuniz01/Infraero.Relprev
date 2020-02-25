@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         @using (@Html.BeginForm("Create", "Usuario", FormMethod.Post, new { id = "form" }))
         {
-            
+
             <section class="card">
                 <header class="card-header">
                     <div class="card-actions">
@@ -121,10 +121,10 @@
 @section Scripts {
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
     <script src="~/js/usuario.js"></script>
     <script>
-        
+
         var notify = @ViewBag.NotifyMessage;
         var messagem = @ViewBag.Notify;
 

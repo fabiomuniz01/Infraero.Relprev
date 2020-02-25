@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Exceptions;
 using Infraero.Relprev.Application.Common.Interfaces;
@@ -8,7 +9,7 @@ namespace Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario
 {
     public class DeleteUsuarioCommand : IRequest<bool>
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         public class DeleteUsuarioCommandHandler : IRequestHandler<DeleteUsuarioCommand, bool>
         {
@@ -21,7 +22,8 @@ namespace Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario
 
             public async Task<bool> Handle(DeleteUsuarioCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Usuario.FindAsync(request.Id);
+                var entity = _context.Usuario
+                    .Where(x => x.CodUsuarioLogin == request.Id).FirstOrDefault();
 
                 if (entity == null)
                 {

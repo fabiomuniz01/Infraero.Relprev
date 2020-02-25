@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
-
 </Project>

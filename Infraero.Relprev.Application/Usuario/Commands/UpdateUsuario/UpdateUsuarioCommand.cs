@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Exceptions;
@@ -22,7 +23,7 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario
 
             public async Task<bool> Handle(UpdateUsuarioCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Usuario.FindAsync(request.Id);
+                var entity =  _context.Usuario.Where(x=>x.CodUsuarioLogin == request.Id).FirstOrDefault();
 
                 if (entity == null)
                 {
@@ -30,8 +31,10 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario
                 }
 
                 entity.NomUsuario = request.NomUsuario;
-                entity.NumCpf = request.NumCpf;
                 entity.NumTelefone = request.NumTelefone;
+                entity.CodEmpresa = request.CodEmpresa;
+                entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
+                entity.CodPerfil = request.CodPerfil;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
 
@@ -41,17 +44,15 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario
             }
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string NomUsuario { get; set; }
         public string NumCpf { get; set; }
         public string NumTelefone { get; set; }
-        public string DscLogin { get; set; }
-        public string DscSenha { get; set; }
-        public DateTime DthRegistro { get; set; }
-        public string EndEmail { get; set; }
-        public int QtdTentativasIncorretas { get; set; }
-        public string FlgPrimeiroAcesso { get; set; }
-        public string FlgUsuarioBloqueado { get; set; }
+        public string Email { get; set; }
         public string AlteradoPor { get; set; }
+        public string UserName { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
+        public int CodEmpresa { get; set; }
+        public string CodPerfil { get; set; }
     }
 }

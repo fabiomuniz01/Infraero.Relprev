@@ -121,7 +121,7 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
                             new[] { UserRoles.Administrator });
                     }
 
-                    await _userManager.AddToRoleAsync(user, UserRoles.Registered);
+                    await _userManager.AddToRoleAsync(user, UserRoles.Administrator);
                     await SendEmailConfirmation(user);
 
                     // If you want to login the user without awaiting email confirmation, uncomment this line.

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Modulo.Queries.GetModulos;
 using Infraero.Relprev.Application.Perfil.Commands.CreatePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
@@ -29,7 +31,28 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                var result =  await _roleManager.CreateAsync(new IdentityRole { Name = command.NomPerfil }); 
+                //var adminRole = await _roleManager.FindByNameAsync(command.NomPerfil);
+
+                //if (adminRole == null)
+                //{
+                //    adminRole = new IdentityRole(command.NomPerfil);
+                //    await _roleManager.CreateAsync(adminRole);
+
+                //    await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.view"));
+                //    await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.create"));
+                //    await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.update"));
+                //}
+
+
+
+
+
+
+
+
+                var result =  await _roleManager.CreateAsync(new IdentityRole { Name = command.NomPerfil });
+
+                //await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.view"));
 
                 return result.Succeeded;
             }
@@ -136,6 +159,19 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
 
         }
-
+        [HttpGet("GetModuloAll")]
+        public async Task<List<ModuloDto>> GetModuloAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetModuloAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.Modulo.Queries.GetModulos;
 using Infraero.Relprev.Application.Perfil.Queries.GetPerfils;
 using Infraero.Relprev.Application.Perfil.Commands.CreatePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
@@ -56,6 +57,12 @@ namespace Infraero.Relprev.CoreApiClient
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourcePerfil}/GetPerfilById/{id}"));
             return Get<PerfilDto>(requestUrl);
+        }
+        public List<ModuloDto> GetModuloAll()
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourcePerfil}/GetModuloAll"));
+            return Get<List<ModuloDto>>(requestUrl);
         }
 
         #endregion

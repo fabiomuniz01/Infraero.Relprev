@@ -51,7 +51,7 @@ namespace Infraero.Relprev.CoreApiClient
 
         #region Methods
 
-        public UsuarioDto GetUsuarioById(int id)
+        public UsuarioDto GetUsuarioById(string id)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceUsuario}/GetUsuarioById/{id}"));

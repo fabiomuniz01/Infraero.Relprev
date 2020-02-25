@@ -23,8 +23,9 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
                 var entity = new Domain.Entities.Usuario
                 {
                     NomUsuario = request.NomUsuario,
-                    NumCpf = request.NumCpf,
-                    EndEmail = request.EndEmail, 
+                    NumCpf = request.NumCpf, 
+                    Email = request.Email, 
+                    NomPerfil = request.NomPerfil,
                     NumTelefone = request.NumTelefone,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now,
@@ -41,20 +42,22 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
                 return entity.CodUsuario;
             }
         }
+
+        public string NomPerfil { get; set; }
+
         public string Id { get; set; }
         public string NomUsuario { get; set; }
         public string NumCpf { get; set; }
         public string NumTelefone { get; set; } 
         public string DthRegistro { get; set; }
-        public string EndEmail { get; set; }
         public string CriadoPor { get; set; }
-        public int CodUnidadeInfraestrutura { get; set; }
         public string DateRegistered { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public string Telefone { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresa { get; set; }
         public string CodPerfil { get; set; }
     }

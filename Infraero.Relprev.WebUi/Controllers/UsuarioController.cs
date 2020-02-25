@@ -46,15 +46,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Usuario/Create
         public ActionResult Create()
         {
-            
+
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
             var resultPerfil = ApiClientFactory.Instance.GetPerfilAll();
-            
+
             var model = new UsuarioModel
             {
                 ListUnidadeInfraestrutura = new SelectList(new List<UnidadeInfraEstruturaDto>(), "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"),
-                ListPerfil = new SelectList(resultPerfil, "CodPerfil","NomPerfil")
+                ListPerfil = new SelectList(resultPerfil, "CodPerfil", "NomPerfil")
             };
             return View(model);
         }
@@ -62,7 +62,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         public JsonResult GetUnidadeByIdEmpresa(int id)
         {
             var result = ApiClientFactory.Instance.GetEmpresaAll().FirstOrDefault(x => x.CodEmpresa == id)
-                .VinculoUnidadeEmpresaList.ToList().Select(s=> new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura, NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura }).ToList();
+                .VinculoUnidadeEmpresaList.ToList().Select(s => new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura, NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura }).ToList();
 
             result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = 0, NomUnidadeÌnfraestrutura = "Selecionar Unidade de infraestrutura" });
 
@@ -91,12 +91,13 @@ namespace Infraero.Relprev.WebUi.Controllers
                     Telefone = collection["NumTelefone"].ToString(),
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
                     CodEmpresa = int.Parse(collection["ddlEmpresa"].ToString()),
-                    CodPerfil = collection["ddlPerfil"].ToString()
+                    CodPerfil = collection["ddlPerfil"].ToString(),
+                    CriadoPor = User.Identity.Name
                 };
 
                 ApiClientFactory.Instance.CreateUsuario(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
             {
@@ -105,35 +106,58 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Usuario/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
+            UsuarioModel model = null;
+
             var obj = ApiClientFactory.Instance.GetUsuarioById(id);
 
-            var model = new UsuarioModel
+            if (obj == null) return View(model);
+            var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
+
+            var resultUnidade = resultEmpresa.FirstOrDefault(x => x.CodEmpresa == obj.CodEmpresa)
+                ?.VinculoUnidadeEmpresaList.Select(s => new UnidadeInfraEstruturaDto
+                {
+                    CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura,
+                    NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura
+                });
+            var resultPerfil = ApiClientFactory.Instance.GetPerfilAll();
+
+
+            model = new UsuarioModel
             {
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura", obj.CodUnidadeInfraestrutura),
+                ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial", obj.CodEmpresa),
+                ListPerfil = new SelectList(resultPerfil, "CodPerfil", "NomPerfil", obj.CodPerfil),
                 Usuario = obj
             };
+
             return View(model);
         }
 
         // POST: Usuario/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
                 var command = new UpdateUsuarioCommand
                 {
-                    Id = id,
-                    NomUsuario = collection["Usuario"].ToString(),
-                    AlteradoPor = "",
-                    NumCpf = collection["cnpj"].ToString(),
-                    NumTelefone = collection["telefone"].ToString()
+
+                    UserName = collection["EndEmail"].ToString(),
+                    Email = collection["EndEmail"].ToString(),
+                    NomUsuario = collection["NomUsuario"].ToString(),
+                    NumCpf = collection["NumCpf"].ToString(),
+                    NumTelefone = collection["NumTelefone"].ToString(),
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    CodEmpresa = int.Parse(collection["ddlEmpresa"].ToString()),
+                    CodPerfil = collection["ddlPerfil"].ToString(),
+                    AlteradoPor = User.Identity.Name
                 };
                 ApiClientFactory.Instance.UpdateUsuario(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
             catch
             {
@@ -141,15 +165,12 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // POST: Usuario/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             try
             {
-                ApiClientFactory.Instance.DeleteUsuario(new DeleteUsuarioCommand {Id = id});
-                return RedirectToAction(nameof(Index));
+                ApiClientFactory.Instance.DeleteUsuario(new DeleteUsuarioCommand { Id = id });
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
             }
             catch
             {
@@ -162,7 +183,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll()
                 .Where(x => x.CodUnidadeInfraestrutura == id).ToList();
 
-            result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Local de Ocorrência" });
+            result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Unidade de infraestrutura" });
 
             return Json(new SelectList(result, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
         }

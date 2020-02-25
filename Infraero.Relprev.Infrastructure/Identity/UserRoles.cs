@@ -2,8 +2,9 @@
 {
     public static class UserRoles
     {
-        public const string Administrator = "Administrator";
-        public const string SuperUser = "SuperUser";
-        public const string Registered = "Registered";
+        public const string Administrator = "Administrador";
+        public const string GestorCorporativo = "Gestor comercial";
+        public const string GestorSgsoSite = "Gestor SGSO SITE";
+        public const string UsuarioPublico = "Usuário público";
     }
 }

@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200218030929_002")]
+    partial class _002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1191,11 +1193,17 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("AlteradoPor")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CodPerfil")
+                    b.Property<int>("CodEmpresa")
                         .HasColumnType("int");
+
+                    b.Property<string>("CodPerfil")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodUnidadeInfraestrutura")
                         .HasColumnType("int");
+
+                    b.Property<string>("CodUsuarioLogin")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnType("nvarchar(max)");
@@ -1206,7 +1214,13 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EndEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomPerfil")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomUsuario")
@@ -1220,12 +1234,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("NumTelefone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UnidadeInfraestruturaCodUnidadeInfraestrutura")
-                        .HasColumnType("int");
-
                     b.HasKey("CodUsuario");
-
-                    b.HasIndex("UnidadeInfraestruturaCodUnidadeInfraestrutura");
 
                     b.ToTable("Usuario");
                 });
@@ -1305,6 +1314,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CodVinculoUnidadeEmpresa");
+
+                    b.HasIndex("CodEmpresa");
 
                     b.ToTable("VinculoUnidadeEmpresa");
                 });
@@ -1704,13 +1715,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Usuario", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", "UnidadeInfraestrutura")
-                        .WithMany()
-                        .HasForeignKey("UnidadeInfraestruturaCodUnidadeInfraestrutura");
-                });
-
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UsuarioLocalidade", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
@@ -1720,6 +1724,15 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioNavigation")
                         .WithMany()
                         .HasForeignKey("CodUsuarioNavigationCodUsuario");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.VinculoUnidadeEmpresa", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Empresa", null)
+                        .WithMany("VinculoUnidadeEmpresaList")
+                        .HasForeignKey("CodEmpresa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

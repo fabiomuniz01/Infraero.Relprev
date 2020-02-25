@@ -34,7 +34,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         // GET: Perfil/Create
         public ActionResult Create()
         {
-            return View();
+            var responseModulos = ApiClientFactory.Instance.GetModuloAll();
+
+            var model = new PerfilModel{ListModulo = responseModulos};
+            return View(model);
         }
 
         // POST: Perfil/Create
@@ -62,7 +65,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetPerfilById(id);
-            var model = new PerfilModel(obj);
+            var model = new PerfilModel {Perfil = obj};
             return View(model);
         }
 

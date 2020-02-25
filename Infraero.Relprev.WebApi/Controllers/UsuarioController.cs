@@ -28,7 +28,7 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpPost("CreateUsuario")]
-        public async Task<IdentityResult> CreateUsuario(CreateUsuarioCommand command)
+        public async Task<ActionResult<long>> CreateUsuario(CreateUsuarioCommand command)
         {
             try
             {
@@ -53,15 +53,92 @@ namespace Infraero.Relprev.WebApi.Controllers
                 // Create the user in the database
                 result = await _userManager.CreateAsync(user, "12345678");
                 var userRole = _db.Roles.FirstOrDefault(x => x.Id == command.CodPerfil).Name;
+                long resultUsu = 0;
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, userRole);
                     command.Id = user.Id;
-                    var resultUsu = await Mediator.Send(command);
+                    command.NomUsuario = user.Nome;
+                    command.NumCpf = user.Cpf;
+                    command.NumTelefone = user.Telefone;
+                    command.DthRegistro = user.DateRegistered.ToString();
+                    command.Email = user.Email;
+                    command.NomPerfil = userRole;
+
+                    resultUsu = await Mediator.Send(command);
 
                 }
 
                 foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
+
+                return resultUsu;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+
+        [HttpPost("UpdateUsuario")]
+        public async Task<ActionResult<bool>> UpdateUsuario(UpdateUsuarioCommand command)
+        {
+            try
+            {
+                var resultUsu = false;
+                var user = await _userManager.FindByEmailAsync(command.Email);
+
+                if (user != null)
+                {
+                    user.Nome = command.NomUsuario;
+                    user.PhoneNumber = command.NumTelefone;
+
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        var userRoles = await _userManager.GetRolesAsync(new WebProfileUser {Id = user.Id});
+
+                        var rsRemove = await _userManager.RemoveFromRoleAsync(user,userRoles.FirstOrDefault());
+
+                        if (!rsRemove.Succeeded) return resultUsu;
+                        var userRole = _db.Roles.FirstOrDefault(x => x.Id == command.CodPerfil).Name;
+                        await _userManager.AddToRoleAsync(user, userRole);
+                        command.Id = user.Id;
+                        resultUsu = await Mediator.Send(command);
+                    }
+                }
+                return resultUsu;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPost("DeleteUsuario")]
+        public async Task<ActionResult<bool>> DeleteUsuario(DeleteUsuarioCommand command)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(command.Id);
+
+                if (user==null)
+                {
+                    throw new Exception(
+                        "Usuário não encontrado.");
+                }
+
+                var resultDelete = _userManager.DeleteAsync(user);
+
+                var result = false;
+                if (resultDelete.Result.Succeeded)
+                {
+                    result = await Mediator.Send(command);
+
+                }
 
                 return result;
             }
@@ -70,7 +147,6 @@ namespace Infraero.Relprev.WebApi.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         [HttpGet("GetGridUsuario")]
@@ -84,8 +160,8 @@ namespace Infraero.Relprev.WebApi.Controllers
 
                 var list = responseModel.Select(item => new UsuarioDto
                 {
-                    NomUsuario = item.Nome, NumCpf = item.Cpf, DscEmail = item.Email,
-                    DscPerfil = roles
+                    NomUsuario = item.Nome, NumCpf = item.Cpf, Email = item.Email, CodUsuarioLogin = item.Id,
+                    NomPerfil = roles
                         .Where(x => x.Id == userRoles.Where(s => s.UserId == item.Id).Select(s => s.RoleId)
                                         .FirstOrDefault()).Select(s => s.Name).FirstOrDefault()
                 }).ToList();
@@ -110,7 +186,7 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpGet("GetUsuarioById/{id}")]
-        public async Task<UsuarioDto> GetUsuarioById(int id)
+        public async Task<UsuarioDto> GetUsuarioById(string id)
         {
             try
             {
@@ -123,39 +199,6 @@ namespace Infraero.Relprev.WebApi.Controllers
                 throw;
             }
 
-        }
-
-
-        [HttpPost("UpdateUsuario")]
-        public async Task<ActionResult<bool>> UpdateUsuario(UpdateUsuarioCommand command)
-        {
-            try
-            {
-                var result = await Mediator.Send(command);
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteUsuario(int id)
-        {
-            try
-            {
-                var result = await Mediator.Send(new DeleteUsuarioCommand { Id = id });
-                return result;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
         }
 
         [HttpPost("GetUsuarioByCpf")]

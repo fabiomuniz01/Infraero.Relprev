@@ -137,7 +137,6 @@
 
 
             }, "Informe um CPF válido");
-
         }).apply(this, [jQuery]);
     },
     methods: {

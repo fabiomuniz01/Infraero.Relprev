@@ -191,7 +191,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 };
                 ApiClientFactory.Instance.CreateVinculoUnidadeEmpresa(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch
             {

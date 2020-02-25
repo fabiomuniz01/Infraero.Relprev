@@ -35,11 +35,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        //entry.Entity.CriadoPor = _currentUserService.UsuarioId;
                         entry.Entity.DataCriacao = DateTime.Now;
                         break;
                     case EntityState.Modified:
-                        //entry.Entity.AlteradoPor = _currentUserService.UsuarioId;
                         entry.Entity.DataAlteracao = DateTime.Now;
                         break;
                 }
@@ -57,7 +55,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
         public virtual DbSet<SubAssunto> SubAssunto { get; set; }
         public DbSet<VinculoUnidadeEmpresa> VinculoUnidadeEmpresa { get; set; }
-        //public DbSet<EmpresasInfraero> EmpresasInfraero { get; set; }
+        public DbSet<Modulo> Modulo { get; set; }
 
 
 
@@ -91,6 +89,39 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            builder.Entity<Modulo>().HasData(
+                new Modulo { CodModulo = 1, NomModulo = "UnidadeInfraestrutura", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 2, NomModulo = "Empresa", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 3, NomModulo = "ResponsavelTecnico", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 4, NomModulo = "Assunto", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 5, NomModulo = "SubAssunto", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 6, NomModulo = "Local", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 7, NomModulo = "SubLocal", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 8, NomModulo = "Usuario", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 9, NomModulo = "Perfil", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 10, NomModulo = "Relatos", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 11, NomModulo = "AtribuirResponsavelRelato", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 12, NomModulo = "AtendimentoTecnico", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 13, NomModulo = "ParecerTecnico", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 14, NomModulo = "ContratoSmartStream", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now });
+
+            builder.Entity<Funcionalidade>().HasData(
+                new Funcionalidade { CodFuncionalidade = 1, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 1, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 2, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 2, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 3, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 3, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 4, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 4, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 5, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 5, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 6, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 6, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 7, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 7, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 8, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 8, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 9, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 9, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 10, NomFuncionalidade = "Consultar,Cadastrar,Classificar,Cancelar,Finalizar", CodModulo = 10, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 11, NomFuncionalidade = "Enviar", CodModulo = 11, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 12, NomFuncionalidade = "Cancelar,Detalhar,Executar,Finalizar,Atribuir", CodModulo = 12, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 13, NomFuncionalidade = "Completar,Avaliar,Responder", CodModulo = 13, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 14, NomFuncionalidade = "Importar,Configurar", CodModulo = 14, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now }
+            );
 
             base.OnModelCreating(builder);
         }

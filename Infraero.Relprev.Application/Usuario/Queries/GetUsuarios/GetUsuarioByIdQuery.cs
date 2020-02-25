@@ -12,7 +12,7 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
 {
     public class GetUsuarioByIdQuery : IRequest<UsuarioDto>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public class GetUsuarioByIdQueryHandler : IRequestHandler<GetUsuarioByIdQuery, UsuarioDto>
         {
@@ -29,12 +29,13 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
             {
                 try
                 {
-                    var responseModel = await Queryable.Where<Domain.Entities.Usuario>(_context.Usuario, x=>x.CodUsuario==request.Id)
+                    var responseModel = await _context.Usuario
+                        .Where(x => x.CodUsuarioLogin == request.Id)
                         .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
-                        .OrderBy(t => t.CodUsuario)
+                        .OrderBy(t => t.CodUnidadeInfraestrutura)
                         .FirstOrDefaultAsync(cancellationToken);
 
-                    
+
                     return responseModel;
                 }
                 catch (Exception e)

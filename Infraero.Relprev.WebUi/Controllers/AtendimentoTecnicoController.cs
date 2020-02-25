@@ -19,5 +19,9 @@ namespace Infraero.Relprev.WebUi.Controllers
             _appSettings = app;
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }

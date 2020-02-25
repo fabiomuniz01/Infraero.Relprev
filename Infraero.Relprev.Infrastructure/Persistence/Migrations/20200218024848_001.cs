@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infraero.Relprev.Infrastructure.Percistence.Migrations
+namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
-    public partial class Relprev0001 : Migration
+    public partial class _001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

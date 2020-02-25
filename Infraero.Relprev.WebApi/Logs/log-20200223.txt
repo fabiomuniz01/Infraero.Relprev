@@ -1,0 +1,50 @@
+2020-02-23 10:47:43.108 -03:00 [Information] web api service is started.
+2020-02-23 10:48:17.520 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 2277.1752 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 10:55:18.700 -03:00 [Information] web api service is started.
+2020-02-23 10:55:44.907 -03:00 [Information] web api service is started.
+2020-02-23 10:56:02.520 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 2135.7806 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 10:56:26.711 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 69.3573 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 13:07:13.301 -03:00 [Information] web api service is started.
+2020-02-23 13:07:30.864 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 1825.4145 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 13:43:55.607 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 134.3620 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 13:46:39.092 -03:00 [Information] web api service is started.
+2020-02-23 13:47:12.841 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 2013.5421 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 14:06:07.013 -03:00 [Information] web api service is started.
+2020-02-23 14:06:27.712 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 2073.2499 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 14:06:30.831 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 578.8185 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 14:11:01.328 -03:00 [Information] web api service is started.
+2020-02-23 14:16:39.770 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 1645.7500 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 14:17:43.572 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 85.3338 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 14:17:45.537 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 384.7750 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 15:36:04.541 -03:00 [Information] web api service is started.
+2020-02-23 20:58:53.876 -03:00 [Information] web api service is started.
+2020-02-23 21:00:38.331 -03:00 [Information] web api service is started.
+2020-02-23 21:01:09.510 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 1829.8383 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:01:12.335 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 472.7343 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:06:39.554 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 73.6916 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:06:42.001 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 38.7811 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:14:53.396 -03:00 [Information] web api service is started.
+2020-02-23 21:22:36.962 -03:00 [Information] web api service is started.
+2020-02-23 21:23:33.857 -03:00 [Information] web api service is started.
+2020-02-23 21:24:11.185 -03:00 [Information] web api service is started.
+2020-02-23 21:30:10.802 -03:00 [Information] web api service is started.
+2020-02-23 21:30:29.170 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 2570.4121 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:30:31.641 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 487.6092 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:36:12.821 -03:00 [Information] web api service is started.
+2020-02-23 21:37:14.217 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 1870.2307 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:37:16.885 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 673.3862 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:46:02.323 -03:00 [Information] web api service is started.
+2020-02-23 21:46:22.014 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 2196.9156 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:46:25.409 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 809.6928 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:54:22.112 -03:00 [Information] web api service is started.
+2020-02-23 21:55:10.054 -03:00 [Information] web api service is started.
+2020-02-23 21:56:49.343 -03:00 [Information] web api service is started.
+2020-02-23 21:57:44.480 -03:00 [Information] web api service is started.
+2020-02-23 21:58:03.787 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 2353.2071 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 21:58:07.592 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 671.9718 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 22:00:02.513 -03:00 [Information] web api service is started.
+2020-02-23 22:00:17.849 -03:00 [Information] web api service is started.
+2020-02-23 22:00:40.447 -03:00 [Information] web api service is started.
+2020-02-23 22:01:20.828 -03:00 [Information] web api service is started.
+2020-02-23 22:01:51.962 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 3259.5479 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-23 22:02:00.761 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 730.5597 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
