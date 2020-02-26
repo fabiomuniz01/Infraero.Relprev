@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Exceptions;
@@ -45,5 +46,6 @@ namespace Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil
         public string NomPerfil { get; set; }
 
         public string CodPerfil { get; set; }
+        public ListDictionary ListClaim { get; set; }
     }
 }

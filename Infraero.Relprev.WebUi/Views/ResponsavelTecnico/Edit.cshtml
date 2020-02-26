@@ -1,6 +1,6 @@
 ﻿@model Infraero.Relprev.CrossCutting.Models.ResponsavelTecnicoModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Responsável Técnico";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,17 +19,31 @@
                     <h2 class="card-title">Editar Responsável Técnico</h2>
 
                 </header>
-                <div class="card-body">
+                <div id="vResponsavelTecnico" class="card-body" data-loading-overlay>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Nome <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" disabled="disabled" name="NomResponsavelTecnico" class="form-control" placeholder="eg.: Nome do responsável técnico " required maxlength="60" value="@Model.ResponsavelTecnico.NomResponsavelTecnico" />
+                            <input type="text" name="NomResponsavelTecnico" class="form-control" placeholder="eg.: Descrição completa do nome do responsável técnico"
+                                   maxlength="60"
+                                   value="@Model.ResponsavelTecnico.NomResponsavelTecnico"
+                                   title="Por favor informe a descrição completa do nome do responsável técnico." required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Cpf <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" disabled="disabled" name="NumCpf" class="form-control" placeholder="eg.: Número do CPF do responsável técnico" required value="@Model.ResponsavelTecnico.NumCpf" />
+                            <input type="text" name="NumCpf" class="form-control" placeholder="eg.: Número do CPF do responsável técnico"
+                                   maxlength="14"
+                                   value="@Model.ResponsavelTecnico.NumCpf"
+                                   title="Por favor informe o número do CPF do responsável técnico" required readonly />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Nº do documento </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="NumDocumento" class="form-control" placeholder="eg.: Número do documento de correspondência"
+                                   maxlength="14"
+                                   value="@Model.ResponsavelTecnico.NumDocumento" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -39,36 +53,49 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: email@email.com" required value="@Model.ResponsavelTecnico.EndEmail" />
+                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do responsável técnico"
+                                       maxlength="40"
+                                       value="@Model.ResponsavelTecnico.EndEmail"  />
                             </div>
                         </div>
-                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone <span class="required">*</span></label>
+                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone<span class="required">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input id="NumTelefone" name="NumTelefone" placeholder="eg.: Número do documento de correspondência" class="form-control" required value="@Model.ResponsavelTecnico.NumTelefone">
+                                <input id="NumTelefone" name="NumTelefone" placeholder="eg.: Telefone de contato do responsável técnico" class="form-control"
+                                       maxlength="14"
+                                       value="@Model.ResponsavelTecnico.NumTelefone"
+                                       title="Por favor informe o telefone de contato do responsável técnico" required />
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Nº do documento</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="NumDocumento" class="form-control" placeholder="eg.: Número do documento do responsável técnico" value="@Model.ResponsavelTecnico.NumDocumento" />
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nome da empresa<span class="required">*</span></label>
+
+                        <div class="col-lg-9">
+                            <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
+                                    title="Por favor selecione uma empresa." required
+                                    asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
+                                <option value="">Selecionar Empresa</option>
+                            </select>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestritura<span class="required">*</span></label>
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestrutura<span class="required">*</span></label>
 
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
                                     title="Por favor selecione uma unidade de infraestrutura." required
-                                    asp-for="CodUnidadeInfraestrutura" asp-items="Model.ListUnidadeInfraestrutura">
+                                    asp-for="CodUnidadeInfraestrutura" asp-items='Model.ListUnidadeInfraestrutura'>
                                 <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                     </div>
+                    
                 </div>
                 <footer class="card-footer">
                     <div class="row justify-content-end">
@@ -91,62 +118,100 @@
 @section Scripts {
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
-
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
     <script>
-        // Select2
-            (function ($) {
 
-                'use strict';
+        (function ($) {
 
-                var $select = $(".select2").select2({
-                    allowClear: true
-                });
+            'use strict';
 
-                $(".select2").each(function () {
-                    var $this = $(this),
-                        opts = {};
+            var $select = $(".select2").select2({
+                allowClear: true
+            });
 
-                    var pluginOptions = $this.data('plugin-options');
-                    if (pluginOptions)
-                        opts = pluginOptions;
+            $(".select2").each(function () {
+                var $this = $(this),
+                    opts = {};
 
-                    $this.themePluginSelect2(opts);
-                });
+                var pluginOptions = $this.data('plugin-options');
+                if (pluginOptions)
+                    opts = pluginOptions;
+
+                $this.themePluginSelect2(opts);
+            });
 
             /*
              * When you change the value the select via select2, it triggers
              * a 'change' event, but the jquery validation plugin
              * only re-validates on 'blur'*/
 
-            $select.on('change', function() {
+            $select.on('change', function () {
                 $(this).trigger('blur');
             });
 
-            $('#form').validate({
-                ignore: 'input[type=hidden], .select2-input, .select2-focusser'
+            $("#ddlEmpresa").change(function () {
+
+                var url = "GetUnidadeByIdEmpresa";
+
+                var ddlSource = "#ddlEmpresa";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function (data) {
+                        var items = '';
+                        $("#ddlUnidadeInfraestrutura").empty;
+                        $.each(data,
+                            function (i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlUnidadeInfraestrutura").html(items);
+                    });
             });
 
-            $select.rules('add', 'required');
+            var $numTel = $("#NumTelefone");
+            $numTel.mask('(00) 0000-0000');
+
+            $("#form").validate({
+                rules: {
+                    "EndEmail": {
+                        required: true,
+                        email: true
+                    },
+                    cpf: { cpf: true, required: true }
+                },
+                messages: {
+                    "EndEmail": {
+                        required: "Por favor informe o endereço eletrônico válido do responsável técnico.",
+                        email: "Formato de e-mail inválido."
+                    },
+                    cpf: { cpf: 'Formato de CPF inválido', required: "Por favor informe o número do CPF do responsável técnico." }
+                },
+                highlight: function (label) {
+                    $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                success: function (label) {
+                    $(label).closest('.form-group').removeClass('has-error');
+                    label.remove();
+                },
+                errorPlacement: function (error, element) {
+                    var placement = element.closest('.input-group');
+                    if (!placement.get(0)) {
+                        placement = element;
+                    }
+                    if (error.text() !== '') {
+                        placement.after(error);
+                    }
+                }
+            });
 
 
-                // checkbox, radio and selects
-                $("#chk-radios-form, #form").each(function() {
-                    $(this).validate({
-                        highlight: function(element) {
-                            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                        },
-                        success: function(element) {
-                            $(element).closest('.form-group').removeClass('has-error');
-                        }
-                    });
-                });
+        }).apply(this, [jQuery]);
 
-                $('#ddlUnidadeInfraestrutura').val(@Model.ListUnidadeInfraestrutura.SelectedValue);
-                $('#ddlUnidadeInfraestrutura').trigger('change');
-
-
-
-            }).apply(this, [jQuery]);
-
+        (function ($) {
+            $('#ddlEmpresa').val(@Model.ResponsavelTecnico.CodEmpresa);
+            $('#ddlEmpresa').trigger('change');
+            $('#ddlUnidadeInfraestrutura').val(@Model.ResponsavelTecnico.CodUnidadeInfraestrutura);
+            $('#ddlUnidadeInfraestrutura').trigger('change');
+        }).apply(this, [jQuery]);
     </script>
 }

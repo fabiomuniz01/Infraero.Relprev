@@ -13,6 +13,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
     public class GetResponsavelTecnicoByIdQuery : IRequest<ResponsavelTecnicoDto>
     {
         public int Id { get; set; }
+        public string Cpf { get; set; }
 
         public class GetResponsavelTecnicoByIdQueryHandler : IRequestHandler<GetResponsavelTecnicoByIdQuery, ResponsavelTecnicoDto>
         {

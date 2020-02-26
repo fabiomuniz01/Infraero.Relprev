@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -27,34 +29,26 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpPost("CreatePerfil")]
-        public async Task<ActionResult<bool>> CreatePerfil(CreatePerfilCommand command)
+        public async Task<ActionResult<long>> CreatePerfil(CreatePerfilCommand command)
         {
             try
             {
-                //var adminRole = await _roleManager.FindByNameAsync(command.NomPerfil);
+                var adminRole = await _roleManager.FindByNameAsync(command.NomPerfil);
+                var result = false;
+                if (adminRole == null)
+                {
+                    adminRole = new IdentityRole(command.NomPerfil);
+                    await _roleManager.CreateAsync(adminRole);
+                    foreach (DictionaryEntry claim in command.ListClaim)
+                    {
+                        var addClaim = new Claim(claim.Key.ToString(), claim.Value.ToString());
+                        await _roleManager.AddClaimAsync(adminRole, addClaim);
+                    }
 
-                //if (adminRole == null)
-                //{
-                //    adminRole = new IdentityRole(command.NomPerfil);
-                //    await _roleManager.CreateAsync(adminRole);
+                    result = true;
+                }
 
-                //    await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.view"));
-                //    await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.create"));
-                //    await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.update"));
-                //}
-
-
-
-
-
-
-
-
-                var result =  await _roleManager.CreateAsync(new IdentityRole { Name = command.NomPerfil });
-
-                //await _roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, "projects.view"));
-
-                return result.Succeeded;
+                return result?1:0;
             }
             catch (Exception e)
             {
@@ -94,9 +88,17 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                var result = _db.Roles.Where(x => x.Id == id).Select(item => new PerfilDto { NomPerfil = item.Name, CodPerfil = item.Id }).FirstOrDefault();
+                var entity = _db.Roles.Where(x => x.Id == id).Select(item => new PerfilDto { NomPerfil = item.Name, CodPerfil = item.Id }).FirstOrDefault();
+                var role = _roleManager.Roles.Single(x => x.Id == entity.CodPerfil);
+                var claims = _roleManager.GetClaimsAsync(role).Result;
+                ListDictionary list = new ListDictionary();
+                foreach (var claim in claims)
+                {
+                    list.Add(claim.Type,claim.Value);
+                }
 
-                return result;
+                entity.ListClaims = list;
+                return entity;
             }
             catch (Exception e)
             {
@@ -110,14 +112,33 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                var obj = _db.Roles.Where(x => x.Id == command.CodPerfil).FirstOrDefault();
-
-                obj.Name = command.NomPerfil;
-                obj.NormalizedName = command.NomPerfil.ToUpper();
+                var result = false;
                 
-                var result = await _roleManager.UpdateAsync(obj);
+                var adminRole = await _roleManager.FindByIdAsync(command.CodPerfil);
 
-                return result.Succeeded;
+                if (adminRole != null)
+                {
+                    adminRole.Name = command.NomPerfil;
+                    var resRole = await _roleManager.UpdateAsync(adminRole);
+
+                    var role = _roleManager.Roles.Single(x => x.Id == command.CodPerfil);
+                    var claims = _roleManager.GetClaimsAsync(role).Result;
+
+                    foreach (var claim in claims)
+                    {
+                        var res = await _roleManager.RemoveClaimAsync(adminRole, claim);
+                    }
+
+                    foreach (DictionaryEntry claim in command.ListClaim)
+                    {
+                        var addClaim = new Claim(claim.Key.ToString(), claim.Value.ToString());
+                        var res = await _roleManager.AddClaimAsync(adminRole, addClaim);
+                    }
+
+                    result = true;
+                }
+
+                return result;
             }
             catch (Exception e)
             {

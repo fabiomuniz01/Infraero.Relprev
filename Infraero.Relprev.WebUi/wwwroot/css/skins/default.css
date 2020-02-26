@@ -125,6 +125,16 @@ html .background-color-tertiary {
 	background-color: #2baab1 !important;
 }
 
+html .bg-yellow,
+html .background-color-yellow {
+	background-color: #FCCB5A !important;
+}
+
+html .bg-gray,
+html .background-color-gray {
+	background-color: #777777 !important;
+}
+
 html .bg-quaternary,
 html .background-color-quaternary {
 	background-color: #383f48 !important;
@@ -1248,6 +1258,22 @@ html .card-featured-tertiary .card-title {
 
 html .card-group .card-accordion-tertiary {
 	background: #2baab1;
+}
+html .card-yellow .card-header {
+	background: #FCCB5A;
+	border-color: #FCCB5A;
+}
+
+html .card-featured-yellow {
+	border-color: #FCCB5A;
+}
+
+	html .card-featured-yellow .card-title {
+		color: #FCCB5A;
+	}
+
+html .card-group .card-accordion-yellow {
+	background: #FCCB5A;
 }
 
 html .card-quaternary .card-header {

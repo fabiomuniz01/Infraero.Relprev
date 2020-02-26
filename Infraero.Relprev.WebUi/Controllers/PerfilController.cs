@@ -2,8 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Security.Claims;
 using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
@@ -14,7 +20,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 namespace Infraero.Relprev.WebUi.Controllers
 {
     //[Authorize(Roles = "Gestor comercial")]
-    public class PerfilController : Controller
+    public class PerfilController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
 
@@ -25,8 +31,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Perfil
-        public ActionResult Index()
+        public ActionResult Index(int? crud)
         {
+            SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridPerfil();
             return View(response);
         }
@@ -47,13 +54,25 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+                ListDictionary list = new ListDictionary();
+                var responseModulos = ApiClientFactory.Instance.GetModuloAll();
+
+                foreach (var modulo in responseModulos)
+                {
+                    var ListFuncionalidades = modulo.ListFuncionalidades.FirstOrDefault().NomFuncionalidade.Split(',');
+                    var listValue = ListFuncionalidades.Where(func => collection[modulo.NomModulo + func].ToString() == "on").ToList();
+                    list.Add(modulo.NomModulo, string.Join(",", listValue));
+                }
+
                 var command = new CreatePerfilCommand
                 {
-                    NomPerfil = collection["NomPerfil"].ToString()
+                    NomPerfil = collection["NomPerfil"].ToString(),
+                    ListClaim = list
                 };
+
                 ApiClientFactory.Instance.CreatePerfil(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
             {
@@ -62,10 +81,21 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Perfil/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             var obj = ApiClientFactory.Instance.GetPerfilById(id);
-            var model = new PerfilModel {Perfil = obj};
+            var responseModulos = ApiClientFactory.Instance.GetModuloAll();
+            
+            var listClaim = new List<Claim>();
+
+            foreach (DictionaryEntry item in obj.ListClaims)
+            {
+                listClaim.Add(new Claim(item.Key.ToString(),item.Value.ToString()));
+            }
+
+
+
+            var model = new PerfilModel {Perfil = obj, ListModulo = responseModulos, ListClaim = listClaim};
             return View(model);
         }
 
@@ -76,14 +106,25 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+                ListDictionary list = new ListDictionary();
+                var responseModulos = ApiClientFactory.Instance.GetModuloAll();
+
+                foreach (var modulo in responseModulos)
+                {
+                    var ListFuncionalidades = modulo.ListFuncionalidades.FirstOrDefault().NomFuncionalidade.Split(',');
+                    var listValue = ListFuncionalidades.Where(func => collection[modulo.NomModulo + func].ToString() == "on").ToList();
+                    list.Add(modulo.NomModulo, string.Join(",", listValue));
+                }
+                
                 var command = new UpdatePerfilCommand
                 {
                     CodPerfil = id,
-                    NomPerfil = collection["NomPerfil"].ToString()
+                    NomPerfil = collection["NomPerfil"].ToString(),
+                    ListClaim = list
                 };
                 ApiClientFactory.Instance.UpdatePerfil(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
             catch
             {
@@ -98,7 +139,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 ApiClientFactory.Instance.DeletePerfil(new DeletePerfilCommand { CodPerfil = id});
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
             }
             catch
             {

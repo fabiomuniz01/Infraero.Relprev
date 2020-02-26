@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
@@ -39,5 +42,6 @@ namespace Infraero.Relprev.Application.Perfil.Commands.CreatePerfil
         public string DscPerfil { get; set; }
 
         public string NomPerfil { get; set; }
+        public ListDictionary ListClaim { get; set; }
     }
 }

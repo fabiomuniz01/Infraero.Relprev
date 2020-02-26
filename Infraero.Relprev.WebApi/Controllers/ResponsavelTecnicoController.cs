@@ -92,6 +92,36 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
         }
 
+        [HttpPost("GetResponsavelTecnicoByCpf")]
+        public async Task<ResponsavelTecnicoDto> GetResponsavelTecnicoByCpf([FromBody]string cpf)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetResponsavelTecnicoByIdQuery { Cpf = cpf });
+                return await Task.FromResult(result == null ? new ResponsavelTecnicoDto() : new ResponsavelTecnicoDto { CodUnidadeInfraestrutura = result.CodUnidadeInfraestrutura });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPost("GetResponsavelByCpf")]
+        public async Task<ResponsavelTecnicoDto> GetResponsavelByCpf([FromBody]string cpf)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetResponsavelTecnicoByIdQuery { Cpf = cpf });
+                return await Task.FromResult(result == null ? new ResponsavelTecnicoDto() : new ResponsavelTecnicoDto { CodResponsavelTecnico = result.CodResponsavelTecnico });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
 
     }
 }

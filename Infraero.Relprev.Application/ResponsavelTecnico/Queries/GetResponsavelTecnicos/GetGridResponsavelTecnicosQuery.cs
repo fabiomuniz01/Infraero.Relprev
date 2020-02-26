@@ -34,7 +34,11 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
 
                     var grid = new GridResponsavelTecnico();
 
-                    var data = responseModel.Select(c => c);
+                    var data = responseModel.Select(c => new ResponsavelTecnicoDto
+                    {
+                        CodResponsavelTecnico = c.CodResponsavelTecnico, NomResponsavelTecnico=c.NomResponsavelTecnico,
+                        NumCpf = c.NumCpf, EndEmail=c.EndEmail, DscEmpresa = c.Empresa.NomRazaoSocial, NumTelefone = c.NumTelefone
+                    });
 
                     grid.aaData = data;
                     grid.sEcho = 0;

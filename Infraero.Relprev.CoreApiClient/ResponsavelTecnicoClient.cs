@@ -58,7 +58,14 @@ namespace Infraero.Relprev.CoreApiClient
             return Get<ResponsavelTecnicoDto>(requestUrl);
         }
 
+        public Task<ResponsavelTecnicoDto> GetResponsavelByCpf(string cpf)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceResponsavelTecnico}/GetResponsavelByCpf"));
+            return PostAsync<ResponsavelTecnicoDto, string>(requestUrl, cpf);
+        }
+
         #endregion
-        
+
     }
 }

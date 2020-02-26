@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                     NumDocumento = request.NumDocumento,
                     CriadoPor = request.CriadoPor,
                     CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
-                    CodEmpresaResponsavelTecnico = request.CodEmpresaResponsavelTecnico,
+                    CodEmpresa = request.CodEmpresa,
                     DataCriacao = DateTime.Now
                 };
 
@@ -40,21 +40,15 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                 return entity.CodResponsavelTecnico;
             }
         }
-        public int Id { get; set; }
+
+        public string CriadoPor { get; set; }
+
+        public string EndEmail { get; set; }
         public string NomResponsavelTecnico { get; set; }
         public string NumCpf { get; set; }
         public string NumTelefone { get; set; }
         public string NumDocumento { get; set; }
-        public string DscLogin { get; set; }
-        public string DscSenha { get; set; }
-        public DateTime DthRegistro { get; set; }
-        public string EndEmail { get; set; }
-        public int QtdTentativasIncorretas { get; set; }
-        public string FlgPrimeiroAcesso { get; set; }
-        public string FlgResponsavelTecnicoBloqueado { get; set; }
-        public string CriadoPor { get; set; }
-
         public int CodUnidadeInfraestrutura { get; set; }
-        public int CodEmpresaResponsavelTecnico { get; set; }
+        public int CodEmpresa { get; set; }
     }
 }

@@ -90,6 +90,29 @@
         (function ($) {
 
             'use strict';
+            var crub = @ViewBag.CrudMessage;
+
+            if (crub===1) {
+                new PNotify({
+                    title: 'Perfil',
+                    text: 'Cadastro realizado com sucesso!',
+                    type: 'success'
+                });
+            }else if (crub === 2) {
+                new PNotify({
+                    title: 'Perfil',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning',
+                    icon: 'fa fa-pencil'
+                });
+            }else if (crub === 3) {
+                new PNotify({
+                    title: 'Perfil',
+                    text: 'Registro excluído com sucesso.',
+                    type: 'error',
+                    icon: 'fa fa-trash-o'
+                });
+            }
 
             if ($.isFunction($.fn['tooltip'])) {
                 $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });

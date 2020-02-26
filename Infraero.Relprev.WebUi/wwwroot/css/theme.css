@@ -14915,6 +14915,23 @@ ul.simple-bullet-list li.orange:before {
 	color: #FFF;
 	opacity: 0.6;
 }
+.bg-yellow .widget-summary .summary .title, .bg-yellow .widget-summary .summary .amount {
+	color: #FFF !important;
+}
+
+.bg-yellow .widget-summary .summary-icon {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.bg-yellow .widget-summary .summary-footer {
+	border-top: 1px solid #fff;
+	border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+	.bg-yellow .widget-summary .summary-footer a {
+		color: #FFF;
+		opacity: 0.6;
+	}
 
 .bg-quaternary .widget-summary .summary .title, .bg-quaternary .widget-summary .summary .amount {
 	color: #FFF !important;

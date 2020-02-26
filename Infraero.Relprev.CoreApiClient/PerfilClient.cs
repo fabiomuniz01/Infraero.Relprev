@@ -52,7 +52,7 @@ namespace Infraero.Relprev.CoreApiClient
 
         #region Methods
 
-        public PerfilDto GetPerfilById(int id)
+        public PerfilDto GetPerfilById(string id)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourcePerfil}/GetPerfilById/{id}"));

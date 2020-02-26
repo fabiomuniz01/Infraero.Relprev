@@ -1,6 +1,6 @@
 ﻿@model Infraero.Relprev.CrossCutting.Models.ResponsavelTecnicoModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastrar Responsável Técnico";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,17 +20,33 @@
                     <h2 class="card-title">Cadastrar Responsável Técnico</h2>
 
                 </header>
-                <div class="card-body">
+                <div id="vResponsavel" class="card-body" data-loading-overlay>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Nome <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="NomResponsavelTecnico" class="form-control" placeholder="eg.: Nome do responsável técnico " required maxlength="60" />
+                            <input type="text" name="NomResponsavelTecnico" class="form-control" placeholder="eg.: Nome do responsável técnico "
+                                   maxlength="60"
+                                   title="Por favor informe a descrição completa do nome do usuário." required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Cpf <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="NumCpf" class="form-control" maxlength="14" placeholder="eg.: Número do CPF do responsável técnico" required />
+                            <input id="cpf" name="cpf"
+                                   v-model="params.cpf"
+                                   v-on:blur="ExisteCpf"
+                                   type="text" value="" class="form-control" placeholder="eg.: Número do CPF do responsável técnico"
+                                   maxlength="14" />
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Nº do documento</label>
+                        <div class="col-sm-9">
+                            <input id="NumDocumento" name="NumDocumento"
+                                   type="text" value="" class="form-control" placeholder="eg.: Número do documento de correspondência"
+                                   maxlength="15" />
+
                         </div>
                     </div>
                     <div class="form-group row">
@@ -40,49 +56,48 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: email@email.com" required />
+                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário"
+                                       maxlength="60"/>
                             </div>
                         </div>
-                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone <span class="required">*</span></label>
+                        <label class="col-lg-1 control-label text-lg-right pt-2">Telefone<span class="required">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input type="text" id="NumTelefone" name="NumTelefone" placeholder="eg.: Número do telefone" class="form-control" 
-                                       title="Por favor informe o número do telefone."required>
+                                <input id="NumTelefone" name="NumTelefone" placeholder="eg.: Telefone de contato do usuário" class="form-control"
+                                       maxlength="14"
+                                       title="Por favor informe o telefone de contato do usuário" required>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Nº do documento</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="NumDocumento" class="form-control" placeholder="eg.: Número do documento do responsável técnico" />
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestritura<span class="required">*</span></label>
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nome da empresa<span class="required">*</span></label>
+
+                        <div class="col-lg-9">
+                            <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
+                                    title="Por favor selecione uma empresa." required
+                                    asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
+                                <option value="">Selecionar Empresa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestrutura<span class="required">*</span></label>
 
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
                                     title="Por favor selecione uma unidade de infraestrutura." required
-                                    asp-for="CodUnidadeInfraestrutura" asp-items="Model.ListUnidadeInfraestrutura">
+                                    asp-for="CodUnidadeInfraestrutura"
+                                    asp-items="Model.ListUnidadeInfraestrutura">
                                 <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Empresa/Órgão púbico<span class="required">*</span></label>
 
-                        <div class="col-lg-9">
-                            <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
-                                    title="Por favor selecione uma unidade de infraestrutura." required
-                                    asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
-                                <option value="">Selecionar Empresa/Órgão púbico</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <footer class="card-footer">
                     <div class="row justify-content-end">
@@ -105,57 +120,32 @@
 @section Scripts {
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
-
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
+    <script src="~/js/responsavel.js"></script>
     <script>
-        // Select2
-            (function ($) {
 
-                'use strict';
+        var notify = @ViewBag.NotifyMessage;
+        var messagem = @ViewBag.Notify;
 
-                var $select = $(".select2").select2({
-                    allowClear: true
-                });
-
-                $(".select2").each(function () {
-                    var $this = $(this),
-                        opts = {};
-
-                    var pluginOptions = $this.data('plugin-options');
-                    if (pluginOptions)
-                        opts = pluginOptions;
-
-                    $this.themePluginSelect2(opts);
-                });
-
-            /*
-             * When you change the value the select via select2, it triggers
-             * a 'change' event, but the jquery validation plugin
-             * only re-validates on 'blur'*/
-             
-            $select.on('change', function() {
-                $(this).trigger('blur');
+        if (notify===0) {
+            new PNotify({
+                title: 'Responsável Técnico',
+                text: messagem,
+                type: 'success'
             });
-
-            $('#form').validate({
-                ignore: 'input[type=hidden], .select2-input, .select2-focusser'
+        }else if (notify === 1) {
+            new PNotify({
+                title: 'Responsável Técnico',
+                text: messagem,
+                type: 'warning'
             });
-
-            $select.rules('add', 'required');
-
-
-                // checkbox, radio and selects
-                $("#chk-radios-form, #form").each(function() {
-                    $(this).validate({
-                        highlight: function(element) {
-                            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                        },
-                        success: function(element) {
-                            $(element).closest('.form-group').removeClass('has-error');
-                        }
-                    });
-                });
-
-            }).apply(this, [jQuery]);
+        }else if (notify === 2) {
+            new PNotify({
+                title: 'Responsável Técnico',
+                text: messagem,
+                type: 'error'
+            });
+        }
 
     </script>
 }

@@ -29,10 +29,13 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
                     throw new NotFoundException(nameof(ResponsavelTecnico), request.Id);
                 }
 
+                entity.NomResponsavelTecnico = request.NomResponsavelTecnico;   
                 entity.NumDocumento = request.NumDocumento;
                 entity.EndEmail = request.EndEmail;
                 entity.NumTelefone = request.NumTelefone;
                 entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
+                entity.CodEmpresa = request.CodEmpresa;
+                entity.AlteradoPor = request.AlteradoPor;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
@@ -44,16 +47,10 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
         public string NomResponsavelTecnico { get; set; }
         public string NumCpf { get; set; }
         public string NumTelefone { get; set; }
-        public string DscLogin { get; set; }
-        public string DscSenha { get; set; }
-        public DateTime DthRegistro { get; set; }
         public string EndEmail { get; set; }
-        public int QtdTentativasIncorretas { get; set; }
-        public string FlgPrimeiroAcesso { get; set; }
-        public string FlgResponsavelTecnicoBloqueado { get; set; }
         public string AlteradoPor { get; set; }
         public string NumDocumento { get; set; }
-        public int CodEmpresaResponsavelTecnico { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
+        public int CodEmpresa { get; set; }
     }
 }
