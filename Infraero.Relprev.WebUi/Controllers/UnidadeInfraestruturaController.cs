@@ -28,7 +28,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        [ClaimsAuthorize("Unidade", "Consultar")]
+        [ClaimsAuthorize("UnidadeInfraestrutura", "Consultar")]
         public IActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -37,13 +37,13 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        [ClaimsAuthorize("Unidade", "Incluir")]
+        [ClaimsAuthorize("UnidadeInfraestrutura", "Incluir")]
         public ActionResult Create()
         {
             return View();
         }
 
-        [ClaimsAuthorize("Unidade", "Incluir")]
+        [ClaimsAuthorize("UnidadeInfraestrutura", "Incluir")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -71,14 +71,14 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        [ClaimsAuthorize("Unidade", "Alterar")]
+        [ClaimsAuthorize("UnidadeInfraestrutura", "Alterar")]
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(id);
             return View(obj);
         }
 
-        [ClaimsAuthorize("Unidade", "Alterar")]
+        [ClaimsAuthorize("UnidadeInfraestrutura", "Alterar")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -103,7 +103,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        [ClaimsAuthorize("Unidade", "Excluir")]
+        [ClaimsAuthorize("UnidadeInfraestrutura", "Excluir")]
         public ActionResult Delete(int id)
         {
             try
@@ -117,7 +117,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        [ClaimsAuthorize("Unidade", "Consultar")]
+        [ClaimsAuthorize("UnidadeInfraestrutura", "Consultar")]
         public JsonResult GetUnidadeBySigla(string sigla)
         {
 

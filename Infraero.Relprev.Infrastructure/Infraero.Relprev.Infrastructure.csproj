@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp30</TargetFramework>
     <RootNamespace>Infraero.Relprev.Infrastructure</RootNamespace>
     <AssemblyName>Infraero.Relprev.Infrastructure</AssemblyName>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
 
   <ItemGroup>

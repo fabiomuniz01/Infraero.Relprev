@@ -11,7 +11,6 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
         public int CodLocal { get; set; }
         public string DscUnidade { get; set; }
         public string DscLocal { get; set; }
-        public ICollection<SubLocalDto> SubLocalList { get; set; }
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
         public void Mapping(Profile profile)
         {

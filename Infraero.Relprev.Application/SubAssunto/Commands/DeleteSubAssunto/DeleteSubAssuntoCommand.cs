@@ -8,7 +8,7 @@ namespace Infraero.Relprev.Application.SubAssunto.Commands.DeleteSubAssunto
 {
     public class DeleteSubAssuntoCommand : IRequest<bool>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public class DeleteSubAssuntoCommandHandler : IRequestHandler<DeleteSubAssuntoCommand, bool>
         {

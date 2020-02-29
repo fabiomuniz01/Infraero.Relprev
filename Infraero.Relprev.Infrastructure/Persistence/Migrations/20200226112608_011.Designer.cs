@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200226112608_011")]
+    partial class _011
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -608,7 +610,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 1,
                             CodModulo = 1,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2410),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8400),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -616,7 +618,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 2,
                             CodModulo = 2,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2608),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8526),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -624,7 +626,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 3,
                             CodModulo = 3,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2621),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8534),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -632,7 +634,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 4,
                             CodModulo = 4,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2630),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8539),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -640,7 +642,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 5,
                             CodModulo = 5,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2637),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8544),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -648,7 +650,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 6,
                             CodModulo = 6,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2646),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8548),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -656,7 +658,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 7,
                             CodModulo = 7,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2655),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8553),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -664,7 +666,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 8,
                             CodModulo = 8,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2663),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8672),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -672,7 +674,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 9,
                             CodModulo = 9,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2671),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8678),
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
                         new
@@ -680,7 +682,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 10,
                             CodModulo = 10,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2679),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8683),
                             NomFuncionalidade = "Consultar,Cadastrar,Classificar,Cancelar,Finalizar"
                         },
                         new
@@ -688,7 +690,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 11,
                             CodModulo = 11,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2687),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8688),
                             NomFuncionalidade = "Enviar"
                         },
                         new
@@ -696,7 +698,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 12,
                             CodModulo = 12,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2807),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8693),
                             NomFuncionalidade = "Cancelar,Detalhar,Executar,Finalizar,Atribuir"
                         },
                         new
@@ -704,7 +706,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 13,
                             CodModulo = 13,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2830),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8698),
                             NomFuncionalidade = "Completar,Avaliar,Responder"
                         },
                         new
@@ -712,7 +714,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 14,
                             CodModulo = 14,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 122, DateTimeKind.Local).AddTicks(2847),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 117, DateTimeKind.Local).AddTicks(8703),
                             NomFuncionalidade = "Importar,Configurar"
                         });
                 });
@@ -803,9 +805,12 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("SigLocal")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UnidadeInfraestruturaCodUnidadeInfraestrutura")
+                        .HasColumnType("int");
+
                     b.HasKey("CodLocal");
 
-                    b.HasIndex("CodUnidadeInfraestrutura");
+                    b.HasIndex("UnidadeInfraestruturaCodUnidadeInfraestrutura");
 
                     b.ToTable("Local");
                 });
@@ -841,98 +846,98 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 1,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 118, DateTimeKind.Local).AddTicks(8806),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(6681),
                             NomModulo = "UnidadeInfraestrutura"
                         },
                         new
                         {
                             CodModulo = 2,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(98),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7706),
                             NomModulo = "Empresa"
                         },
                         new
                         {
                             CodModulo = 3,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(158),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7738),
                             NomModulo = "ResponsavelTecnico"
                         },
                         new
                         {
                             CodModulo = 4,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(168),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7745),
                             NomModulo = "Assunto"
                         },
                         new
                         {
                             CodModulo = 5,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(175),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7749),
                             NomModulo = "SubAssunto"
                         },
                         new
                         {
                             CodModulo = 6,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(184),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7755),
                             NomModulo = "Local"
                         },
                         new
                         {
                             CodModulo = 7,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(192),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7760),
                             NomModulo = "SubLocal"
                         },
                         new
                         {
                             CodModulo = 8,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(199),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7764),
                             NomModulo = "Usuario"
                         },
                         new
                         {
                             CodModulo = 9,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(207),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7770),
                             NomModulo = "Perfil"
                         },
                         new
                         {
                             CodModulo = 10,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(214),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7774),
                             NomModulo = "Relatos"
                         },
                         new
                         {
                             CodModulo = 11,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(222),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7779),
                             NomModulo = "AtribuirResponsavelRelato"
                         },
                         new
                         {
                             CodModulo = 12,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(230),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7783),
                             NomModulo = "AtendimentoTecnico"
                         },
                         new
                         {
                             CodModulo = 13,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(237),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7788),
                             NomModulo = "ParecerTecnico"
                         },
                         new
                         {
                             CodModulo = 14,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 2, 26, 12, 44, 28, 119, DateTimeKind.Local).AddTicks(244),
+                            DataCriacao = new DateTime(2020, 2, 26, 8, 26, 7, 115, DateTimeKind.Local).AddTicks(7792),
                             NomModulo = "ContratoSmartStream"
                         });
                 });
@@ -1386,12 +1391,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("DscSubLocal")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LocalCodLocal")
-                        .HasColumnType("int");
-
                     b.HasKey("CodSubLocal");
 
-                    b.HasIndex("LocalCodLocal");
+                    b.HasIndex("CodLocal");
 
                     b.ToTable("SubLocal");
                 });
@@ -1934,9 +1936,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", "UnidadeInfraestrutura")
                         .WithMany()
-                        .HasForeignKey("CodUnidadeInfraestrutura")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnidadeInfraestruturaCodUnidadeInfraestrutura");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.PerfilFuncao", b =>
@@ -2017,8 +2017,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.SubLocal", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Local", "Local")
-                        .WithMany()
-                        .HasForeignKey("LocalCodLocal");
+                        .WithMany("SubLocalList")
+                        .HasForeignKey("CodLocal")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UsuarioLocalidade", b =>

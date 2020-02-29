@@ -9,7 +9,7 @@ var vm = new Vue({
             Dependencia: {}
         },
         params: {
-            sigla:""
+            sigla: ""
         },
         loading: false
 
@@ -20,6 +20,11 @@ var vm = new Vue({
 
             'use strict';
 
+            var $DtIniVigencia = $("#DtIniVigencia");
+            $DtIniVigencia.mask('00/00/0000', { reverse: false });
+            var $DtFimVigencia = $("#DtFimVigencia");
+            $DtFimVigencia.mask('00/00/0000', { reverse: false });
+
             $('#DtIniVigencia').datepicker({
                 format: "dd/mm/yyyy",
                 language: "pt-BR"
@@ -29,7 +34,24 @@ var vm = new Vue({
                 language: "pt-BR"
             });
 
+
             $("#form").validate({
+                rules: {
+                    "DtIniVigencia": {
+                        required: true
+                    },
+                    "DtFimVigencia": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "DtIniVigencia": {
+                        required: "Por favor informe a data início de vigência."
+                    },
+                    "DtFimVigencia": {
+                        required: "Por favor informe a data fim de vigência."
+                    }
+                },
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },
@@ -47,6 +69,13 @@ var vm = new Vue({
                     }
                 }
             });
+
+            $.validator.addMethod("enddate", function (value, element) {
+                var startdatevalue = $('.startdate').val();
+                var result = (new Date(startdatevalue).getTime() < new Date(value).getTime());
+                return result;
+            }, "Fim de Vigência é menor que Início de Vigência informada!");
+
 
         }).apply(this, [jQuery]);
     },
@@ -96,9 +125,9 @@ var vm = new Vue({
 
             }).catch(error => {
                 Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
-                    self.ShowLoad(false, "vUnidade");
+                self.ShowLoad(false, "vUnidade");
 
-                    //    new PNotify({
+                //    new PNotify({
                 //        title: 'Regular Notice',
                 //        text: 'Check me out! I\'m a notice.',
                 //        type: 'custom',

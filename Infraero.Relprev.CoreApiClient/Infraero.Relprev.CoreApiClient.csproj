@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp30</TargetFramework>
     <RootNamespace>Infraero.Relprev.CoreApiClient</RootNamespace>
     <AssemblyName>Infraero.Relprev.CoreApiClient</AssemblyName>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using System;
 using Infraero.Relprev.Application.Assunto.Commands.CreateAssunto;
+using Infraero.Relprev.Application.Assunto.Commands.DeleteAssunto;
 using Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
@@ -12,7 +14,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    public class AssuntoController : Controller
+    public class AssuntoController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
 
@@ -22,19 +24,19 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? crud)
         {
+            SetCrudMessage(crud);
+
             var response = ApiClientFactory.Instance.GetGridAssunto();
             return View(response);
         }
 
-        // GET: Assunto/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Assunto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -46,10 +48,10 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscAssunto = collection["DscAssunto"].ToString(),
                     CriadoPor = User.Identity.Name
                 };
-                
+
                 var result = ApiClientFactory.Instance.CreateAssunto(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
             {
@@ -58,18 +60,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Assunto/Edit/5
-//        public async Task<ActionResult> Edit(int id)
-//        {
-//            try
-//            {
-//                var obj = await ApiClientFactory.Instance.GetAssuntoById(id);
-//            return View(obj);
-//        }
-//        catch
-//        {
-//            return View();
-//        }
-//}
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+                var obj = ApiClientFactory.Instance.GetAssuntoById(id);
+                return View(obj);
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         // POST: Assunto/Edit/5
         [HttpPost]
@@ -86,7 +88,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 };
                 var result = ApiClientFactory.Instance.UpdateAssunto(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
             catch (Exception e)
             {
@@ -95,18 +97,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // POST: Assunto/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    try
-        //    {
-        //        ApiClientFactory.Instance.DeleteAssunto(new DeleteAssuntoCommand {Id = 6});
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                ApiClientFactory.Instance.DeleteAssunto(new DeleteAssuntoCommand { Id = id });
 
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //}
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }

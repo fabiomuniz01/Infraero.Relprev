@@ -7,7 +7,8 @@ namespace Infraero.Relprev.CrossCutting.Models
 {
     public class LocalModel
     {
-        public List<SelectListItem> ListUnidadeInfraestrutura { get; set; }
+        public SelectList ListUnidadeInfraestrutura { get; set; }
         public LocalDto Local { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
     }
 }

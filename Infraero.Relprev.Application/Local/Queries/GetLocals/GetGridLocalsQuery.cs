@@ -41,9 +41,7 @@ namespace Infraero.Relprev.Application.Local.Queries.GetLocals
                                 {
                                     CodLocal = c.CodLocal,
                                     DscLocal = c.DscLocal,
-                                    DscUnidade = c.UnidadeInfraestrutura.Descricao
-                                    //NomRazaoSocial = c.NomRazaoSocial,
-                                    //NomUnidadeInfraestrutura = ""
+                                    DscUnidade = c.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura
                                 });
 
                     grid.aaData = data;

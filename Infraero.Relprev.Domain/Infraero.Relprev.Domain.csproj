@@ -4,6 +4,8 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Infraero.Relprev.Domain</RootNamespace>
     <AssemblyName>Infraero.Relprev.Domain</AssemblyName>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,9 +16,8 @@ namespace Infraero.Relprev.Domain.Entities
         public DateTime DatInicioVigencia { get; set; }
         public DateTime? DatFimVigencia { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
 
-        [ForeignKey("CodLocal")]
-        public ICollection<SubLocal> SubLocalList { get; set; }
+        [ForeignKey("CodUnidadeInfraestrutura")]
+        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
     }
 }

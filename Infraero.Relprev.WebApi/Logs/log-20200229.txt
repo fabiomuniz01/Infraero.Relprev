@@ -1,0 +1,45 @@
+2020-02-29 10:52:57.986 -03:00 [Information] web api service is started.
+2020-02-29 11:14:01.834 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 3748.7713 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 11:22:28.017 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 101.7492 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 11:24:36.479 -03:00 [Information] web api service is started.
+2020-02-29 11:24:56.065 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1712.6522 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 11:46:17.844 -03:00 [Information] web api service is started.
+2020-02-29 11:52:56.684 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1809.1974 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 11:55:06.266 -03:00 [Information] web api service is started.
+2020-02-29 11:55:16.930 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1650.5929 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:11:38.101 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 98.9552 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:21:25.639 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 54.0295 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:29:40.648 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 55.2925 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:34:26.374 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 3216.2785 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:34:38.550 -03:00 [Information] HTTP "GET" "/api/Local/GetLocalById/1" responded 200 in 117.3074 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:34:38.603 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 41.4332 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:39:58.149 -03:00 [Information] web api service is started.
+2020-02-29 12:41:03.735 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 4107.7056 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:41:07.838 -03:00 [Information] HTTP "GET" "/api/Local/GetLocalById/1" responded 200 in 147.7803 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:41:07.896 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 44.9121 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:41:31.455 -03:00 [Information] HTTP "GET" "/api/Local/GetLocalById/1" responded 200 in 39.0894 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:41:38.482 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 26.9501 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:42:58.802 -03:00 [Information] web api service is started.
+2020-02-29 12:44:17.963 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 1595.9696 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:44:35.179 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 1937.8453 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:44:52.977 -03:00 [Information] HTTP "GET" "/api/Local/GetLocalById/1" responded 200 in 113.5742 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:44:53.031 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 35.3755 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:45:45.991 -03:00 [Information] HTTP "GET" "/api/Local/GetLocalById/1" responded 200 in 35.1915 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:45:46.025 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 26.5648 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:46:29.689 -03:00 [Information] web api service is started.
+2020-02-29 12:47:45.516 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 9487.4129 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:48:01.190 -03:00 [Information] HTTP "GET" "/api/Local/GetLocalById/1" responded 200 in 154.5684 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:48:01.266 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 57.1273 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:49:03.833 -03:00 [Information] web api service is started.
+2020-02-29 12:53:21.169 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 1622.3295 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:53:36.323 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 57.2601 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:53:45.969 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 55.4903 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:53:51.805 -03:00 [Information] HTTP "GET" "/api/Local/GetLocalById/1" responded 200 in 102.6230 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:53:51.860 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 40.3749 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:54:11.546 -03:00 [Information] HTTP "POST" "/api/Local/UpdateLocal" responded 200 in 255.0678 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:54:11.599 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 26.7173 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:54:16.039 -03:00 [Information] HTTP "POST" "/api/Local/DeleteLocal" responded 200 in 85.7461 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:54:16.094 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 30.9959 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:54:18.268 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 44.0242 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:54:46.273 -03:00 [Information] HTTP "POST" "/api/Local/CreateLocal" responded 200 in 119.7762 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-02-29 12:54:46.330 -03:00 [Information] HTTP "GET" "/api/Local/GetGridLocal" responded 200 in 32.5600 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

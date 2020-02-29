@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Infraero.Relprev.Application.Local.Commands.DeleteLocal;
 using Infraero.Relprev.Application.Local.Commands.UpdateLocal;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
@@ -15,7 +16,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    public class LocalController : Controller
+    public class LocalController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
 
@@ -26,8 +27,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Local
-        public ActionResult Index()
+        public ActionResult Index(int? crud)
         {
+            SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridLocal();
             return View(response);
         }
@@ -36,19 +38,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Create()
         {
             var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-            var listUnidade =
-                result.Select(
-                    s =>
-                        new SelectListItem()
-                        {
-                            Text =
-                                s.CodUnidadeInfraestrutura + " - " +
-                                s.Descricao,
-                            Value = s.CodUnidadeInfraestrutura.ToString()
-                        }).ToList();
+            
             var local = new LocalModel
             {
-                ListUnidadeInfraestrutura = listUnidade
+                ListUnidadeInfraestrutura = new SelectList(result, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
             };
 
             return View(local);
@@ -63,13 +56,13 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 var command = new CreateLocalCommand
                 {
-                    CodUnidadeInfraestrutura = int.Parse(collection["CodUnidadeInfraestrutura"].ToString()),
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
                     DscLocal = collection["DscLocal"].ToString(),
-                    CriadoPor = "Amcom Develper"
+                    CriadoPor = User.Identity.Name
                 };
                 ApiClientFactory.Instance.CreateLocal(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
             {
@@ -86,14 +79,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var model = new LocalModel()
             {
                 Local = obj,
-                ListUnidadeInfraestrutura = resultUnidade.Select(s =>
-                    new SelectListItem()
-                    {
-                        Text =
-                            s.CodUnidadeInfraestrutura + " - " +
-                            s.Descricao,
-                        Value = s.CodUnidadeInfraestrutura.ToString()
-                    }).ToList()
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura", obj.UnidadeInfraestrutura.CodUnidadeInfraestrutura)
             };
 
             return View(model);
@@ -109,13 +95,13 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new UpdateLocalCommand
                 {
                     CodLocal = id,
-                    CodUnidadeInfraestrutura = int.Parse(collection["CodUnidadeInfraestrutura"].ToString()),
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
                     DscLocal = collection["DscLocal"].ToString(),
-                    AlteradoPor = "Amcom Developer"
+                    AlteradoPor = User.Identity.Name
                 };
                 ApiClientFactory.Instance.UpdateLocal(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
             catch
             {
@@ -130,7 +116,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 ApiClientFactory.Instance.DeleteLocal(new DeleteLocalCommand {Id = id});
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
             }
             catch
             {
