@@ -36,7 +36,8 @@
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlLocal" id="ddlLocal"
                                     title="Por favor selecione um Local de Ocorrência." required
-                                    asp-for="CodLocal" asp-items='@(new SelectList(string.Empty, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"))'>
+                                    asp-for="CodLocal" asp-items="Model.ListLocal">
+                                <option value="">Selecionar Local de Ocorrência</option>
                             </select>
                         </div>
                     </div>
@@ -44,7 +45,7 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Sub local da ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
                             <textarea type="text" rows="3" name="DscSubLocal" class="form-control" placeholder="eg.: Descrição do sub local de ocorrência  "
-                                      title="Por favor informe a descrição do sub local de ocorrência." required maxlength="50"></textarea>
+                                      title="Por favor informe a descrição do sub local de ocorrência." required maxlength="255"></textarea>
                         </div>
                     </div>
                 </div>

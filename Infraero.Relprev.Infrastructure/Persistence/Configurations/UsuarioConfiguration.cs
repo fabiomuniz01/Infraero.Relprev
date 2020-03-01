@@ -20,7 +20,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasMaxLength(14)
                 .IsRequired();
             builder.Property(t => t.Email)
-                .HasMaxLength(60)
+                .HasMaxLength(150)
                 .IsRequired();
         }
     }

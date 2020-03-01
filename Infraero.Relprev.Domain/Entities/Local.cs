@@ -11,10 +11,6 @@ namespace Infraero.Relprev.Domain.Entities
         [Key]
         public int CodLocal { get; set; }
         public string DscLocal { get; set; }
-        public string SigLocal { get; set; }
-        public string EndLocal { get; set; }
-        public DateTime DatInicioVigencia { get; set; }
-        public DateTime? DatFimVigencia { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
 
         [ForeignKey("CodUnidadeInfraestrutura")]

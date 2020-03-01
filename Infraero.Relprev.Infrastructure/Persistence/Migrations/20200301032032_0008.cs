@@ -3,404 +3,411 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
-    public partial class _007 : Migration
+    public partial class _0008 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 1,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5079), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(5928));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 2,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5296), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(5985));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 3,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5310), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(5989));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 4,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5319), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(5991));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 5,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5327), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(5994));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 6,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5336), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(5997));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 7,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5346), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(5999));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 8,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5355), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(6003));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 9,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5365), "Consultar,Incluir,Excluir,Alterar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(6006));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 10,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5375), "Consultar,Incluir,Alterar,Cancelar,Finalizar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(6008));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 11,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5383));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(6011));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 12,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5391), "Cancelar,Detalhar,Executar,Finalizar,Atribuir" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(6014));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 13,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5398), "Completar,Avaliar,Responder" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(6016));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 14,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 54, 23, 406, DateTimeKind.Local).AddTicks(5406), "Importar,Configurar" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 151, DateTimeKind.Local).AddTicks(6019));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 1,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 402, DateTimeKind.Local).AddTicks(9204));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(4952));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 2,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(707));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5440));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 3,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(765));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5459));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 4,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(774));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5462));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 5,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(783));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5465));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 6,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(792));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5468));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 7,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(800));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5472));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 8,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(809));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5475));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 9,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(816));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5478));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 10,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(823));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5481));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 11,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(830));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5484));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 12,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(838));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5486));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 13,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(846));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5489));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 14,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 54, 23, 403, DateTimeKind.Local).AddTicks(854));
+                value: new DateTime(2020, 3, 1, 0, 20, 32, 150, DateTimeKind.Local).AddTicks(5491));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "EndLocal",
+                table: "Local",
+                type: "nvarchar(max)",
+                nullable: true);
+
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 1,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(2951), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4269));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 2,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3078), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4344));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 3,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3092), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4348));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 4,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3103), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4351));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 5,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3114), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4354));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 6,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3124), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4357));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 7,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3134), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4360));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 8,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3144), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4362));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 9,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3155), "Search,Insert,Delete,Update" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4365));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 10,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3165), "Search,Insert,Update,Cancel,Finalize" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4368));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 11,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3177));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4371));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 12,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3187), "Cancel,Details,Execute,Finalize,Assign" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4373));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 13,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3198), "Complete,Evaluate,Reply" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4376));
 
             migrationBuilder.UpdateData(
                 table: "Funcionalidade",
                 keyColumn: "CodFuncionalidade",
                 keyValue: 14,
-                columns: new[] { "DataCriacao", "NomFuncionalidade" },
-                values: new object[] { new DateTime(2020, 2, 23, 21, 22, 37, 460, DateTimeKind.Local).AddTicks(3208), "Import,Configure" });
+                column: "DataCriacao",
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 675, DateTimeKind.Local).AddTicks(4379));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 1,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7091));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1036));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 2,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7828));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1579));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 3,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7850));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1598));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 4,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7854));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1602));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 5,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7856));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1605));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 6,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7860));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1609));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 7,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7863));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1611));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 8,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7866));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1614));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 9,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7869));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1617));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 10,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7873));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1620));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 11,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7876));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1623));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 12,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7879));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1626));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 13,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7882));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1629));
 
             migrationBuilder.UpdateData(
                 table: "Modulo",
                 keyColumn: "CodModulo",
                 keyValue: 14,
                 column: "DataCriacao",
-                value: new DateTime(2020, 2, 23, 21, 22, 37, 458, DateTimeKind.Local).AddTicks(7885));
+                value: new DateTime(2020, 3, 1, 0, 16, 8, 674, DateTimeKind.Local).AddTicks(1632));
         }
     }
 }

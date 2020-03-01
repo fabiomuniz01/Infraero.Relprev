@@ -11,7 +11,12 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodSubLocal { get; set; }
         public string DscSubLocal { get; set; }
         public int CodLocal { get; set; }
+
+        [ForeignKey("CodLocal")]
+        public Local Local { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-        public virtual Local Local { get; set; }
+
+        [ForeignKey("CodUnidadeInfraestrutura")]
+        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
     }
 }
