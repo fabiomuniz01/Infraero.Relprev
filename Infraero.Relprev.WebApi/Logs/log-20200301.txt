@@ -289,3 +289,6 @@ Infraero.Relprev.Application.Common.Exceptions.NotFoundException: Entity "Usuari
 2020-03-01 16:03:09.985 -03:00 [Information] HTTP "GET" "/api/Usuario/GetGridUsuario" responded 200 in 22.9279 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-03-01 16:04:54.369 -03:00 [Information] HTTP "GET" "/api/SubLocal/GetGridSubLocal" responded 200 in 102.3487 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-03-01 16:05:00.937 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 48.8770 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 16:17:26.883 -03:00 [Information] web api service is started.
+2020-03-01 16:22:29.477 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 1398.0991 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 16:22:32.378 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 524.7229 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

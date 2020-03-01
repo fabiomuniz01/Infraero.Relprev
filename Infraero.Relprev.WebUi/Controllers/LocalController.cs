@@ -7,8 +7,11 @@ using Infraero.Relprev.Application.Local.Commands.DeleteLocal;
 using Infraero.Relprev.Application.Local.Commands.UpdateLocal;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
@@ -16,6 +19,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class LocalController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -26,7 +30,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        // GET: Local
+        [ClaimsAuthorize("Local", "Consultar")]
         public ActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -34,7 +38,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        // GET: Local/Create
+        [ClaimsAuthorize("Local", "Incluir")]
         public ActionResult Create()
         {
             var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
@@ -47,9 +51,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(local);
         }
 
-        // POST: Local/Create
+        [ClaimsAuthorize("Local", "Incluir")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -70,7 +73,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: Local/Edit/5
+        [ClaimsAuthorize("Local", "Alterar")]
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetLocalById(id);
@@ -85,9 +88,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        // POST: Local/Edit/5
+        [ClaimsAuthorize("Local", "Alterar")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -109,7 +111,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: Local/Delete/5
+        [ClaimsAuthorize("Local", "Excluir")]
         public ActionResult Delete(int id)
         {
             try

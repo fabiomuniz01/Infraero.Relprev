@@ -11,8 +11,10 @@ using Infraero.Relprev.Application.VinculoUnidadeEmpresa.Commands.DeleteVinculoU
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -22,6 +24,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class EmpresaController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -34,7 +37,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        //private readonly IEmpresa 
+        [ClaimsAuthorize("Empresa", "Consultar")]
         public async Task<IActionResult> Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -43,15 +46,14 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        // GET: Empresa/Create
+        [ClaimsAuthorize("Empresa", "Incluir")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Empresa/Create
+        [ClaimsAuthorize("Empresa", "Incluir")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -76,16 +78,15 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: Empresa/Edit/5
+        [ClaimsAuthorize("Empresa", "Alterar")]
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetEmpresaById(id);
             return View(obj);
         }
 
-        // POST: Empresa/Edit/5
+        [ClaimsAuthorize("Empresa", "Alterar")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -108,7 +109,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        
+        [ClaimsAuthorize("Empresa", "Excluir")]
         public ActionResult Delete(int id)
         {
             try
@@ -122,6 +123,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("Empresa", "Consultar")]
         public JsonResult GetEmpresaByCnpj(string cnpj)
         {
 
@@ -139,23 +141,16 @@ namespace Infraero.Relprev.WebUi.Controllers
                     throw new Exception(
                         "Já existe uma empresa cadastrada com esse cnpj.");
                 }
-
                 return Json(false);
-
-
             }
             catch (Exception ex)
             {
                 return Json(ex.Message);
 
             }
-
-
         }
 
-
-
-        // GET: Empresa/Link/5
+        [ClaimsAuthorize("Empresa", "Consultar")]
         public ActionResult Link(int id)
         {
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
@@ -175,9 +170,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        // POST: Empresa/Link/5
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.ValidateAntiForgeryToken]
+        [ClaimsAuthorize("Empresa", "Incluir")]
+        [HttpPost]
         public ActionResult Link(int id, IFormCollection collection)
         {
             try
@@ -199,7 +193,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        
+        [ClaimsAuthorize("Empresa", "Excluir")]
         public ActionResult DeleteLink(int id)
         {
             try

@@ -4,8 +4,11 @@ using Infraero.Relprev.Application.Assunto.Commands.DeleteAssunto;
 using Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,6 +17,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class AssuntoController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -24,6 +28,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
+        [ClaimsAuthorize("Assunto", "Consultar")]
         public IActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -32,11 +37,13 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
+        [ClaimsAuthorize("Assunto", "Incluir")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [ClaimsAuthorize("Assunto", "Incluir")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -59,7 +66,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: Assunto/Edit/5
+        [ClaimsAuthorize("Assunto", "Alterar")]
         public ActionResult Edit(int id)
         {
             try
@@ -73,9 +80,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // POST: Assunto/Edit/5
+        [ClaimsAuthorize("Assunto", "Alterar")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -96,7 +102,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // POST: Assunto/Delete/5
+        [ClaimsAuthorize("Assunto", "Excluir")]
         public ActionResult Delete(int id)
         {
             try

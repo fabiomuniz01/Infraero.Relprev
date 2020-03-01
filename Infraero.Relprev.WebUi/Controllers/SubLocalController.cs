@@ -7,8 +7,11 @@ using Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +21,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class SubLocalController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -28,6 +32,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
+        [ClaimsAuthorize("SubLocal", "Consultar")]
         public IActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -35,6 +40,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
+        [ClaimsAuthorize("SubLocal", "Consultar")]
         public JsonResult GetListLocalById(int id)
         {
             var resultLocal = ApiClientFactory.Instance.GetLocalAll()
@@ -45,7 +51,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return Json(new SelectList(resultLocal, "CodLocalStr", "DscLocal"));
         }
 
-        // GET: SubLocal/Create
+        [ClaimsAuthorize("SubLocal", "Incluir")]
         public ActionResult Create()
         {
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
@@ -59,9 +65,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        // POST: SubLocal/Create
+        [ClaimsAuthorize("SubLocal", "Incluir")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -83,7 +88,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: SubLocal/Edit/5
+        [ClaimsAuthorize("SubLocal", "Alterar")]
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetSubLocalById(id);
@@ -103,9 +108,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        // POST: SubLocal/Edit/5
+        [ClaimsAuthorize("SubLocal", "Alterar")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -128,6 +132,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("SubLocal", "Excluir")]
         public ActionResult Delete(int id)
         {
             try

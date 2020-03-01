@@ -6,8 +6,11 @@ using Infraero.Relprev.Application.SubAssunto.Commands.UpdateSubAssunto;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,6 +20,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class SubAssuntoController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -27,6 +31,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
+        [ClaimsAuthorize("SubAssunto", "Consultar")]
         public IActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -34,7 +39,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        
+        [ClaimsAuthorize("SubAssunto", "Incluir")]
         public ActionResult Create()
         {
             var result = ApiClientFactory.Instance.GetAssuntoAll();
@@ -47,6 +52,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(assunto);
         }
 
+        [ClaimsAuthorize("SubAssunto", "Incluir")]
         [HttpPost]
         public ActionResult Create(IFormCollection collection)
         {
@@ -68,7 +74,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-
+        [ClaimsAuthorize("SubAssunto", "Alterar")]
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetSubAssuntoById(id);
@@ -83,6 +89,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(assunto);
         }
 
+        [ClaimsAuthorize("SubAssunto", "Alterar")]
         [HttpPost]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -105,6 +112,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("SubAssunto", "Excluir")]
         public ActionResult Delete(int id)
         {
             try

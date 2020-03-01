@@ -12,8 +12,10 @@ using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +28,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class UsuarioController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -42,7 +45,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        //private readonly IUsuario 
+        [ClaimsAuthorize("Usuario", "Consultar")]
         public IActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -50,13 +53,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        public GridUsuario GetGrid()
-        {
-            var response = ApiClientFactory.Instance.GetGridUsuario();
-            return response;
-        }
-
-        // GET: Usuario/Create
+        [ClaimsAuthorize("Usuario", "Incluir")]
         public ActionResult Create(int? notify, string message = null)
         {
             //SetNotifyMessage(notify, message);
@@ -73,6 +70,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
+        [ClaimsAuthorize("Usuario", "Consultar")]
         public JsonResult GetUnidadeByIdEmpresa(int id)
         {
             var result = ApiClientFactory.Instance.GetEmpresaAll().FirstOrDefault(x => x.CodEmpresa == id)
@@ -83,14 +81,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return Json(new SelectList(result, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"));
         }
 
-        public ActionResult CreatePerfil()
-        {
-            return View();
-        }
-
-        // POST: Usuario/Create
+        [ClaimsAuthorize("Usuario", "Incluir")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
@@ -148,8 +140,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 message);
         }
 
-
-        // GET: Usuario/Edit/5
+        [ClaimsAuthorize("Usuario", "Alterar")]
         public ActionResult Edit(string id)
         {
             UsuarioModel model = null;
@@ -179,9 +170,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        // POST: Usuario/Edit/5
+        [ClaimsAuthorize("Usuario", "Alterar")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
             try
@@ -218,6 +208,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("Usuario", "Excluir")]
         public ActionResult Delete(string id)
         {
             try
@@ -231,6 +222,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("Usuario", "Consultar")]
         public JsonResult GetListUnidadeById(int id)
         {
             var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll()
@@ -241,6 +233,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return Json(new SelectList(result, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
         }
 
+        [ClaimsAuthorize("Usuario", "Alterar")]
         public JsonResult GetUsuarioByCpf(string cpf)
         {
 

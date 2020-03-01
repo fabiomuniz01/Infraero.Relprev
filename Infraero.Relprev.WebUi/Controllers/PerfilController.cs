@@ -11,15 +11,18 @@ using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    //[Authorize(Roles = "Gestor comercial")]
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class PerfilController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -30,7 +33,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        // GET: Perfil
+        [ClaimsAuthorize("Perfil", "Consultar")]
         public ActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -38,7 +41,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        // GET: Perfil/Create
+        [ClaimsAuthorize("Perfil", "Incluir")]
         public ActionResult Create()
         {
             var responseModulos = ApiClientFactory.Instance.GetModuloAll();
@@ -47,9 +50,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        // POST: Perfil/Create
+        [ClaimsAuthorize("Perfil", "Incluir")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -80,7 +82,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: Perfil/Edit/5
+        [ClaimsAuthorize("Perfil", "Alterar")]
         public ActionResult Edit(string id)
         {
             var obj = ApiClientFactory.Instance.GetPerfilById(id);
@@ -99,9 +101,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        // POST: Perfil/Edit/5
+        [ClaimsAuthorize("Perfil", "Alterar")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(string id, IFormCollection collection)
         {
             try
@@ -132,7 +133,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        // GET: Perfil/Delete/5
+        [ClaimsAuthorize("Perfil", "Excluir")]
         public ActionResult Delete(string id)
         {
             try

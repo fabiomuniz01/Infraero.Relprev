@@ -140,30 +140,30 @@
                         <div class="col-sm-9">
                             <table class="table table-responsive-md table-striped mb-0">
                                 <thead>
-                                <tr>
-                                    <th>Arquivo</th>
-                                    <th>Ação</th>
-                                </tr>
+                                    <tr>
+                                        <th>Arquivo</th>
+                                        <th>Ação</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>atendimento.png</td>
-                                    <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>relato.png</td>
-                                    <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>atendimento.png</td>
-                                    <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>atendimento.png</td>
+                                        <td>
+                                            <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>relato.png</td>
+                                        <td>
+                                            <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>atendimento.png</td>
+                                        <td>
+                                            <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color:#d43f3a'><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -208,102 +208,9 @@
     <script src="~/vendor/select2/js/select2.js"></script>
     <script src="vendor/bootstrap-timepicker/bootstrap-timepicker.js"></script>
     <script src="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+    <script src="~/js/relato.js"></script>
     <script>
-        // TimePicker
-        (function ($) {
-
-            'use strict';
-
-            if ($.isFunction($.fn['timepicker'])) {
-
-                $(function () {
-                    $('[data-plugin-timepicker]').each(function () {
-                        var $this = $(this),
-                            opts = {};
-
-                        var pluginOptions = $this.data('plugin-options');
-                        if (pluginOptions)
-                            opts = pluginOptions;
-
-                        $this.themePluginTimePicker(opts);
-                    });
-                });
-
-            }
-
-        }).apply(this, [jQuery]);
-        // Masked Input
-        (function ($) {
-
-            'use strict';
-
-            if ($.isFunction($.fn['mask'])) {
-
-                $(function () {
-                    $('[data-plugin-masked-input]').each(function () {
-                        var $this = $(this),
-                            opts = {};
-
-                        var pluginOptions = $this.data('plugin-options');
-                        if (pluginOptions)
-                            opts = pluginOptions;
-
-                        $this.themePluginMaskedInput(opts);
-                    });
-                });
-
-            }
-
-        }).apply(this, [jQuery]);
-        // Select2
-        (function ($) {
-
-            'use strict';
-
-            var $select = $(".select2").select2({
-                allowClear: true
-            });
-
-            $(".select2").each(function () {
-                var $this = $(this),
-                    opts = {};
-
-                var pluginOptions = $this.data('plugin-options');
-                if (pluginOptions)
-                    opts = pluginOptions;
-
-                $this.themePluginSelect2(opts);
-            });
-
-            /*
-             * When you change the value the select via select2, it triggers
-             * a 'change' event, but the jquery validation plugin
-             * only re-validates on 'blur'*/
-
-            $select.on('change', function () {
-                $(this).trigger('blur');
-            });
-
-            $('#form').validate({
-                ignore: 'input[type=hidden], .select2-input, .select2-focusser'
-            });
-
-            $select.rules('add', 'required');
-
-
-            // checkbox, radio and selects
-            $("#chk-radios-form, #form").each(function () {
-                $(this).validate({
-                    highlight: function (element) {
-                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                    },
-                    success: function (element) {
-                        $(element).closest('.form-group').removeClass('has-error');
-                    }
-                });
-            });
-
-        }).apply(this, [jQuery]);
+        
 
     </script>
 }

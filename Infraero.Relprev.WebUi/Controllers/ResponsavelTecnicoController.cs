@@ -9,8 +9,11 @@ using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavel
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,6 +23,8 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
+
+    [Authorize(Policy = ModuloAccess.Cadastros)]
     public class ResponsavelTecnicoController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
@@ -30,6 +35,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
+        [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
         public IActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
@@ -37,12 +43,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        public GridResponsavelTecnico GetGrid()
-        {
-            var response = ApiClientFactory.Instance.GetGridResponsavelTecnico();
-            return response;
-        }
-
+        [ClaimsAuthorize("ResponsavelTecnico", "Inclur")]
         public ActionResult Create()
         {
             var usuario = ApiClientFactory.Instance.GetUsuarioById(User.Identity.Name);
@@ -57,6 +58,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
+        [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
         public JsonResult GetUnidadeByIdEmpresa(int id)
         {
             var result = ApiClientFactory.Instance.GetEmpresaAll().FirstOrDefault(x => x.CodEmpresa == id)
@@ -67,9 +69,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             return Json(new SelectList(result, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"));
         }
 
-        
+        [ClaimsAuthorize("ResponsavelTecnico", "Incluir")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -97,6 +98,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("ResponsavelTecnico", "Alterar")]
         public ActionResult Edit(int id)
         {
             ResponsavelTecnicoModel model = null;
@@ -124,6 +126,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
+        [ClaimsAuthorize("ResponsavelTecnico", "Alterar")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -152,6 +155,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("ResponsavelTecnico", "Excluir")]
         public ActionResult Delete(int id)
         {
             try
@@ -165,6 +169,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
         public JsonResult GetListUnidadeById(int id)
         {
             var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll()
@@ -175,6 +180,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return Json(new SelectList(result, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
         }
 
+        [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
         public JsonResult GetResponsavelTecnicoByCpf(string cpf)
         {
 
