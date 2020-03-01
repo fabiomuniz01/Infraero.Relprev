@@ -35,5 +35,15 @@ namespace Infraero.Relprev.WebUi.Controllers
                     break;
             }
         }
+        public void SetNotifyMessage(int? notify, string message)
+        {
+            switch (notify)
+            {
+                case (int)EnumNotify.Error:
+                    ViewBag.NotifyMessage = (int)EnumNotify.Error;
+                    ViewBag.Notify = message;
+                    break;
+            }
+        }
     }
 }

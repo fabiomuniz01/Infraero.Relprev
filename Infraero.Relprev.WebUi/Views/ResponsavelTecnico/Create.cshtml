@@ -57,7 +57,7 @@
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário"
-                                       maxlength="60"/>
+                                       maxlength="60" />
                             </div>
                         </div>
                         <label class="col-lg-1 control-label text-lg-right pt-2">Telefone<span class="required">*</span></label>
@@ -74,18 +74,6 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Nome da empresa<span class="required">*</span></label>
-
-                        <div class="col-lg-9">
-                            <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
-                                    title="Por favor selecione uma empresa." required
-                                    asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
-                                <option value="">Selecionar Empresa</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestrutura<span class="required">*</span></label>
 
                         <div class="col-lg-9">
@@ -94,6 +82,18 @@
                                     asp-for="CodUnidadeInfraestrutura"
                                     asp-items="Model.ListUnidadeInfraestrutura">
                                 <option value="">Selecionar Unidade de infraestrutura</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nome da empresa<span class="required">*</span></label>
+
+                        <div class="col-lg-9">
+                            <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
+                                    title="Por favor selecione uma empresa." required
+                                    asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
+                                <option value="">Selecionar Empresa</option>
                             </select>
                         </div>
                     </div>

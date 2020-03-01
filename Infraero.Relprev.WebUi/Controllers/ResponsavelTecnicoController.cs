@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
@@ -44,13 +45,14 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         public ActionResult Create()
         {
+            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.Identity.Name);
 
-            var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
             var model = new ResponsavelTecnicoModel
             {
-                ListUnidadeInfraestrutura = new SelectList(new List<UnidadeInfraEstruturaDto>(), "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
-                ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial")
+                ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                ListEmpresa = new SelectList(new List<EmpresaDto>(), "CodEmpresa", "NomRazaoSocial")
             };
             return View(model);
         }

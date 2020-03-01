@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario;
@@ -8,9 +11,13 @@ using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
@@ -22,10 +29,16 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class UsuarioController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
+        private readonly IEmailSender _emailSender;
+        private readonly UserManager<WebProfileUser> _userManager;
+        private readonly IHostingEnvironment _host;
 
-        public UsuarioController(IOptions<SettingsModel> app)
+        public UsuarioController(IOptions<SettingsModel> app, IEmailSender emailSender, UserManager<WebProfileUser> userManager, IHostingEnvironment host)
         {
             _appSettings = app;
+            _emailSender = emailSender;
+            _userManager = userManager;
+            _host = host;
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
@@ -44,15 +57,16 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         // GET: Usuario/Create
-        public ActionResult Create()
+        public ActionResult Create(int? notify, string message = null)
         {
+            //SetNotifyMessage(notify, message);
 
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
             var resultPerfil = ApiClientFactory.Instance.GetPerfilAll();
 
             var model = new UsuarioModel
             {
-                ListUnidadeInfraestrutura = new SelectList(new List<UnidadeInfraEstruturaDto>(), "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+            ListUnidadeInfraestrutura = new SelectList(new List<UnidadeInfraEstruturaDto>(), "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"),
                 ListPerfil = new SelectList(resultPerfil, "CodPerfil", "NomPerfil")
             };
@@ -77,7 +91,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         // POST: Usuario/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
             {
@@ -97,6 +111,15 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 ApiClientFactory.Instance.CreateUsuario(command);
 
+                var user = await _userManager.FindByEmailAsync(command.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Usuário não cadastrado.");
+                    return View();
+                }
+                SendNewUserEmail(user, command.Email);
+
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
@@ -104,6 +127,27 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return View();
             }
         }
+
+        private async Task SendNewUserEmail(WebProfileUser user, string email)
+        {
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var callbackUrl = Url.ActionLink("ResetPassword",
+                "Identity/Account", new { code, email });
+
+            var message =
+                System.IO.File.ReadAllText(Path.Combine(_host.WebRootPath, "emailtemplates/ConfirmEmail.html"));
+            message = message.Replace("%NAME%", user.Nome);
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl.Replace("%2FAccount", "/Account")));
+
+
+
+
+
+            await _emailSender.SendEmailAsync(user.Email, "Primeiro acesso sistema Relprev",
+                message);
+        }
+
 
         // GET: Usuario/Edit/5
         public ActionResult Edit(string id)
@@ -138,7 +182,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         // POST: Usuario/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
             try
             {
@@ -156,6 +200,15 @@ namespace Infraero.Relprev.WebUi.Controllers
                     AlteradoPor = User.Identity.Name
                 };
                 ApiClientFactory.Instance.UpdateUsuario(command);
+
+                //var user = await _userManager.FindByEmailAsync(command.Email);
+
+                //if (user == null)
+                //{
+                //    ModelState.AddModelError(string.Empty, "Usuário não cadastrado.");
+                //    return View();
+                //}
+                //SendNewUserEmail(user, command.Email);
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
