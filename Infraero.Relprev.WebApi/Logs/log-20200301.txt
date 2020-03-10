@@ -292,3 +292,19 @@ Infraero.Relprev.Application.Common.Exceptions.NotFoundException: Entity "Usuari
 2020-03-01 16:17:26.883 -03:00 [Information] web api service is started.
 2020-03-01 16:22:29.477 -03:00 [Information] HTTP "GET" "/api/Perfil/GetGridPerfil" responded 200 in 1398.0991 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-03-01 16:22:32.378 -03:00 [Information] HTTP "GET" "/api/Perfil/GetModuloAll" responded 200 in 524.7229 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 18:56:33.871 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 187.5388 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 21:17:34.618 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetGridUnidadeInfraEstrutura" responded 200 in 100.8272 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 21:17:40.868 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 115.1600 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 21:17:45.838 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 45.6914 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 21:19:56.858 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 23.5842 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 22:49:34.584 -03:00 [Information] web api service is started.
+2020-03-01 22:51:42.788 -03:00 [Information] web api service is started.
+2020-03-01 22:51:58.565 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 1663.2727 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 22:53:04.811 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 68.2319 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 23:01:51.733 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 48.4325 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 23:04:33.571 -03:00 [Information] web api service is started.
+2020-03-01 23:05:11.289 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 1583.2173 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 23:05:49.785 -03:00 [Information] web api service is started.
+2020-03-01 23:07:48.042 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 1549.6457 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-01 23:14:13.386 -03:00 [Information] web api service is started.
+2020-03-01 23:38:46.376 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 1514.8823 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

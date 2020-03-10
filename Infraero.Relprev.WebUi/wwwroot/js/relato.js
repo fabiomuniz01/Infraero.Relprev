@@ -2,6 +2,7 @@
     el: "#form",
     data: {
         params: {
+            cpf: ""
         },
         loading: false
     },
@@ -10,23 +11,13 @@
         (function ($) {
 
             'use strict';
+            var $DtOcorrencia = $("#DtOcorrencia");
+            $DtOcorrencia.mask('00/00/0000', { reverse: false });
+            $('#DtOcorrencia').datepicker({
+	            format: "dd/mm/yyyy",
+	            language: "pt-BR"
+            });
 
-            if ($.isFunction($.fn['timepicker'])) {
-
-                $(function () {
-                    $('[data-plugin-timepicker]').each(function () {
-                        var $this = $(this),
-                            opts = {};
-
-                        var pluginOptions = $this.data('plugin-options');
-                        if (pluginOptions)
-                            opts = pluginOptions;
-
-                        $this.themePluginTimePicker(opts);
-                    });
-                });
-
-            }
 
             var $select = $(".select2").select2({
                 allowClear: true
@@ -52,13 +43,43 @@
                 $(this).trigger('blur');
             });
 
-            
+            $("#ddlEmpresa").change(function () {
+
+                var url = "GetUnidadeByIdEmpresa";
+
+                var ddlSource = "#ddlEmpresa";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function (data) {
+                        var items = '';
+                        $("#ddlUnidadeInfraestrutura").empty;
+                        $.each(data,
+                            function (i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlUnidadeInfraestrutura").html(items);
+                    });
+            });
+
+            var $numCpf = $("#cpf");
+            $numCpf.mask('000.000.000-00', { reverse: false });
+
+            var $numTel = $("#NumTelefoneRelator");
+            $numTel.mask('(00) 0000-0000');
+
             $("#form").validate({
                 rules: {
-                    
+                    "EndEmail": {
+                        required: true,
+                        email: true
+                    },
                 },
                 messages: {
-                    
+                    "EndEmail": {
+                        required: "Por favor informe o endereço eletrônico válido do usuário.",
+                        email: "Formato de e-mail inválido."
+                    },
                 },
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');

@@ -3,6 +3,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.CrossCutting.Filter;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
@@ -139,13 +140,13 @@ namespace Infraero.Relprev.WebUi
             // Register our user in role handler for security
             services.AddSingleton<IAuthorizationHandler, UserInRoleHandler>();
 
+            //Dependency Injection to obtain Configuration object ValidateReCaptchaAttribute
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddScoped<ValidateReCaptchaAttribute>();
+
             // Create an admins policy group for high level security requirements
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Admins", policy =>
-                    policy.Requirements.Add(new UserInRoleRequirement(UserRoles.Administrator)));
-
-
                 options.AddPolicy(ModuloAccess.Cadastros, policy =>
                     policy.RequireAssertion(context =>
                         context.User.IsInRole(UserRoles.Administrator)
@@ -155,9 +156,8 @@ namespace Infraero.Relprev.WebUi
                 options.AddPolicy(ModuloAccess.Relatos, policy =>
                     policy.RequireAssertion(context =>
                         context.User.IsInRole(UserRoles.Administrator)
+                        || context.User.IsInRole(UserRoles.GestorSgsoSite)
                         || context.User.IsInRole(UserRoles.UsuarioPublico)));
-
-                options.AddPolicy("EmployeeId", policy => policy.RequireClaim("EmployeeId"));
 
             });
 

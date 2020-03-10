@@ -36,22 +36,22 @@
                 $(this).trigger('blur');
             });
 
-            $("#ddlEmpresa").change(function () {
+            $("#ddlUnidadeInfraestrutura").change(function () {
 
-                var url = "GetUnidadeByIdEmpresa";
+                var url = "GetEmpresaByUnidade";
 
-                var ddlSource = "#ddlEmpresa";
+                var ddlSource = "#ddlUnidadeInfraestrutura";
 
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
                         var items = '';
-                        $("#ddlUnidadeInfraestrutura").empty;
+                        $("#ddlEmpresa").empty;
                         $.each(data,
                             function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
-                        $("#ddlUnidadeInfraestrutura").html(items);
+                        $("#ddlEmpresa").html(items);
                     });
             });
 

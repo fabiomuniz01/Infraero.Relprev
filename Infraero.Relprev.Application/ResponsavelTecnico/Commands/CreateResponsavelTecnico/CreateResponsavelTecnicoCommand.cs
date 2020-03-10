@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Common.Interfaces;
 using MediatR;
 
 namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico

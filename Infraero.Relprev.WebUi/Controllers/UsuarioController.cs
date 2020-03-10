@@ -54,10 +54,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Usuario", "Incluir")]
-        public ActionResult Create(int? notify, string message = null)
+        public ActionResult Create()
         {
-            //SetNotifyMessage(notify, message);
-
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
             var resultPerfil = ApiClientFactory.Instance.GetPerfilAll();
 

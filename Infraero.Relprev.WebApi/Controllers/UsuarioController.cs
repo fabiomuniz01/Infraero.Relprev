@@ -190,7 +190,10 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                var result = await Mediator.Send(new GetUsuarioByIdQuery { Id = id });
+                var usu = _userManager.FindByNameAsync(id);
+
+
+                var result = await Mediator.Send(new GetUsuarioByIdQuery { Id = usu.Result.Id });
                 return result;
             }
             catch (Exception e)
