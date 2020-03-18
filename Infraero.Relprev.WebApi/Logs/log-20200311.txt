@@ -1,0 +1,3 @@
+2020-03-11 15:23:41.309 -03:00 [Information] web api service is started.
+2020-03-11 15:24:02.675 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 2827.4257 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-03-11 18:47:36.850 -03:00 [Information] web api service is started.

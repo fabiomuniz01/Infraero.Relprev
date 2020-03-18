@@ -42,15 +42,18 @@
                                     <td>@Html.DisplayFor(modelItem => item.NumCnpj)</td>
                                     <td>@Html.DisplayFor(modelItem => item.NumTelefone)</td>
                                     <td>
-                                        <button type="button" class="mb-1 mt-1 mr-1 btn btn-xs btn-primary"
-                                                data-toggle="popover"
-                                                data-container="body"
-                                                data-placement="top"
-                                                title="Lista de Unidades Vinculadas"
-                                                data-html="true"
-                                                data-content="@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)">
-                                            <i class="fa fa-eye"></i> Ver todos
-                                        </button>
+                                        @if (!string.IsNullOrEmpty(item.NomUnidadeInfraestrutura))
+                                        {
+                                            <button type="button" class="mb-1 mt-1 mr-1 btn btn-xs btn-primary"
+                                                    data-toggle="popover"
+                                                    data-container="body"
+                                                    data-placement="top"
+                                                    title="Lista de Unidades Vinculadas"
+                                                    data-html="true"
+                                                    data-content="@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)">
+                                                <i class="fa fa-eye"></i> Ver todos
+                                            </button>
+                                        }
                                     </td>
                                     <td class="actions">
                                         <a data-toggle="tooltip" data-placement="top" title="Vincular" asp-action="Link" asp-controller="Empresa" asp-route-id="@item.CodEmpresa" class="on-default link-row"><i class="fa fa-link"></i></a>
@@ -111,6 +114,8 @@ Theme Version: 	2.0.0
                     type: 'error'
                 });
             }
+
+            
 
             /*
             Basic

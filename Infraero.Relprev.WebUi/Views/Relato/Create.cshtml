@@ -9,20 +9,19 @@
 
 <div class="row">
     <div class="col-lg-12">
+        @using (@Html.BeginForm("Create", "Relato", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+        {
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
 
-        <section class="card">
-            <header class="card-header">
-                <div class="card-actions">
-                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-                </div>
+                    <h2 class="card-title">Cadastrar Relato de Prevenção</h2>
 
-                <h2 class="card-title">Cadastrar Relato de Prevenção</h2>
-
-            </header>
-            <div class="card-body">
-                @using (@Html.BeginForm("Create", "Relato", FormMethod.Post, new { id = "form" }))
-                {
+                </header>
+                <div class="card-body">
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura (Infrastructure unit) <span class="required">*</span></label>
                         <div class="col-lg-9">
@@ -119,91 +118,77 @@
                             <input type="text" name="NomEmpresaRelator" class="form-control" placeholder="eg.: Nome da empresa do relator" maxlength="100" />
                         </div>
                     </div>
-                }
+                    <div class="form-group row">
+                        <label asp-for="ListArquivo" class="col-sm-3 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <input multiple="" asp-for="ListArquivo" id="custom-file-input">
+                        </div>
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-lg-3 control-label text-lg-right pt-2">
-                        Nome do arquivo (File name)
-                    </label>
-                    <div class="col-lg-6">
-                        @*<div class="fileupload fileupload-new" data-provides="fileupload">
-                                <div class="input-append">
-                                    <div class="uneditable-input">
-                                        <i class="fa fa-file fileupload-exists"></i>
-                                        <span class="fileupload-preview"></span>
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <table id="arquivosDatatable" class="table table-responsive-md table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Arquivo</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                @*<tbody>
+
+                    <tr>
+                        <td><label class="custom-file-label">Choose File...</label></td>
+                        <td>
+
+                            <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="DeleteArquivo" asp-controller="Relato" asp-route-id="1" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>*@
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <section class="card">
+                                <header class="card-header">
+                                    <div class="card-actions">
+                                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
                                     </div>
-                                    <span class="btn btn-default btn-file">
-                                        <span class="fileupload-exists">Alterar</span>
-                                        <span class="fileupload-new">Selecione o arquivo</span>
-                                        <input type="file" />
-                                    </span>
-                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remover</a>
-                                    <button class="btn btn-default fileupload-exists" type="button">Upload File</button>
+
+                                    <h2 class="card-title">Arquivos</h2>
+                                </header>
+                                <div class="card-body">
+                                    <form action="/upload" class="dropzone dz-square" id="dropzone-example"></form>
                                 </div>
-                            </div>*@
-                        <form asp-controller="Relato" asp-action="UploadFile" method="post"
-                              enctype="multipart/form-data">
+                            </section>
+                        </div>
+                    </div>
 
-                            <input type="file" name="file" />
-                            <button type="submit">Anexar Arquivo</button>
-                        </form>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Código (Captcha)</label>
+                        <div class="g-recaptcha" data-sitekey="@(configuration["ReCaptcha:SiteKey"])"></div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 control-label text-sm-right pt-2"></label>
-                    <div class="col-sm-9">
-                        <table class="table table-responsive-md table-striped mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Arquivo</th>
-                                    <th>Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>atendimento.png</td>
-                                    <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>relato.png</td>
-                                    <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>atendimento.png</td>
-                                    <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" href="#modalIcon" class="modal-basic on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <footer class="card-footer">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-9">
+                            <button class="btn  btn-success pull-left mr-2" form="form" type="submit">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <a href="@Url.Action("Index", "SubLocal")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
+                        </div>
                     </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label class="col-lg-3 control-label text-sm-right pt-2">Código (Captcha)</label>
-                    <div class="g-recaptcha" data-sitekey="@(configuration["ReCaptcha:SiteKey"])"></div>
-                </div>
-            </div>
-            <footer class="card-footer">
-                <div class="row justify-content-end">
-                    <div class="col-sm-9">
-                        <button class="btn  btn-success pull-left mr-2" form="form" type="submit">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                        <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
-                        <a href="@Url.Action("Index", "SubLocal")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
-
-                    </div>
-                </div>
-            </footer>
-        </section>
+                </footer>
+            </section>
+        }
     </div>
 </div>
 @section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
     <link href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
     <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
@@ -212,6 +197,8 @@
 
 }
 @section Scripts {
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="~/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
@@ -221,6 +208,13 @@
     <script src="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
     <script src="~/js/relato.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+    <script>
+
+    </script>
+
+
 }
 
 

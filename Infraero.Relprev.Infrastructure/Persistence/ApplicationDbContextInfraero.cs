@@ -56,6 +56,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public virtual DbSet<SubAssunto> SubAssunto { get; set; }
         public DbSet<VinculoUnidadeEmpresa> VinculoUnidadeEmpresa { get; set; }
         public DbSet<Modulo> Modulo { get; set; }
+        public DbSet<Arquivo> Arquivo { get; set; }
 
 
 
@@ -67,7 +68,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence
 
 
         public virtual DbSet<Ambiente> Ambiente { get; set; }
-        public virtual DbSet<AnexoRelato> AnexoRelato { get; set; }
         public virtual DbSet<AtribuicaoRelato> AtribuicaoRelato { get; set; }
         public virtual DbSet<ContratoUtilizacaoSistema> ContratoUtilizacaoSistema { get; set; }
         public virtual DbSet<EmpresaLocalidade> EmpresaLocalidade { get; set; }

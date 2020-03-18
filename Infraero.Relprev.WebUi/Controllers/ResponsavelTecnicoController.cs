@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
+using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -54,17 +59,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
         public JsonResult GetEmpresaByUnidade(int id)
         {
-            var result = ApiClientFactory.Instance.GetEmpresaAll();
+            var result4 = ApiClientFactory.Instance.GetVinculoUnidadeEmpresaAll();
 
-            var result2 = result.Where(x=>x.)
+            var result5 = result4
+                .Where(x => x.CodUnidadeInfraestrutura == id)
+                .Select(s => new EmpresaDto { 
+                    CodEmpresa = s.CodEmpresa,
+                    NomRazaoSocial = s.NomEmpresa 
+                }).ToList();
 
+            result5.Insert(0, new EmpresaDto { CodEmpresa = 0, NomRazaoSocial = "Selecionar Empresa" });
 
-                //.FirstOrDefault(x => x.CodEmpresa == id)
-                //.VinculoUnidadeEmpresaList.ToList().Select(s => new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura, NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura }).ToList();
-
-            //result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = 0, NomUnidadeÌnfraestrutura = "Selecionar Unidade de infraestrutura" });
-
-            return Json(new SelectList(result, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"));
+            return Json(new SelectList(result5, "CodEmpresa", "NomRazaoSocial"));
         }
 
         [ClaimsAuthorize("ResponsavelTecnico", "Incluir")]
@@ -101,23 +107,27 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             ResponsavelTecnicoModel model = null;
 
+            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.Identity.Name);
+
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
+
             var obj = ApiClientFactory.Instance.GetResponsavelTecnicoById(id);
 
             if (obj == null) return View(model);
-            var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
+            var result4 = ApiClientFactory.Instance.GetVinculoUnidadeEmpresaAll();
 
-            var resultUnidade = resultEmpresa.FirstOrDefault(x => x.CodEmpresa == obj.CodEmpresa)
-                ?.VinculoUnidadeEmpresaList.Select(s => new UnidadeInfraEstruturaDto
+            var result5 = result4
+                .Where(x => x.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
+                .Select(s => new EmpresaDto
                 {
-                    CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura,
-                    NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura
-                });
-
+                    CodEmpresa = s.CodEmpresa,
+                    NomRazaoSocial = s.NomEmpresa
+                }).ToList();
 
             model = new ResponsavelTecnicoModel
             {
-                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura", obj.CodUnidadeInfraestrutura),
-                ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial", obj.CodEmpresa),
+                ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial"),
                 ResponsavelTecnico = obj
             };
 

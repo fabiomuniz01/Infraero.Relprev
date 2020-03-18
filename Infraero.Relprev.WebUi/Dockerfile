@@ -1,14 +1,17 @@
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-nanoserver-1809 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-nanoserver-1809 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
 COPY ["Infraero.Relprev.WebUi/Infraero.Relprev.WebUi.csproj", "Infraero.Relprev.WebUi/"]
+COPY ["Infraero.Relprev.CoreApiClient/Infraero.Relprev.CoreApiClient.csproj", "Infraero.Relprev.CoreApiClient/"]
+COPY ["Infraero.Relprev.Application/Infraero.Relprev.Application.csproj", "Infraero.Relprev.Application/"]
+COPY ["Infraero.Relprev.Domain/Infraero.Relprev.Domain.csproj", "Infraero.Relprev.Domain/"]
+COPY ["Infraero.Relprev.CrossCutting/Infraero.Relprev.CrossCutting.csproj", "Infraero.Relprev.CrossCutting/"]
+COPY ["Infraero.Relprev.Infrastructure/Infraero.Relprev.Infrastructure.csproj", "Infraero.Relprev.Infrastructure/"]
 RUN dotnet restore "Infraero.Relprev.WebUi/Infraero.Relprev.WebUi.csproj"
 COPY . .
 WORKDIR "/src/Infraero.Relprev.WebUi"

@@ -50,6 +50,12 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceVinculoUnidadeEmpresa}/GetVinculoUnidadeEmpresaById/{id}"));
             return Get<VinculoUnidadeEmpresaDto>(requestUrl);
         }
+        public Task<VinculoUnidadeEmpresaDto> ExistVinculo(CreateVinculoUnidadeEmpresaCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceVinculoUnidadeEmpresa}/ExistVinculo"));
+            return PostAsync<VinculoUnidadeEmpresaDto, CreateVinculoUnidadeEmpresaCommand>(requestUrl, command);
+        }
 
         #endregion
 

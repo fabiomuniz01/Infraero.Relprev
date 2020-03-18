@@ -7,10 +7,7 @@ namespace Infraero.Relprev.Domain.Entities
 {
     public partial class AtribuicaoRelato : AuditableEntity
     {
-        public AtribuicaoRelato()
-        {
-            AnexoRelato = new HashSet<AnexoRelato>();
-        }
+        
 
         [Key]
         public int CodAtribuicaoRelato { get; set; }
@@ -27,6 +24,5 @@ namespace Infraero.Relprev.Domain.Entities
         public virtual ResponsavelTecnico CodResponsavelTecnicoNavigation { get; set; }
         public virtual SituacaoAtribuicaoRelato CodSituacaoAtribuicaoNavigation { get; set; }
         public virtual Usuario CodUsuarioAtribuidorNavigation { get; set; }
-        public virtual ICollection<AnexoRelato> AnexoRelato { get; set; }
     }
 }

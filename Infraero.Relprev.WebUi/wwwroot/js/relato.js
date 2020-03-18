@@ -10,14 +10,42 @@
         var self = this;
         (function ($) {
 
+	        
+
             'use strict';
             var $DtOcorrencia = $("#DtOcorrencia");
             $DtOcorrencia.mask('00/00/0000', { reverse: false });
             $('#DtOcorrencia').datepicker({
 	            format: "dd/mm/yyyy",
-	            language: "pt-BR"
+	            todayBtn: "linked",
+	            language: "pt-BR",
+	            orientation: "bottom left",
+	            autoclose: true
             });
 
+            $('#custom-file-input').on("change", function () {
+
+	            var files = $(this)[0].files;
+
+                $('#arquivosDatatable').DataTable({
+                    data: files,
+		            "columns": [
+			            { "data": "name" },
+			            {
+				            "data": null,
+				            "sortable": false,
+				            "render": function (c) {
+					            return "<a style='color:#eea236' href='javascript:(crud.editModal(" +
+						            c.Id +
+						            "))'><i class='fa fa-pencil'></i></a>&nbsp;&nbsp; " +
+						            "<a style='color:#d43f3a' href='javascript:(crud.deleteModal(" +
+						            c.Id +
+						            "))'><i class='fa fa-trash'></i></a>";
+				            }
+			            }
+		            ]
+	            });
+            });
 
             var $select = $(".select2").select2({
                 allowClear: true
@@ -145,3 +173,55 @@
     }
 });
 
+function UploadFile() {
+
+	var fileUpload = $("#files").get(0);
+
+	var files = fileUpload.files;
+
+	var data = new FormData();
+
+	data.append(files[0].name, files[0]);
+
+	$.ajax({
+
+		type: "POST",
+
+		url: "UploadFile",
+
+		contentType: false,
+
+		processData: false,
+
+		data: data,
+
+		async: false,
+
+		beforeSend: function () {
+
+			$("#divloader").show()
+
+		},
+
+		success: function (message) {
+
+			alert(message);
+			$('input[name="hidenFile"]').val(message);
+
+		},
+
+		error: function () {
+
+			alert("Error!");
+
+		},
+
+		complete: function () {
+
+			$("#divloader").hide()
+
+		}
+
+	});
+
+}

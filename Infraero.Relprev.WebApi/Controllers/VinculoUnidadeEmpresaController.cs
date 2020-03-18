@@ -75,5 +75,40 @@ namespace Infraero.Relprev.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet("GetVinculoUnidadeEmpresaAll")]
+        public async Task<List<VinculoUnidadeEmpresaDto>> GetVinculoUnidadeEmpresaAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetVinculoUnidadeEmpresaAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+        [HttpPost("ExistVinculo")]
+        public async Task<VinculoUnidadeEmpresaDto> ExistVinculo([FromBody]CreateVinculoUnidadeEmpresaCommand command)
+        {
+            try
+            {
+                var result = await Mediator.Send(new ExistVinculoQuery {
+                    CodUnidadeInfraestrutura = command.CodUnidadeInfraestrutura,
+                    CodEmpresa = command.CodEmpresa
+                });
+                return await Task.FromResult(result == null ? new VinculoUnidadeEmpresaDto() : new VinculoUnidadeEmpresaDto { CodVinculoUnidadeEmpresa =  result.CodVinculoUnidadeEmpresa });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
     }
 }

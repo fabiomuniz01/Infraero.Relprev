@@ -12,10 +12,12 @@ using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Models;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -23,16 +25,19 @@ namespace Infraero.Relprev.WebUi.Controllers
     public class RelatoController : Controller
     {
         private readonly IOptions<SettingsModel> _appSettings;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public RelatoController(IOptions<SettingsModel> app)
+        public RelatoController(IOptions<SettingsModel> app, IHostingEnvironment hostingEnvironment)
         {
             _appSettings = app;
+            _hostingEnvironment = hostingEnvironment;
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
         [ClaimsAuthorize("Relatos", "Consultar")]
         public ActionResult Create()
         {
+
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll(); 
 
             var model = new RelatoModel
@@ -42,39 +47,106 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             return View(model);
         }
-        [ClaimsAuthorize("Relatos", "Consultar")]
+        //[ClaimsAuthorize("Relatos", "Consultar")]
+        //[HttpPost]
+        //public async Task<IActionResult> UploadFile(IFormFile file)
+        //{
+        //    if (file == null || file.Length == 0)
+        //        return Content("file not selected");
+
+        //    var path = Path.Combine(
+        //        Directory.GetCurrentDirectory(), "wwwroot",
+        //        file.GetFilename());
+
+        //    using (var stream = new FileStream(path, FileMode.Create))
+        //    {
+        //        await file.CopyToAsync(stream);
+        //    }
+
+        //    //neste momento salvamos o arquivo no banco e na pasta do projeto
+
+        //    // Otherwise, don't return anything
+        //    return null;
+        //}
+
         [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public string UploadFile()
         {
-            if (file == null || file.Length == 0)
-                return Content("file not selected");
+            string result = string.Empty;
 
-            var path = Path.Combine(
-                Directory.GetCurrentDirectory(), "wwwroot",
-                file.GetFilename());
+            try
+                {
 
-            using (var stream = new FileStream(path, FileMode.Create))
+                long size = 0;
+
+                var file = Request.Form.Files;
+
+                var filename = ContentDispositionHeaderValue
+
+                    .Parse(file[0].ContentDisposition)
+
+                    .FileName
+
+                    .Trim();
+
+                string FilePath = _hostingEnvironment.WebRootPath + $@"\{ filename}";
+
+                size += file[0].Length;
+
+                using (FileStream fs = System.IO.File.Create(FilePath))
+                    {
+
+                    file[0].CopyTo(fs);
+
+                    fs.Flush();
+                    }
+
+
+
+                result = FilePath;
+                }
+            catch (Exception ex)
             {
-                await file.CopyToAsync(stream);
-            }
+                result = ex.Message;
+                }
 
-            //neste momento salvamos o arquivo no banco e na pasta do projeto
+            return result;
 
-            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Relato
-        [HttpPost]
+    
+
+    // GET: Relato
+    [HttpPost]
         [ValidateAntiForgeryToken]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Create(IFormCollection collection)
         {
             try
             {
-                
 
+                var file = collection.Files[0];
 
+                if (file == null || file.Length == 0)
+                {
+                    return Content("file not selected");
+                }
 
+                string extension = Path.GetExtension(file.FileName);
+
+                var uniqueName = Guid.NewGuid().ToString() + extension;
+
+                var realName = file.GetFilename();
+
+                var nome_arquivo = uniqueName;
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot\\pdf",
+                    nome_arquivo);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
 
                 var command = new CreateRelatoCommand
                 {
@@ -85,7 +157,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscOcorrenciaRelator = collection["DscOcorrenciaRelator"].ToString(),
                     DscRelato = collection["DscOcorrenciaRelator"].ToString(),
                     NomRelator = collection["NomRelator"].ToString(),
-                    EmailRelator  = collection["EmailRelator"].ToString(),
+                    EmailRelator = collection["EmailRelator"].ToString(),
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString()
                 };
@@ -98,6 +170,48 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return View();
             }
+        }
+        [Route("Infusao/Download/{filename}")]
+        public async Task<IActionResult> Download(string filename)
+        {
+            if (filename == null)
+                return Content("filename not present");
+
+            var path = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot\\Arquivos", filename);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, GetContentType(path), Path.GetFileName(path));
+        }
+        private string GetContentType(string path)
+        {
+            var types = GetMimeTypes();
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return types[ext];
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".txt", "text/plain"},
+                {".pdf", "application/pdf"},
+                {".doc", "application/vnd.ms-word"},
+                {".docx", "application/vnd.ms-word"},
+                {".xls", "application/vnd.ms-excel"},
+                {".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+                {".png", "image/png"},
+                {".jpg", "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".gif", "image/gif"},
+                {".csv", "text/csv"}
+            };
         }
         public ActionResult Index()
         {

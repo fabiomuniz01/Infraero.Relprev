@@ -42,6 +42,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             SetCrudMessage(crud);
 
+            
+
             var response = ApiClientFactory.Instance.GetGridEmpresa();
             return View(response);
         }
@@ -151,8 +153,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Empresa", "Consultar")]
-        public ActionResult Link(int id)
+        public ActionResult Link(int id, string message = null)
         {
+            if (!string.IsNullOrEmpty(message))
+            {
+                SetNotifyMessage((int)EnumNotify.Error, message);
+            }
+            else
+            {
+                ViewBag.NotifyMessage = -1;
+                ViewBag.Notify = "null";
+            }
+
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
             var resultVinculo = ApiClientFactory.Instance.GetGridVinculoUnidadeEmpresa();
@@ -167,12 +179,14 @@ namespace Infraero.Relprev.WebUi.Controllers
                 GridVinculoUnidadeEmpresa = resultVinculo
             };
 
+            
+
             return View(model);
         }
 
         [ClaimsAuthorize("Empresa", "Incluir")]
         [HttpPost]
-        public ActionResult Link(int id, IFormCollection collection)
+        public async Task<ActionResult> Link(int id, IFormCollection collection)
         {
             try
             {
@@ -183,13 +197,24 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodEmpresa = id,
                     NomEmpresa = collection["empresa"].ToString()
                 };
-                ApiClientFactory.Instance.CreateVinculoUnidadeEmpresa(command);
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+                var result = await ApiClientFactory.Instance.ExistVinculo(command);
+
+                if (result.CodVinculoUnidadeEmpresa == 0)
+                {
+                    ApiClientFactory.Instance.CreateVinculoUnidadeEmpresa(command);
+
+                    return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Link), new { id, message = "Já existe um vinculo com esta unidade para esta empresa." });
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(ex.Message);
+
             }
         }
 

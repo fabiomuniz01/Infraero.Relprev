@@ -36,6 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraero.Relprev.WebApi", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraero.Relprev.CoreApiClient", "Infraero.Relprev.CoreApiClient\Infraero.Relprev.CoreApiClient.csproj", "{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{771C228A-8464-42AF-A3B9-400A5BD9F0B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,14 @@ Global
 		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Release|x86.ActiveCfg = Release|Any CPU
 		{C4A039DB-7B7F-4FCE-958E-86AF44CA1AED}.Release|x86.Build.0 = Release|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Debug|x86.Build.0 = Debug|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{771C228A-8464-42AF-A3B9-400A5BD9F0B5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

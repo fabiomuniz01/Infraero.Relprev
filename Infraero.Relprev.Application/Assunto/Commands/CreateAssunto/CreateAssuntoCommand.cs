@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Infraero.Relprev.Application.Assunto.Commands.CreateAssunto
 {
@@ -38,5 +39,6 @@ namespace Infraero.Relprev.Application.Assunto.Commands.CreateAssunto
 
         public string CriadoPor { get; set; }
         public string DscAssunto { get; set; }
+        public IFormFile Arquivo { get; set; }
     }
 }

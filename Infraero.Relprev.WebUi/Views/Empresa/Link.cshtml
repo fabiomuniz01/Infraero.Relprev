@@ -10,58 +10,58 @@
     <div class="col-lg-12">
         @using (@Html.BeginForm("Link", "Empresa", FormMethod.Post, new { id = "form" }))
         {
-            <section class="card">
-                <header class="card-header">
-                    <div class="card-actions">
-                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-                    </div>
-
-                    <h2 class="card-title">Vincular Unidades de Infraestrutura a Empresas / Órgão Público</h2>
-
-                </header>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Empresa de Atendimento <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="empresa" value="@Model.Empresa.NomRazaoSocial" class="form-control" placeholder="eg.: Nome da empresa de atendimento de relatos" readonly />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">CPNJ <span class="required">*</span> </label>
-                        <div class="col-sm-9">
-                            <input type="text" name="cnpj" value="@Model.Empresa.NumCnpj" class="form-control" placeholder="eg.: CNPJ da empresa de atendimento" maxlength="18" readonly />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Unidades de infraestrutura <span class="required">*</span></label>
-                        <div class="col-lg-9">
-                            <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
-                                    title="Por favor selecione uma unidade de infraestrutura." required
-                                    asp-for="CodUnidadeInfraestrutura"
-                                    asp-items="Model.ListUnidadeInfraestrutura">
-                                <option value="0">Selecionar Unidade de infraestrutura</option>
-                            </select>
-                        </div>
-                    </div>
-                    @*<div class="form-group row">
-                            <label class="col-sm-3 control-label text-sm-right pt-2">Tipo de ação <span class="required">*</span></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ação" maxlength="30" required />
-                            </div>
-                        </div>*@
+        <section class="card">
+            <header class="card-header">
+                <div class="card-actions">
+                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
                 </div>
-                <footer class="card-footer">
-                    <div class="row justify-content-end">
-                        <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left mr-2" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button type="reset" class="btn btn-danger pull-left mr-2 " v-on:click="CancelarEdit">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
-                            <a href="@Url.Action("Index", "Empresa")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
-                        </div>
+                <h2 class="card-title">Vincular Unidades de Infraestrutura a Empresas / Órgão Público</h2>
+
+            </header>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-sm-right pt-2">Empresa de Atendimento <span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="empresa" value="@Model.Empresa.NomRazaoSocial" class="form-control" placeholder="eg.: Nome da empresa de atendimento de relatos" readonly />
                     </div>
-                </footer>
-            </section>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-sm-right pt-2">CPNJ <span class="required">*</span> </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="cnpj" value="@Model.Empresa.NumCnpj" class="form-control" placeholder="eg.: CNPJ da empresa de atendimento" maxlength="18" readonly  required title="teste"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-sm-right pt-2">Unidades de infraestrutura <span class="required">*</span></label>
+                    <div class="col-lg-9">
+                        <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
+                                title="Por favor selecione uma unidade de infraestrutura." required
+                                asp-for="CodUnidadeInfraestrutura"
+                                asp-items="Model.ListUnidadeInfraestrutura">
+                            <option value="">Selecionar Unidade de infraestrutura</option>
+                        </select>
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Tipo de ação <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ação" maxlength="30" required />
+                        </div>
+                    </div>*@
+            </div>
+            <footer class="card-footer">
+                <div class="row justify-content-end">
+                    <div class="col-sm-9">
+                        <button class="btn  btn-success pull-left mr-2" style="margin-right: 10px;">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                        <button type="reset" class="btn btn-danger pull-left mr-2 " v-on:click="CancelarEdit">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                        <a href="@Url.Action("Index", "Empresa")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
+
+                    </div>
+                </div>
+            </footer>
+        </section>
         }
     </div>
 </div>
@@ -69,70 +69,46 @@
     <div class="col-lg-12">
         @using (@Html.BeginForm("Link", "Empresa", FormMethod.Post))
         {
-            <section class="card">
-                <header class="card-header">
-                    <div class="card-actions">
-                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-                    </div>
-
-                    <h2 class="card-title">Vincular Unidades de Infraestrutura a Empresas / Órgão Público</h2>
-
-                </header>
-                <div class="card-body">
-                    <table class="table table-bordered table-striped mb-0" id="datatable-default">
-                        <thead>
-                            <tr>
-                                <th>Empresa/ Órgão Público</th>
-                                <th>Unidade de infraestrutura</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.GridVinculoUnidadeEmpresa.aaData)
-                            {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.NomEmpresa)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
-                                    <td class="actions">
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="DeleteLink" asp-controller="Empresa" asp-route-id="@item.CodVinculoUnidadeEmpresa" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+        <section class="card">
+            <header class="card-header">
+                <div class="card-actions">
+                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
                 </div>
 
-            </section>
+                <h2 class="card-title">Lista de Unidades Vinculadas</h2>
+
+            </header>
+            <div class="card-body">
+                <table class="table table-bordered table-striped mb-0" id="datatable-default">
+                    <thead>
+                        <tr>
+                            <th>Empresa/ Órgão Público</th>
+                            <th>Unidade de infraestrutura</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.GridVinculoUnidadeEmpresa.aaData)
+                            {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.NomEmpresa)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
+                            <td class="actions">
+                                <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="DeleteLink" asp-controller="Empresa" asp-route-id="@item.CodVinculoUnidadeEmpresa" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
         }
     </div>
 </div>
 
-<div id="modalIcon" class="modal-block modal-header-color modal-block-danger mfp-hide">
-    <section class="card">
-        <header class="card-header">
-            <h2 class="card-title">Exclusão</h2>
-        </header>
-        <div class="card-body">
-            <div class="modal-wrapper">
-                <div class="modal-icon">
-                    <i class="fa fa-question-circle"></i>
-                </div>
-                <div class="modal-text">
-                    <p class="mb-0">Tem certeza que deseja <b>excluir</b> esse registro?</p>
-                </div>
-            </div>
-        </div>
-        <footer class="card-footer">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-success modal-confirm">Sim &nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i></button>
-                    <button class="btn btn-danger modal-dismiss">Não &nbsp;&nbsp;<i class="fa fa-thumbs-o-down"></i></button>
-                </div>
-            </div>
-        </footer>
-    </section>
-</div>
+
 @section CssSpecificVendor {
     <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
     <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
@@ -144,7 +120,7 @@
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
     <script src="~/js/formatTable.js"></script>
-    <script src="~/js/empresa.js"></script>
+
 
     <script>
 
@@ -152,6 +128,28 @@
         (function ($) {
 
             'use strict';
+            var notify = @ViewBag.NotifyMessage;
+            var messagem = '@ViewBag.Notify';
+
+            if (notify===0) {
+                new PNotify({
+                    title: 'Vinculo',
+                    text: messagem,
+                    type: 'success'
+                });
+            }else if (notify === 1) {
+                new PNotify({
+                    title: 'Vinculo',
+                    text: messagem,
+                    type: 'warning'
+                });
+            }else if (notify === 2) {
+                new PNotify({
+                    title: 'Vinculo',
+                    text: messagem,
+                    type: 'error'
+                });
+            }
 
             var $select = $(".select2").select2({
                 allowClear: true
@@ -169,16 +167,20 @@
             });
 
             /*
-     * When you change the value the select via select2, it triggers
-     * a 'change' event, but the jquery validation plugin
-     * only re-validates on 'blur'*/
+             * When you change the value the select via select2, it triggers
+             * a 'change' event, but the jquery validation plugin
+             * only re-validates on 'blur'*/
 
             $select.on('change', function () {
                 $(this).trigger('blur');
             });
 
 
+
+
+
             $("#form").validate({
+
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },
@@ -196,6 +198,7 @@
                     }
                 }
             });
+
 
         }).apply(this, [jQuery]);
 

@@ -21,6 +21,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
             {
                 var entity = new Domain.Entities.Relato
                 {
+
                     DatOcorrencia = request.DatOcorrencia,
                     HorOcorrencia = request.HorOcorrencia,
                     DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
