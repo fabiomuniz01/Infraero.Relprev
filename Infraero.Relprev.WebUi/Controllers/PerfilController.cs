@@ -46,7 +46,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var responseModulos = ApiClientFactory.Instance.GetModuloAll();
 
-            var model = new PerfilModel{ListModulo = responseModulos};
+            var model = new PerfilModel {ListModulo = responseModulos};
             return View(model);
         }
 
@@ -62,7 +62,8 @@ namespace Infraero.Relprev.WebUi.Controllers
                 foreach (var modulo in responseModulos)
                 {
                     var ListFuncionalidades = modulo.ListFuncionalidades.FirstOrDefault().NomFuncionalidade.Split(',');
-                    var listValue = ListFuncionalidades.Where(func => collection[modulo.NomModulo + func].ToString() == "on").ToList();
+                    var listValue = ListFuncionalidades
+                        .Where(func => collection[modulo.NomModulo + func].ToString() == "on").ToList();
                     list.Add(modulo.NomModulo, string.Join(",", listValue));
                 }
 
@@ -74,7 +75,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 ApiClientFactory.Instance.CreatePerfil(command);
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+                return RedirectToAction(nameof(Index), new {crud = (int) EnumCrud.Created});
             }
             catch (Exception e)
             {
@@ -87,14 +88,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var obj = ApiClientFactory.Instance.GetPerfilById(id);
             var responseModulos = ApiClientFactory.Instance.GetModuloAll();
-            
+
             var listClaim = new List<Claim>();
 
             foreach (DictionaryEntry item in obj.ListClaims)
             {
-                listClaim.Add(new Claim(item.Key.ToString(),item.Value.ToString()));
+                listClaim.Add(new Claim(item.Key.ToString(), item.Value.ToString()));
             }
-
 
 
             var model = new PerfilModel {Perfil = obj, ListModulo = responseModulos, ListClaim = listClaim};
@@ -113,10 +113,11 @@ namespace Infraero.Relprev.WebUi.Controllers
                 foreach (var modulo in responseModulos)
                 {
                     var ListFuncionalidades = modulo.ListFuncionalidades.FirstOrDefault().NomFuncionalidade.Split(',');
-                    var listValue = ListFuncionalidades.Where(func => collection[modulo.NomModulo + func].ToString() == "on").ToList();
+                    var listValue = ListFuncionalidades
+                        .Where(func => collection[modulo.NomModulo + func].ToString() == "on").ToList();
                     list.Add(modulo.NomModulo, string.Join(",", listValue));
                 }
-                
+
                 var command = new UpdatePerfilCommand
                 {
                     CodPerfil = id,
@@ -125,7 +126,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 };
                 ApiClientFactory.Instance.UpdatePerfil(command);
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+                return RedirectToAction(nameof(Index), new {crud = (int) EnumCrud.Updated});
             }
             catch
             {
@@ -138,16 +139,14 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                ApiClientFactory.Instance.DeletePerfil(new DeletePerfilCommand { CodPerfil = id});
+                ApiClientFactory.Instance.DeletePerfil(new DeletePerfilCommand {CodPerfil = id});
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });
+                return RedirectToAction(nameof(Index), new {crud = (int) EnumCrud.Deleted});
             }
             catch
             {
                 return RedirectToAction(nameof(Index));
             }
         }
-
-        
     }
 }

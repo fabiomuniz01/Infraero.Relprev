@@ -3,6 +3,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.CrossCutting.Configuration;
 using Infraero.Relprev.CrossCutting.Filter;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -72,6 +73,8 @@ namespace Infraero.Relprev.WebUi
             services.AddOptions();
             // Load SendGrid settings from appsettings.json
             services.Configure<SendGridSettings>(Configuration.GetSection("SendGrid"));
+            // Load SendGrid settings from appsettings.json
+            services.Configure<SmtpClientSettings>(Configuration.GetSection("SmtpClient"));
             services.AddSingleton(Configuration);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();

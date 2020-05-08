@@ -1,0 +1,11 @@
+2020-04-13 19:25:50.970 -03:00 [Information] web api service is started.
+2020-04-13 19:29:19.961 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 3550.5462 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 19:36:43.015 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 69.9244 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:06:04.824 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 62.9067 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:26:02.036 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 36.3417 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:37:09.024 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 24.5546 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:37:14.419 -03:00 [Information] HTTP "GET" "/api/Assunto/GetAssuntoById/1" responded 200 in 134.1119 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:39:01.890 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 28.0235 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:54:38.499 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 33.9382 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:54:58.444 -03:00 [Information] HTTP "POST" "/api/Assunto/CreateAssunto" responded 200 in 258.0840 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-04-13 20:54:58.707 -03:00 [Information] HTTP "GET" "/api/Assunto/GetGridAssunto" responded 200 in 15.7838 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

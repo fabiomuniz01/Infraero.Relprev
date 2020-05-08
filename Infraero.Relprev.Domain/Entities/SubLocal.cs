@@ -15,8 +15,5 @@ namespace Infraero.Relprev.Domain.Entities
         [ForeignKey("CodLocal")]
         public Local Local { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-
-        [ForeignKey("CodUnidadeInfraestrutura")]
-        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
     }
 }

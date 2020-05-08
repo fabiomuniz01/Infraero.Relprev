@@ -11,5 +11,7 @@ namespace Infraero.Relprev.Domain.Common
         public string AlteradoPor { get; set; }
 
         public DateTime? DataAlteracao { get; set; }
+
+        public bool FlagAtivo { get; set; }
     }
 }
