@@ -31,8 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj" />
-    <ProjectReference Include="..\Infraero.Relprev.Infrastructure\Infraero.Relprev.Infrastructure.csproj" />
+    <ProjectReference Include="..\Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj">
+      <Private>true</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Infraero.Relprev.Infrastructure\Infraero.Relprev.Infrastructure.csproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

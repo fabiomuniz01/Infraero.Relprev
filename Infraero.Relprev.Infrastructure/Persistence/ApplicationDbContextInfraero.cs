@@ -46,15 +46,15 @@ namespace Infraero.Relprev.Infrastructure.Persistence
             return base.SaveChangesAsync(cancellationToken);
         }
 
-        public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
-        public DbSet<ResponsavelTecnico> ResponsavelTecnico { get; set; }
-        public DbSet<SubLocal> SubLocal { get; set; }
-        public DbSet<Local> Local { get; set; }
-        public virtual DbSet<Assunto> Assunto { get; set; }
         public DbSet<UnidadeInfraestrutura> UnidadeInfraestrutura { get; set; }
-        public virtual DbSet<SubAssunto> SubAssunto { get; set; }
         public DbSet<VinculoUnidadeEmpresa> VinculoUnidadeEmpresa { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<ResponsavelTecnico> ResponsavelTecnico { get; set; }
+        public DbSet<Local> Local { get; set; }
+        public DbSet<SubLocal> SubLocal { get; set; }
+        public virtual DbSet<Assunto> Assunto { get; set; }
+        public virtual DbSet<SubAssunto> SubAssunto { get; set; }
         public DbSet<Modulo> Modulo { get; set; }
         public DbSet<Arquivo> Arquivo { get; set; }
 

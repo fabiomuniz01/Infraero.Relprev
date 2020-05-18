@@ -18,8 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infraero.Relprev.Application\Infraero.Relprev.Application.csproj" />
-    <ProjectReference Include="..\Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj" />
+    <ProjectReference Include="..\Infraero.Relprev.Application\Infraero.Relprev.Application.csproj">
+      <Private>true</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
