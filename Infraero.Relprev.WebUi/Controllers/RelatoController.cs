@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Filter;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -118,39 +119,44 @@ namespace Infraero.Relprev.WebUi.Controllers
 
     // GET: Relato
     [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Create(IFormCollection collection)
         {
             try
             {
-
-                var file = collection.Files[0];
-
-                if (file == null || file.Length == 0)
+               //var listArquivo = new Dict<Di>()
+                if (collection.Files.Count > 0)
                 {
-                    return Content("file not selected");
-                }
+                    var file = collection.Files[0];
 
-                string extension = Path.GetExtension(file.FileName);
+                    if (file == null || file.Length == 0)
+                    {
+                        return Content("file not selected");
+                    }
 
-                var uniqueName = Guid.NewGuid().ToString() + extension;
+                    string extension = Path.GetExtension(file.FileName);
 
-                var realName = file.GetFilename();
+                    var uniqueName = Guid.NewGuid().ToString() + extension;
 
-                var nome_arquivo = uniqueName;
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot\\pdf",
-                    nome_arquivo);
+                    var realName = file.GetFilename();
 
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
+                    var nome_arquivo = uniqueName;
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot\\pdf",
+                        nome_arquivo);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+
+                    }
                 }
 
                 var command = new CreateRelatoCommand
                 {
-                    DatOcorrencia = Convert.ToDateTime(collection["DatOcorrencia"].ToString()),
+                    CodUnidadeInfraestrutura= int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    DatOcorrencia = collection["DtOcorrencia"].ToString(),
                     HorOcorrencia = collection["HorOcorrencia"].ToString(),
                     DscEnvolvidosOcorrencia = collection["DscEnvolvidosOcorrencia"].ToString(),
                     DscLocalOcorrenciaRelator = collection["DscLocalOcorrenciaRelator"].ToString(),
@@ -159,16 +165,26 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NomRelator = collection["NomRelator"].ToString(),
                     EmailRelator = collection["EmailRelator"].ToString(),
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
-                    NomEmpresaRelator = collection["NomEmpresaRelator"].ToString()
+                    NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
+                    CriadoPor = User.Identity.Name
                 };
 
-                ApiClientFactory.Instance.CreateRelato(command);
+                await ApiClientFactory.Instance.CreateRelato(command);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception e)
             {
-                return View();
+                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+
+                var model = new RelatoModel
+                {
+                    ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                    
+                };
+
+               
+                return View(model);
             }
         }
         [Route("Infusao/Download/{filename}")]

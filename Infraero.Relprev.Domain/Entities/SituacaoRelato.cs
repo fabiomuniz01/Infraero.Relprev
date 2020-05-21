@@ -8,13 +8,11 @@ namespace Infraero.Relprev.Domain.Entities
     {
         public SituacaoRelato()
         {
-            Relato = new HashSet<Relato>();
         }
 
         [Key]
         public int CodSituacaoRelato { get; set; }
         public string DscSituacaoRelato { get; set; }
 
-        public virtual ICollection<Relato> Relato { get; set; }
     }
 }

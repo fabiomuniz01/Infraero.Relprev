@@ -24,8 +24,9 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodUnidadeInfraestrutura { get; set; }   
 
         [ForeignKey("CodRelato")]
-        public virtual ICollection<RelatoArquivo> Arquivos { get; set; }
+        public virtual ICollection<RelatoArquivo> ListArquivo { get; set; }
 
+        [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
     }
 }

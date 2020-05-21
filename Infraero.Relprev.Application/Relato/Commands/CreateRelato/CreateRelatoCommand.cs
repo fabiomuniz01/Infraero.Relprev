@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.Domain.Entities;
 using MediatR;
 
 namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
@@ -22,7 +24,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                 var entity = new Domain.Entities.Relato
                 {
 
-                    DatOcorrencia = request.DatOcorrencia,
+                    DatOcorrencia = Convert.ToDateTime(request.DatOcorrencia),
                     HorOcorrencia = request.HorOcorrencia,
                     DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
                     DscLocalOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
@@ -33,6 +35,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                     NumTelefoneRelator = request.NumTelefoneRelator,
                     NomEmpresaRelator = request.NomEmpresaRelator,
                     CriadoPor = request.CriadoPor,
+                    ListArquivo = request.ListArquivo,
                     DataCriacao = DateTime.Now
                 };
 
@@ -48,8 +51,8 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 
         public int CodRelato { get; set; }
         public string DscRelato { get; set; }
-        public DateTime DatOcorrencia { get; set; }
-        public String HorOcorrencia { get; set; }
+        public string DatOcorrencia { get; set; }
+        public string HorOcorrencia { get; set; }
 
         public string DscLocalOcorrenciaRelator { get; set; }
         public string DscEnvolvidosOcorrencia { get; set; }
@@ -60,5 +63,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         public string NomEmpresaRelator { get; set; }
 
         public int CodUnidadeInfraestrutura { get; set; }
+        public ICollection<RelatoArquivo> ListArquivo { get; private set; }
     }
 }

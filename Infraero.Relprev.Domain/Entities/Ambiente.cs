@@ -9,7 +9,6 @@ namespace Infraero.Relprev.Domain.Entities
     {
         public Ambiente()
         {
-            Relato = new HashSet<Relato>();
             SubAmbiente = new HashSet<SubAmbiente>();
         }
 
@@ -22,7 +21,6 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodLocalidade { get; set; }
 
         public virtual Local CodLocalidadeNavigation { get; set; }
-        public virtual ICollection<Relato> Relato { get; set; }
         public virtual ICollection<SubAmbiente> SubAmbiente { get; set; }
     }
 }

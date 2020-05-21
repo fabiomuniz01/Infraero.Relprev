@@ -36,6 +36,7 @@
                     <div class="form-group row">
                         <label class="col-lg-3 control-label text-lg-right pt-2">
                             Data da ocorrência (Date of occurrence)
+                            <span class="required">*</span>
                         </label>
                         <div class="col-lg-3">
                             <div class="input-group">
@@ -44,6 +45,7 @@
                                 </span>
                                 <input id="DtOcorrencia" name="DtOcorrencia"
                                        required
+                                       title="Por favor informe a data da ocorrência."
                                        style="z-index: auto;"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
                                        placeholder="__/__/____" class="form-control startdate">
@@ -52,13 +54,22 @@
 
                         <label class="col-lg-2 control-label text-lg-right pt-2">
                             Hora da ocorrência (Time of occurrence)
+                            <span class="required">*</span>
                         </label>
                         <div class="col-lg-3 pull-left">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </span>
-                                <input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }'>
+                                <input id="HorOcorrencia" name="HorOcorrencia"
+                                       type="text"
+                                       data-input-mask="99-99"
+                                       maxlength="5"
+                                       required
+                                       title="Por favor informe a hora da ocorrência."
+                                       data-plugin-timepicker
+                                       class="form-control"
+                                       data-plugin-options='{ "showMeridian": false }'>
                             </div>
                         </div>
                     </div>
@@ -67,7 +78,12 @@
                             Local da Ocorrência (Occurrence Location)<span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="DscLocalOcorrenciaRelator" class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  " required maxlength="200"></textarea>
+                            <textarea type="text" rows="3"
+                                      name="DscLocalOcorrenciaRelator"
+                                      class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  "
+                                      required
+                                      title="Por favor informe o local da ocorrência."
+                                      maxlength="200"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -75,7 +91,14 @@
                             Envolvidos na ocorrência (Involved in the occurrence)<span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="DscEnvolvidosOcorrencia" class="form-control" placeholder="eg.: Pessoas e / ou veículos envolvidos no relato" required maxlength="500"></textarea>
+                            <textarea type="text" 
+                                      rows="3" 
+                                      name="DscEnvolvidosOcorrencia" 
+                                      class="form-control" 
+                                      placeholder="eg.: Pessoas e / ou veículos envolvidos no relato" 
+                                      required 
+                                      title="Por favor informe o(s) envolvido(s) na ocorrência."
+                                      maxlength="500"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -83,7 +106,14 @@
                             Descrição da ocorrência (Occurrence description) <span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="DscOcorrenciaRelator" class="form-control" placeholder="eg.: Descrição da ocorrência do relato" required maxlength="1000"></textarea>
+                            <textarea type="text" 
+                                      rows="3" 
+                                      name="DscOcorrenciaRelator" 
+                                      class="form-control" 
+                                      placeholder="eg.: Descrição da ocorrência do relato" 
+                                      required 
+                                      title="Por favor informe uma descrição da ocorrência."
+                                      maxlength="1000"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -108,7 +138,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input id="NumTelefoneRelator" name="NumTelefoneRelator" placeholder="eg.: Telefone do Relator" class="form-control" maxlength="11">
+                                <input id="NumTelefoneRelator" name="NumTelefoneRelator" placeholder="eg.: Telefone do Relator" class="form-control" maxlength="15">
                             </div>
                         </div>
                     </div>
@@ -137,14 +167,14 @@
                                 </thead>
                                 @*<tbody>
 
-                    <tr>
-                        <td><label class="custom-file-label">Choose File...</label></td>
-                        <td>
+                                    <tr>
+                                        <td><label class="custom-file-label">Choose File...</label></td>
+                                        <td>
 
-                            <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="DeleteArquivo" asp-controller="Relato" asp-route-id="1" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>*@
+                                            <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="DeleteArquivo" asp-controller="Relato" asp-route-id="1" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>*@
                             </table>
 
                         </div>

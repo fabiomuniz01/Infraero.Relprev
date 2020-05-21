@@ -9,7 +9,6 @@ namespace Infraero.Relprev.Domain.Entities
     {
         public SubAmbiente()
         {
-            Relato = new HashSet<Relato>();
         }
 
         [Key]
@@ -21,6 +20,5 @@ namespace Infraero.Relprev.Domain.Entities
         public int? CodAmbiente { get; set; }
 
         public virtual Ambiente CodAmbienteNavigation { get; set; }
-        public virtual ICollection<Relato> Relato { get; set; }
     }
 }
