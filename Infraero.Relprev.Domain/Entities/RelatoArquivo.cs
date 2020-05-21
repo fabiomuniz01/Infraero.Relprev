@@ -12,9 +12,16 @@ namespace Infraero.Relprev.Domain.Entities
         [Key]
         public int CodRelatoArquivo { get; set; }
 
-
         public int CodRelato { get; set; }
-
-        public string Documento { get; set; }
+        public string NomeArquivo { get; set; }
+        public string Arquivo { get; set; }
+        public string Caminho { get; set; }
+        
+        public RelatoArquivo(string nomeArquivo, string arquivo, string caminho)
+        {
+            NomeArquivo = nomeArquivo;
+            Arquivo = arquivo;
+            Caminho = caminho;
+        }
     }
 }

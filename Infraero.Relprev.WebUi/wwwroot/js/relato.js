@@ -10,41 +10,86 @@
         var self = this;
         (function ($) {
 
-	        
+
 
             'use strict';
+            if ($.isFunction($.fn['timepicker'])) {
+
+                $(function () {
+                    $('[data-plugin-timepicker]').each(function () {
+                        var $this = $(this),
+                            opts = {};
+
+                        var pluginOptions = $this.data('plugin-options');
+                        if (pluginOptions)
+                            opts = pluginOptions;
+
+                        $this.themePluginTimePicker(opts);
+                    });
+                });
+
+            }
+
+
+
+
             var $DtOcorrencia = $("#DtOcorrencia");
             $DtOcorrencia.mask('00/00/0000', { reverse: false });
             $('#DtOcorrencia').datepicker({
-	            format: "dd/mm/yyyy",
-	            todayBtn: "linked",
-	            language: "pt-BR",
-	            orientation: "bottom left",
-	            autoclose: true
+                format: "dd/mm/yyyy",
+                todayBtn: "linked",
+                language: "pt-BR",
+                orientation: "bottom left",
+                autoclose: true
             });
 
             $('#custom-file-input').on("change", function () {
 
-	            var files = $(this)[0].files;
+                var files = $(this)[0].files;
 
                 $('#arquivosDatatable').DataTable({
                     data: files,
-		            "columns": [
-			            { "data": "name" },
-			            {
-				            "data": null,
-				            "sortable": false,
-				            "render": function (c) {
-					            return "<a style='color:#eea236' href='javascript:(crud.editModal(" +
-						            c.Id +
-						            "))'><i class='fa fa-pencil'></i></a>&nbsp;&nbsp; " +
-						            "<a style='color:#d43f3a' href='javascript:(crud.deleteModal(" +
-						            c.Id +
-						            "))'><i class='fa fa-trash'></i></a>";
-				            }
-			            }
-		            ]
-	            });
+                    "columns": [
+                        { "data": "name" },
+                        {
+                            "data": null,
+                            "sortable": false,
+                            "render": function (c) {
+                                return "<a style='color:#d43f3a' href='javascript:(crud.deleteModal(" +
+                                    c.Id +
+                                    "))'><i class='fa fa-trash'></i></a>";
+                            }
+                        }
+                    ],
+                    "searching": false,
+                    "lengthChange": false,
+                    "pageLength": 3,
+                    "language": {
+                        "sEmptyTable": "Nenhum registro encontrado",
+                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ".",
+                        "sLengthMenu": "_MENU_ resultados por página",
+                        "sLoadingRecords": "Carregando...",
+                        "sProcessing": "Processando...",
+                        "sZeroRecords": "Nenhum registro encontrado",
+                        "sSearch": "Pesquisar: ",
+                        "oPaginate": {
+                            "sNext": "Próximo →" +
+                                "" +
+                                "",
+                            "sPrevious": "← Anterior",
+                            "sFirst": "Primeiro",
+                            "sLast": "Último"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Ordenar colunas de forma ascendente",
+                            "sSortDescending": ": Ordenar colunas de forma descendente"
+                        }
+                    }
+                });
             });
 
             var $select = $(".select2").select2({
@@ -175,53 +220,53 @@
 
 function UploadFile() {
 
-	var fileUpload = $("#files").get(0);
+    var fileUpload = $("#files").get(0);
 
-	var files = fileUpload.files;
+    var files = fileUpload.files;
 
-	var data = new FormData();
+    var data = new FormData();
 
-	data.append(files[0].name, files[0]);
+    data.append(files[0].name, files[0]);
 
-	$.ajax({
+    $.ajax({
 
-		type: "POST",
+        type: "POST",
 
-		url: "UploadFile",
+        url: "UploadFile",
 
-		contentType: false,
+        contentType: false,
 
-		processData: false,
+        processData: false,
 
-		data: data,
+        data: data,
 
-		async: false,
+        async: false,
 
-		beforeSend: function () {
+        beforeSend: function () {
 
-			$("#divloader").show()
+            $("#divloader").show()
 
-		},
+        },
 
-		success: function (message) {
+        success: function (message) {
 
-			alert(message);
-			$('input[name="hidenFile"]').val(message);
+            alert(message);
+            $('input[name="hidenFile"]').val(message);
 
-		},
+        },
 
-		error: function () {
+        error: function () {
 
-			alert("Error!");
+            alert("Error!");
 
-		},
+        },
 
-		complete: function () {
+        complete: function () {
 
-			$("#divloader").hide()
+            $("#divloader").hide()
 
-		}
+        }
 
-	});
+    });
 
 }

@@ -149,3 +149,116 @@ Error Number:8152,State:30,Class:16
 2020-05-20 21:16:40.129 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 190.3389 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-05-20 21:24:36.835 -03:00 [Information] web api service is started.
 2020-05-20 21:25:13.278 -03:00 [Information] web api service is started.
+2020-05-20 21:44:35.189 -03:00 [Information] web api service is started.
+2020-05-20 21:45:39.947 -03:00 [Error] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 500 in 11427.4352 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Host": "localhost:44372"), ("Request-Id": "|e5dead49-4a5f1e38e773db46.1."), ("userIP": "192.168.1.1")]]
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'CAD_UNIDADE_INFRAESTRUTURA'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__164_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__274_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.RelationalShapedQueryCompilingExpressionVisitor.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas.GetUnidadeInfraEstruturaAllQuery.GetUnidadeInfraEstruturaAllQueryHandler.Handle(GetUnidadeInfraEstruturaAllQuery request, CancellationToken cancellationToken) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.Application\UnidadeInfraEstrutura\Queries\GetUnidadeInfraEstruturas\GetUnidadeInfraEstruturaAllQuery.cs:line 31
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.UnidadeInfraEstruturaController.GetUnidadeInfraEstruturaAll() in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.WebApi\Controllers\UnidadeInfraestruturaController.cs:line 67
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+ClientConnectionId:5e33784d-f7a0-4648-829d-33d54add2e86
+Error Number:208,State:1,Class:16
+2020-05-20 21:48:24.550 -03:00 [Information] web api service is started.
+2020-05-20 21:51:59.052 -03:00 [Information] web api service is started.
+2020-05-20 22:03:11.467 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 5242.2753 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:11:02.222 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 2856.3197 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|c19884f5-4135874ba531a81b.2."), ("Content-Length": "402"), ("userIP": "192.168.1.1")]]
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__164_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__274_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:8ed9f654-961b-4dfb-a0bd-904269644248
+Error Number:8152,State:10,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(DbContext _, ValueTuple`2 parameters, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(DbContext _, ValueTuple`2 parameters, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Infraero.Relprev.Application.Relato.Commands.CreateRelato.CreateRelatoCommand.CreateRelatoCommandHandler.Handle(CreateRelatoCommand request, CancellationToken cancellationToken) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.Application\Relato\Commands\CreateRelato\CreateRelatoCommand.cs:line 44
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.RelatoController.CreateRelato(CreateRelatoCommand command) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.WebApi\Controllers\RelatoController.cs:line 21
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Fabio\Desktop\Infraero\Projetos\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-20 22:11:02.648 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 65.4371 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:41:08.768 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 330.4691 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:41:59.473 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 186.0060 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:42:53.449 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 547.3052 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:44:44.382 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 86.8419 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:47:38.256 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 85.5315 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:49:23.427 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 254.1335 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 22:51:48.426 -03:00 [Information] web api service is started.
+2020-05-20 23:14:45.831 -03:00 [Information] web api service is started.
+2020-05-20 23:21:11.473 -03:00 [Information] web api service is started.
+2020-05-20 23:21:58.921 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 6749.2872 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 23:48:16.202 -03:00 [Information] web api service is started.
+2020-05-20 23:49:02.492 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 9208.5657 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 23:51:39.757 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 229.8986 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 23:52:36.651 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 157.2419 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-20 23:54:26.328 -03:00 [Information] web api service is started.
+2020-05-20 23:55:52.008 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 20677.9817 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

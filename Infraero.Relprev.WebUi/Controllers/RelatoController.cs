@@ -7,6 +7,7 @@ using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfra
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Filter;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.Domain.Entities;
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
@@ -125,32 +126,52 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-               //var listArquivo = new Dict<Di>()
+                string uniqueFileName = null;
+                var listArquivo = new List<RelatoArquivo>();
+
+
                 if (collection.Files.Count > 0)
                 {
-                    var file = collection.Files[0];
+                    var file = collection.Files;
 
-                    if (file == null || file.Length == 0)
+                    //if (file == null || file.Length == 0)
+                    //{
+                    //    return Content("file not selected");
+                    //}
+
+                    foreach (var item in file)
                     {
-                        return Content("file not selected");
+                        
+                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "relatoArquivo");
+
+                        string extension = Path.GetExtension(item.FileName);
+                        uniqueFileName = Guid.NewGuid().ToString() + extension;
+                        var realName = item.GetFilename();
+
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        
+
+                        item.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                        listArquivo.Add(new RelatoArquivo(uniqueFileName, realName, uploadsFolder));
                     }
 
-                    string extension = Path.GetExtension(file.FileName);
+                    //string extension = Path.GetExtension(file.FileName);
 
-                    var uniqueName = Guid.NewGuid().ToString() + extension;
+                    //var uniqueName = Guid.NewGuid().ToString() + extension;
 
-                    var realName = file.GetFilename();
+                    //var realName = file.GetFilename();
 
-                    var nome_arquivo = uniqueName;
-                    var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot\\pdf",
-                        nome_arquivo);
+                    //var nome_arquivo = uniqueName;
+                    //var path = Path.Combine(
+                    //    Directory.GetCurrentDirectory(), "wwwroot\\relatoArquivos",
+                    //    nome_arquivo);
 
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
+                    //using (var stream = new FileStream(path, FileMode.Create))
+                    //{
+                    //    await file.CopyToAsync(stream);
 
-                    }
+                    //}
                 }
 
                 var command = new CreateRelatoCommand
@@ -166,6 +187,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     EmailRelator = collection["EmailRelator"].ToString(),
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
+                    ListArquivo = listArquivo,
                     CriadoPor = User.Identity.Name
                 };
 

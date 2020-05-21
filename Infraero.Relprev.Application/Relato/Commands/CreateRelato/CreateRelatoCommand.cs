@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 {
@@ -63,6 +64,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         public string NomEmpresaRelator { get; set; }
 
         public int CodUnidadeInfraestrutura { get; set; }
-        public ICollection<RelatoArquivo> ListArquivo { get; private set; }
+        public List<RelatoArquivo> ListArquivo { get; set; }
     }
 }

@@ -63,10 +63,10 @@
                                 </span>
                                 <input id="HorOcorrencia" name="HorOcorrencia"
                                        type="text"
-                                       data-input-mask="99-99"
                                        maxlength="5"
                                        required
                                        title="Por favor informe a hora da ocorrência."
+                                       placeholder="__:__"
                                        data-plugin-timepicker
                                        class="form-control"
                                        data-plugin-options='{ "showMeridian": false }'>
@@ -91,12 +91,12 @@
                             Envolvidos na ocorrência (Involved in the occurrence)<span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <textarea type="text" 
-                                      rows="3" 
-                                      name="DscEnvolvidosOcorrencia" 
-                                      class="form-control" 
-                                      placeholder="eg.: Pessoas e / ou veículos envolvidos no relato" 
-                                      required 
+                            <textarea type="text"
+                                      rows="3"
+                                      name="DscEnvolvidosOcorrencia"
+                                      class="form-control"
+                                      placeholder="eg.: Pessoas e / ou veículos envolvidos no relato"
+                                      required
                                       title="Por favor informe o(s) envolvido(s) na ocorrência."
                                       maxlength="500"></textarea>
                         </div>
@@ -106,12 +106,12 @@
                             Descrição da ocorrência (Occurrence description) <span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <textarea type="text" 
-                                      rows="3" 
-                                      name="DscOcorrenciaRelator" 
-                                      class="form-control" 
-                                      placeholder="eg.: Descrição da ocorrência do relato" 
-                                      required 
+                            <textarea type="text"
+                                      rows="3"
+                                      name="DscOcorrenciaRelator"
+                                      class="form-control"
+                                      placeholder="eg.: Descrição da ocorrência do relato"
+                                      required
                                       title="Por favor informe uma descrição da ocorrência."
                                       maxlength="1000"></textarea>
                         </div>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label asp-for="ListArquivo" class="col-sm-3 control-label text-sm-right pt-2"></label>
+                        <label asp-for="ListArquivo" class="col-sm-3 control-label text-sm-right pt-2">Arquivos</label>
                         <div class="col-sm-9">
                             <input multiple="" asp-for="ListArquivo" id="custom-file-input">
                         </div>
@@ -177,24 +177,6 @@
                                     </tbody>*@
                             </table>
 
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <section class="card">
-                                <header class="card-header">
-                                    <div class="card-actions">
-                                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-                                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-                                    </div>
-
-                                    <h2 class="card-title">Arquivos</h2>
-                                </header>
-                                <div class="card-body">
-                                    <form action="/upload" class="dropzone dz-square" id="dropzone-example"></form>
-                                </div>
-                            </section>
                         </div>
                     </div>
 
@@ -238,13 +220,7 @@
     <script src="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
     <script src="~/js/relato.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-
-
-    <script>
-
-    </script>
-
-
+    
 }
 
 
