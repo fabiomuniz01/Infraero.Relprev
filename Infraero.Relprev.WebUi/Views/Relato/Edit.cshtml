@@ -1,4 +1,5 @@
-﻿@model Infraero.Relprev.CrossCutting.Models.RelatoModel
+﻿@*@model Infraero.Relprev.CrossCutting.Models.RelatoModel*@
+@inject Microsoft.Extensions.Configuration.IConfiguration configuration
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,7 +28,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input readonly type="email" name="email" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                                <input readonly type="email" name="email" value="@Model.Relato.CodRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
                             </div>
                         </div>
                     </div>
@@ -35,10 +36,8 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
-                                    title="Por favor selecione uma unidade de infraestrutura." required>
-                                    @*asp-for="CodUnidadeInfraestrutura"
-                                    asp-items="Model.ListUnidadeInfraestrutura">
-                                <option value="">Selecionar Unidade de infraestrutura</option>*@
+                                    title="Por favor selecione uma unidade de infraestrutura." required
+                                     asp-items='@Model.ListUnidadeInfraestrutura'>
                             </select>
                         </div>
                     </div>
@@ -49,7 +48,11 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                <input readonly id="date" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="eg.: Data da ocorrência de prevenção" class="form-control">
+                                <input readonly id="date"
+                                       data-plugin-masked-input data-input-mask="99/99/9999"
+                                       placeholder="eg.: Data da ocorrência de prevenção"
+                                       class="form-control"
+                                       value="@Model.Relato.DatOcorrencia">
                             </div>
                         </div>
 
@@ -59,26 +62,41 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </span>
-                                <input readonly type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }' placeholder="eg.: Horário da ocorrência">
+                                <input readonly type="text"
+                                       data-plugin-timepicker class="form-control"
+                                       data-plugin-options='{ "showMeridian": false }'
+                                       placeholder="eg.: Horário da ocorrência"
+                                       value="@Model.Relato.HorOcorrencia">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  " required maxlength="200"></textarea>
+                            <textarea readonly type="text" rows="3"
+                                      name="fullname"
+                                      class="form-control"
+                                      placeholder="eg.: Nome do Local da Ocorrência do relato  "
+                                      required
+                                      maxlength="200">@Model.Relato.DscLocalOcorrenciaRelator</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Envolvidos na ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Pessoas e / ou veículos envolvidos no relato" required maxlength="500"></textarea>
+                            <textarea readonly
+                                      type="text" rows="3" name="fullname"
+                                      class="form-control"
+                                      placeholder="eg.: Pessoas e / ou veículos envolvidos no relato"
+                                      required
+                                      maxlength="500">@Model.Relato.DscEnvolvidosOcorrencia</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência <span class="required">*</span></label>
                         <div class="col-sm-7">
-                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição da ocorrência do relato" required maxlength="1000"></textarea>
+                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição da ocorrência do relato"
+                                      required maxlength="1000">@Model.Relato.DscOcorrenciaRelator</textarea>
                         </div>
                         <div class="col-sm-2">
                             <button type="reset" class="btn btn-warning pull-left mr-2">Nova Descrição &nbsp;&nbsp;<i class="fa fa-pencil"></i></button>

@@ -1,5 +1,0 @@
-2020-03-03 10:49:30.750 -03:00 [Information] web api service is started.
-2020-03-03 13:58:13.994 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 2156.3028 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-03-03 23:22:54.899 -03:00 [Information] web api service is started.
-2020-03-03 23:23:12.659 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 2108.3510 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-03-03 23:23:31.417 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 61.3413 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

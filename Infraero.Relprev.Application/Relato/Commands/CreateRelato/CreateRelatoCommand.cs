@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
             {
                 var entity = new Domain.Entities.Relato
                 {
-
+                    CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
                     DatOcorrencia = Convert.ToDateTime(request.DatOcorrencia),
                     HorOcorrencia = request.HorOcorrencia,
                     DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
@@ -36,13 +37,31 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                     NumTelefoneRelator = request.NumTelefoneRelator,
                     NomEmpresaRelator = request.NomEmpresaRelator,
                     CriadoPor = request.CriadoPor,
-                    ListArquivo = request.ListArquivo,
                     DataCriacao = DateTime.Now
                 };
 
                 _context.Relato.Add(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                foreach (var item in request.ListRelatoArquivo)
+                {
+                    var entityRelatoArquivo = new Domain.Entities.RelatoArquivo
+                    {
+                        CodRelato = entity.CodRelato,
+                        Arquivo = item.Arquivo,
+                        NomeArquivo = item.NomeArquivo,
+                        Caminho = item.Caminho,
+                        CriadoPor = request.CriadoPor,
+                        DataCriacao = DateTime.Now
+
+                    };
+
+                    _context.RelatoArquivo.Add(entityRelatoArquivo);
+
+                    await _context.SaveChangesAsync(cancellationToken);
+                }
+
 
                 return entity.CodRelato;
             }
@@ -64,6 +83,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         public string NomEmpresaRelator { get; set; }
 
         public int CodUnidadeInfraestrutura { get; set; }
-        public List<RelatoArquivo> ListArquivo { get; set; }
+        public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
     }
 }

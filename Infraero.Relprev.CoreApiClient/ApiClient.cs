@@ -36,7 +36,7 @@ namespace Infraero.Relprev.CoreApiClient
         private Task<long> Post<T>(Uri requestUrl, T content)
         {
             addHeaders();
-            var response = _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
+             var response = _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
             var data = response.Result.Content.ReadAsStringAsync();
             return Task.FromResult(JsonConvert.DeserializeObject<long>(data.Result));
         }

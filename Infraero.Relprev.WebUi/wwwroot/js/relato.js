@@ -143,13 +143,13 @@
 
             $("#form").validate({
                 rules: {
-                    "EndEmail": {
+                    "EmailRelator": {
                         required: true,
                         email: true
                     },
                 },
                 messages: {
-                    "EndEmail": {
+                    "EmailRelator": {
                         required: "Por favor informe o endereço eletrônico válido do usuário.",
                         email: "Formato de e-mail inválido."
                     },

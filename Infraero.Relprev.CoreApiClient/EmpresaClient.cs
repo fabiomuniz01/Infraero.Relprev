@@ -4,6 +4,8 @@ using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.Empresa.Commands.CreateEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.DeleteEmpresa;
 using Infraero.Relprev.Application.Empresa.Commands.UpdateEmpresa;
+using Infraero.Relprev.Application.RelatoArquivo.Commands.CreateRelatoArquivo;
+using System;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -63,6 +65,11 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceEmpresa}/GetEmpresaByCnpj"));
             return PostAsync<EmpresaDto,string>(requestUrl, cnpj);
         }
+
+        //public Task CreateRelatoArquivo(CreateRelatoArquivoCommand commandRelatoArquivo)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
 

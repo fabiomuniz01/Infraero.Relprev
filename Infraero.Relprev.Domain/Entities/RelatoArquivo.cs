@@ -17,11 +17,5 @@ namespace Infraero.Relprev.Domain.Entities
         public string Arquivo { get; set; }
         public string Caminho { get; set; }
         
-        public RelatoArquivo(string nomeArquivo, string arquivo, string caminho)
-        {
-            NomeArquivo = nomeArquivo;
-            Arquivo = arquivo;
-            Caminho = caminho;
-        }
     }
 }

@@ -1,0 +1,14 @@
+DESKTOP-9RGJN31\\SQLEXPRESS
+Add-Migration Relprev005-rbs -OutputDir "Persistence/Migrations"
+ CodRelato: 3
+    CodUnidadeInfraestrutura: 1018
+    DatOcorrencia: {21/05/2020 16:14:40}
+    DscEnvolvidosOcorrencia : "jhkjhk"
+    DscLocalOcorrenciaRelator: "khjkjhk"
+    DscOcorrenciaRelator: "khjkjhk"
+    EmailRelator: ""
+    HorOcorrencia: "14Ç00"
+    NomEmpresaRelator: ""
+    NomRelator: ""
+    NumTelefoneRelator: ""
+    UnidadeInfraestrutura: {Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas.UnidadeInfraEstruturaDto}

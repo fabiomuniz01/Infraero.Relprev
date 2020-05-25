@@ -53,11 +53,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public DbSet<ResponsavelTecnico> ResponsavelTecnico { get; set; }
         public DbSet<Local> Local { get; set; }
         public DbSet<SubLocal> SubLocal { get; set; }
-        public virtual DbSet<Assunto> Assunto { get; set; }
-        public virtual DbSet<SubAssunto> SubAssunto { get; set; }
+        public DbSet<Assunto> Assunto { get; set; }
+        public DbSet<SubAssunto> SubAssunto { get; set; }
         public DbSet<Modulo> Modulo { get; set; }
-        public DbSet<Arquivo> Arquivo { get; set; }
-
+        public DbSet<Relato> Relato { get; set; }
+        public DbSet<RelatoArquivo> RelatoArquivo { get; set; }
 
 
 
@@ -79,7 +79,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public virtual DbSet<Perfil> Perfil { get; set; }
         public virtual DbSet<PerfilFuncao> PerfilFuncao { get; set; }
         public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }
-        public virtual DbSet<Relato> Relato { get; set; }
         public virtual DbSet<SituacaoAtribuicaoRelato> SituacaoAtribuicaoRelato { get; set; }
         public virtual DbSet<SituacaoRelato> SituacaoRelato { get; set; }
         public virtual DbSet<SubAmbiente> SubAmbiente { get; set; }

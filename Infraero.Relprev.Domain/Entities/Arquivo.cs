@@ -17,5 +17,6 @@ namespace Infraero.Relprev.Domain.Entities
         public string NomArquivo { get; set; }
         public Relato Relato { get; set; }
         public string PhotoPath { get; set; }
+        public int RelatoCodRelato { get; set; }
     }
 }

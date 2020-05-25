@@ -1,0 +1,201 @@
+2020-05-23 17:36:51.869 -03:00 [Information] web api service is started.
+2020-05-23 17:37:16.164 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 4711.5840 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-23 17:38:29.655 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 304.5109 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|9083d2b0-461f7a7d79598cc3.1."), ("Content-Length": "765"), ("userIP": "192.168.1.1")]]
+System.NotSupportedException: Deserialization of reference types without parameterless constructor is not supported. Type 'Infraero.Relprev.Domain.Entities.RelatoArquivo'
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+   at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-23 17:38:39.313 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 123.6005 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-23 17:40:24.967 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 111.0294 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|9083d2b1-461f7a7d79598cc3.1."), ("Content-Length": "744"), ("userIP": "192.168.1.1")]]
+System.NotSupportedException: Deserialization of reference types without parameterless constructor is not supported. Type 'Infraero.Relprev.Domain.Entities.RelatoArquivo'
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+   at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-23 17:40:34.762 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 71.1257 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-23 17:43:36.955 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 1017.2370 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|9083d2b2-461f7a7d79598cc3.1."), ("Content-Length": "735"), ("userIP": "192.168.1.1")]]
+System.NotSupportedException: Deserialization of reference types without parameterless constructor is not supported. Type 'Infraero.Relprev.Domain.Entities.RelatoArquivo'
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+   at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-23 17:45:03.314 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 6571.6179 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-23 17:46:30.303 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 117.5206 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|9083d2b3-461f7a7d79598cc3.1."), ("Content-Length": "744"), ("userIP": "192.168.1.1")]]
+System.NotSupportedException: Deserialization of reference types without parameterless constructor is not supported. Type 'Infraero.Relprev.Domain.Entities.RelatoArquivo'
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+   at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-23 17:46:30.405 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 199.7541 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|9083d2b4-461f7a7d79598cc3.1."), ("Content-Length": "735"), ("userIP": "192.168.1.1")]]
+System.NotSupportedException: Deserialization of reference types without parameterless constructor is not supported. Type 'Infraero.Relprev.Domain.Entities.RelatoArquivo'
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+   at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-23 17:48:02.355 -03:00 [Information] web api service is started.
+2020-05-23 17:48:29.060 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 4257.0076 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-23 17:48:32.713 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 108.2033 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-23 17:49:38.185 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 190.0825 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|c09ac4e2-4b8912b8c3531d12.1."), ("Content-Length": "738"), ("userIP": "192.168.1.1")]]
+System.NotSupportedException: Deserialization of reference types without parameterless constructor is not supported. Type 'Infraero.Relprev.Domain.Entities.RelatoArquivo'
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+   at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-23 17:54:02.234 -03:00 [Information] web api service is started.
+2020-05-23 17:55:31.324 -03:00 [Information] web api service is started.
+2020-05-23 17:58:07.174 -03:00 [Information] web api service is started.
+2020-05-23 17:58:23.750 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 4058.3550 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-23 17:59:14.139 -03:00 [Error] HTTP "POST" "/api/Relato/CreateRelato" responded 500 in 186.3005 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|e1803e81-442ff24e75206e1c.1."), ("Content-Length": "731"), ("userIP": "192.168.1.1")]]
+System.NotSupportedException: Deserialization of reference types without parameterless constructor is not supported. Type 'Infraero.Relprev.Domain.Entities.RelatoArquivo'
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+   at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+   at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40

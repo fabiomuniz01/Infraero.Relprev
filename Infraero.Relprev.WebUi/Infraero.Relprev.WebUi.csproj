@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 
 
@@ -211,6 +211,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\img\resources\" />
+    <Folder Include="wwwroot\relatoArquivo\" />
     <Folder Include="wwwroot\pdf\" />
     <Folder Include="wwwroot\vendor\graficos\" />
   </ItemGroup>

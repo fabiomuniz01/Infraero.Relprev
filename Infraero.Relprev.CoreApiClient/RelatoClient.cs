@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
+using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -22,6 +23,12 @@ namespace Infraero.Relprev.CoreApiClient
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelato}/UpdateRelato"));
+            return Post(requestUrl, command);
+        }
+        public Task<long> CancelRelato(CancelRelatoCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/CancelRelato"));
             return Post(requestUrl, command);
         }
 
