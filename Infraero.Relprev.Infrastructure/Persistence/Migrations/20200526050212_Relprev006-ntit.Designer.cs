@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200526050212_Relprev006-ntit")]
+    partial class Relprev006ntit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,40 +109,34 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_ASSUNTO")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
+                        .HasMaxLength(255)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DscAssunto")
                         .IsRequired()
                         .HasColumnName("DSC_ASSUNTO")
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Descriçao do assunto")
                         .HasMaxLength(255);
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.HasKey("CodAssunto");
 
@@ -361,13 +357,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_EMPRESA")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodVinculoUnidadeEmpresa")
                         .HasColumnType("int");
@@ -375,52 +369,43 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.Property<string>("CpfCriadoPor")
                         .HasColumnName("NUM_CPF_CRIADO_POR")
                         .HasColumnType("nvarchar(18)")
-                        .HasComment("Numero cpf criado por")
                         .HasMaxLength(18);
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DthRegistro")
                         .HasColumnName("DTH_REGISTRO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data Hora de registro");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.Property<string>("NomRazaoSocial")
                         .IsRequired()
                         .HasColumnName("NOM_RAZAO_SOCIAL")
                         .HasColumnType("nvarchar(250)")
-                        .HasComment("Empresa órgão público")
                         .HasMaxLength(250);
 
                     b.Property<string>("NumCnpj")
                         .IsRequired()
                         .HasColumnName("NUM_CNPJ")
                         .HasColumnType("nvarchar(18)")
-                        .HasComment("CNPJ da empresa / órgão público")
                         .HasMaxLength(18);
 
                     b.Property<string>("NumTelefone")
                         .HasColumnName("NUM_TELEFONE")
                         .HasColumnType("nvarchar(14)")
-                        .HasComment("Telefone da empresa")
                         .HasMaxLength(14);
 
                     b.HasKey("CodEmpresa");
@@ -645,7 +630,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 1,
                             CodModulo = 1,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8166),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9690),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -654,7 +639,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 2,
                             CodModulo = 2,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8288),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9870),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -663,7 +648,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 3,
                             CodModulo = 3,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8293),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9877),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -672,7 +657,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 4,
                             CodModulo = 4,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8297),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9880),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -681,7 +666,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 5,
                             CodModulo = 5,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8300),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9884),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -690,7 +675,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 6,
                             CodModulo = 6,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8305),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9887),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -699,7 +684,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 7,
                             CodModulo = 7,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8307),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9891),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -708,7 +693,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 8,
                             CodModulo = 8,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8310),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9894),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -717,7 +702,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 9,
                             CodModulo = 9,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8313),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9897),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar"
                         },
@@ -726,7 +711,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 10,
                             CodModulo = 10,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8316),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9901),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Cadastrar,Classificar,Cancelar,Finalizar"
                         },
@@ -735,7 +720,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 11,
                             CodModulo = 11,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8319),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9904),
                             FlagAtivo = false,
                             NomFuncionalidade = "Enviar"
                         },
@@ -744,7 +729,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 12,
                             CodModulo = 12,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8322),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9907),
                             FlagAtivo = false,
                             NomFuncionalidade = "Cancelar,Detalhar,Executar,Finalizar,Atribuir"
                         },
@@ -753,7 +738,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 13,
                             CodModulo = 13,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8324),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9911),
                             FlagAtivo = false,
                             NomFuncionalidade = "Completar,Avaliar,Responder"
                         },
@@ -762,7 +747,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 14,
                             CodModulo = 14,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8327),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9914),
                             FlagAtivo = false,
                             NomFuncionalidade = "Importar,Configurar"
                         },
@@ -771,7 +756,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             CodFuncionalidade = 15,
                             CodModulo = 15,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 646, DateTimeKind.Local).AddTicks(8331),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 304, DateTimeKind.Local).AddTicks(9917),
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Alterar"
                         });
@@ -835,45 +820,37 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_LOCAL")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodUnidadeInfraestrutura")
                         .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
-                        .HasColumnType("int")
-                        .HasComment("Codigo sequencial da unidade de infraestrutura");
+                        .HasColumnType("int");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DscLocal")
                         .IsRequired()
                         .HasColumnName("DSC_LOCAL")
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Descrição do local da ocorrencia")
                         .HasMaxLength(255);
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.HasKey("CodLocal");
 
@@ -916,7 +893,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 1,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(3438),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(463),
                             FlagAtivo = false,
                             NomModulo = "UnidadeInfraestrutura"
                         },
@@ -924,7 +901,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 2,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4780),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1886),
                             FlagAtivo = false,
                             NomModulo = "Empresa"
                         },
@@ -932,7 +909,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 3,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4813),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1924),
                             FlagAtivo = false,
                             NomModulo = "ResponsavelTecnico"
                         },
@@ -940,7 +917,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 4,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4818),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1928),
                             FlagAtivo = false,
                             NomModulo = "Assunto"
                         },
@@ -948,7 +925,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 5,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4822),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1932),
                             FlagAtivo = false,
                             NomModulo = "SubAssunto"
                         },
@@ -956,7 +933,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 6,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4826),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1937),
                             FlagAtivo = false,
                             NomModulo = "Local"
                         },
@@ -964,7 +941,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 7,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4830),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1940),
                             FlagAtivo = false,
                             NomModulo = "SubLocal"
                         },
@@ -972,7 +949,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 8,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4833),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1943),
                             FlagAtivo = false,
                             NomModulo = "Usuario"
                         },
@@ -980,7 +957,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 9,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4836),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1947),
                             FlagAtivo = false,
                             NomModulo = "Perfil"
                         },
@@ -988,7 +965,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 10,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4838),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1950),
                             FlagAtivo = false,
                             NomModulo = "Relatos"
                         },
@@ -996,7 +973,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 11,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4841),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1953),
                             FlagAtivo = false,
                             NomModulo = "AtribuirResponsavelRelato"
                         },
@@ -1004,7 +981,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 12,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4844),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1956),
                             FlagAtivo = false,
                             NomModulo = "AtendimentoTecnico"
                         },
@@ -1012,7 +989,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 13,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4847),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1960),
                             FlagAtivo = false,
                             NomModulo = "ParecerTecnico"
                         },
@@ -1020,7 +997,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 14,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4850),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1963),
                             FlagAtivo = false,
                             NomModulo = "ContratoSmartStream"
                         },
@@ -1028,7 +1005,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         {
                             CodModulo = 15,
                             CriadoPor = "SistemaRelprev",
-                            DataCriacao = new DateTime(2020, 5, 26, 2, 26, 43, 643, DateTimeKind.Local).AddTicks(4853),
+                            DataCriacao = new DateTime(2020, 5, 26, 2, 2, 10, 301, DateTimeKind.Local).AddTicks(1966),
                             FlagAtivo = false,
                             NomModulo = "ConfigurarAmbiente"
                         });
@@ -1178,8 +1155,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodUnidadeInfraestrutura")
                         .HasColumnName("COD_UNIDADE_ESINFRAESTRUTURA")
@@ -1187,8 +1163,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DatOcorrencia")
                         .HasColumnName("DAT_OCORRENCIA")
@@ -1196,13 +1171,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DscEnvolvidosOcorrencia")
                         .IsRequired()
@@ -1232,8 +1205,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.Property<string>("HorOcorrencia")
                         .IsRequired()
@@ -1269,58 +1241,48 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_RELATO_ARQUIVO")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Arquivo")
                         .IsRequired()
                         .HasColumnName("NOM_ARQUIVO_UNICO")
                         .HasColumnType("nvarchar(500)")
-                        .HasComment("Nome unico do arquivo")
                         .HasMaxLength(500);
 
                     b.Property<string>("Caminho")
                         .IsRequired()
-                        .HasColumnName("DIR_CAMINHO")
+                        .HasColumnName("NOM_CAMINHO")
                         .HasColumnType("nvarchar(500)")
-                        .HasComment("Diretorio do arquivo")
                         .HasMaxLength(500);
 
                     b.Property<int>("CodRelato")
                         .HasColumnName("COD_RELATO")
-                        .HasColumnType("int")
-                        .HasComment("Codigo sequencial do relato");
+                        .HasColumnType("int");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.Property<string>("NomeArquivo")
                         .IsRequired()
                         .HasColumnName("NOM_ARQUIVO")
                         .HasColumnType("nvarchar(200)")
-                        .HasComment("Nome original do arquivo")
                         .HasMaxLength(200);
 
                     b.HasKey("CodRelatoArquivo");
@@ -1336,75 +1298,62 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_RESPONSAVEL_TECNICO")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodEmpresa")
                         .HasColumnName("COD_EMPRESA")
-                        .HasColumnType("int")
-                        .HasComment("Codigo sequencial da empresa");
+                        .HasColumnType("int");
 
                     b.Property<int>("CodUnidadeInfraestrutura")
                         .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
-                        .HasColumnType("int")
-                        .HasComment("Codigo sequencia da unidade de infraestrutura");
+                        .HasColumnType("int");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("EndEmail")
                         .HasColumnName("END_RESPONSAVEL_TECNICO")
                         .HasColumnType("nvarchar(50)")
-                        .HasComment("Endereço eletrônico do Responsável Técnico ")
                         .HasMaxLength(50);
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.Property<string>("NomResponsavelTecnico")
                         .IsRequired()
                         .HasColumnName("NOM_RESPONSAVEL_TECNICO")
                         .HasColumnType("nvarchar(50)")
-                        .HasComment("Nome do Responsável Técnico  ")
                         .HasMaxLength(50);
 
                     b.Property<string>("NumCpf")
                         .IsRequired()
                         .HasColumnName("NUM_CPF")
                         .HasColumnType("nvarchar(14)")
-                        .HasComment("Número do CPF do Responsável Técnico ")
                         .HasMaxLength(14);
 
                     b.Property<string>("NumDocumento")
                         .HasColumnName("NUM_DOCUMENTO")
                         .HasColumnType("nvarchar(15)")
-                        .HasComment("Número do documento de correspondência")
                         .HasMaxLength(15);
 
                     b.Property<string>("NumTelefone")
                         .IsRequired()
                         .HasColumnName("NUM_TELEFONE")
                         .HasColumnType("nvarchar(14)")
-                        .HasComment("Número do telefone")
                         .HasMaxLength(14);
 
                     b.HasKey("CodResponsavelTecnico");
@@ -1480,45 +1429,37 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_SUBASSUNTO")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodAssunto")
                         .HasColumnName("COD_ASSUNTO")
-                        .HasColumnType("int")
-                        .HasComment("Código sequencial do subassunto");
+                        .HasColumnType("int");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DscSubAssunto")
                         .IsRequired()
                         .HasColumnName("DSC_SUBASSUNTO")
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Descrição do subassunto")
                         .HasMaxLength(255);
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.HasKey("CodSubAssunto");
 
@@ -1533,50 +1474,41 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_SUBLOCAL")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodLocal")
                         .HasColumnName("COD_LOCAL")
-                        .HasColumnType("int")
-                        .HasComment("Código sequencial do local");
+                        .HasColumnType("int");
 
                     b.Property<int>("CodUnidadeInfraestrutura")
                         .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
-                        .HasColumnType("int")
-                        .HasComment("Código sequencial da unidade de infraestrutura");
+                        .HasColumnType("int");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DscSubLocal")
                         .IsRequired()
                         .HasColumnName("DSC_SUBLOCAL")
                         .HasColumnType("nvarchar(300)")
-                        .HasComment("Descrição do sublocal da ocorrencia")
                         .HasMaxLength(300);
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.HasKey("CodSubLocal");
 
@@ -1621,34 +1553,28 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_UNIDADE_INFRAESTRUTURA")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CodUnidade")
                         .IsRequired()
                         .HasColumnName("COD_UNIDADE")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Código da unidade");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
@@ -1664,8 +1590,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.Property<string>("NomUnidadeÌnfraestrutura")
                         .HasColumnType("nvarchar(max)");
@@ -1674,7 +1599,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnName("SIG_UNIDADE")
                         .HasColumnType("nvarchar(8)")
-                        .HasComment("Sigla da unidade")
                         .HasMaxLength(8);
 
                     b.HasKey("CodUnidadeInfraestrutura");
@@ -1688,87 +1612,72 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SEQ_USUARIO")
                         .HasColumnType("int")
-                        .HasComment("Sequencial da tabela")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
                         .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário de realizou a alteração");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodEmpresa")
                         .HasColumnName("COD_EMPRESA")
-                        .HasColumnType("int")
-                        .HasComment("Código sequencial da empresa");
+                        .HasColumnType("int");
 
                     b.Property<string>("CodPerfil")
                         .HasColumnName("COD_PERFIL")
                         .HasColumnType("nvarchar(250)")
-                        .HasComment("Código do perfil do usuário")
                         .HasMaxLength(250);
 
                     b.Property<int>("CodUnidadeInfraestrutura")
                         .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
-                        .HasColumnType("int")
-                        .HasComment("Código sequencial do unidade de infraestrutura");
+                        .HasColumnType("int");
 
                     b.Property<string>("CodUsuarioLogin")
                         .HasColumnName("COD_USUARIO_LOGIN")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Código do login do usuário");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Usuário que realizou a inclusão");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data de alteração");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data da inclusão");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("END_ENDERECO_ELETRONICO")
+                        .HasColumnName("DSC_EMAIL")
                         .HasColumnType("nvarchar(150)")
-                        .HasComment("Endereço eletrônico válido do usuário")
                         .HasMaxLength(150);
 
                     b.Property<bool>("FlagAtivo")
                         .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit")
-                        .HasComment("Indicador de registro ativo");
+                        .HasColumnType("bit");
 
                     b.Property<string>("NomPerfil")
                         .HasColumnName("NOM_PERFIL")
                         .HasColumnType("nvarchar(150)")
-                        .HasComment("Nome d perfil do usuário")
                         .HasMaxLength(150);
 
                     b.Property<string>("NomUsuario")
                         .IsRequired()
                         .HasColumnName("NOM_USUARIO")
                         .HasColumnType("nvarchar(60)")
-                        .HasComment("Descrição completa do nome do usuário")
                         .HasMaxLength(60);
 
                     b.Property<string>("NumCpf")
                         .IsRequired()
                         .HasColumnName("NUM_CPF")
                         .HasColumnType("nvarchar(14)")
-                        .HasComment("Número do CPF do usuário")
                         .HasMaxLength(14);
 
                     b.Property<string>("NumTelefone")
                         .IsRequired()
                         .HasColumnName("NUM_TELEFONE")
                         .HasColumnType("nvarchar(14)")
-                        .HasComment("Telefone de contato do usuário")
                         .HasMaxLength(14);
 
                     b.HasKey("CodUsuario");

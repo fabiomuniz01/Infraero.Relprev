@@ -58,6 +58,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public DbSet<Modulo> Modulo { get; set; }
         public DbSet<Relato> Relato { get; set; }
         public DbSet<RelatoArquivo> RelatoArquivo { get; set; }
+        public DbSet<ConfigurarAmbiente> ConfigurarAmbiente { get; set; }
 
 
 
@@ -67,7 +68,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence
 
 
 
-        public virtual DbSet<Ambiente> Ambiente { get; set; }
         public virtual DbSet<AtribuicaoRelato> AtribuicaoRelato { get; set; }
         public virtual DbSet<ContratoUtilizacaoSistema> ContratoUtilizacaoSistema { get; set; }
         public virtual DbSet<EmpresaLocalidade> EmpresaLocalidade { get; set; }
@@ -81,7 +81,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }
         public virtual DbSet<SituacaoAtribuicaoRelato> SituacaoAtribuicaoRelato { get; set; }
         public virtual DbSet<SituacaoRelato> SituacaoRelato { get; set; }
-        public virtual DbSet<SubAmbiente> SubAmbiente { get; set; }
+
         public virtual DbSet<TipoEvento> TipoEvento { get; set; }
         public virtual DbSet<UsuarioLocalidade> UsuarioLocalidade { get; set; }
 
@@ -103,7 +103,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 new Modulo { CodModulo = 11, NomModulo = "AtribuirResponsavelRelato", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
                 new Modulo { CodModulo = 12, NomModulo = "AtendimentoTecnico", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
                 new Modulo { CodModulo = 13, NomModulo = "ParecerTecnico", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
-                new Modulo { CodModulo = 14, NomModulo = "ContratoSmartStream", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now });
+                new Modulo { CodModulo = 14, NomModulo = "ContratoSmartStream", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Modulo { CodModulo = 15, NomModulo = "ConfigurarAmbiente", CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now });
 
             builder.Entity<Funcionalidade>().HasData(
                 new Funcionalidade { CodFuncionalidade = 1, NomFuncionalidade = "Consultar,Incluir,Excluir,Alterar", CodModulo = 1, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
@@ -119,7 +120,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 new Funcionalidade { CodFuncionalidade = 11, NomFuncionalidade = "Enviar", CodModulo = 11, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
                 new Funcionalidade { CodFuncionalidade = 12, NomFuncionalidade = "Cancelar,Detalhar,Executar,Finalizar,Atribuir", CodModulo = 12, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
                 new Funcionalidade { CodFuncionalidade = 13, NomFuncionalidade = "Completar,Avaliar,Responder", CodModulo = 13, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
-                new Funcionalidade { CodFuncionalidade = 14, NomFuncionalidade = "Importar,Configurar", CodModulo = 14, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now }
+                new Funcionalidade { CodFuncionalidade = 14, NomFuncionalidade = "Importar,Configurar", CodModulo = 14, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now },
+                new Funcionalidade { CodFuncionalidade = 15, NomFuncionalidade = "Consultar,Incluir,Alterar", CodModulo = 15, CriadoPor = "SistemaRelprev", DataCriacao = DateTime.Now }
             );
 
             base.OnModelCreating(builder);

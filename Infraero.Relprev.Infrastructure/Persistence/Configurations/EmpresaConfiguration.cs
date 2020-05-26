@@ -13,35 +13,42 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             builder.ToTable("CAD_EMPRESA");
 
             builder.Property(t => t.CodEmpresa)
-                .HasColumnName("SEQ_EMPRESA").IsRequired();
+                .HasColumnName("SEQ_EMPRESA")
+                .HasComment("Sequencial da tabela")
+                .IsRequired();
             
             builder.Property(t => t.NomRazaoSocial)
                 .HasColumnName("NOM_RAZAO_SOCIAL")
                 .HasMaxLength(250)
+                .HasComment("Empresa órgão público")
                 .IsRequired();
 
             builder.Property(t => t.NumCnpj)
                 .HasColumnName("NUM_CNPJ")
                 .HasMaxLength(18)
-                .IsRequired();
+                .IsRequired()
+                .HasComment("CNPJ da empresa / órgão público");
 
             builder.Property(t => t.NumTelefone)
                 .HasColumnName("NUM_TELEFONE")
-                .HasMaxLength(14);
+                .HasMaxLength(14)
+                .HasComment("Telefone da empresa");
 
             builder.Property(t => t.CpfCriadoPor)
                 .HasColumnName("NUM_CPF_CRIADO_POR")
-                .HasMaxLength(18);
+                .HasMaxLength(18)
+                .HasComment("Numero cpf criado por");
 
             builder.Property(t => t.DthRegistro)
-                .HasColumnName("DTH_REGISTRO");
+                .HasColumnName("DTH_REGISTRO")
+                .HasComment("Data Hora de registro");
 
             //BaseEntity
-            builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");
-            builder.Property(p => p.DataCriacao).HasColumnName("DTH_INCLUSAO");
-            builder.Property(p => p.AlteradoPor).HasColumnName("NOM_USU_ALTERACAO");
-            builder.Property(p => p.DataAlteracao).HasColumnName("DTH_ALTERACAO");
-            builder.Property(p => p.FlagAtivo).HasColumnName("FLG_ATIVO");
+            builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO").HasComment("Usuário que realizou a inclusão");
+            builder.Property(p => p.DataCriacao).HasColumnName("DTH_INCLUSAO").HasComment("Data da inclusão");
+            builder.Property(p => p.AlteradoPor).HasColumnName("NOM_USU_ALTERACAO").HasComment("Usuário de realizou a alteração");
+            builder.Property(p => p.DataAlteracao).HasColumnName("DTH_ALTERACAO").HasComment("Data de alteração");
+            builder.Property(p => p.FlagAtivo).HasColumnName("FLG_ATIVO").HasComment("Indicador de registro ativo");
 
 
         }
