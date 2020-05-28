@@ -23,7 +23,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using Infraero.Relprev.Application.RelatoArquivo.Commands.CreateRelatoArquivo;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 
 namespace Infraero.Relprev.WebUi.Controllers
@@ -54,28 +53,6 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             return View(model);
         }
-
-        //[ClaimsAuthorize("Relatos", "Consultar")]
-        //[HttpPost]
-        //public async Task<IActionResult> UploadFile(IFormFile file)
-        //{
-        //    if (file == null || file.Length == 0)
-        //        return Content("file not selected");
-
-        //    var path = Path.Combine(
-        //        Directory.GetCurrentDirectory(), "wwwroot",
-        //        file.GetFilename());
-
-        //    using (var stream = new FileStream(path, FileMode.Create))
-        //    {
-        //        await file.CopyToAsync(stream);
-        //    }
-
-        //    //neste momento salvamos o RelatoArquivo no banco e na pasta do projeto
-
-        //    // Otherwise, don't return anything
-        //    return null;
-        //}
 
         [HttpPost]
         public string UploadFile()
@@ -123,8 +100,6 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
 
-
-        // GET: Relato
         [HttpPost]
         //[ValidateAntiForgeryToken]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
@@ -155,8 +130,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                     }
 
                 }
-                //se nao passar ele vai
-
 
                 var command = new CreateRelatoCommand
                 {
@@ -176,23 +149,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                 };
 
                 var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
-                //foreach (var item in listRelatoArquivo)
-                //{
-                //    var commandRelatoArquivo = new CreateRelatoArquivoCommand
-                //    {
-                //        CodRelato = Convert.ToInt32(idRelato),
-                //        NomeArquivo = item.NomeArquivo,
-                //        Arquivo = item.Arquivo,
-                //        Caminho = item.Caminho,
-                //        CriadoPor = User.Identity.Name
-
-
-                //    };
-                //    await ApiClientFactory.Instance.CreateRelatoArquivo(commandRelatoArquivo);
-
-                //};
-
-
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
@@ -297,10 +253,11 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-
+            var arquivos = ApiClientFactory.Instance.GetRelatoArquivoByIdRelato(obj.CodRelato);
             var model = new RelatoModel
             {
                 Relato = obj,
+                ListArquivo = arquivos,
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
                 ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
+
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
@@ -56,8 +58,9 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceRelato}/GetRelatoById/{id}"));
             return Get<RelatoDto>(requestUrl);
         }
+        
 
         #endregion
-        
+
     }
 }

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
+using Infraero.Relprev.Application.RelatoArquivo.Queries;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;

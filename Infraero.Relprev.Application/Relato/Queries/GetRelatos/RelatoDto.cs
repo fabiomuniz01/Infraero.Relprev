@@ -2,6 +2,7 @@
 using AutoMapper;
 using Infraero.Relprev.Application.Common.Mappings;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using System.Collections.Generic;
 
 namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
@@ -18,7 +19,7 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
-        //public virtual ICollection<RelatoArquivoDto> Arquivos { get; set; }
+        public List<RelatoArquivoDto> Arquivos { get; set; }
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
 
         public void Mapping(Profile profile)
