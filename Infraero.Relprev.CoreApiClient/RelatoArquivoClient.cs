@@ -25,13 +25,13 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceRelatoArquivo}/DeleteRelatoArquivo"));
             return Post(requestUrl, command);
         }
-        
-        //public GridRelatoArquivo GetGridRelatoArquivo()
-        //{
-        //    var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-        //        $"{ResourceRelatoArquivo}/GetGridRelatoArquivo"));
-        //    return Get<GridRelatoArquivo>(requestUrl);
-        //}
+
+        public List<RelatoArquivoDto> GetGridRelatoArquivo()
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelatoArquivo}/GetGridRelatoArquivo"));
+            return Get<List<RelatoArquivoDto>>(requestUrl);
+        }
 
         public List<RelatoArquivoDto> GetRelatoArquivoAll()
         {
@@ -49,6 +49,13 @@ namespace Infraero.Relprev.CoreApiClient
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelatoArquivo}/GetRelatoArquivoById/{id}"));
             return Get<RelatoArquivoDto>(requestUrl);
+        }
+
+        public List<RelatoArquivoDto> GetRelatoArquivoByIdRelato(int id)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelatoArquivo}/GetRelatoArquivoByIdRelato/{id}"));
+            return Get<List<RelatoArquivoDto>>(requestUrl);
         }
 
         #endregion
