@@ -144,7 +144,7 @@
             $("#form").validate({
                 rules: {
                     "EmailRelator": {
-                        required: true,
+                        required: false,
                         email: true
                     },
                 },
