@@ -20,9 +20,11 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
+        public string StsRelator { get; set; }
+        public string DscMotivoRelator { get; set; }
 
         [ForeignKey("CodRelato")]
-        public virtual ICollection<RelatoArquivoDto> ListArquivo { get; set; }
+        public virtual List<RelatoArquivoDto> ListArquivo { get; set; }
 
         [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
