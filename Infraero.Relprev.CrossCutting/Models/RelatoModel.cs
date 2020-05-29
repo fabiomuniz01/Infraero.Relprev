@@ -15,7 +15,8 @@ namespace Infraero.Relprev.CrossCutting.Models
         public int CodUnidadeInfraestrutura { get; set; }
         public RelatoDto Relato { get; set; }
 
-        public List<RelatoArquivoDto> ListArquivo { get; set; }
+        public List<IFormFile> ListArquivo { get; set; }
+        public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
         public IFormFile Arquivo { get; set; }
     }
 }
