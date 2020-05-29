@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
+
 using Infraero.Relprev.Application.RelatoArquivo.Commands.CreateRelatoArquivo;
 using Infraero.Relprev.Application.RelatoArquivo.Commands.DeleteRelatoArquivo;
-using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
+
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -12,7 +14,7 @@ namespace Infraero.Relprev.CoreApiClient
 
         #region Main Methods
 
-        public Task<long> CreateRelatoArquivo(CreateRelatoArquivoCommand command)
+        public Task<long> CreateArquivo(CreateRelatoArquivoCommand command)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelatoArquivo}/CreateRelatoArquivo"));
@@ -26,11 +28,12 @@ namespace Infraero.Relprev.CoreApiClient
             return Post(requestUrl, command);
         }
 
-        public List<RelatoArquivoDto> GetGridRelatoArquivo()
+
+        public GridRelatoArquivo GetGridRelatoArquivo()
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelatoArquivo}/GetGridRelatoArquivo"));
-            return Get<List<RelatoArquivoDto>>(requestUrl);
+            return Get<GridRelatoArquivo>(requestUrl);
         }
 
         public List<RelatoArquivoDto> GetRelatoArquivoAll()
@@ -44,11 +47,11 @@ namespace Infraero.Relprev.CoreApiClient
 
         #region Methods
 
-        public RelatoArquivoDto GetRelatoArquivoById(int id)
+        public List<RelatoArquivoDto> GetRelatoArquivoById(int id)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelatoArquivo}/GetRelatoArquivoById/{id}"));
-            return Get<RelatoArquivoDto>(requestUrl);
+            return Get<List<RelatoArquivoDto>>(requestUrl);
         }
 
         public List<RelatoArquivoDto> GetRelatoArquivoByIdRelato(int id)
@@ -59,6 +62,6 @@ namespace Infraero.Relprev.CoreApiClient
         }
 
         #endregion
-        
+
     }
 }

@@ -23,7 +23,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using Infraero.Relprev.Application.RelatoArquivo.Commands.CreateRelatoArquivo;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 
 namespace Infraero.Relprev.WebUi.Controllers
@@ -99,6 +98,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return result;
 
         }
+
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
@@ -257,7 +257,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var model = new RelatoModel
             {
                 Relato = obj,
-                ListArquivo = arquivos,
+                ListRelatoArquivo = arquivos,
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
                 ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
 

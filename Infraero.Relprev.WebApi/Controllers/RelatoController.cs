@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Microsoft.AspNetCore.Mvc;
 //using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
 //using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
@@ -62,6 +63,36 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
+        [HttpGet("GetRelatoArquivosById/{id}")]
+        public async Task<RelatoArquivoDto> GetRelatoArquivosById(int id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetRelatoArquivoByIdQuery { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+        [HttpGet("GetRelatoArquivoByIdRelato/{id}")]
+        public async Task<RelatoArquivoDto> GetRelatoArquivoByIdRelato(int id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetRelatoArquivoByIdRelatoQuery { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
 
 
 

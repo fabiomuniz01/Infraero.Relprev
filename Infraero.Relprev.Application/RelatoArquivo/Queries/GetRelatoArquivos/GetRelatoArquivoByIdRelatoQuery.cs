@@ -30,12 +30,12 @@ namespace Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos
                 try
                 {
                     var responseModel = await _context.RelatoArquivo
-                        .Where(x => x.CodRelato == request.Id)
+                        .Where(x=>x.CodRelatoArquivo==request.Id)
                         .ProjectTo<RelatoArquivoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodRelatoArquivo)
                         .FirstOrDefaultAsync(cancellationToken);
 
-
+                    
                     return responseModel;
                 }
                 catch (Exception e)
@@ -43,7 +43,7 @@ namespace Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos
                     Console.WriteLine(e);
                     throw;
                 }
-
+                
             }
         }
 
