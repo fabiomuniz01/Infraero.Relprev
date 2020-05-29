@@ -60,7 +60,7 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpGet("GetRelatoArquivoByIdRelato/{id}")]
-        public async Task<RelatoArquivoDto> GetRelatoArquivoByIdRelato(int id)
+        public async Task<List<RelatoArquivoDto>> GetRelatoArquivoByIdRelato(int id)
         {
             try
             {

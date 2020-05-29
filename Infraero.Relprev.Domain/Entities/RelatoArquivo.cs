@@ -16,6 +16,6 @@ namespace Infraero.Relprev.Domain.Entities
         public string NomeArquivo { get; set; }
         public string Arquivo { get; set; }
         public string Caminho { get; set; }
-        
+
     }
 }

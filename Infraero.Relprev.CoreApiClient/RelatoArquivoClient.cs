@@ -29,12 +29,6 @@ namespace Infraero.Relprev.CoreApiClient
         }
 
 
-        public GridRelatoArquivo GetGridRelatoArquivo()
-        {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceRelatoArquivo}/GetGridRelatoArquivo"));
-            return Get<GridRelatoArquivo>(requestUrl);
-        }
 
         public List<RelatoArquivoDto> GetRelatoArquivoAll()
         {

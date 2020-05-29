@@ -4,6 +4,7 @@ using Infraero.Relprev.Application.Common.Mappings;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
 {
@@ -19,7 +20,11 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
-        public List<RelatoArquivoDto> Arquivos { get; set; }
+
+        [ForeignKey("CodRelato")]
+        public virtual ICollection<RelatoArquivoDto> ListArquivo { get; set; }
+
+        [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
 
         public void Mapping(Profile profile)

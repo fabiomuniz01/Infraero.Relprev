@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
@@ -79,7 +80,7 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
         [HttpGet("GetRelatoArquivoByIdRelato/{id}")]
-        public async Task<RelatoArquivoDto> GetRelatoArquivoByIdRelato(int id)
+        public async Task<List<RelatoArquivoDto>> GetRelatoArquivoByIdRelato(int id)
         {
             try
             {
