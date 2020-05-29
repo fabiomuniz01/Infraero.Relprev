@@ -257,7 +257,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var model = new RelatoModel
             {
                 Relato = obj,
-                ListArquivo = arquivos,
+                ListRelatoArquivo = arquivos,
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
                 ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
 
