@@ -33,6 +33,7 @@ namespace Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos
                     var responseModel = await _context.RelatoArquivo
                         .Where(x=>x.CodRelato==request.Id)
                         .ProjectTo<RelatoArquivoDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(t => t.CodRelatoArquivo)
                         .ToListAsync(cancellationToken);
 
                     

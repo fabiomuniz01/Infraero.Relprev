@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
-
 using Microsoft.AspNetCore.Http;
 
 namespace Infraero.Relprev.CrossCutting.Models

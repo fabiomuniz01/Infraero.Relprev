@@ -126,7 +126,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                         item.CopyTo(new FileStream(filePath, FileMode.Create));
 
-                        listRelatoArquivo.Add(new RelatoArquivoDto(uniqueFileName, realName, "RelatoArquivo"));
+                        listRelatoArquivo.Add(new RelatoArquivoDto {NomeArquivo = uniqueFileName, Arquivo=realName, Caminho = "RelatoArquivo"});
                     }
 
                 }
@@ -253,11 +253,11 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-            var arquivos = ApiClientFactory.Instance.GetRelatoArquivoByIdRelato(obj.CodRelato);
+            //var arquivos = ApiClientFactory.Instance.GetRelatoArquivoByIdRelato(obj.CodRelato);
             var model = new RelatoModel
             {
                 Relato = obj,
-                ListRelatoArquivo = arquivos,
+                //ListRelatoArquivo = arquivos,
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
                 ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
 
@@ -293,7 +293,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                         item.CopyTo(new FileStream(filePath, FileMode.Create));
 
-                        listRelatoArquivo.Add(new RelatoArquivoDto(uniqueFileName, realName, uploadsFolder));
+                        listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
                     }
 
                 }

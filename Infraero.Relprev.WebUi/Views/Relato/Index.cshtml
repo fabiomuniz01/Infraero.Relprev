@@ -34,17 +34,17 @@
                         <tbody>
                             @foreach (var item in Model.aaData)
                             {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.CodRelato)</td>
-                                <td></td>
-                                <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
-                                <td>@Html.DisplayFor(modelItem => item.HorOcorrencia)</td>
-                                <td class="actions">
-                                    <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #eea236'><i class="fa fa-check"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-remove"></i></a>
-                                    <a data-toggle="tooltip" data-placement="top" title="Finalizar" asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default remove-row" style='color: #eea236'><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.CodRelato)</td>
+                                    <td></td>
+                                    <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.HorOcorrencia)</td>
+                                    <td class="actions">
+                                        <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #eea236'><i class="fa fa-check"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-remove"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Finalizar" asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default remove-row" style='color: #eea236'><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
                             }
 
                         </tbody>
@@ -60,7 +60,7 @@
 @section Scripts {
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/js/empresa.js"></script>
+    <script src="~/js/formatTable.js"></script>
 }
 
 
