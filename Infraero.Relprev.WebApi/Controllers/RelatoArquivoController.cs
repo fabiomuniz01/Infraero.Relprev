@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
-using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+using Infraero.Relprev.Application.RelatoArquivo.Commands.CreateRelatoArquivo;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
+
 using Microsoft.AspNetCore.Mvc;
-//using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
-//using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
-//using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
-//using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+
 
 namespace Infraero.Relprev.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class RelatoController : ApiController
+    public class RelatoArquivoController : ApiController
     {
-        [HttpPost("CreateRelato")]
-        public async Task<ActionResult<long>> CreateRelato(CreateRelatoCommand command)
+        [HttpPost("CreateRelatoArquivo")]
+        public async Task<ActionResult<long>> CreateRelatoArquivo(CreateRelatoArquivoCommand command)
         {
             try
             {
@@ -32,28 +29,28 @@ namespace Infraero.Relprev.WebApi.Controllers
             
         }
 
-        [HttpGet("GetGridRelato")]
-        public async Task<GridRelato> GetGridRelato()
-        {
-            try
-            {
-                var result = await Mediator.Send(new GetGridRelatoQuery());
-                return result;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+        //[HttpGet("GetGridRelatoArquivo")]
+        //public async Task<GridRelatoArquivo> GetGridRelatoArquivo()
+        //{
+        //    try
+        //    {
+        //        var result = await Mediator.Send(new GetGridRelatoArquivoQuery());
+        //        return result;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e);
+        //        throw;
+        //    }
             
-        }
+        //}
 
-        [HttpGet("GetRelatoById/{id}")]
-        public async Task<RelatoDto> GetRelatoById(int id)
+        [HttpGet("GetRelatoArquivoById/{id}")]
+        public async Task<RelatoArquivoDto> GetRelatoArquivoById(int id)
         {
             try
             {
-                var result = await Mediator.Send(new GetRelatoByIdQuery { Id = id });
+                var result = await Mediator.Send(new GetRelatoArquivoByIdQuery { Id = id });
                 return result;
             }
             catch (Exception e)
@@ -95,25 +92,8 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
-        //[HttpPost("UpdateRelato")]
-        //public async Task<ActionResult<bool>> UpdateRelato(UpdateRelatoCommand command)
-        //{
-        //    try
-        //    {
-        //        var result = await Mediator.Send(command);
-
-        //        return result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e);
-        //        throw;
-        //    }
-
-        //}
-
-        //[HttpPost("DeleteRelato")]
-        //public async Task<ActionResult<bool>> DeleteRelato(DeleteRelatoCommand command)
+        //[HttpPost("DeleteRelatoArquivo")]
+        //public async Task<ActionResult<bool>> DeleteRelatoArquivo(DeleteRelatoArquivoCommand command)
         //{
         //    try
         //    {
