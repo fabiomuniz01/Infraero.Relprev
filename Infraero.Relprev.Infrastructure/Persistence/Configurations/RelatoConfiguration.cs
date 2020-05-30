@@ -50,7 +50,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
               .HasColumnName("EMAIL_RELATOR");
 
             builder.Property(t => t.NumTelefoneRelator)
-                .HasMaxLength(11)
+              .HasMaxLength(15)
               .HasColumnName("NUM_TELEFONE_RELATOR");
 
             builder.Property(t => t.NomEmpresaRelator)
@@ -65,6 +65,19 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             builder.Property(t => t.CodUnidadeInfraestrutura)
               .HasColumnName("COD_UNIDADE_ESINFRAESTRUTURA")
               .IsRequired();
+
+            builder.Property(t => t.CodUnidadeInfraestrutura)
+             .HasColumnName("COD_UNIDADE_ESINFRAESTRUTURA")
+             .IsRequired();
+
+            builder.Property(t => t.DscMotivoRelato)
+            .HasColumnName("DSC_MOTIVO_RELATO")
+            .HasMaxLength(100);
+
+            builder.Property(t => t.StsRelato)
+             .HasColumnName("STS_RELATO")
+             .HasMaxLength(20)
+             .IsRequired();
 
 
 

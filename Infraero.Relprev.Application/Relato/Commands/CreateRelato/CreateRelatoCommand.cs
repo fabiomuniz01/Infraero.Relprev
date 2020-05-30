@@ -38,7 +38,8 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                     NumTelefoneRelator = request.NumTelefoneRelator,
                     NomEmpresaRelator = request.NomEmpresaRelator,
                     CriadoPor = request.CriadoPor,
-                    DataCriacao = DateTime.Now
+                    DataCriacao = DateTime.Now,
+                    StsRelato = "CADASTRO"
                 };
 
                 _context.Relato.Add(entity);
@@ -55,6 +56,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         Caminho = item.Caminho,
                         CriadoPor = request.CriadoPor,
                         DataCriacao = DateTime.Now
+                        
 
                     };
 

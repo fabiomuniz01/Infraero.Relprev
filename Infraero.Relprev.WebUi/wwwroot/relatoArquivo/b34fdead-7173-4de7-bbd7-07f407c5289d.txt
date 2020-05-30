@@ -1,0 +1,3 @@
+DESKTOP-9RGJN31\\SQLEXPRESS
+
+Add-Migration Relpre008 -OutputDir "Persistence/Migration"
