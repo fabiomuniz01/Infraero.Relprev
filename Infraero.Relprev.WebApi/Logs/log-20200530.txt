@@ -155,3 +155,4 @@
 2020-05-30 19:06:58.078 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/1018" responded 200 in 68.9512 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-05-30 19:07:38.235 -03:00 [Information] HTTP "POST" "/api/Relato/CancelRelato" responded 200 in 22228.3815 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-05-30 19:07:43.318 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 48.8731 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:15:29.195 -03:00 [Information] web api service is started.
