@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
+using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
+using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Microsoft.AspNetCore.Mvc;
 //using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
@@ -95,24 +98,39 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
+        [HttpPost("UpdateRelato")]
+        public async Task<ActionResult<long>> CancelRelato(CancelRelatoCommand command)
+        {
+            try
+            {
+                var result = await Mediator.Send(command);
 
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
-        //[HttpPost("UpdateRelato")]
-        //public async Task<ActionResult<bool>> UpdateRelato(UpdateRelatoCommand command)
-        //{
-        //    try
-        //    {
-        //        var result = await Mediator.Send(command);
+        }
 
-        //        return result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e);
-        //        throw;
-        //    }
+        [HttpPost("UpdateRelato")]
+        public async Task<ActionResult<bool>> UpdateRelato(UpdateRelatoCommand command)
+        {
+            try
+            {
+                var result = await Mediator.Send(command);
 
-        //}
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
 
         //[HttpPost("DeleteRelato")]
         //public async Task<ActionResult<bool>> DeleteRelato(DeleteRelatoCommand command)

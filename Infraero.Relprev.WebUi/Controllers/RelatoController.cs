@@ -40,8 +40,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-       
-        [ClaimsAuthorize("Relatos", "Incluir")]
+
+        [ClaimsAuthorize("Relatos", "Cadastrar")]
         public ActionResult Create()
         {
 
@@ -55,7 +55,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        [ClaimsAuthorize("Relatos", "Incluir")]
+        [ClaimsAuthorize("Relatos", "Cadastrar")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
@@ -132,7 +132,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
-        [ClaimsAuthorize("Relatos", "Alterar")]
+        [ClaimsAuthorize("Relatos", "Classificar")]
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
@@ -153,7 +153,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         }
 
-        [ClaimsAuthorize("Relatos", "Alterar")]
+        [ClaimsAuthorize("Relatos", "Classificar")]
         [HttpPost]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -202,7 +202,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        [ClaimsAuthorize("Relatos", "Alterar")]
+        [ClaimsAuthorize("Relatos", "Cancelar")]
         public ActionResult Cancel(int id)
         {
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
@@ -219,15 +219,18 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        [ClaimsAuthorize("Relatos", "Alterar")]
+        [ClaimsAuthorize("Relatos", "Cancelar")]
         [HttpPost]
         public ActionResult Cancel(IFormCollection collection)
         {
             try
             {
 
+                //var obj = ApiClientFactory.Instance.GetRelatoById(int.Parse(collection["CodRelato"].ToString()));
                 var command = new CancelRelatoCommand
                 {
+
+
                     CodRelato = int.Parse(collection["CodRelato"].ToString()),
                     DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
                     AlteradoPor = User.Identity.Name,
@@ -333,6 +336,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             };
         }
 
+        [ClaimsAuthorize("Relatos", "Finalizar")]
         public ActionResult Finalize()
         {
             return View();
