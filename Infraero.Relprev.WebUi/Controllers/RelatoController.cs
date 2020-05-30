@@ -102,7 +102,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
                     ListRelatoArquivo = listRelatoArquivo,
-                    FlgStatusRelato = EnumStatusRelato.NaoIniciado.GetStringValue(),
+                    FlgStatusRelato = EnumStatusRelato.NaoIniciado.GetHashCode(),
                     CriadoPor = User.Identity.Name
                 };
 
@@ -236,6 +236,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodRelato = int.Parse(collection["CodRelato"].ToString()),
                     DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
                     AlteradoPor = User.Identity.Name,
+                    FlgStatusRelato = EnumStatusRelato.Cancelado.GetHashCode(),
 
                 };
 

@@ -1,3 +1,59 @@
 2020-05-30 19:07:29.529 -03:00 [Information] web api service is started.
 2020-05-30 19:12:03.061 -03:00 [Information] web api service is started.
 2020-05-30 19:14:16.061 -03:00 [Information] web api service is started.
+2020-05-30 19:23:30.848 -03:00 [Information] web api service is started.
+2020-05-30 19:38:41.601 -03:00 [Information] web api service is started.
+2020-05-30 19:39:55.618 -03:00 [Information] web api service is started.
+2020-05-30 19:40:38.940 -03:00 [Information] web api service is started.
+2020-05-30 19:41:03.336 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 5117.8204 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:41:03.632 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 205.7711 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:41:07.837 -03:00 [Information] HTTP "GET" "/api/Relato/GetRelatoById/1002" responded 200 in 441.2785 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:41:07.932 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/1018" responded 200 in 79.6867 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:41:47.648 -03:00 [Error] HTTP "POST" "/api/Relato/CancelRelato" responded 500 in 8470.5814 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Headers:[("Content-Type": "application/json; charset=utf-8"), ("Host": "localhost:44372"), ("Request-Id": "|1f40b243-4666e0e6228b73cd.1."), ("Content-Length": "136"), ("userIP": "192.168.1.1")]]
+System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.Number.ParseInt32(ReadOnlySpan`1 value, NumberStyles styles, NumberFormatInfo info)
+   at System.Convert.ToInt32(String value)
+   at Infraero.Relprev.Application.Relato.Commands.CancelRelato.CancelRelatoCommand.CancelRelatoCommandHandler.Handle(CancelRelatoCommand request, CancellationToken cancellationToken) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.Application\Relato\Commands\CancelRelato\CancelRelatoCommand.cs:line 27
+   at Infraero.Relprev.Application.Common.Behaviours.RequestPerformanceBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.Application\Common\Behaviours\RequestPerformanceBehaviour.cs:line 30
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at Infraero.Relprev.WebApi.Controllers.RelatoController.CancelRelato(CancelRelatoCommand command) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Controllers\RelatoController.cs:line 106
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Infraero.Relprev.WebApi.Middlewares.HttpContextMiddleware.Invoke(HttpContext httpContext) in C:\Users\Robson Douglas\Desktop\ProjetosInfraero\Relprev\Infraero.Relprev.WebApi\Middlewares\HttpContextMiddleware.cs:line 40
+2020-05-30 19:46:36.038 -03:00 [Information] web api service is started.
+2020-05-30 19:46:55.846 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 5214.8747 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:46:59.421 -03:00 [Information] HTTP "GET" "/api/Relato/GetRelatoById/1002" responded 200 in 471.3171 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:46:59.568 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/1018" responded 200 in 133.6111 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:50:30.018 -03:00 [Information] web api service is started.
+2020-05-30 19:50:47.336 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 4997.1678 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:50:51.111 -03:00 [Information] HTTP "GET" "/api/Relato/GetRelatoById/1002" responded 200 in 294.6190 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:50:51.216 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/1018" responded 200 in 86.6434 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:51:23.946 -03:00 [Information] HTTP "POST" "/api/Relato/CancelRelato" responded 200 in 4950.1184 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:51:24.077 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 52.7829 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:54:52.349 -03:00 [Information] web api service is started.
+2020-05-30 19:55:07.430 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 5345.5602 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:55:13.481 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 133.6033 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:56:10.122 -03:00 [Information] HTTP "POST" "/api/Relato/CreateRelato" responded 200 in 13801.4373 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:56:10.265 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 60.3794 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:56:23.745 -03:00 [Information] HTTP "GET" "/api/Relato/GetRelatoById/1002" responded 200 in 161.1479 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:56:23.858 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/1018" responded 200 in 83.4774 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 19:56:26.769 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 60.5475 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

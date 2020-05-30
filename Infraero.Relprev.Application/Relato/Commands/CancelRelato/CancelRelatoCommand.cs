@@ -24,11 +24,9 @@ namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
                 var entity = await _context.Relato.FindAsync(request.CodRelato);
 
                 entity.DscMotivoRelato = request.DscMotivoCancelamento;
-                entity.StsRelato = "CANCELADO";
-
+                entity.FlgStatusRelato = request.FlgStatusRelato;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
-                 //entity.FlagAtivo = false;
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return entity.CodRelato;
@@ -37,6 +35,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
 
         public string DscMotivoCancelamento { get; set; }
         public string AlteradoPor { get; set; }
+        public int FlgStatusRelato { get; set; }
         public int CodRelato { get; set; }
     }
 }
