@@ -1,0 +1,3 @@
+2020-05-30 19:07:29.529 -03:00 [Information] web api service is started.
+2020-05-30 19:12:03.061 -03:00 [Information] web api service is started.
+2020-05-30 19:14:16.061 -03:00 [Information] web api service is started.

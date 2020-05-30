@@ -74,9 +74,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             .HasColumnName("DSC_MOTIVO_RELATO")
             .HasMaxLength(100);
 
-            builder.Property(t => t.StsRelato)
-             .HasColumnName("STS_RELATO")
-             .HasMaxLength(20)
+            builder.Property(t => t.FlgStatusRelato)
+             .HasColumnName("FLG_STATUS_RELATO")
              .IsRequired();
 
 
