@@ -5,6 +5,6 @@ namespace Infraero.Relprev.CrossCutting.Enumerators
     public enum EnumStatusRelato
     {
         [Description("Não Iniciado")]
-        NaoIniciado = 1,
+        NaoIniciado = 1
     }
 }

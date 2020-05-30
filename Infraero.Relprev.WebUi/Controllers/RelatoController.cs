@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Elasticsearch.Net;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
@@ -101,6 +102,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
                     ListRelatoArquivo = listRelatoArquivo,
+                    FlgStatusRelato = EnumStatusRelato.NaoIniciado.GetStringValue(),
                     CriadoPor = User.Identity.Name
                 };
 
