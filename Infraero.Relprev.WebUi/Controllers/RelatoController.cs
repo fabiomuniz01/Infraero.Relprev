@@ -28,7 +28,7 @@ using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 namespace Infraero.Relprev.WebUi.Controllers
 {
     [Authorize(Policy = ModuloAccess.Relatos)]
-    public class RelatoController : Controller
+    public class RelatoController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -40,7 +40,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        [ClaimsAuthorize("Relatos", "Consultar")]
+       
+        [ClaimsAuthorize("Relatos", "Incluir")]
         public ActionResult Create()
         {
 
@@ -52,6 +53,195 @@ namespace Infraero.Relprev.WebUi.Controllers
             };
 
             return View(model);
+        }
+
+        [ClaimsAuthorize("Relatos", "Incluir")]
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        public async Task<IActionResult> Create(IFormCollection collection)
+        {
+            try
+            {
+                string uniqueFileName = null;
+                var listRelatoArquivo = new List<RelatoArquivoDto>();
+
+
+                if (collection.Files.Count > 0)
+                {
+                    var file = collection.Files;
+
+                    foreach (var item in file)
+                    {
+
+                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "RelatoArquivo");
+
+                        string extension = Path.GetExtension(item.FileName);
+                        uniqueFileName = Guid.NewGuid().ToString() + extension;
+                        var realName = item.GetFilename();
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        item.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                        listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
+                    }
+
+                }
+
+                var command = new CreateRelatoCommand
+                {
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    DatOcorrencia = collection["DtOcorrencia"].ToString(),
+                    HorOcorrencia = collection["HorOcorrencia"].ToString(),
+                    DscEnvolvidosOcorrencia = collection["DscEnvolvidosOcorrencia"].ToString(),
+                    DscLocalOcorrenciaRelator = collection["DscLocalOcorrenciaRelator"].ToString(),
+                    DscOcorrenciaRelator = collection["DscOcorrenciaRelator"].ToString(),
+                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
+                    NomRelator = collection["NomRelator"].ToString(),
+                    EmailRelator = collection["EmailRelator"].ToString(),
+                    NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
+                    NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
+                    ListRelatoArquivo = listRelatoArquivo,
+                    CriadoPor = User.Identity.Name
+                };
+
+                var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+
+            }
+            catch (Exception e)
+            {
+                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+
+                var model = new RelatoModel
+                {
+                    ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+
+                };
+
+
+                return View(model);
+            }
+        }
+
+        [ClaimsAuthorize("Relatos", "Consultar")]
+        public IActionResult Index(int? crud)
+        {
+            SetCrudMessage(crud);
+            var response = ApiClientFactory.Instance.GetGridRelato();
+            return View(response);
+        }
+
+        [ClaimsAuthorize("Relatos", "Alterar")]
+        public ActionResult Edit(int id)
+        {
+            var obj = ApiClientFactory.Instance.GetRelatoById(id);
+            //var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
+            //var arquivos = ApiClientFactory.Instance.GetRelatoArquivoByIdRelato(obj.CodRelato);
+            var model = new RelatoModel
+            {
+                Relato = obj,
+                ListRelatoArquivo = obj.ListArquivo,
+                CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
+                NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura
+                //ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
+
+            };
+
+            return View(model);
+
+        }
+
+        [ClaimsAuthorize("Relatos", "Alterar")]
+        [HttpPost]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+
+            try
+            {
+
+                string uniqueFileName = null;
+                var listRelatoArquivo = new List<RelatoArquivoDto>();
+
+
+                if (collection.Files.Count > 0)
+                {
+                    var file = collection.Files;
+
+                    foreach (var item in file)
+                    {
+
+                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "relatoRelatoArquivo");
+
+                        string extension = Path.GetExtension(item.FileName);
+                        uniqueFileName = Guid.NewGuid().ToString() + extension;
+                        var realName = item.GetFilename();
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        item.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                        listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
+                    }
+
+                }
+                var command = new UpdateRelatoCommand
+                {
+                    CodRelato = id,
+                    AlteradoPor = User.Identity.Name,
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
+
+                };
+                ApiClientFactory.Instance.UpdateRelato(command);
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        [ClaimsAuthorize("Relatos", "Alterar")]
+        public ActionResult Cancel(int id)
+        {
+            var obj = ApiClientFactory.Instance.GetRelatoById(id);
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
+
+            var model = new RelatoModel
+            {
+                Relato = obj,
+                ListRelatoArquivo = obj.ListArquivo,
+                CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
+                NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura
+            };
+
+            return View(model);
+        }
+
+        [ClaimsAuthorize("Relatos", "Alterar")]
+        [HttpPost]
+        public ActionResult Cancel(IFormCollection collection)
+        {
+            try
+            {
+
+                var command = new CancelRelatoCommand
+                {
+                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                    DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
+                    AlteradoPor = User.Identity.Name,
+
+                };
+
+               ApiClientFactory.Instance.CancelRelato(command);
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            }
+            catch (Exception e)
+            {
+                 return View();
+            }
         }
 
         [HttpPost]
@@ -99,106 +289,6 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         }
 
-
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
-        public async Task<IActionResult> Create(IFormCollection collection)
-        {
-            try
-            {
-                string uniqueFileName = null;
-                var listRelatoArquivo = new List<RelatoArquivoDto>();
-
-
-                if (collection.Files.Count > 0)
-                {
-                    var file = collection.Files;
-
-                    foreach (var item in file)
-                    {
-
-                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "RelatoArquivo");
-
-                        string extension = Path.GetExtension(item.FileName);
-                        uniqueFileName = Guid.NewGuid().ToString() + extension;
-                        var realName = item.GetFilename();
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        item.CopyTo(new FileStream(filePath, FileMode.Create));
-
-                        listRelatoArquivo.Add(new RelatoArquivoDto {NomeArquivo = uniqueFileName, Arquivo=realName, Caminho = "RelatoArquivo"});
-                    }
-
-                }
-
-                var command = new CreateRelatoCommand
-                {
-                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    DatOcorrencia = collection["DtOcorrencia"].ToString(),
-                    HorOcorrencia = collection["HorOcorrencia"].ToString(),
-                    DscEnvolvidosOcorrencia = collection["DscEnvolvidosOcorrencia"].ToString(),
-                    DscLocalOcorrenciaRelator = collection["DscLocalOcorrenciaRelator"].ToString(),
-                    DscOcorrenciaRelator = collection["DscOcorrenciaRelator"].ToString(),
-                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
-                    NomRelator = collection["NomRelator"].ToString(),
-                    EmailRelator = collection["EmailRelator"].ToString(),
-                    NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
-                    NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
-                    ListRelatoArquivo = listRelatoArquivo,
-                    CriadoPor = User.Identity.Name
-                };
-
-                var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
-
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
-            }
-            catch (Exception e)
-            {
-                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-
-                var model = new RelatoModel
-                {
-                    ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
-
-                };
-
-
-                return View(model);
-            }
-        }
-
-        public async Task<IActionResult> Cancel(IFormCollection collection)
-        {
-            try
-            {
-
-                var command = new CancelRelatoCommand
-                {
-                    CodRelato = 3,
-                    DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
-                    AlteradoPor = User.Identity.Name,
-
-                };
-
-                await ApiClientFactory.Instance.CancelRelato(command);
-
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
-            }
-            catch (Exception e)
-            {
-                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-
-                var model = new RelatoModel
-                {
-                    ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
-
-                };
-
-
-                return View(model);
-            }
-        }
-
         [Route("Infusao/Download/{filename}")]
         public async Task<IActionResult> Download(string filename)
         {
@@ -241,102 +331,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                 {".gif", "image/gif"},
                 {".csv", "text/csv"}
             };
-        }
-
-        public ActionResult Index()
-        {
-            var response = ApiClientFactory.Instance.GetGridRelato();
-            return View(response);
-        }
-
-        public ActionResult Edit(int id)
-        {
-            var obj = ApiClientFactory.Instance.GetRelatoById(id);
-            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-            //var arquivos = ApiClientFactory.Instance.GetRelatoArquivoByIdRelato(obj.CodRelato);
-            var model = new RelatoModel
-            {
-                Relato = obj,
-                ListRelatoArquivo = obj.ListArquivo,
-                CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
-                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
-
-            };
-
-            return View(model);
-
-        }
-
-        [HttpPost]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-
-            try
-            {
-
-                string uniqueFileName = null;
-                var listRelatoArquivo = new List<RelatoArquivoDto>();
-
-
-                if (collection.Files.Count > 0)
-                {
-                    var file = collection.Files;
-
-                    foreach (var item in file)
-                    {
-
-                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "relatoRelatoArquivo");
-
-                        string extension = Path.GetExtension(item.FileName);
-                        uniqueFileName = Guid.NewGuid().ToString() + extension;
-                        var realName = item.GetFilename();
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        item.CopyTo(new FileStream(filePath, FileMode.Create));
-
-                        listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
-                    }
-
-                }
-                var command = new UpdateRelatoCommand
-                {
-                    CodRelato = id,
-                    AlteradoPor = User.Identity.Name,
-                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    //DatOcorrencia = collection["DtOcorrencia"].ToString(),
-                    //HorOcorrencia = collection["HorOcorrencia"].ToString(),
-                    //DscEnvolvidosOcorrencia = collection["DscEnvolvidosOcorrencia"].ToString(),
-                    //DscLocalOcorrenciaRelator = collection["DscLocalOcorrenciaRelator"].ToString(),
-                    //DscOcorrenciaRelator = collection["DscOcorrenciaRelator"].ToString(),
-                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
-                    //NomRelator = collection["NomRelator"].ToString(),
-                    //EmailRelator = collection["EmailRelator"].ToString(),
-                    //NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
-                    //NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
-                    //ListRelatoArquivo = listRelatoArquivo,
-                };
-                ApiClientFactory.Instance.UpdateRelato(command);
-
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Cancel(int id)
-        {
-            var obj = ApiClientFactory.Instance.GetRelatoById(id);
-            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-
-            var model = new RelatoModel
-            {
-                Relato = obj,
-                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
-
-            };
-
-            return View(model);
         }
 
         public ActionResult Finalize()
