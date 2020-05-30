@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Infraero.Relprev.CrossCutting.Enumerators
+﻿namespace Infraero.Relprev.CrossCutting.Enumerators
 {
     public enum EnumCrud
     {
