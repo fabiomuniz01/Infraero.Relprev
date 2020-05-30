@@ -98,7 +98,7 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
-        [HttpPost("UpdateRelato")]
+        [HttpPost("CancelRelato")]
         public async Task<ActionResult<long>> CancelRelato(CancelRelatoCommand command)
         {
             try
