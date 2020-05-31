@@ -61,6 +61,83 @@
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/js/formatTable.js"></script>
+
+
+    <script>
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
+
+        (function ($) {
+
+            'use strict';
+
+            var crub = @ViewBag.CrudMessage;
+
+            if (crub===1) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Cadastro realizado com sucesso!',
+                    type: 'success'
+                });
+            }else if (crub === 2) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning'
+                });
+            }else if (crub === 3) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Registro excluído com sucesso.',
+                    type: 'error'
+                });
+            }
+
+
+
+            /*
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+
+        }).apply(this, [jQuery]);
+        // Tooltip
+        (function ($) {
+
+            'use strict';
+
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
+            }
+
+        }).apply(this, [jQuery]);
+
+
+    </script>
 }
 
 
