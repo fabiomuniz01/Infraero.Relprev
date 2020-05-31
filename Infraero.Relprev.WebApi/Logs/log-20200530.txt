@@ -61,3 +61,7 @@ System.FormatException: Input string was not in a correct format.
 2020-05-30 22:35:45.804 -03:00 [Information] web api service is started.
 2020-05-30 22:36:16.972 -03:00 [Information] web api service is started.
 2020-05-30 22:38:36.850 -03:00 [Information] web api service is started.
+2020-05-30 22:53:01.362 -03:00 [Information] web api service is started.
+2020-05-30 22:53:45.474 -03:00 [Information] web api service is started.
+2020-05-30 22:54:19.590 -03:00 [Information] web api service is started.
+2020-05-30 22:56:07.789 -03:00 [Information] web api service is started.
