@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infraero.Relprev.Application\Infraero.Relprev.Application.csproj">
-      <Private>true</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Infraero.Relprev.Application\Infraero.Relprev.Application.csproj" />
   </ItemGroup>
 
 </Project>

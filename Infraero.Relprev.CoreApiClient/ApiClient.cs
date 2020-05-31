@@ -5,8 +5,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.CrossCutting.Serializater;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -40,14 +38,14 @@ namespace Infraero.Relprev.CoreApiClient
             var data = response.Result.Content.ReadAsStringAsync();
             return Task.FromResult(JsonConvert.DeserializeObject<long>(data.Result));
         }
-        private async Task<MessageModel<T>> PostAsync<T>(Uri requestUrl, T content)
-        {
-            addHeaders();
-            var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
-            response.EnsureSuccessStatusCode();
-            var data = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<MessageModel<T>>(data);
-        }
+        //private async Task<MessageModel<T>> PostAsync<T>(Uri requestUrl, T content)
+        //{
+        //    addHeaders();
+        //    var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
+        //    response.EnsureSuccessStatusCode();
+        //    var data = await response.Content.ReadAsStringAsync();
+        //    return JsonConvert.DeserializeObject<MessageModel<T>>(data);
+        //}
         private async Task<T1> PostAsync<T1, T2>(Uri requestUrl, T2 content)
         {
             addHeaders();

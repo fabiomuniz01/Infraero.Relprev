@@ -91,7 +91,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var command = new CreateRelatoCommand
                 {
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    Sigla = collection["ddlUnidadeInfraestrutura"].ToString().Split('-')[0].ToString(),
                     DatOcorrencia = collection["DtOcorrencia"].ToString(),
                     HorOcorrencia = collection["HorOcorrencia"].ToString(),
                     DscEnvolvidosOcorrencia = collection["DscEnvolvidosOcorrencia"].ToString(),
@@ -103,7 +102,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
                     ListRelatoArquivo = listRelatoArquivo,
-                    FlgStatusRelato = EnumStatusRelato.NaoIniciado.GetHashCode(),
+                    FlgStatusRelato = (int) EnumStatusRelato.NaoIniciado,
                     CriadoPor = User.Identity.Name
                 };
 

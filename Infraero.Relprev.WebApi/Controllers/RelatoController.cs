@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
@@ -7,7 +8,13 @@ using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
+using Infraero.Relprev.CrossCutting.Enumerators;
+using Infraero.Relprev.CrossCutting.Extensions;
+using Infraero.Relprev.CrossCutting.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+
 //using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
 //using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 //using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
@@ -23,6 +30,12 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
+                command.NumTelefoneRelator = Criptografia.Encriptar(command.NumTelefoneRelator);
+
+                var unidade = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = (int)command.CodUnidadeInfraestrutura });
+
+                command.Sigla = unidade.Sigla;
+
                 var result = await Mediator.Send(command);
 
                 return result;
@@ -40,7 +53,24 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                var result = await Mediator.Send(new GetGridRelatoQuery());
+                var result = await Mediator.Send(new GetRelatoAllQuery());
+                return new GridRelato {aaData = result.Select(s=>new RelatoDto { NumRelato=s.NumRelato, StatusRelato=((EnumStatusRelato)s.FlgStatusRelato).GetDescription(), DatOcorrencia=s.DatOcorrencia, HorOcorrencia=s.HorOcorrencia})};
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
+
+        [HttpGet("GetRelatoAll")]
+        public async Task<List<RelatoDto>> GetRelatoAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetRelatoAllQuery());
                 return result;
             }
             catch (Exception e)
@@ -48,7 +78,7 @@ namespace Infraero.Relprev.WebApi.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-            
+
         }
 
         [HttpGet("GetRelatoById/{id}")]
