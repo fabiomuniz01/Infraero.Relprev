@@ -46,6 +46,11 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 
                 await _context.SaveChangesAsync(cancellationToken);
 
+                entity.NumRelato = DateTime.Now.Year.ToString() + request.Sigla +
+                                   entity.CodRelato.ToString().PadLeft(4, '0').ToString();
+
+                await _context.SaveChangesAsync(cancellationToken);
+
                 foreach (var item in request.ListRelatoArquivo)
                 {
                     var entityRelatoArquivo = new Domain.Entities.RelatoArquivo
@@ -76,7 +81,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         public string DscRelato { get; set; }
         public string DatOcorrencia { get; set; }
         public string HorOcorrencia { get; set; }
-
         public string DscLocalOcorrenciaRelator { get; set; }
         public string DscEnvolvidosOcorrencia { get; set; }
         public string DscOcorrenciaRelator { get; set; }
@@ -84,6 +88,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
+        public string Sigla { get; set; }
 
         public int CodUnidadeInfraestrutura { get; set; }
         public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }

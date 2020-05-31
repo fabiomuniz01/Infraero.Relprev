@@ -1,7 +1,0 @@
-2020-05-24 20:02:35.199 -03:00 [Information] web api service is started.
-2020-05-24 20:02:53.609 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 4222.4052 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-05-24 20:04:14.076 -03:00 [Information] HTTP "POST" "/api/Relato/CreateRelato" responded 200 in 28005.3906 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-05-24 22:24:17.313 -03:00 [Information] web api service is started.
-2020-05-24 22:24:35.632 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 4201.0711 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-05-24 22:25:36.837 -03:00 [Information] HTTP "POST" "/api/Relato/CreateRelato" responded 200 in 16071.2433 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-05-24 22:25:46.948 -03:00 [Information] HTTP "POST" "/api/Arquivo/CreateArquivo" responded 404 in 5.1331 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

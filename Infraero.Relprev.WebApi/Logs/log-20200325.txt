@@ -1,2 +1,0 @@
-2020-03-25 20:07:35.374 -03:00 [Information] web api service is started.
-2020-03-25 21:03:54.913 -03:00 [Information] HTTP "GET" "/api/Empresa/GetGridEmpresa" responded 200 in 3495.4670 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]

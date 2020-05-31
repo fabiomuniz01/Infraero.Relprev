@@ -11,6 +11,7 @@ namespace Infraero.Relprev.Domain.Entities
     {
         [Key]
         public int CodRelato { get; set; }
+        public string NumRelato { get; set; }
         public DateTime DatOcorrencia { get; set; }
         public string HorOcorrencia { get; set; }
         public string DscLocalOcorrenciaRelator { get; set; }
@@ -24,11 +25,11 @@ namespace Infraero.Relprev.Domain.Entities
         public string DscMotivoRelato { get; set; }
         public int FlgStatusRelato { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }   
-
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> ListArquivo { get; set; }
-
         [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
+
+        
     }
 }

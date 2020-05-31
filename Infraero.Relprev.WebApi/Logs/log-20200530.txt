@@ -58,3 +58,6 @@ System.FormatException: Input string was not in a correct format.
 2020-05-30 19:56:23.745 -03:00 [Information] HTTP "GET" "/api/Relato/GetRelatoById/1002" responded 200 in 161.1479 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-05-30 19:56:23.858 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaById/1018" responded 200 in 83.4774 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-05-30 19:56:26.769 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 60.5475 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-30 22:35:45.804 -03:00 [Information] web api service is started.
+2020-05-30 22:36:16.972 -03:00 [Information] web api service is started.
+2020-05-30 22:38:36.850 -03:00 [Information] web api service is started.

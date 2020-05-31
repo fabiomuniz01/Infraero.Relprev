@@ -1,9 +1,0 @@
-2020-03-17 21:24:15.276 -03:00 [Information] HTTP "GET" "/api/Usuario/GetGridUsuario" responded 200 in 372.4847 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-03-17 21:24:23.803 -03:00 [Information] HTTP "GET" "/api/Empresa/GetEmpresaAll/" responded 200 in 225.0605 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-03-17 21:24:23.892 -03:00 [Information] HTTP "GET" "/api/Perfil/GetPerfilAll/" responded 200 in 71.7164 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-03-17 21:46:36.048 -03:00 [Information] web api service is started.
-2020-03-17 21:47:18.401 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 3213.8657 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-03-17 23:27:56.968 -03:00 [Information] web api service is started.
-2020-03-17 23:28:28.625 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 2382.0143 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
-2020-03-17 23:33:02.495 -03:00 [Information] web api service is started.
-2020-03-17 23:33:14.900 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 1943.2933 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
