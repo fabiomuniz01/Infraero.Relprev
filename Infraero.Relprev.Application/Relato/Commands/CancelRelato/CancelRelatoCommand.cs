@@ -7,10 +7,10 @@ using MediatR;
 
 namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
 {
-    public partial class CancelRelatoCommand : IRequest<bool>
+    public partial class CancelRelatoCommand : IRequest<long>
     {
 
-        public class CancelRelatoCommandHandler : IRequestHandler<CancelRelatoCommand, bool>
+        public class CancelRelatoCommandHandler : IRequestHandler<CancelRelatoCommand, long>
         {
             private readonly IApplicationDbContext _context;
 
@@ -19,27 +19,23 @@ namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
                 _context = context;
             }
 
-            public async Task<bool> Handle(CancelRelatoCommand request, CancellationToken cancellationToken)
+            public async Task<long> Handle(CancelRelatoCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.Relato.FindAsync(request.CodRelato);
 
-                //if (entity == null)
-                //{
-                //    throw new NotFoundException(nameof(Domain.Entities.Relato), request.CodUnidadeInfraestrutura);
-                //}
-
-                
+                entity.DscMotivoRelato = request.DscMotivoCancelamento;
+                entity.FlgStatusRelato = request.FlgStatusRelato;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
-                entity.FlagAtivo = false;
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return true;
+                return entity.CodRelato;
             }
         }
 
         public string DscMotivoCancelamento { get; set; }
         public string AlteradoPor { get; set; }
+        public int FlgStatusRelato { get; set; }
         public int CodRelato { get; set; }
     }
 }

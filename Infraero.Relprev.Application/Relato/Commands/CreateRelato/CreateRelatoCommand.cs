@@ -39,7 +39,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                     NomEmpresaRelator = request.NomEmpresaRelator,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now,
-                    FlgStatusRelato = Convert.ToInt32(request.FlgStatusRelato)
+                    FlgStatusRelato = request.FlgStatusRelato
                 };
 
                 _context.Relato.Add(entity);
@@ -87,6 +87,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 
         public int CodUnidadeInfraestrutura { get; set; }
         public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
-        public string FlgStatusRelato { get; set; }
+        public int FlgStatusRelato { get; set; }
     }
 }

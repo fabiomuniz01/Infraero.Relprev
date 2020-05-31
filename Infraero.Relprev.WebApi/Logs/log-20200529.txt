@@ -201,3 +201,11 @@ System.InvalidOperationException: When called from 'VisitMemberInit', rewriting 
 2020-05-29 17:47:18.048 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 264.7413 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-05-29 17:47:18.078 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 295.0890 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
 2020-05-29 17:47:18.108 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 325.0158 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-29 17:57:46.773 -03:00 [Information] web api service is started.
+2020-05-29 17:58:40.479 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 4503.1579 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-29 18:29:34.042 -03:00 [Information] HTTP "GET" "/api/Relato/GetGridRelato" responded 200 in 235.1839 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-29 18:29:38.194 -03:00 [Information] HTTP "GET" "/api/Relato/GetRelatoById/1002" responded 200 in 268.0232 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-29 18:29:38.319 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 108.3949 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-29 18:29:47.248 -03:00 [Information] HTTP "GET" "/api/Relato/GetRelatoById/1002" responded 200 in 100.6413 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-29 18:29:47.316 -03:00 [Information] HTTP "GET" "/api/UnidadeInfraEstrutura/GetUnidadeInfraEstruturaAll/" responded 200 in 47.0310 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
+2020-05-29 18:33:33.616 -03:00 [Information] HTTP "POST" "/api/Relato/UpdateRelato" responded 404 in 0.7951 ms [User:"unknown"][Protocol:"HTTP/1.1"][Host:"localhost:44372"][Referer:""][User-Agent:""]
