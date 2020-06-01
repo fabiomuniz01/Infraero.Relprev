@@ -37,15 +37,8 @@ namespace Infraero.Relprev.CoreApiClient
         public GridRelato GetGridRelato()
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceRelato}/GetGridRelato"));
+                $"{ResourceRelato}/GetGridRelato/"));
             return Get<GridRelato>(requestUrl);
-        }
-
-        public List<RelatoDto> GetRelatoAll()
-        {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceRelato}/GetRelatoAll/"));
-            return Get<List<RelatoDto>>(requestUrl);
         }
 
         #endregion

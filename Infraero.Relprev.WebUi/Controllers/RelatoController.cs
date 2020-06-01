@@ -102,7 +102,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
                     ListRelatoArquivo = listRelatoArquivo,
-                    FlgStatusRelato = EnumStatusRelato.NaoIniciado.GetHashCode(),
+                    FlgStatusRelato = (int) EnumStatusRelato.NaoIniciado,
                     CriadoPor = User.Identity.Name
                 };
 

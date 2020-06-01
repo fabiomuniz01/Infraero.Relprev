@@ -11,6 +11,7 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
     public class RelatoDto : IMapFrom<Domain.Entities.Relato>
     {
         public int CodRelato { get; set; }
+        public string NumRelato { get; set; }
         public DateTime DatOcorrencia { get; set; }
         public string HorOcorrencia { get; set; }
         public string DscLocalOcorrenciaRelator { get; set; }
@@ -20,12 +21,11 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
-        public string StsRelator { get; set; }
+        public int FlgStatusRelato { get; set; }
+        public string StatusRelato { get; set; }
         public string DscMotivoRelator { get; set; }
-
         [ForeignKey("CodRelato")]
         public virtual List<RelatoArquivoDto> ListArquivo { get; set; }
-
         [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
 
