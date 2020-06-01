@@ -90,6 +90,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 var command = new CreateRelatoCommand
                 {
+                    
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
                     DatOcorrencia = collection["DtOcorrencia"].ToString(),
                     HorOcorrencia = collection["HorOcorrencia"].ToString(),
