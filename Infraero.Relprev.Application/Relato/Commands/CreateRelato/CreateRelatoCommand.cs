@@ -24,54 +24,62 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 
             public async Task<long> Handle(CreateRelatoCommand request, CancellationToken cancellationToken)
             {
-                var entity = new Domain.Entities.Relato
+                try
                 {
-                    CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
-                    DatOcorrencia = Convert.ToDateTime(request.DatOcorrencia),
-                    HorOcorrencia = request.HorOcorrencia,
-                    DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
-                    DscLocalOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
-                    DscOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
-                    DscRelato = request.DscRelato,
-                    NomRelator = request.NomRelator,
-                    EmailRelator = request.EmailRelator,
-                    NumTelefoneRelator = request.NumTelefoneRelator,
-                    NomEmpresaRelator = request.NomEmpresaRelator,
-                    CriadoPor = request.CriadoPor,
-                    DataCriacao = DateTime.Now,
-                    FlgStatusRelato = request.FlgStatusRelato
-                };
-
-                _context.Relato.Add(entity);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                entity.NumRelato = DateTime.Now.Year.ToString() + request.Sigla +
-                                   entity.CodRelato.ToString().PadLeft(4, '0').ToString();
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                foreach (var item in request.ListRelatoArquivo)
-                {
-                    var entityRelatoArquivo = new Domain.Entities.RelatoArquivo
+                    var entity = new Domain.Entities.Relato
                     {
-                        CodRelato = entity.CodRelato,
-                        Arquivo = item.Arquivo,
-                        NomeArquivo = item.NomeArquivo,
-                        Caminho = item.Caminho,
+                        CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                        DatOcorrencia = Convert.ToDateTime(request.DatOcorrencia),
+                        HorOcorrencia = request.HorOcorrencia,
+                        DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
+                        DscLocalOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
+                        DscOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
+                        DscRelato = request.DscRelato,
+                        NomRelator = request.NomRelator,
+                        EmailRelator = request.EmailRelator,
+                        NumTelefoneRelator = request.NumTelefoneRelator,
+                        NomEmpresaRelator = request.NomEmpresaRelator,
                         CriadoPor = request.CriadoPor,
-                        DataCriacao = DateTime.Now
-                        
-
+                        DataCriacao = DateTime.Now,
+                        FlgStatusRelato = request.FlgStatusRelato
                     };
-
-                    _context.RelatoArquivo.Add(entityRelatoArquivo);
+                    //verifica se a entidade ta com os campos preenchidos certinho
+                    _context.Relato.Add(entity);
 
                     await _context.SaveChangesAsync(cancellationToken);
+
+                    entity.NumRelato = DateTime.Now.Year.ToString() + request.Sigla +
+                                       entity.CodRelato.ToString().PadLeft(4, '0').ToString();
+
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    foreach (var item in request.ListRelatoArquivo)
+                    {
+                        var entityRelatoArquivo = new Domain.Entities.RelatoArquivo
+                        {
+                            CodRelato = entity.CodRelato,
+                            Arquivo = item.Arquivo,
+                            NomeArquivo = item.NomeArquivo,
+                            Caminho = item.Caminho,
+                            CriadoPor = request.CriadoPor,
+                            DataCriacao = DateTime.Now
+
+
+                        };
+
+                        _context.RelatoArquivo.Add(entityRelatoArquivo);
+
+                        await _context.SaveChangesAsync(cancellationToken);
+                    }
+
+
+                    return entity.CodRelato;
                 }
-
-
-                return entity.CodRelato;
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                
             }
         }
 

@@ -11,7 +11,6 @@
   <ItemGroup>
     <Compile Remove="Persistence\Migrations\20200526030727_Relprev004-ntit.cs" />
     <Compile Remove="Persistence\Migrations\20200526030727_Relprev004-ntit.Designer.cs" />
-    <Compile Remove="Persistence\Migrations\20200531015346_Relprev010-ntit.cs" />
   </ItemGroup>
 
   <ItemGroup>

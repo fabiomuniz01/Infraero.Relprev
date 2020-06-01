@@ -19,8 +19,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
 
             builder.Property(t => t.NumRelato)
                 .HasColumnName("NUM_RELATO")
-                .HasMaxLength(12)
-                .IsRequired();
+                .HasMaxLength(12);
 
             builder.Property(t => t.DatOcorrencia)
                 .HasColumnName("DAT_OCORRENCIA")
