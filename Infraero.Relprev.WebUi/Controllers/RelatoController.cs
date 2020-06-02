@@ -139,20 +139,19 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Edit(int id)
         {
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
-            //var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
-            //var arquivos = ApiClientFactory.Instance.GetRelatoArquivoByIdRelato(obj.CodRelato);
+
             var model = new RelatoModel
             {
                 Relato = obj,
                 ListRelatoArquivo = obj.ListArquivo,
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
                 NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura
-                //ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao", obj.CodUnidadeInfraestrutura.ToString()),
-
             };
 
             return View(model);
+
+            
 
         }
 

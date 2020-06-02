@@ -54,7 +54,19 @@ namespace Infraero.Relprev.WebApi.Controllers
             try
             {
                 var result = await Mediator.Send(new GetRelatoAllQuery());
-                return new GridRelato {aaData = result.Select(s=>new RelatoDto { NumRelato=s.NumRelato, StatusRelato=((EnumStatusRelato)s.FlgStatusRelato).GetDescription(), DatOcorrencia=s.DatOcorrencia, HorOcorrencia=s.HorOcorrencia})};
+                return new GridRelato
+                {
+                    aaData = result.Select(s => new RelatoDto
+                    {
+                        CodRelato = s.CodRelato,
+                        NumRelato = s.NumRelato,
+                        StatusRelato = ((EnumStatusRelato)s.FlgStatusRelato).GetDescription(),
+                        DatOcorrencia = s.DatOcorrencia,
+                        HorOcorrencia = s.HorOcorrencia,
+                        CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura,
+
+                    })
+                };
             }
             catch (Exception e)
             {
@@ -62,8 +74,6 @@ namespace Infraero.Relprev.WebApi.Controllers
                 throw;
             }
         }
-
-
 
         [HttpGet("GetRelatoAll")]
         public async Task<List<RelatoDto>> GetRelatoAll()
@@ -97,6 +107,22 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
+        [HttpGet("GetRelatoByNumrelato/{id}")]
+        public async Task<RelatoDto> GetRelatoByNumrelato(string id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetRelatoByNumRelatoQuery { numRelato = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
         [HttpGet("GetRelatoArquivosById/{id}")]
         public async Task<RelatoArquivoDto> GetRelatoArquivosById(int id)
         {
@@ -112,6 +138,7 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
 
         }
+
         [HttpGet("GetRelatoArquivoByIdRelato/{id}")]
         public async Task<List<RelatoArquivoDto>> GetRelatoArquivoByIdRelato(int id)
         {

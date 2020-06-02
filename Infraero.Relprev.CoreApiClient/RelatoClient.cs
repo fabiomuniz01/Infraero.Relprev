@@ -51,8 +51,14 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceRelato}/GetRelatoById/{id}"));
             return Get<RelatoDto>(requestUrl);
         }
-        
 
+
+        public RelatoDto GetRelatoByNumRelato(string id)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/GetRelatoByNumRelato/{id}"));
+            return Get<RelatoDto>(requestUrl);
+        }
         #endregion
 
     }
