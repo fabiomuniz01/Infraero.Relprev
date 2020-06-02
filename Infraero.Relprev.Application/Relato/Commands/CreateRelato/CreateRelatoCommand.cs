@@ -43,7 +43,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         DataCriacao = DateTime.Now,
                         FlgStatusRelato = request.FlgStatusRelato
                     };
-                    //verifica se a entidade ta com os campos preenchidos certinho
+
                     _context.Relato.Add(entity);
 
                     await _context.SaveChangesAsync(cancellationToken);
