@@ -55,7 +55,6 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-appsettings.json
 
 # StyleCop
 StyleCopReport.xml
@@ -342,3 +341,8 @@ healthchecksdb
 
 # Local Log Files
 Logs/
+
+# ignore appsettings
+**/appsettings.development.json
+**/appsettings.staging.json
+**/appsettings.production.json

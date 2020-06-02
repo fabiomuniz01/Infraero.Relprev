@@ -45,7 +45,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         NumRelato = ""
                         
                     };
-                    //verifica se a entidade ta com os campos preenchidos certinho
+
                     _context.Relato.Add(entity);
 
                     await _context.SaveChangesAsync(cancellationToken);
