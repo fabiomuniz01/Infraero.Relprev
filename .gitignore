@@ -346,3 +346,7 @@ Logs/
 /Infraero.Relprev.WebApi/Logs/
 /Infraero.Relprev.WebUi/Logs/
 
+# ignore an entire appsettings.json
+/Infraero.Relprev.WebApi/appsettings.json
+/Infraero.Relprev.WebUi/appsettings.json
+
