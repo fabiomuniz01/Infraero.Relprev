@@ -41,7 +41,9 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         NomEmpresaRelator = request.NomEmpresaRelator,
                         CriadoPor = request.CriadoPor,
                         DataCriacao = DateTime.Now,
-                        FlgStatusRelato = request.FlgStatusRelato
+                        FlgStatusRelato = request.FlgStatusRelato,
+                        NumRelato = ""
+                        
                     };
                     //verifica se a entidade ta com os campos preenchidos certinho
                     _context.Relato.Add(entity);
