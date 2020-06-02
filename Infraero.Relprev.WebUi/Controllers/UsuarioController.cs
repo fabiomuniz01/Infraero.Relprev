@@ -141,7 +141,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Usuario", "Alterar")]
         public ActionResult Edit(string id)
         {
-            UsuarioModel model = null;
+            UsuarioModel model = new UsuarioModel();
 
             var obj = ApiClientFactory.Instance.GetUsuarioById(id);
 
