@@ -48,7 +48,9 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         NomEmpresaRelator = request.NomEmpresaRelator,
                         CriadoPor = request.CriadoPor,
                         DataCriacao = DateTime.Now,
-                        FlgStatusRelato = request.FlgStatusRelato
+                        FlgStatusRelato = request.FlgStatusRelato,
+                        FlagAtivo = true,
+                        NumRelato = string.Empty
                     };
 
                     _context.Relato.Add(entity);
@@ -69,7 +71,8 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                             NomeArquivo = item.NomeArquivo,
                             Caminho = item.Caminho,
                             CriadoPor = request.CriadoPor,
-                            DataCriacao = DateTime.Now
+                            DataCriacao = DateTime.Now,
+                            FlagAtivo = true
                         };
 
                         _context.RelatoArquivo.Add(entityRelatoArquivo);
@@ -92,7 +95,8 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                             CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
                             DthAtribuicao = DateTime.Now,
                             CriadoPor = request.CriadoPor,
-                            DataCriacao = DateTime.Now
+                            DataCriacao = DateTime.Now,
+                            FlagAtivo = true
                         };
 
                         _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);

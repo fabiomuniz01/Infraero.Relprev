@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
@@ -15,6 +16,7 @@ using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfra
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
+using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
 
 namespace Infraero.Relprev.WebApi.Controllers
 {
@@ -173,6 +175,22 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
+        [HttpGet("GetAtribuicaoByCodRelato/{id}")]
+        public async Task<List<AtribuicaoRelatoDto>> GetAtribuicaoByCodRelato(int id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetAtribuicaoRelatoByIdRelatoQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
         //[HttpPost("DeleteRelato")]
         //public async Task<ActionResult<bool>> DeleteRelato(DeleteRelatoCommand command)
         //{
@@ -186,22 +204,6 @@ namespace Infraero.Relprev.WebApi.Controllers
         //        Console.WriteLine(e);
         //        throw;
         //    }
-        //}
-
-        //[HttpGet("GetRelatoAll")]
-        //public async Task<List<RelatoDto>> GetRelatoAll()
-        //{
-        //    try
-        //    {
-        //        var result = await Mediator.Send(new GetRelatoAllQuery());
-        //        return result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e);
-        //        throw;
-        //    }
-
         //}
     }
 }

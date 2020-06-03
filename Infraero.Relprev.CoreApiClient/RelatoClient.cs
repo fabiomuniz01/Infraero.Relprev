@@ -6,6 +6,7 @@ using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
+using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -50,6 +51,12 @@ namespace Infraero.Relprev.CoreApiClient
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelato}/GetRelatoById/{id}"));
             return Get<RelatoDto>(requestUrl);
+        }
+        public List<AtribuicaoRelatoDto> GetAtribuicaoByCodRelato(int id)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/GetAtribuicaoByCodRelato/{id}"));
+            return Get<List<AtribuicaoRelatoDto>>(requestUrl);
         }
         
 
