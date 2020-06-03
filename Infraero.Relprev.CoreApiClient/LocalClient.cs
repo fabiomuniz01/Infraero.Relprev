@@ -58,6 +58,12 @@ namespace Infraero.Relprev.CoreApiClient
             return Get<LocalDto>(requestUrl);
         }
 
+        public List<LocalDto> GetLocalByUnidade(int IdUnidade)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceLocal}/GetLocalByUnidade/{IdUnidade}"));
+            return Get<List<LocalDto>>(requestUrl);
+        }
         #endregion
 
     }

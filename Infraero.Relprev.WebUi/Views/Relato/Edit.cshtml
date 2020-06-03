@@ -1,4 +1,4 @@
-﻿@*@model Infraero.Relprev.CrossCutting.Models.RelatoModel*@
+﻿@model Infraero.Relprev.CrossCutting.Models.RelatoModel
 @inject Microsoft.Extensions.Configuration.IConfiguration configuration
 @{
     ViewData["Title"] = "Edit";
@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post))
+        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -88,7 +88,7 @@
                         <div class="col-sm-9">
                             <textarea readonly
                                       name="DscEnvolvidosOcorrencia"
-                                      type="text" rows="3" 
+                                      type="text" rows="3"
                                       class="form-control"
                                       placeholder="eg.: Pessoas e / ou veículos envolvidos no relato"
                                       required
@@ -108,7 +108,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
-                            
+
                             <table class="table table-responsive-md table-striped mb-0">
                                 <thead>
                                     <tr>
@@ -117,7 +117,7 @@
 
                                     <tr>
                                         <th>Arquivo</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,7 +125,7 @@
                                     {
                                         <tr>
                                             <td>@item.Arquivo</td>
-                                            
+
                                         </tr>
                                     }
                                 </tbody>
@@ -167,18 +167,23 @@
                 <div class="form-group">
                     <label for="inputEmail4">Local da ocorrência <span class="required">*</span></label>
                     <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
+                        <select class="form-control populate select2" name="ddlLocal" id="ddlLocal"
+                                title="Por favor selecione o local da ocorrência." required
+                                asp-for="CodLocal"
+                                asp-items="Model.ListLocal">
+                            <option value="">Selecionar o local da ocorrência</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label for="inputEmail4">Sub Local de ocorrência   <span class="required">*</span></label>
                     <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
+                        <select class="form-control populate select2" name="ddlSubLocal" id="ddlSubLocal"
+                                title="Por favor selecione o sub local da ocorrência." required
+                                asp-for="CodSubLocal"
+                                asp-items="Model.ListSubLocal">
+                            <option value="">Selecionar o sub local da ocorrência</option>
                         </select>
                     </div>
                 </div>
@@ -213,12 +218,15 @@
     </section>
 </div>
 @section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
     <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
 }
 @section Scripts {
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
+
 
     <script>
         // Tooltip
@@ -298,6 +306,26 @@ Theme Version: 	2.0.0
                 $(this).trigger('blur');
             });
 
+
+                $("#ddlLocal").change(function () {
+
+                    var url = "GetSubLocalByUnidade";
+
+                    var ddlSource = "#ddlLocal";
+
+                    $.getJSON(url,
+                        { id: $(ddlSource).val() },
+                        function (data) {
+                            var items = '';
+                            $("#ddlSubLocal").empty;
+                            $.each(data,
+                                function (i, row) {
+                                    items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                                });
+                            $("#ddlSubLocal").html(items);
+                        });
+                });
+
             $('#form').validate({
                 ignore: 'input[type=hidden], .select2-input, .select2-focusser'
             });
@@ -321,7 +349,34 @@ Theme Version: 	2.0.0
 
 
 
-            }).apply(this, [jQuery]);
+        }).apply(this, [jQuery]);
+         
+    </script>
+    <script>
+
+        var notify = @ViewBag.NotifyMessage;
+        var messagem = @ViewBag.Notify;
+
+        if (notify===0) {
+            new PNotify({
+                title: 'Classificar Relato',
+                text: messagem,
+                type: 'success'
+            });
+        }else if (notify === 1) {
+            new PNotify({
+                title: 'Classificar Relato',
+                text: messagem,
+                type: 'warning'
+            });
+        }else if (notify === 2) {
+            new PNotify({
+                title: 'Classificar Relato',
+                text: messagem,
+                type: 'error'
+            });
+        }
+
     </script>
 }
 
