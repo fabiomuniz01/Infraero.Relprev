@@ -345,8 +345,5 @@ Logs/
 # ignore an entire directory
 /Infraero.Relprev.WebApi/Logs/
 /Infraero.Relprev.WebUi/Logs/
-
-# ignore an entire appsettings.json
-/Infraero.Relprev.WebApi/appsettings.json
-/Infraero.Relprev.WebUi/appsettings.json
+/Infraero.Relprev.WebUi/wwwroot/relatoArquivo
 
