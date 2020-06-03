@@ -117,11 +117,8 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 foreach (var atribuicao in listAtribuicaoSgso)
                 {
-                    SendRn0064Email(atribuicao.UsuarioResponsavel.Email);
-
+                    await SendRn0064Email(atribuicao.UsuarioResponsavel.Email);
                 }
-
-
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
 
