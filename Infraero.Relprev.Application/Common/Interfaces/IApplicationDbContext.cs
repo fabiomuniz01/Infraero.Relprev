@@ -21,6 +21,7 @@ namespace Infraero.Relprev.Application
         DbSet<Domain.Entities.VinculoUnidadeEmpresa> VinculoUnidadeEmpresa { get; set; }
         DbSet<Domain.Entities.Modulo> Modulo { get; set; }
         DbSet<Domain.Entities.ConfigurarAmbiente> ConfigurarAmbiente { get; set; }
+        DbSet<Domain.Entities.AtribuicaoRelato> AtribuicaoRelato { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

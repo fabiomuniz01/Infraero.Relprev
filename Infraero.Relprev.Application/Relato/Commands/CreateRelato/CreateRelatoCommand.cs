@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Infraero.Relprev.Application.RelatoArquivo.Queries;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 {
@@ -16,10 +21,12 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         public class CreateRelatoCommandHandler : IRequestHandler<CreateRelatoCommand, long>
         {
             private readonly IApplicationDbContext _context;
+            private readonly IMapper _mapper;
 
-            public CreateRelatoCommandHandler(IApplicationDbContext context)
+            public CreateRelatoCommandHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
 
             public async Task<long> Handle(CreateRelatoCommand request, CancellationToken cancellationToken)
@@ -63,13 +70,30 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                             Caminho = item.Caminho,
                             CriadoPor = request.CriadoPor,
                             DataCriacao = DateTime.Now
-
-
                         };
 
                         _context.RelatoArquivo.Add(entityRelatoArquivo);
 
                         await _context.SaveChangesAsync(cancellationToken);
+                    }
+
+                    var listUsuario = await _context.Usuario.Where(x =>
+                            x.CodPerfil == request.CodPerfilSgso &&
+                            x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura)
+                        .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
+                        .ToListAsync(cancellationToken);
+
+                    foreach (var usu in listUsuario)
+                    {
+                        var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                        {
+                            CodRelato = entity.CodRelato,
+                            CodResponsavelTecnico = usu.CodUsuario,
+                            CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                            DthAtribuicao = DateTime.Now,
+                            CriadoPor = request.CriadoPor,
+                            DataCriacao = DateTime.Now
+                        };
                     }
 
 
@@ -101,5 +125,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         public int CodUnidadeInfraestrutura { get; set; }
         public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
         public int FlgStatusRelato { get; set; }
+        public string CodPerfilSgso { get; set; }
+        public int CodSituacaoAtribuicao { get; set; }
     }
 }

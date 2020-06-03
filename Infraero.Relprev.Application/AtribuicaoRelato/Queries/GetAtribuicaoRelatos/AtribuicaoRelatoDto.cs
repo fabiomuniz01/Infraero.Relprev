@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Infraero.Relprev.Domain.Common;
+using AutoMapper;
+using Infraero.Relprev.Application.Common.Mappings;
 
-namespace Infraero.Relprev.Domain.Entities
+namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos
 {
-    public partial class AtribuicaoRelato : AuditableEntity
+    public class AtribuicaoRelatoDto : IMapFrom<Domain.Entities.AtribuicaoRelato>
     {
-        
-
         [Key]
         public int CodAtribuicaoRelato { get; set; }
         public int CodResponsavelTecnico { get; set; }
@@ -19,5 +17,10 @@ namespace Infraero.Relprev.Domain.Entities
         public DateTime DthAtribuicao { get; set; }
         public DateTime? DthFimAtendimento { get; set; }
         public string ObsAtribuicao { get; set; }
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Domain.Entities.AtribuicaoRelato, AtribuicaoRelatoDto>();
+        }
+
     }
 }

@@ -207,7 +207,7 @@ namespace Infraero.Relprev.WebApi.Controllers
             try
             {
                 var result =  _db.Users.FirstOrDefault(user => user.Cpf == cpf);
-                return await Task.FromResult(result ==null? new UsuarioDto() : new UsuarioDto {CodUsuario = result.Id});
+                return await Task.FromResult(result ==null? new UsuarioDto() : new UsuarioDto {CodUsuarioLogin = result.Id});
             }
             catch (Exception e)
             {

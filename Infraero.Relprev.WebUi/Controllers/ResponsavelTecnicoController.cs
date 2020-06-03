@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
@@ -44,7 +45,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("ResponsavelTecnico", "Incluir")]
         public ActionResult Create()
         {
-            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.Identity.Name);
+            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
