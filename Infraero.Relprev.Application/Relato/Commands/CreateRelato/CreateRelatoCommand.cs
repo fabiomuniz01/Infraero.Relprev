@@ -94,6 +94,10 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                             CriadoPor = request.CriadoPor,
                             DataCriacao = DateTime.Now
                         };
+
+                        _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+
+                        await _context.SaveChangesAsync(cancellationToken);
                     }
 
 
