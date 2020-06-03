@@ -27,6 +27,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Linq;
+using Infraero.Relprev.Application.Local.Queries.GetLocals;
+using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -42,21 +45,29 @@ namespace Infraero.Relprev.WebUi.Controllers
             _appSettings = app;
             _hostingEnvironment = hostingEnvironment;
             _emailSender = emailSender;
+            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
 
         [ClaimsAuthorize("Relatos", "Cadastrar")]
         public ActionResult Create()
         {
+            try{
+                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
-            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+                var model = new RelatoModel
+                {
+                    ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura")
+                };
 
-            var model = new RelatoModel
+                return View(model);
+            }
+            catch (Exception e)
             {
-                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura")
-            };
+                
+                return View();
+            }
 
-            return View(model);
         }
 
         [ClaimsAuthorize("Relatos", "Cadastrar")]
@@ -162,21 +173,51 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Relatos", "Classificar")]
         public ActionResult Edit(int id)
         {
+            id = 3008;
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
+            var resultLocal = ApiClientFactory.Instance.GetLocalAll();
+            
+
+            var resultlocalUnidade = resultLocal
+                .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
+                .Select(s => new LocalDto
+                {
+                    CodLocal = s.CodLocal,
+                    DscLocal = s.DscLocal
+                }).ToList();
+
 
             var model = new RelatoModel
             {
                 Relato = obj,
                 ListRelatoArquivo = obj.ListArquivo,
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
-                NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura
+                NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura,
+                ListLocal = new SelectList(resultlocalUnidade, "CodLocal", "DscLocal"),
+                ListSubLocal= new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal")
             };
 
             return View(model);
 
-            
+        }
 
+        //[ClaimsAuthorize("Relatos", "Classificar")]
+        public JsonResult GetSubLocalByUnidade(int id)
+        {
+            var result4 = ApiClientFactory.Instance.GetSubLocalAll();
+
+            var result5 = result4
+                .Where(x => x.Local.CodLocal == id)
+                .Select(s => new SubLocalDto
+                {
+                    CodSubLocal = s.CodSubLocal,
+                    DscSubLocal = s.DscSubLocal
+                }).ToList();
+
+            result5.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = "Selecionar sub local" });
+
+            return Json(new SelectList(result5, "CodSubLocal", "DscSubLocal"));
         }
 
         [ClaimsAuthorize("Relatos", "Classificar")]

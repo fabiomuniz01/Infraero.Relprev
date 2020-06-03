@@ -3,6 +3,7 @@ using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.UpdateSubLocal;
+using System.Collections.Generic;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -42,6 +43,14 @@ namespace Infraero.Relprev.CoreApiClient
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceSubLocal}/GetSubLocalById/{id}"));
             return Get<SubLocalDto>(requestUrl);
+        }
+
+
+        public List<SubLocalDto> GetSubLocalAll()
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceLocal}/GetSubLocalAll/"));
+            return Get<List<SubLocalDto>>(requestUrl);
         }
     }
 }
