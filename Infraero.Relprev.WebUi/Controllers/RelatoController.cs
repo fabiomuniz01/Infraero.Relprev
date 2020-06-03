@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Elasticsearch.Net;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
@@ -25,6 +26,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -33,12 +35,13 @@ namespace Infraero.Relprev.WebUi.Controllers
     {
         private readonly IOptions<SettingsModel> _appSettings;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IEmailSender _emailSender;
 
-        public RelatoController(IOptions<SettingsModel> app, IHostingEnvironment hostingEnvironment)
+        public RelatoController(IOptions<SettingsModel> app, IHostingEnvironment hostingEnvironment, IEmailSender emailSender)
         {
             _appSettings = app;
             _hostingEnvironment = hostingEnvironment;
-            ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
+            _emailSender = emailSender;
         }
 
 
@@ -59,7 +62,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Relatos", "Cadastrar")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        //[ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Create(IFormCollection collection)
         {
             try
@@ -109,6 +112,17 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
 
+
+                var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByCodRelato(Convert.ToInt32(idRelato));
+
+                foreach (var atribuicao in listAtribuicaoSgso)
+                {
+                    SendRn0064Email(atribuicao.UsuarioResponsavel.Email);
+
+                }
+
+
+
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
 
             }
@@ -122,9 +136,22 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 };
 
-
                 return View(model);
             }
+        }
+
+        private async Task SendRn0064Email(string email)
+        {
+
+            var callbackUrl = Url.ActionLink("ResetPassword",
+                "Identity/Account");
+
+            var message =
+                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/Rn0064Email.html"));
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl.Replace("%2FAccount", "/Account")));
+
+            await _emailSender.SendEmailAsync(email, "Novo relato de prevenção",
+                message);
         }
 
         [ClaimsAuthorize("Relatos", "Consultar")]

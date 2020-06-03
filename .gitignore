@@ -342,7 +342,11 @@ healthchecksdb
 # Local Log Files
 Logs/
 
-# ignore appsettings
-**/appsettings.development.json
-**/appsettings.staging.json
-**/appsettings.production.json
+# ignore an entire directory
+/Infraero.Relprev.WebApi/Logs/
+/Infraero.Relprev.WebUi/Logs/
+
+# ignore an entire appsettings.json
+/Infraero.Relprev.WebApi/appsettings.json
+/Infraero.Relprev.WebUi/appsettings.json
+

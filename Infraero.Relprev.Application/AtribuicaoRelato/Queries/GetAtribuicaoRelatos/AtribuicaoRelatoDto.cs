@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Infraero.Relprev.Domain.Common;
+using AutoMapper;
+using Infraero.Relprev.Application.Common.Mappings;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 
-namespace Infraero.Relprev.Domain.Entities
+namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos
 {
-    public partial class AtribuicaoRelato : AuditableEntity
+    public class AtribuicaoRelatoDto : IMapFrom<Domain.Entities.AtribuicaoRelato>
     {
-        
-
         [Key]
         public int CodAtribuicaoRelato { get; set; }
         public int CodResponsavelTecnico { get; set; }
@@ -22,6 +21,15 @@ namespace Infraero.Relprev.Domain.Entities
         public string ObsAtribuicao { get; set; }
 
         [ForeignKey("CodResponsavelTecnico")]
-        public Usuario UsuarioResponsavel { get; set; }
+        public UsuarioDto UsuarioResponsavel { get; set; }
+
+
+
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Domain.Entities.AtribuicaoRelato, AtribuicaoRelatoDto>();
+        }
+
     }
 }

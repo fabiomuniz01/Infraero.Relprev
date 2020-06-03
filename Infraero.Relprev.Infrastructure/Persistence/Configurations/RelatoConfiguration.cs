@@ -54,7 +54,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
               .HasColumnName("EMAIL_RELATOR");
 
             builder.Property(t => t.NumTelefoneRelator)
-              .HasMaxLength(15)
+              .HasMaxLength(30)
               .HasColumnName("NUM_TELEFONE_RELATOR");
 
             builder.Property(t => t.NomEmpresaRelator)

@@ -6,7 +6,7 @@ namespace Infraero.Relprev.Application.Usuario.Queries.GetUsuarios
 {
     public class UsuarioDto : IMapFrom<Domain.Entities.Usuario>
     {
-        public string CodUsuario { get; set; }
+        public int CodUsuario { get; set; }
         public string CodUsuarioLogin { get; set; }
         public string NomUsuario { get; set; }
         public string NumCpf { get; set; }

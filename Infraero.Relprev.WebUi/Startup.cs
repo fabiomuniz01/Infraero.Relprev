@@ -47,7 +47,7 @@ namespace Infraero.Relprev.WebUi
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("RelprevDbConnectionString")));
 
 
 
