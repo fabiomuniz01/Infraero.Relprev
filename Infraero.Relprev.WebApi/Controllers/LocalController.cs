@@ -109,5 +109,21 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
 
         }
+
+        //[HttpGet("GetLocalByIdUnidade")]
+        //public async Task<List<LocalDto>> GetLocalByIdUnidade(int id)
+        //{
+        //    try
+        //    {
+        //        var result = await Mediator.Send(new GetLocalByIdUnidadeQuery(id = id));
+        //        return result;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e);
+        //        throw;
+        //    }
+
+        //}
     }
 }

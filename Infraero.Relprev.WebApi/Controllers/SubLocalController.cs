@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.SubLocal.Commands.CreateSubLocal;
 using Infraero.Relprev.Application.SubLocal.Commands.DeleteSubLocal;
@@ -91,6 +92,22 @@ namespace Infraero.Relprev.WebApi.Controllers
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        [HttpGet("GetSubLocalAll")]
+        public async Task<List<SubLocalDto>> GetsubLocalAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetSubLocalAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
 
