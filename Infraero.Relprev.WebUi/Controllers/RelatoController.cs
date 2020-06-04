@@ -296,7 +296,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodSubLocal = int.Parse(collection["ddlSubLocal"].ToString()),
                     CodAssunto = int.Parse(collection["ddlAssunto"].ToString()),
                     CodSubAssunto = int.Parse(collection["ddlSubAssunto"].ToString()),
-                    FlgStatusRelato = (int)EnumStatusRelato.AguardandoParecerTecnico,
+                    FlgStatusRelato = (int)EnumStatusRelato.Ocorrenciaclassificada
 
 
                 };
