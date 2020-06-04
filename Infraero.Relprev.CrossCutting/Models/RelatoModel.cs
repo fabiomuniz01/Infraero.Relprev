@@ -18,6 +18,14 @@ namespace Infraero.Relprev.CrossCutting.Models
 
         public SelectList ListSubLocal { get; set; }
         public int CodSubLocal { get; set; }
+
+        public SelectList ListAssunto { get; set; }
+        public int CodAssunto { get; set; }
+
+        public SelectList ListSubAssunto { get; set; }
+        public int CodSubAssunto { get; set; }
+
+
         //adiciona para exibir na edição
         public string NomUnidadeÌnfraestrutura { get; set; }
         public RelatoDto Relato { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.SubAssunto.Commands.CreateSubAssunto;
 using Infraero.Relprev.Application.SubAssunto.Commands.DeleteSubAssunto;
@@ -60,6 +61,21 @@ namespace Infraero.Relprev.WebApi.Controllers
             
         }
 
+        [HttpGet("GetSubAssuntoAll")]
+        public async Task<List<SubAssuntoDto>> GetSubAssuntoAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetSubAssuntoAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
 
         [HttpPost("UpdateSubAssunto")]
         public async Task<ActionResult<bool>> UpdateSubAssunto(UpdateSubAssuntoCommand command)

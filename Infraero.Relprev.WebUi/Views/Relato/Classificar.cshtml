@@ -1,14 +1,13 @@
-﻿@*@model Infraero.Relprev.CrossCutting.Models.RelatoModel*@
+﻿@model Infraero.Relprev.CrossCutting.Models.RelatoModel
 @inject Microsoft.Extensions.Configuration.IConfiguration configuration
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Rank", "Relato", FormMethod.Post))
+        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post))
         {
             <section class="card">
                 <header class="card-header">
@@ -28,7 +27,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input readonly id="CodRelato" name="CodRelato" value="@Model.Relato.Numrelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                                <input readonly id="CodNumRelato" name="CodNumRelato" value=" @Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
                             </div>
                         </div>
                     </div>
@@ -88,7 +87,7 @@
                         <div class="col-sm-9">
                             <textarea readonly
                                       name="DscEnvolvidosOcorrencia"
-                                      type="text" rows="3" 
+                                      type="text" rows="3"
                                       class="form-control"
                                       placeholder="eg.: Pessoas e / ou veículos envolvidos no relato"
                                       required
@@ -108,7 +107,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
-                            
+
                             <table class="table table-responsive-md table-striped mb-0">
                                 <thead>
                                     <tr>
@@ -117,7 +116,7 @@
 
                                     <tr>
                                         <th>Arquivo</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,7 +124,7 @@
                                     {
                                         <tr>
                                             <td>@item.Arquivo</td>
-                                            
+
                                         </tr>
                                     }
                                 </tbody>
@@ -158,170 +157,112 @@
 </div>
 <!-- Modal Form -->
 <div id="modalIcon" class="modal-block modal-block-primary mfp-hide">
-    <section class="card">
-        <header class="card-header">
-            <h2 class="card-title">Classificação do relato</h2>
-        </header>
-        <div class="card-body">
-            <form>
-                <div class="form-group">
-                    <label for="inputEmail4">Local da ocorrência <span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                        </select>
+    @using (@Html.BeginForm("Classificar", "Relato", FormMethod.Post))
+    {
+        <section class="card">
+            <header class="card-header">
+                <h2 class="card-title">Classificação do relato</h2>
+            </header>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="inputEmail4">Local da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-12">
+                            <select class="form-control populate " name="ddlLocal" id="ddlLocal"
+                                    title="Por favor selecione o local da ocorrência." required
+                                    asp-for="CodLocal"
+                                    asp-items="Model.ListLocal">
+                                <option value="">Selecionar o local da ocorrência</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail4">Sub Local de ocorrência   <span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                        </select>
+
+                    <div class="form-group">
+                        <label for="inputEmail4">Sub Local de ocorrência   <span class="required">*</span></label>
+                        <div class="col-lg-12">
+                            <select class="form-control populate " name="ddlSubLocal" id="ddlSubLocal"
+                                    title="Por favor selecione o sub local da ocorrência." required
+                                    asp-for="CodSubLocal"
+                                    asp-items="Model.ListSubLocal">
+                                <option value="">Selecione o sub local da ocorrência</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail4">Assunto <span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                        </select>
+                    <div class="form-group">
+                        <label for="inputEmail4">Assunto <span class="required">*</span></label>
+                        <div class="col-lg-12">
+                            <select class="form-control populate " name="ddlAssunto" id="ddlAssunto"
+                                    title="Por favor selecione o sub local da ocorrência." required
+                                    asp-for="CodAssunto"
+                                    asp-items="Model.ListAssunto">
+                                <option value="">Selecione o assunto da ocorrência</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail4">Sub Assunto<span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                        </select>
+                    <div class="form-group">
+                        <label for="inputEmail4">Sub Assunto<span class="required">*</span></label>
+                        <div class="col-lg-12">
+                            <select class="form-control populate " name="ddlSubAssunto" id="ddlSubAssunto"
+                                    title="Por favor selecione o sub assunto da ocorrência." required
+                                    asp-for="CodSubAssunto"
+                                    asp-items="Model.ListSubAssunto">
+                                <option value="">Selecione o sub assunto da ocorrência</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-        <footer class="card-footer">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-success modal-confirm">Salvar&nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                    <button class="btn btn-danger modal-dismiss">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
-                </div>
+                </form>
             </div>
-        </footer>
-    </section>
+            <footer class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-success modal-confirm">Salvar&nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                        <button class="btn btn-danger modal-dismiss">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    }
 </div>
 @section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
     <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
 }
 @section Scripts {
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
-    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
+    <script src="~/js/classificarRelato.js"></script>
+    <script src="~/js/formatTable.js"></script>
+
 
     <script>
-        // Tooltip
-        (function ($) {
 
-            'use strict';
+        var notify = @ViewBag.NotifyMessage;
+        var messagem = @ViewBag.Notify;
 
-            if ($.isFunction($.fn['tooltip'])) {
-                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
-            }
-
-        }).apply(this, [jQuery]);
-        /*
-Name: 			UI Elements / Modals - Examples
-Written by: 	Okler Themes - (http://www.okler.net)
-Theme Version: 	2.0.0
-*/
-
-        (function ($) {
-
-            'use strict';
-
-            /*
-            Basic
-            */
-            $('.modal-basic').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
+        if (notify===0) {
+            new PNotify({
+                title: 'Classificar Relato',
+                text: messagem,
+                type: 'success'
             });
-
-            /*
-            Sizes
-            */
-            $('.modal-sizes').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
+        }else if (notify === 1) {
+            new PNotify({
+                title: 'Classificar Relato',
+                text: messagem,
+                type: 'warning'
             });
-
-            /*
-            Modal Dismiss
-            */
-            $(document).on('click', '.modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
+        }else if (notify === 2) {
+            new PNotify({
+                title: 'Classificar Relato',
+                text: messagem,
+                type: 'error'
             });
+        }
 
-        }).apply(this, [jQuery]);
-
-        // Select2
-            (function ($) {
-
-                'use strict';
-
-                var $select = $(".select2").select2({
-                    allowClear: true
-                });
-
-                $(".select2").each(function () {
-                    var $this = $(this),
-                        opts = {};
-
-                    var pluginOptions = $this.data('plugin-options');
-                    if (pluginOptions)
-                        opts = pluginOptions;
-
-                    $this.themePluginSelect2(opts);
-                });
-
-            /*
-             * When you change the value the select via select2, it triggers
-             * a 'change' event, but the jquery validation plugin
-             * only re-validates on 'blur'*/
-
-            $select.on('change', function() {
-                $(this).trigger('blur');
-            });
-
-            $('#form').validate({
-                ignore: 'input[type=hidden], .select2-input, .select2-focusser'
-            });
-
-            $select.rules('add', 'required');
-
-                // checkbox, radio and selects
-                $("#chk-radios-form, #form").each(function() {
-                    $(this).validate({
-                        highlight: function(element) {
-                            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                        },
-                        success: function(element) {
-                            $(element).closest('.form-group').removeClass('has-error');
-                        }
-                    });
-                });
-
-                @*$('#ddlUnidadeInfraestrutura').val(@Model.ListUnidadeInfraestrutura.SelectedValue);
-                $('#ddlUnidadeInfraestrutura').trigger('change');*@
-
-
-
-            }).apply(this, [jQuery]);
     </script>
 }
 

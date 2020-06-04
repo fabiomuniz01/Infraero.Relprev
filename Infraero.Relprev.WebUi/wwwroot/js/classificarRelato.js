@@ -49,6 +49,57 @@
                     });
             });
 
+            $("#ddlAssunto").change(function () {
+
+                var url = "../GetSubAssuntoByLocal";
+
+                var ddlSource = "#ddlAssunto";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function (data) {
+                        var items = '';
+                        $("#ddlSubAssunto").empty;
+                        $.each(data,
+                            function (i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlSubAssunto").html(items);
+                    });
+            });
+
+            (function ($) {
+
+                'use strict';
+
+                /*
+                Basic
+                */
+                $('.modal-basic').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
+                });
+
+                /*
+                Sizes
+                */
+                $('.modal-sizes').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
+                });
+
+                /*
+                Modal Dismiss
+                */
+                $(document).on('click', '.modal-dismiss', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                });
+
+            }).apply(this, [jQuery]);
+
             //$('#arquivosDatatable').DataTable({
             //    "columns": [
             //        { "data": "name" },

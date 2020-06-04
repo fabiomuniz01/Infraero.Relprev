@@ -5,11 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="row">
-    <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post, new { id = "form" }))
-        {
+    <div class="row">
+        <div class="col-lg-12">
+            @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post, new { id = "form" }))
+            {
             <section class="card">
                 <header class="card-header">
                     <div class="card-actions">
@@ -20,7 +19,7 @@
                     <h2 class="card-title">Classificar Relato</h2>
 
                 </header>
-                <div class="card-body">
+                <div id="vRelato" class="card-body" data-loading-overlay>
                     <div class="form-group row">
                         <label class="col-lg-3 control-label text-sm-right pt-2">Nº do relato </label>
                         <div class="col-lg-4">
@@ -28,7 +27,8 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input readonly id="CodRelato" name="CodRelato" value="@Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                                <input type="hidden" id="CodRelato" name="CodRelato" value="@Model.Relato.CodRelato">
+                                <input readonly id="CodNumRelato" name="CodNumRelato" value=" @Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
                             </div>
                         </div>
                     </div>
@@ -109,11 +109,15 @@
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
 
-                            <table id="datatable-default" class="table table-responsive-md table-striped mb-0">
-
+                            <table class="table table-responsive-md table-striped mb-0">
                                 <thead>
                                     <tr>
+                                        <th colspan="4" class="text-center">Nome dos arquivos anexo</th>
+                                    </tr>
+
+                                    <tr>
                                         <th>Arquivo</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,52 +134,46 @@
                         </div>
                     </div>
 
-                    @*<div class="form-group row">
-            <label class="col-sm-3 control-label text-sm-right pt-2">Classificação do relato <span class="required">*</span></label>
-            <div class="col-sm-7">
-                <a href="#modalIcon" class="modal-basic mb-1 mt-1 mr-1 btn btn-primary"><i class="fa fa-plus"></i> </a>
-            </div>
 
-        </div>*@
-
-                    <div class="form-group">
-                        <label for="inputEmail4">Local da ocorrência <span class="required">*</span></label>
-                        <div class="col-lg-12">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlLocal" id="ddlLocal"
                                     title="Por favor selecione o local da ocorrência." required
                                     asp-for="CodLocal"
                                     asp-items="Model.ListLocal">
-                                <option value="">Selecionar o local da ocorrência</option>
                             </select>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail4">Sub Local de ocorrência   <span class="required">*</span></label>
-                        <div class="col-lg-12">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub local da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlSubLocal" id="ddlSubLocal"
                                     title="Por favor selecione o sub local da ocorrência." required
                                     asp-for="CodSubLocal"
                                     asp-items="Model.ListSubLocal">
-                                <option value="">Selecionar o sub local da ocorrência</option>
+                                <option value="">Selecione o sub local</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail4">Assunto <span class="required">*</span></label>
-                        <div class="col-lg-12">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <select class="form-control populate select2" name="ddlAssunto" id="ddlAssunto"
+                                    title="Por favor selecione o sub local da ocorrência." required
+                                    asp-for="CodAssunto"
+                                    asp-items="Model.ListAssunto">
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail4">Sub Assunto<span class="required">*</span></label>
-                        <div class="col-lg-12">
-                            <select data-plugin-selectTwo class="form-control populate">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub assunto <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <select class="form-control populate select2" name="ddlSubAssunto" id="ddlSubAssunto"
+                                    title="Por favor selecione o sub assunto da ocorrência." required
+                                    asp-for="CodSubAssunto"
+                                    asp-items="Model.ListSubAssunto">
+                                <option value="">Selecione o sub assunto</option>
                             </select>
                         </div>
                     </div>
@@ -191,70 +189,11 @@
                     </div>
                 </footer>
             </section>
-        }
-    </div>
-</div>
-<!-- Modal Form -->
-<div id="modalIcon" class="modal-block modal-block-primary mfp-hide">
-    <section class="card">
-        <header class="card-header">
-            <h2 class="card-title">Classificação do relato</h2>
-        </header>
-        <div class="card-body">
-            <form>
-                <div class="form-group">
-                    <label for="inputEmail4">Local da ocorrência <span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select class="form-control populate select2" name="ddlLocal" id="ddlLocal"
-                                title="Por favor selecione o local da ocorrência." required
-                                asp-for="CodLocal"
-                                asp-items="Model.ListLocal">
-                            <option value="">Selecionar o local da ocorrência</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputEmail4">Sub Local de ocorrência   <span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select class="form-control populate select2" name="ddlSubLocal" id="ddlSubLocal"
-                                title="Por favor selecione o sub local da ocorrência." required
-                                asp-for="CodSubLocal"
-                                asp-items="Model.ListSubLocal">
-                            <option value="">Selecionar o sub local da ocorrência</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail4">Assunto <span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail4">Sub Assunto<span class="required">*</span></label>
-                    <div class="col-lg-12">
-                        <select data-plugin-selectTwo class="form-control populate">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                        </select>
-                    </div>
-                </div>
-            </form>
+            }
         </div>
-        <footer class="card-footer">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-success modal-confirm">Salvar&nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                    <button class="btn btn-danger modal-dismiss">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
-                </div>
-            </div>
-        </footer>
-    </section>
-</div>
+    </div>
+<!-- Modal Form -->
+ 
 @section CssSpecificVendor {
     <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
     <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />

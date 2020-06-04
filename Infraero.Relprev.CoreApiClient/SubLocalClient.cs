@@ -49,7 +49,7 @@ namespace Infraero.Relprev.CoreApiClient
         public List<SubLocalDto> GetSubLocalAll()
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceLocal}/GetSubLocalAll/"));
+                $"{ResourceSubLocal}/GetSubLocalAll/"));
             return Get<List<SubLocalDto>>(requestUrl);
         }
     }

@@ -30,6 +30,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Linq;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
+using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
+using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
+using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -183,20 +186,38 @@ namespace Infraero.Relprev.WebUi.Controllers
                 ViewBag.NotifyMessage = -1;
                 ViewBag.Notify = "null";
             }
-
+           
 
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
+           
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
             var resultLocal = ApiClientFactory.Instance.GetLocalAll();
-            
+            var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
 
-            var resultlocalUnidade = resultLocal
+            var textoAssunto = "Selecione o assunto";
+            if (resultAssunto.Count == 0)
+            {
+                textoAssunto = "Nenhum assunto cadastrado nessa unidae de infraestrutura";
+            }
+
+            resultAssunto.Insert(0, new AssuntoDto { CodAssunto = 0, DscAssunto = textoAssunto });
+
+
+            var resultLocalUnidade = resultLocal
                 .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
                 .Select(s => new LocalDto
                 {
                     CodLocal = s.CodLocal,
                     DscLocal = s.DscLocal
                 }).ToList();
+
+            var textolocal = "Selecione o local";
+            if (resultLocalUnidade.Count == 0)
+            {
+                textolocal = "Nenhum local cadastrado nessa unidae de infraestrutura";
+            }
+
+            resultLocalUnidade.Insert(0, new LocalDto { CodLocal = 0, DscLocal = textolocal });
 
 
             var model = new RelatoModel
@@ -205,8 +226,10 @@ namespace Infraero.Relprev.WebUi.Controllers
                 ListRelatoArquivo = obj.ListArquivo,
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
                 NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura,
-                ListLocal = new SelectList(resultlocalUnidade, "CodLocal", "DscLocal"),
-                ListSubLocal= new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal")
+                ListLocal = new SelectList(resultLocalUnidade, "CodLocal", "DscLocal"),
+                ListSubLocal= new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal"),
+                ListAssunto = new SelectList(resultAssunto, "CodAssunto", "DscAssunto"),
+                ListSubAssunto = new SelectList(new List<SubAssuntoDto>(), "CodSubAssunto", "DscSubAssunto")
             };
 
             return View(model);
@@ -224,56 +247,64 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodSubLocal = s.CodSubLocal,
                     DscSubLocal = s.DscSubLocal
                 }).ToList();
+            var texto = "Selecione sub local";
+            if (listDdlSubLocal.Count == 0)
+            {
+                texto = "Nenhum sub local cadastrado nesse local";
+            }
 
-            listDdlSubLocal.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = "Selecionar sub local" });
+            listDdlSubLocal.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = texto });
 
             return Json(new SelectList(listDdlSubLocal, "CodSubLocal", "DscSubLocal"));
         }
+        public JsonResult GetSubAssuntoByLocal(int id)
+        {
+            var listSubAssunto = ApiClientFactory.Instance.GetSubAssuntoAll();
 
-        [ClaimsAuthorize("Relatos", "Classificar")]
+            var listDdlSubAssunto = listSubAssunto
+                .Where(x => x.CodAssunto == id)
+                .Select(s => new SubAssuntoDto
+                {
+                    CodSubAssunto = s.CodSubAssunto,
+                    DscSubAssunto = s.DscSubAssunto
+                }).ToList();
+            var texto = "Selecione o sub assunto";
+            if (listDdlSubAssunto.Count==0)
+            {
+                texto = "Nenhum sub assunto cadastrado nesse local";
+            }
+
+            listDdlSubAssunto.Insert(0, new SubAssuntoDto { CodSubAssunto = 0, DscSubAssunto = texto });
+
+            return Json(new SelectList(listDdlSubAssunto, "CodSubAssunto", "DscSubAssunto"));
+        }
+
+        //[ClaimsAuthorize("Relatos", "Classificar")]
         [HttpPost]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(IFormCollection collection)
         {
 
             try
             {
-
-                string uniqueFileName = null;
-                var listRelatoArquivo = new List<RelatoArquivoDto>();
-
-
-                if (collection.Files.Count > 0)
+                
+               var command = new ClassificarRelatoCommand
                 {
-                    var file = collection.Files;
-
-                    foreach (var item in file)
-                    {
-
-                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "relatoRelatoArquivo");
-
-                        string extension = Path.GetExtension(item.FileName);
-                        uniqueFileName = Guid.NewGuid().ToString() + extension;
-                        var realName = item.GetFilename();
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        item.CopyTo(new FileStream(filePath, FileMode.Create));
-
-                        listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
-                    }
-
-                }
-                var command = new UpdateRelatoCommand
-                {
-                    CodRelato = id,
+                  
+                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
                     AlteradoPor = User.Identity.Name,
-                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
+                    CodLocal = int.Parse(collection["ddlLocal"].ToString()),
+                    CodSubLocal = int.Parse(collection["ddlSubLocal"].ToString()),
+                    CodAssunto = int.Parse(collection["ddlAssunto"].ToString()),
+                    CodSubAssunto = int.Parse(collection["ddlSubAssunto"].ToString()),
+                    FlgStatusRelato = (int)EnumStatusRelato.AguardandoParecerTecnico,
+
 
                 };
-                ApiClientFactory.Instance.UpdateRelato(command);
+                ApiClientFactory.Instance.ClassificarRelato(command);
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -302,8 +333,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-
-                //var obj = ApiClientFactory.Instance.GetRelatoById(int.Parse(collection["CodRelato"].ToString()));
+                // mas chega aqui
+                
                 var command = new CancelRelatoCommand
                 {
 
@@ -322,6 +353,37 @@ namespace Infraero.Relprev.WebUi.Controllers
             catch (Exception e)
             {
                  return View();
+            }
+        }
+
+               
+        [HttpPost]
+        public ActionResult Classificar(IFormCollection collection)
+        {
+            try
+            {
+                var command = new ClassificarRelatoCommand
+                {
+                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                    AlteradoPor = User.Identity.Name,
+                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
+                    CodLocal = int.Parse(collection["dllLocal"].ToString()),
+                    CodSubLocal = int.Parse(collection["dllSubLocal"].ToString()),
+                    CodAssunto = int.Parse(collection["dllAssunto"].ToString()),
+                    CodSubAssunto = int.Parse(collection["dllSubAssunto"].ToString()),
+                    FlgStatusRelato = (int)EnumStatusRelato.AguardandoParecerTecnico,
+
+
+                };
+                ApiClientFactory.Instance.ClassificarRelato(command);
+
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            }
+            catch (Exception e)
+            {
+                return View();
             }
         }
 
