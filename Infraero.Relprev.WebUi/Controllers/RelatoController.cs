@@ -30,6 +30,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Linq;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
+using Microsoft.AspNetCore.Identity;
+using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -39,13 +42,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         private readonly IOptions<SettingsModel> _appSettings;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IEmailSender _emailSender;
+        private readonly UserManager<WebProfileUser> _userManager;
 
-        public RelatoController(IOptions<SettingsModel> app, IHostingEnvironment hostingEnvironment, IEmailSender emailSender)
+        public RelatoController(IOptions<SettingsModel> app, IHostingEnvironment hostingEnvironment, IEmailSender emailSender, UserManager<WebProfileUser> userManager)
         {
             _appSettings = app;
             _hostingEnvironment = hostingEnvironment;
             _emailSender = emailSender;
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
+            _userManager = userManager;
         }
 
 
@@ -88,7 +93,6 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                     foreach (var item in file)
                     {
-
                         string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "RelatoArquivo");
 
                         string extension = Path.GetExtension(item.FileName);
@@ -126,9 +130,16 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByCodRelato(Convert.ToInt32(idRelato));
 
+                var relato = ApiClientFactory.Instance.GetRelatoById(Convert.ToInt32(idRelato));
+
                 foreach (var atribuicao in listAtribuicaoSgso)
                 {
-                    await SendRn0064Email(atribuicao.UsuarioResponsavel.Email);
+                    await SendRn0064Email(atribuicao.UsuarioResponsavel, relato);
+                }
+
+                if (!string.IsNullOrEmpty(command.EmailRelator))
+                {
+                    await SendRn0065Email(command, relato);
                 }
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
@@ -148,17 +159,48 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        private async Task SendRn0064Email(string email)
+        private async Task SendRn0064Email(UsuarioDto user, RelatoDto relato)
         {
 
-            var callbackUrl = Url.ActionLink("ResetPassword",
-                "Identity/Account");
+            var callbackUrl = Url.ActionLink("Relato",
+                string.Format("Edit/{0}", relato.CodRelato));
+
+            var texto = $"Um novo relato de prevenção foi  cadastrado em {relato.DatOcorrencia.Date.ToString("dd/MM/yyyy")}, às {relato.HorOcorrencia}, sob o  nº {relato.NumRelato}. Solicitamos dar tratamento ao relato.";
+
+            var textoBotao = @"Classificar Relato de Prevenção";
 
             var message =
-                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/Rn0064Email.html"));
-            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl.Replace("%2FAccount", "/Account")));
+                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/EmailPadrao.html"));
 
-            await _emailSender.SendEmailAsync(email, "Novo relato de prevenção",
+            message = message.Replace("%NAME%", user.NomUsuario);
+            message = message.Replace("%TEXTO%", texto);
+            message = message.Replace("%TXTBOTAO%", textoBotao);
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
+
+            await _emailSender.SendEmailAsync(user.Email, "Novo relato de prevenção",
+                message);
+        }
+
+        private async Task SendRn0065Email(CreateRelatoCommand command, RelatoDto relato)
+        {
+            var callbackUrl = Url.ActionLink("Relato","Index");
+
+            var texto = $"Recebemos seu relato registrado em {relato.DatOcorrencia.Date.ToString("dd/MM/yyyy")}, às {relato.HorOcorrencia}. " +
+                        $"O número do seu relato é {relato.NumRelato}. Por meio dele você poderá consultar o andamento das tratativas clicando no botão abaixo. " +
+                        $"Em breve, você receberá uma resposta contendo uma análise da situação reportada e/ou das ações corretivas implementadas. " +
+                        $"Agradecemos a sua colaboração para com o nosso sistema de prevenção.";
+
+            var textoBotao = @"Acompanhar";
+
+            var message =
+                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/EmailPadrao.html"));
+
+            message = message.Replace("%NAME%", command.NomRelator);
+            message = message.Replace("%TEXTO%", texto);
+            message = message.Replace("%TXTBOTAO%", textoBotao);
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
+
+            await _emailSender.SendEmailAsync(command.EmailRelator, "Novo relato de prevenção",
                 message);
         }
 
