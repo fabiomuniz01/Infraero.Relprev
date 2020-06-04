@@ -171,9 +171,20 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Relatos", "Classificar")]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string message = null)
         {
-            id = 3008;
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                SetNotifyMessage((int)EnumNotify.Error, message);
+            }
+            else
+            {
+                ViewBag.NotifyMessage = -1;
+                ViewBag.Notify = "null";
+            }
+
+
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
             var resultLocal = ApiClientFactory.Instance.GetLocalAll();
@@ -202,12 +213,11 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         }
 
-        //[ClaimsAuthorize("Relatos", "Classificar")]
-        public JsonResult GetSubLocalByUnidade(int id)
+        public JsonResult GetSubLocalByLocal(int id)
         {
-            var result4 = ApiClientFactory.Instance.GetSubLocalAll();
+            var listSublocal = ApiClientFactory.Instance.GetSubLocalAll();
 
-            var result5 = result4
+            var listDdlSubLocal = listSublocal
                 .Where(x => x.Local.CodLocal == id)
                 .Select(s => new SubLocalDto
                 {
@@ -215,9 +225,9 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubLocal = s.DscSubLocal
                 }).ToList();
 
-            result5.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = "Selecionar sub local" });
+            listDdlSubLocal.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = "Selecionar sub local" });
 
-            return Json(new SelectList(result5, "CodSubLocal", "DscSubLocal"));
+            return Json(new SelectList(listDdlSubLocal, "CodSubLocal", "DscSubLocal"));
         }
 
         [ClaimsAuthorize("Relatos", "Classificar")]
