@@ -6,6 +6,7 @@ using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
+using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Infraero.Relprev.CrossCutting.Enumerators;
@@ -30,6 +31,23 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             _db = db;
             _roleManager = roleManager;
+        }
+        [HttpPost("ClassificarRelato")]
+        public async Task<ActionResult<bool>> ClassificarRelato(ClassificarRelatoCommand command)
+        {
+            try
+            {
+                
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         [HttpPost("CreateRelato")]
@@ -186,10 +204,16 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpPost("UpdateRelato")]
-        public async Task<ActionResult<bool>> UpdateRelato(UpdateRelatoCommand command)
+        public async Task<ActionResult<bool>> UpdateRelato(ClassificarRelatoCommand command)
         {
             try
             {
+                var sgsoRole = await _roleManager.FindByNameAsync(UserRoles.GestorSgsoSite);
+
+                command.CodPerfilSgso = sgsoRole.Id;
+
+                command.CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuída;
+
                 var result = await Mediator.Send(command);
 
                 return result;

@@ -6,6 +6,7 @@ using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
+using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 
 namespace Infraero.Relprev.CoreApiClient
@@ -26,6 +27,12 @@ namespace Infraero.Relprev.CoreApiClient
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelato}/UpdateRelato"));
+            return Post(requestUrl, command);
+        }
+        public Task<long> ClassificarRelato(ClassificarRelatoCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/ClassificarRelato"));
             return Post(requestUrl, command);
         }
         public Task<long> CancelRelato(CancelRelatoCommand command)

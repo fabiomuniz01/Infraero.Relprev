@@ -40,7 +40,11 @@
                                     <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
                                     <td>@Html.DisplayFor(modelItem => item.HorOcorrencia)</td>
                                     <td class="actions">
-                                        <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #eea236'><i class="fa fa-check"></i></a>
+                                        @if (item.StatusRelato == "Não Iniciado")
+                                        {
+                                            <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #eea236'><i class="fa fa-check"></i></a>
+                                        }
+
                                         <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-remove"></i></a>
                                         <a data-toggle="tooltip" data-placement="top" title="Finalizar" asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default remove-row" style='color: #eea236'><i class="fa fa-trash-o"></i></a>
                                     </td>

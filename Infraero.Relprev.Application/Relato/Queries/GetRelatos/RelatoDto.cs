@@ -29,11 +29,17 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
 
+        public int CodUnidadeInfraestrutura { get; set; }
+        public int CodLocal { get; set; }
+        public int CodSubLocal { get; set; }
+        public int CodAssunto { get; set; }
+        public int CodSubAssunto { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Domain.Entities.Relato, RelatoDto>();
         }
 
-        public int CodUnidadeInfraestrutura { get; set; }
+
     }
 }

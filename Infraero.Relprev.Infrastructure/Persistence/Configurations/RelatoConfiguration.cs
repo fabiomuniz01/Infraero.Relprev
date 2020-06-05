@@ -82,6 +82,18 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
              .HasColumnName("FLG_STATUS_RELATO")
              .IsRequired();
 
+            builder.Property(t => t.CodLocal)
+              .HasColumnName("COD_LOCAL");
+
+            builder.Property(t => t.CodSubLocal)
+              .HasColumnName("COD_SUB_LOCAL");
+
+            builder.Property(t => t.CodAssunto)
+              .HasColumnName("COD_ASSUNTO");
+
+            builder.Property(t => t.CodSubAssunto)
+              .HasColumnName("COD_SUB_ASSUNTO");
+
 
 
             //BaseEntity
@@ -90,6 +102,12 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             builder.Property(p => p.AlteradoPor).HasColumnName("NOM_USU_ALTERACAO").HasComment("Usuário de realizou a alteração");
             builder.Property(p => p.DataAlteracao).HasColumnName("DTH_ALTERACAO").HasComment("Data de alteração");
             builder.Property(p => p.FlagAtivo).HasColumnName("FLG_ATIVO").HasComment("Indicador de registro ativo");
+
+            builder.Property(p => p.CodLocal).HasColumnName("COD_LOCAL").HasComment("Local classificado");
+            builder.Property(p => p.CodSubLocal).HasColumnName("COD_SUB_LOCAL").HasComment("Sub local classificado");
+            builder.Property(p => p.CodAssunto).HasColumnName("COD_ASSUNTO").HasComment("Assunto classificado");
+            builder.Property(p => p.CodSubAssunto).HasColumnName("COD_SUB_ASSUNTO").HasComment("Sub assunto classificado");
+
         }
 
 
