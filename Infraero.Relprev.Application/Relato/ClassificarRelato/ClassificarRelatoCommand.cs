@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Infraero.Relprev.Application.Common.Exceptions;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
+using Infraero.Relprev.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
 {
@@ -13,32 +21,68 @@ namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
         public class ClassificarRelatoCommandHandler : IRequestHandler<ClassificarRelatoCommand, bool>
         {
             private readonly IApplicationDbContext _context;
+            private readonly IMapper _mapper;
 
-            public ClassificarRelatoCommandHandler(IApplicationDbContext context)
+            public ClassificarRelatoCommandHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
 
             public async Task<bool> Handle(ClassificarRelatoCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Relato.FindAsync(request.CodRelato);
-
-                if (entity == null)
+                try
                 {
-                    throw new NotFoundException(nameof(Domain.Entities.Relato), request.CodUnidadeInfraestrutura);
+
+
+                    var entity = await _context.Relato.FindAsync(request.CodRelato);
+
+                    if (entity == null)
+                    {
+                        throw new NotFoundException(nameof(Domain.Entities.Relato), request.CodUnidadeInfraestrutura);
+                    }
+
+                    entity.AlteradoPor = request.AlteradoPor;
+                    entity.DataAlteracao = DateTime.Now;
+                    entity.FlgStatusRelato = request.FlgStatusRelato;
+                    entity.CodLocal = request.CodLocal;
+                    entity.CodSubLocal = request.CodSubLocal;
+                    entity.CodAssunto = request.CodAssunto;
+                    entity.CodSubAssunto = request.CodSubAssunto;
+
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    //Atendendo a RN0089
+
+                    var listUsuario = await _context.Usuario.Where(x =>
+                                x.CodPerfil == request.CodPerfilSgso &&
+                                x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura)
+                            .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
+                            .ToListAsync(cancellationToken);
+
+                    foreach (var usu in listUsuario)
+                    {
+                        var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                        {
+                            CodRelato = entity.CodRelato,
+                            CodResponsavelTecnico = usu.CodUsuario,
+                            CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                            DthAtribuicao = DateTime.Now,
+                            CriadoPor = request.AlteradoPor,
+                            DataCriacao = DateTime.Now,
+                            FlagAtivo = true
+                        };
+
+                        _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+
+                        await _context.SaveChangesAsync(cancellationToken);
+                    }
+                    return true;
                 }
-
-                entity.AlteradoPor = request.AlteradoPor;
-                entity.DataAlteracao = DateTime.Now;
-                entity.FlgStatusRelato = request.FlgStatusRelato;
-                entity.CodLocal = request.CodLocal;
-                entity.CodSubLocal = request.CodSubLocal;
-                entity.CodAssunto = request.CodAssunto;
-                entity.CodSubAssunto = request.CodSubAssunto;
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return true;
+                catch
+                {
+                    return false;
+                }
             }
         }
         public int CodRelato { get; set; }
@@ -53,6 +97,8 @@ namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
         public int CodAssunto { get; set; }
         public int CodSubAssunto { get; set; }
         public int FlgStatusRelato { get; set; }
+        public string CodPerfilSgso { get; set; }
+        public int CodSituacaoAtribuicao { get; set; }
 
     }
 }

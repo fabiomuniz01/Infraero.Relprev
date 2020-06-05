@@ -208,6 +208,12 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
+                var sgsoRole = await _roleManager.FindByNameAsync(UserRoles.GestorSgsoSite);
+
+                command.CodPerfilSgso = sgsoRole.Id;
+
+                command.CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuída;
+
                 var result = await Mediator.Send(command);
 
                 return result;
