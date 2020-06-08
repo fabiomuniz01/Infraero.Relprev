@@ -21,7 +21,7 @@ namespace Infraero.Relprev.Domain.Entities
         public DateTime? DthFimAtendimento { get; set; }
         public string ObsAtribuicao { get; set; }
 
-        [ForeignKey("CodResponsavelTecnico")]
-        public Usuario UsuarioResponsavel { get; set; }
+       [ForeignKey("CodResponsavelTecnico")]
+        public ResponsavelTecnico ResponsavelTecnico { get; set; }
     }
 }

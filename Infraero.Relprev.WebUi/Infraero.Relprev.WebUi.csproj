@@ -211,7 +211,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\img\resources\" />
-    <Folder Include="wwwroot\relatoArquivo\" />
+    <Folder Include="wwwroot\RelatoArquivo\" />
     <Folder Include="wwwroot\pdf\" />
     <Folder Include="wwwroot\vendor\graficos\" />
   </ItemGroup>

@@ -9,10 +9,12 @@ using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Infraero.Relprev.Application.RelatoArquivo.Queries;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 {
@@ -85,23 +87,36 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                             x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura)
                         .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
+                    
+
 
                     foreach (var usu in listUsuario)
                     {
-                        var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                       var  objResposavelTecnico  = await _context.ResponsavelTecnico
+                        .Where(x => x.NumCpf == usu.NumCpf)
+                        .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(t => t.CodResponsavelTecnico)
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                        if(objResposavelTecnico != null)
                         {
-                            CodRelato = entity.CodRelato,
-                            CodResponsavelTecnico = usu.CodUsuario,
-                            CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
-                            DthAtribuicao = DateTime.Now,
-                            CriadoPor = request.CriadoPor,
-                            DataCriacao = DateTime.Now,
-                            FlagAtivo = true
-                        };
+                            var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                            {
 
-                        _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+                                CodRelato = entity.CodRelato,
+                                CodResponsavelTecnico = objResposavelTecnico.CodResponsavelTecnico,
+                                CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                                DthAtribuicao = DateTime.Now,
+                                CriadoPor = request.CriadoPor,
+                                DataCriacao = DateTime.Now,
+                                FlagAtivo = true
+                            };
 
-                        await _context.SaveChangesAsync(cancellationToken);
+                            _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+
+                            await _context.SaveChangesAsync(cancellationToken);
+                        }
+                        
                     }
 
 

@@ -8,10 +8,12 @@ using AutoMapper.QueryableExtensions;
 using Infraero.Relprev.Application.Common.Exceptions;
 using Infraero.Relprev.Application.Common.Interfaces;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
 {
@@ -62,20 +64,29 @@ namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
 
                     foreach (var usu in listUsuario)
                     {
-                        var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                        var objResposavelTecnico = await _context.ResponsavelTecnico
+                        .Where(x => x.NumCpf == usu.NumCpf)
+                        .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(t => t.CodResponsavelTecnico)
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                        if (objResposavelTecnico != null)
                         {
-                            CodRelato = entity.CodRelato,
-                            CodResponsavelTecnico = usu.CodUsuario,
-                            CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
-                            DthAtribuicao = DateTime.Now,
-                            CriadoPor = request.AlteradoPor,
-                            DataCriacao = DateTime.Now,
-                            FlagAtivo = true
-                        };
+                            var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                            {
+                                CodRelato = entity.CodRelato,
+                                CodResponsavelTecnico = usu.CodUsuario,
+                                CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                                DthAtribuicao = DateTime.Now,
+                                CriadoPor = request.AlteradoPor,
+                                DataCriacao = DateTime.Now,
+                                FlagAtivo = true
+                            };
 
-                        _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+                            _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
 
-                        await _context.SaveChangesAsync(cancellationToken);
+                            await _context.SaveChangesAsync(cancellationToken);
+                        }
                     }
                     return true;
                 }
