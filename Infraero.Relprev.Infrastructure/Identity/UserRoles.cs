@@ -6,5 +6,6 @@
         public const string GestorCorporativo = "Gestor comercial";
         public const string GestorSgsoSite = "Gestor SGSO SITE";
         public const string UsuarioPublico = "Usuário público";
+        public const string ResponsavelTecnico = "Responsável Técnico";
     }
 }

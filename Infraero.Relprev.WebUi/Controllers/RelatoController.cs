@@ -35,8 +35,8 @@ using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
-using Infraero.Relprev.Application.Relato.Commands.AtribuirResponsavelTecnico;
-using Infraero.Relprev.Application.Relato.Commands.RemoverResponsavelTecnico;
+using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
+//using Infraero.Relprev.Application.Relato.Commands.RemoverResponsavelTecnico;
 
 //using System.Web.Mvc;
 
@@ -70,7 +70,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 message);
         }
 
-        [ClaimsAuthorize("Relatos", "Cadastrar")]
+        //[ClaimsAuthorize("Relatos", "Cadastrar")]
         public ActionResult Create()
         {
             try
@@ -92,7 +92,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         }
 
-        [ClaimsAuthorize("Relatos", "Cadastrar")]
+        //[ClaimsAuthorize("Relatos", "Cadastrar")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         //[ServiceFilter(typeof(ValidateReCaptchaAttribute))]
@@ -277,7 +277,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
 
-
+        [ClaimsAuthorize("Atribuir", "Consultar")]
         [HttpPost]
         public async Task<IActionResult> Atribuir(IFormCollection collection, string message = null)
         {
@@ -301,7 +301,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var resultSubAssunto = ApiClientFactory.Instance.GetSubAssuntoById(obj.CodSubAssunto);
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
 
-            var command = new AtribuirResponsavelTecnicoCommand
+            var command = new CreateResponsavelTecnicoCommand
             {
 
                 CodRelato = obj.CodRelato,
@@ -346,7 +346,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         }
 
-        //[ClaimsAuthorize("Relatos", "Classificar")]
+        [ClaimsAuthorize("Atribuir", "Enviar")]
         public async Task<IActionResult> Atribuir(int id, string message = null)
         {
 
@@ -370,7 +370,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var resultSubAssunto = ApiClientFactory.Instance.GetSubAssuntoById(obj.CodSubAssunto);
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
 
-            var command = new AtribuirResponsavelTecnicoCommand
+            var command = new CreateResponsavelTecnicoCommand
             {
 
                 CodRelato = obj.CodRelato,

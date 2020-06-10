@@ -1,5 +1,10 @@
 ﻿@model Infraero.Relprev.CrossCutting.Models.RelatoModel
 @inject Microsoft.Extensions.Configuration.IConfiguration configuration
+@using System.Security.Claims
+@using Infraero.Relprev.Infrastructure.Identity
+@using Infraero.Relprev.WebUi.Services
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -158,22 +163,45 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responável técnico <span class="required">*</span></label>
                         <div class="col-lg-7">
-                            <select class="form-control populate select2" name="ddlResponsavel" id="ddlResponsavel"
-                                    title="Por favor selecione um responsável técnico." required
-                                    asp-for="CodResponsavel"
-                                    asp-items="Model.ListResponsavel">
-                                @if (Model.ListResponsavel != null)
-                                {
-                                    @if (Model.ListResponsavel.Count() > 0)
+                            @*@if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement: true)).Succeeded)
+                            {
+                                <select class="form-control populate select2" name="ddlResponsavel" id="ddlResponsavel" multiple
+                                        title="Por favor selecione um responsável técnico." required
+                                        asp-for="CodResponsavel"
+                                        asp-items="Model.ListResponsavel">
+                                    @if (Model.ListResponsavel != null)
                                     {
-                                        <option value="">Selecione um responsável técnico</option>
+                                        @if (Model.ListResponsavel.Count() > 0)
+                                        {
+                                            <option value="">Selecione um responsável técnico</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="">Nenhuma responsável técnico encontrada nessa empresa</option>
+                                        }
                                     }
-                                    else
+                                </select>
+                            }
+                            else
+                            {*@
+                                <select class="form-control populate select2" name="ddlResponsavel" id="ddlResponsavel"
+                                        title="Por favor selecione um responsável técnico." required
+                                        asp-for="CodResponsavel"
+                                        asp-items="Model.ListResponsavel">
+                                    @if (Model.ListResponsavel != null)
                                     {
-                                        <option value="">Nenhuma responsável técnico encontrada nessa empresa</option>
+                                        @if (Model.ListResponsavel.Count() > 0)
+                                        {
+                                            <option value="">Selecione um responsável técnico</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="">Nenhuma responsável técnico encontrada nessa empresa</option>
+                                        }
                                     }
-                                }
-                            </select>
+                                </select>
+                            @*  *@}
+
                         </div>
                         <div class="col-sm-2">
 

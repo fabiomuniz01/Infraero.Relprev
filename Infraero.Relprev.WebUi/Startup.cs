@@ -157,9 +157,14 @@ namespace Infraero.Relprev.WebUi
                         || context.User.IsInRole(UserRoles.GestorSgsoSite)));
 
                 options.AddPolicy(ModuloAccess.Relatos, policy =>
+                    policy.RequireAssertion(context =>context.User.IsInRole(UserRoles.GestorSgsoSite)
+                        || context.User.IsInRole(UserRoles.UsuarioPublico)));
+
+                options.AddPolicy(ModuloAccess.AtribuirResponsavelRelato, policy =>
                     policy.RequireAssertion(context =>
                         context.User.IsInRole(UserRoles.Administrator)
                         || context.User.IsInRole(UserRoles.GestorSgsoSite)
+                        || context.User.IsInRole(UserRoles.ResponsavelTecnico)
                         || context.User.IsInRole(UserRoles.UsuarioPublico)));
 
             });
