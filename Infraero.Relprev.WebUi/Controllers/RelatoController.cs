@@ -70,7 +70,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 message);
         }
 
-        //[ClaimsAuthorize("Relatos", "Cadastrar")]
+        [ClaimsAuthorize("Relatos", "Cadastrar")]
         public ActionResult Create()
         {
             try
@@ -92,7 +92,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         }
 
-        //[ClaimsAuthorize("Relatos", "Cadastrar")]
+        [ClaimsAuthorize("Relatos", "Cadastrar")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         //[ServiceFilter(typeof(ValidateReCaptchaAttribute))]
