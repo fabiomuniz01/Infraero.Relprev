@@ -13,23 +13,23 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infraero.Relprev.Application.Relato.Commands.RemoverResponsavelTecnico
+namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiucaoRelato
 {
-    public partial class RemoverResponsavelTecnicoCommand : IRequest<long>
+    public partial class DeleteAtribiucaoRelatoCommand : IRequest<long>
     {
 
-        public class RemoverResponsavelTecnicoCommandHandler : IRequestHandler<RemoverResponsavelTecnicoCommand, long>
+        public class DeleteAtribiucaoRelatoCommandHandler : IRequestHandler<DeleteAtribiucaoRelatoCommand, long>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
 
-            public RemoverResponsavelTecnicoCommandHandler(IApplicationDbContext context, IMapper mapper)
+            public DeleteAtribiucaoRelatoCommandHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<long> Handle(RemoverResponsavelTecnicoCommand request, CancellationToken cancellationToken)
+            public async Task<long> Handle(DeleteAtribiucaoRelatoCommand request, CancellationToken cancellationToken)
             {
                 try
                 {

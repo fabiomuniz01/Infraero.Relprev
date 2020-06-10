@@ -13,44 +13,33 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infraero.Relprev.Application.Relato.Commands.AtribuirResponsavelTecnico
+namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico
 {
-    public partial class AtribuirResponsavelTecnicoCommand : IRequest<long>
+    public partial class CreateResponsavelTecnicoCommand : IRequest<long>
     {
 
-        public class AtribuirResponsavelTecnicoCommandHandler : IRequestHandler<AtribuirResponsavelTecnicoCommand, long>
+        public class CreateResponsavelTecnicoCommandHandler : IRequestHandler<CreateResponsavelTecnicoCommand, long>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
 
-            public AtribuirResponsavelTecnicoCommandHandler(IApplicationDbContext context, IMapper mapper)
+            public CreateResponsavelTecnicoCommandHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<long> Handle(AtribuirResponsavelTecnicoCommand request, CancellationToken cancellationToken)
+            public async Task<long> Handle(CreateResponsavelTecnicoCommand request, CancellationToken cancellationToken)
             {
                 try
                 {
-
-
                     var entity = await _context.Relato.FindAsync(request.CodRelato);
-
-                    if (entity == null)
-                    {
-                        throw new NotFoundException(nameof(Domain.Entities.Relato), request.CodUnidadeInfraestrutura);
-                    }
-
                     entity.AlteradoPor = request.AlteradoPor;
                     entity.DataAlteracao = DateTime.Now;
                     entity.FlgStatusRelato = request.FlgStatusRelato;
 
                     await _context.SaveChangesAsync(cancellationToken);
 
-
-                    //foreach (var usu in request.ListUsuario)
-                    //{
                     var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
                     {
                         CodRelato = entity.CodRelato,
@@ -65,7 +54,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.AtribuirResponsavelTecnic
                     _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
 
                     await _context.SaveChangesAsync(cancellationToken);
-                    //}
+                  
                     return request.CodResponsavelTecnico;
                 }
                 catch

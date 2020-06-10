@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
+
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
-using Infraero.Relprev.Application.Relato.Commands.AtribuirResponsavelTecnico;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
@@ -202,23 +201,7 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
-        [HttpPost("AtribuirResponsavelTecnico")]
-        public async Task<ActionResult<long>> AtribuirResponsavelTecnico(AtribuirResponsavelTecnicoCommand command)
-        {
-            try
-            {
-                var result = await Mediator.Send(command);
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
-        }
-
+        
         [HttpPost("UpdateRelato")]
         public async Task<ActionResult<bool>> UpdateRelato(ClassificarRelatoCommand command)
         {
@@ -242,21 +225,7 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
-        [HttpGet("GetAtribuicaoByIdRelato/{id}")]
-        public async Task<List<AtribuicaoRelatoDto>> GetAtribuicaoByIdRelato(int id)
-        {
-            try
-            {
-                var result = await Mediator.Send(new GetAtribuicaoRelatoByIdRelatoQuery { Id = id });
-                return result;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
-        }
+    
 
         //[HttpPost("DeleteRelato")]
         //public async Task<ActionResult<bool>> DeleteRelato(DeleteRelatoCommand command)

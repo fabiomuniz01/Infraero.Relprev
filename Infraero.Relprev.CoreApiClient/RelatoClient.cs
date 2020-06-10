@@ -7,7 +7,7 @@ using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
-using Infraero.Relprev.Application.Relato.Commands.AtribuirResponsavelTecnico;
+
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 
 
@@ -45,13 +45,7 @@ namespace Infraero.Relprev.CoreApiClient
             return Post(requestUrl, command);
         }
 
-        public Task<long> AtribuirResponsavelTecnico(AtribuirResponsavelTecnicoCommand command)
-        {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceRelato}/AtribuirResponsavelTecnico"));
-            return Post(requestUrl, command);
-        }
-
+       
         public GridRelato GetGridRelato()
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
@@ -69,15 +63,7 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceRelato}/GetRelatoById/{id}"));
             return Get<RelatoDto>(requestUrl);
         }
-        public List<AtribuicaoRelatoDto> GetAtribuicaoByIdRelato(int id)
-        {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceRelato}/GetAtribuicaoByIdRelato/{id}"));
-            return Get<List<AtribuicaoRelatoDto>>(requestUrl);
-        }
         
-
-
         public RelatoDto GetRelatoByNumRelato(string id)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
