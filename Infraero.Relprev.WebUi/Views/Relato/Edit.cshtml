@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="row">
-        <div class="col-lg-12">
-            @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post, new { id = "form" }))
-            {
+<div class="row">
+    <div class="col-lg-12">
+        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post, new { id = "form" }))
+        {
             <section class="card">
                 <header class="card-header">
                     <div class="card-actions">
@@ -142,6 +142,14 @@
                                     title="Por favor selecione o local da ocorrência." required
                                     asp-for="CodLocal"
                                     asp-items="Model.ListLocal">
+                                @if (Model.ListLocal.Count() > 0)
+                                {
+                                    <option value="">Selecione o local</option>
+                                }
+                                else
+                                {
+                                    <option value="">Nenhum local encontrado nessa unidade de infraestrutura</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -152,7 +160,15 @@
                                     title="Por favor selecione o sub local da ocorrência." required
                                     asp-for="CodSubLocal"
                                     asp-items="Model.ListSubLocal">
-                                <option value="">Selecione o sub local</option>
+                                @if (Model.ListSubLocal.Count() > 0)
+                                {
+                                    <option value="">Selecione o sub local</option>
+                                }
+                                else
+                                {
+                                    <option value="">Nenhum sub local encontrado para esse local</option>
+                                }
+
                             </select>
                         </div>
                     </div>
@@ -163,6 +179,14 @@
                                     title="Por favor selecione o sub local da ocorrência." required
                                     asp-for="CodAssunto"
                                     asp-items="Model.ListAssunto">
+                                @if (Model.ListAssunto.Count() > 0)
+                                {
+                                    <option value="">Selecione o assunto</option>
+                                }
+                                else
+                                {
+                                    <option value="">Nenhum assunto encontrado nesse unidade de infraestrutura</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -173,7 +197,14 @@
                                     title="Por favor selecione o sub assunto da ocorrência." required
                                     asp-for="CodSubAssunto"
                                     asp-items="Model.ListSubAssunto">
-                                <option value="">Selecione o sub assunto</option>
+                                @if (Model.ListSubAssunto.Count() > 0)
+                                {
+                                    <option value="">Selecione o sub assunto</option>
+                                }
+                                else
+                                {
+                                    <option value="">Nenhum sub assunto encontrado para o assunto</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -189,11 +220,11 @@
                     </div>
                 </footer>
             </section>
-            }
-        </div>
+        }
     </div>
+</div>
 <!-- Modal Form -->
- 
+
 @section CssSpecificVendor {
     <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
     <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />

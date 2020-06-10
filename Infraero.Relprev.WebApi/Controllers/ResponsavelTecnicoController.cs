@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
@@ -122,6 +123,21 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
         }
 
+        [HttpGet("GetResponsavelTecnicoAll")]
+        public async Task<List<ResponsavelTecnicoDto>> GetResponsavelTecnicoAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetResponsavelTecnicoAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
 
     }
 }

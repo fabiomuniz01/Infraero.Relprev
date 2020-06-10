@@ -1,0 +1,320 @@
+﻿@model Infraero.Relprev.CrossCutting.Models.RelatoModel
+@inject Microsoft.Extensions.Configuration.IConfiguration configuration
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (@Html.BeginForm("Atribuir", "Relato", FormMethod.Post, new { id = "form" }))
+        {
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+
+                    <h2 class="card-title">Atribuir Reponsável Técnico</h2>
+
+                </header>
+                <div id="vRelato" class="card-body" data-loading-overlay>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nº do relato </label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input type="hidden" id="CodRelato" name="CodRelato" value="@Model.Relato.CodRelato">
+                                <input readonly id="CodNumRelato" name="CodNumRelato" value=" @Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input type="hidden" id="CodUnidadeInfraestrutura" name="CodUnidadeInfraestrutura" value="@Model.Relato.CodUnidadeInfraestrutura">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <input readonly id="DscUnidadeInfraestrutura" name="DscUnidadeInfraestrutura"
+                                   placeholder="eg.: Unidade Infraestrutura"
+                                   class="form-control"
+                                   value="@Model.NomUnidadeÌnfraestrutura">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência</label>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input readonly id="DtOcorrencia" name="DtOcorrencia"
+                                       data-plugin-masked-input data-input-mask="99/99/9999"
+                                       placeholder="eg.: Data da ocorrência de prevenção"
+                                       class="form-control"
+                                       value="@Model.Relato.DatOcorrencia">
+                            </div>
+                        </div>
+
+                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da Ocorrência</label>
+                        <div class="col-lg-3 pull-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </span>
+                                <input readonly type="text"
+                                       id="HorOcorrencia" name="HorOcorrencia"
+                                       data-plugin-timepicker class="form-control"
+                                       data-plugin-options='{ "showMeridian": false }'
+                                       placeholder="eg.: Horário da ocorrência"
+                                       value="@Model.Relato.HorOcorrencia">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3"
+                                      name="DscLocalOcorrenciaRelator"
+                                      class="form-control"
+                                      placeholder="eg.: Nome do Local da Ocorrência do relato  "
+                                      required
+                                      maxlength="200">@Model.Relato.DscLocalOcorrenciaRelator</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência/Nova descrição <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly
+                                      name="DscEnvolvidosOcorrencia"
+                                      type="text" rows="3"
+                                      class="form-control"
+                                      placeholder="eg.: Pessoas e / ou veículos envolvidos no relato"
+                                      required
+                                      maxlength="500">@Model.Relato.DscOcorrenciaRelator</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input type="hidden" id="CodLocal" name="CodLocal" value="@Model.Relato.CodLocal">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <input readonly id="DscLocal" name="DscLocal"
+                                   placeholder="eg.: Local da ocorrência"
+                                   class="form-control"
+                                   value="@Model.NomLocal">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input type="hidden" id="CodSubLocal" name="CodSubLocal" value="@Model.Relato.CodSubLocal">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Local da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <input readonly id="DscSubLocal" name="DscSubLocal"
+                                   placeholder="eg.: Sub Local da ocorrência"
+                                   class="form-control"
+                                   value="@Model.NomSubLocal">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input type="hidden" id="CodAssunto" name="CodAssunto" value="@Model.Relato.CodAssunto">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <input readonly id="DsAssunto" name="DsAssunto"
+                                   placeholder="eg.: Assunto da ocorrência"
+                                   class="form-control"
+                                   value="@Model.NomAssunto">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input type="hidden" id="CodSubAssunto" name="CodSubAssunto" value="@Model.Relato.CodSubAssunto">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto da ocorrência <span class="required">*</span></label>
+                        <div class="col-lg-9">
+                            <input readonly id="DsSubAssunto" name="DsSubAssunto"
+                                   placeholder="eg.: Assunto da ocorrência"
+                                   class="form-control"
+                                   value="@Model.NomSubAssunto">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Empresa de atendimento <span class="required">*</span></label>
+                        <div class="col-lg-7">
+                            <select class="form-control populate select2" name="ddlAssunto" id="ddlAssunto"
+                                    title="Por favor selecione o responsável técnico." required
+                                    asp-for="CodEmpresa"
+                                    asp-items="Model.ListEmpresas">
+                                @if (Model.ListEmpresas.Count() > 0)
+                                {
+                                    <option value="">Selecione a empresa</option>
+                                }
+                                else
+                                {
+                                    <option value="">Nenhuma empresa encontrada nesse unidade de infraestrutura</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Responável técnico <span class="required">*</span></label>
+                        <div class="col-lg-7">
+                            <select class="form-control populate select2" name="ddlResponsavel" id="ddlResponsavel"
+                                    title="Por favor selecione um responsável técnico." required
+                                    asp-for="CodResponsavel"
+                                    asp-items="Model.ListResponsavel">
+                                @if (Model.ListResponsavel != null)
+                                {
+                                    @if (Model.ListResponsavel.Count() > 0)
+                                    {
+                                        <option value="">Selecione um responsável técnico</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="">Nenhuma responsável técnico encontrada nessa empresa</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+
+                            <button class="btn  btn-primary pull-left mr-2">Adicionar &nbsp;&nbsp;<i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-striped mb-0" id="datatable-default">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Empresa de atendimento</th>
+                                <th class="text-center">Responsável Técnico</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ListResponsavelTecnico)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Empresa.NomRazaoSocial)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NomResponsavelTecnico)</td>
+                                    <td>
+                                        <a data-toggle="tooltip" data-placement="top" title="Remover Atribuição" asp-action="RemoverAtribuicao" asp-controller="Relato" asp-route-id="@item.CodResponsavelTecnico, " class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+                <footer class="card-footer">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-9">
+                            @*<button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                                <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>*@
+                            <a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Sair &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
+
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        }
+    </div>
+</div>
+<!-- Modal Form -->
+
+@section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+}
+@section Scripts {
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/vendor/select2/js/select2.js"></script>
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
+    <script src="~/js/atribuir.js"></script>
+    <script src="~/js/formatTable.js"></script>
+
+
+
+    <script>
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
+
+        (function ($) {
+
+            'use strict';
+
+            var crub = @ViewBag.CrudMessage;
+
+            if (crub===1) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Atibuição realizada com sucesso!',
+                    type: 'success'
+                });
+            }else if (crub === 2) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning'
+                });
+            }else if (crub === 3) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Atibuição excluída com sucesso.',
+                    type: 'error'
+                });
+            }
+
+
+
+            /*
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
+            });
+
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+
+        }).apply(this, [jQuery]);
+        // Tooltip
+        (function ($) {
+
+            'use strict';
+
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
+            }
+
+        }).apply(this, [jQuery]);
+
+
+    </script>
+}
+
+
+

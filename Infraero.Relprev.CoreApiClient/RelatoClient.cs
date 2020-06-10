@@ -7,13 +7,16 @@ using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
+using Infraero.Relprev.Application.Relato.Commands.AtribuirResponsavelTecnico;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
+
 
 namespace Infraero.Relprev.CoreApiClient
 {
     public partial class ApiClient
     {
         private const string ResourceRelato = "Relato";
+        private const string ResourceAtribuicao = "AtribuicaoRelato";
 
         #region Main Methods
 
@@ -42,6 +45,13 @@ namespace Infraero.Relprev.CoreApiClient
             return Post(requestUrl, command);
         }
 
+        public Task<long> AtribuirResponsavelTecnico(AtribuirResponsavelTecnicoCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/AtribuirResponsavelTecnico"));
+            return Post(requestUrl, command);
+        }
+
         public GridRelato GetGridRelato()
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
@@ -59,10 +69,10 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceRelato}/GetRelatoById/{id}"));
             return Get<RelatoDto>(requestUrl);
         }
-        public List<AtribuicaoRelatoDto> GetAtribuicaoByCodRelato(int id)
+        public List<AtribuicaoRelatoDto> GetAtribuicaoByIdRelato(int id)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceRelato}/GetAtribuicaoByCodRelato/{id}"));
+                $"{ResourceRelato}/GetAtribuicaoByIdRelato/{id}"));
             return Get<List<AtribuicaoRelatoDto>>(requestUrl);
         }
         

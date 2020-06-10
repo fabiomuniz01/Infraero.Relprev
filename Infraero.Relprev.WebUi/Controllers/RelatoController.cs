@@ -32,7 +32,13 @@ using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
 using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
+using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
+using Infraero.Relprev.Application.Relato.Commands.AtribuirResponsavelTecnico;
+using Infraero.Relprev.Application.Relato.Commands.RemoverResponsavelTecnico;
+
+//using System.Web.Mvc;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -50,12 +56,25 @@ namespace Infraero.Relprev.WebUi.Controllers
             _emailSender = emailSender;
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
+        private async Task SendRn0064Email(string email)
+        {
 
+            var callbackUrl = Url.ActionLink("ResetPassword",
+                "Identity/Account");
+
+            var message =
+                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/Rn0064Email.html"));
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl.Replace("%2FAccount", "/Account")));
+
+            await _emailSender.SendEmailAsync(email, "Novo relato de prevenção",
+                message);
+        }
 
         [ClaimsAuthorize("Relatos", "Cadastrar")]
         public ActionResult Create()
         {
-            try{
+            try
+            {
                 var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
                 var model = new RelatoModel
@@ -67,7 +86,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception e)
             {
-                
+
                 return View();
             }
 
@@ -107,7 +126,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 var command = new CreateRelatoCommand
                 {
-                    
+
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
                     DatOcorrencia = collection["DtOcorrencia"].ToString(),
                     HorOcorrencia = collection["HorOcorrencia"].ToString(),
@@ -120,18 +139,19 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
                     ListRelatoArquivo = listRelatoArquivo,
-                    FlgStatusRelato = (int) EnumStatusRelato.NaoIniciado,
+                    FlgStatusRelato = (int)EnumStatusRelato.NaoIniciado,
                     CriadoPor = User.Identity.Name
                 };
 
                 var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
 
 
-                var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByCodRelato(Convert.ToInt32(idRelato));
+                var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato));
 
                 foreach (var atribuicao in listAtribuicaoSgso)
                 {
-                    await SendRn0064Email(atribuicao.UsuarioResponsavel.Email);
+                    //email atribuicao
+                    await SendRn0064Email(atribuicao.ResponsavelTecnico.EndEmail);
                 }
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
@@ -149,20 +169,6 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 return View(model);
             }
-        }
-
-        private async Task SendRn0064Email(string email)
-        {
-
-            var callbackUrl = Url.ActionLink("ResetPassword",
-                "Identity/Account");
-
-            var message =
-                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/Rn0064Email.html"));
-            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl.Replace("%2FAccount", "/Account")));
-
-            await _emailSender.SendEmailAsync(email, "Novo relato de prevenção",
-                message);
         }
 
         [ClaimsAuthorize("Relatos", "Consultar")]
@@ -186,21 +192,22 @@ namespace Infraero.Relprev.WebUi.Controllers
                 ViewBag.NotifyMessage = -1;
                 ViewBag.Notify = "null";
             }
-           
+
 
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
-           
+
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
             var resultLocal = ApiClientFactory.Instance.GetLocalAll();
             var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
+            var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(obj.CodLocal);
 
-            var textoAssunto = "Selecione o assunto";
-            if (resultAssunto.Count == 0)
-            {
-                textoAssunto = "Nenhum assunto cadastrado nessa unidae de infraestrutura";
-            }
+            //var textoAssunto = "Selecione o assunto";
+            //if (resultAssunto.Count == 0)
+            //{
+            //    textoAssunto = "Nenhum assunto cadastrado nessa unidae de infraestrutura";
+            //}
 
-            resultAssunto.Insert(0, new AssuntoDto { CodAssunto = 0, DscAssunto = textoAssunto });
+            //resultAssunto.Insert(0, new AssuntoDto { CodAssunto = -1, DscAssunto = textoAssunto });
 
 
             var resultLocalUnidade = resultLocal
@@ -211,14 +218,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscLocal = s.DscLocal
                 }).ToList();
 
-            var textolocal = "Selecione o local";
-            if (resultLocalUnidade.Count == 0)
-            {
-                textolocal = "Nenhum local cadastrado nessa unidae de infraestrutura";
-            }
-
-            resultLocalUnidade.Insert(0, new LocalDto { CodLocal = 0, DscLocal = textolocal });
-
 
             var model = new RelatoModel
             {
@@ -227,13 +226,217 @@ namespace Infraero.Relprev.WebUi.Controllers
                 CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
                 NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura,
                 ListLocal = new SelectList(resultLocalUnidade, "CodLocal", "DscLocal"),
-                ListSubLocal= new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal"),
+                ListSubLocal = new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal"),
                 ListAssunto = new SelectList(resultAssunto, "CodAssunto", "DscAssunto"),
-                ListSubAssunto = new SelectList(new List<SubAssuntoDto>(), "CodSubAssunto", "DscSubAssunto")
+                ListSubAssunto = new SelectList(new List<SubAssuntoDto>(), "CodSubAssunto", "DscSubAssunto"),
+                //ListResponsavelTecnico = resultAtribuido;
             };
 
             return View(model);
 
+        }
+
+        [ClaimsAuthorize("Relatos", "Classificar")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(IFormCollection collection)
+        {
+
+            try
+            {
+
+                var command = new ClassificarRelatoCommand
+                {
+
+                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                    AlteradoPor = User.Identity.Name,
+                    CodLocal = int.Parse(collection["ddlLocal"].ToString()),
+                    CodSubLocal = int.Parse(collection["ddlSubLocal"].ToString()),
+                    CodAssunto = int.Parse(collection["ddlAssunto"].ToString()),
+                    CodSubAssunto = int.Parse(collection["ddlSubAssunto"].ToString()),
+                    FlgStatusRelato = (int)EnumStatusRelato.Ocorrenciaclassificada
+
+
+                };
+                var idRelato = await ApiClientFactory.Instance.ClassificarRelato(command);
+
+
+                var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato));
+
+                foreach (var atribuicao in listAtribuicaoSgso)
+                {
+                    //email atribuicao
+                    await SendRn0064Email(atribuicao.ResponsavelTecnico.EndEmail);
+                }
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Atribuir(IFormCollection collection, string message = null)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                SetNotifyMessage((int)EnumNotify.Error, message);
+            }
+            else
+            {
+                ViewBag.NotifyMessage = 0;
+                ViewBag.Notify = "passou";
+            }
+
+
+            var obj = ApiClientFactory.Instance.GetRelatoById(int.Parse(collection["CodRelato"].ToString()));
+
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
+            var resultLocal = ApiClientFactory.Instance.GetLocalById(obj.CodLocal);
+            var resultSubLocal = ApiClientFactory.Instance.GetSubLocalById(obj.CodSubLocal);
+            var resultAssunto = ApiClientFactory.Instance.GetAssuntoById(obj.CodAssunto);
+            var resultSubAssunto = ApiClientFactory.Instance.GetSubAssuntoById(obj.CodSubAssunto);
+            var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
+
+            var command = new AtribuirResponsavelTecnicoCommand
+            {
+
+                CodRelato = obj.CodRelato,
+                AlteradoPor = User.Identity.Name,
+                FlgStatusRelato = (int)EnumStatusRelato.AguardandoParecerTecnico,
+                CodResponsavelTecnico = int.Parse(collection["ddlResponsavel"].ToString()),
+                CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuida
+            };
+            await ApiClientFactory.Instance.AtribuirResponsavelTecnico(command);
+
+            var listAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(obj.CodRelato);
+            var listResposavel = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
+            var list = new List<ResponsavelTecnicoDto>();
+            foreach (var ItemAtribuido in listAtribuido)
+            {
+                foreach (var responsavelAtribuido in listResposavel)
+                {
+                    if (ItemAtribuido.CodResponsavelTecnico == responsavelAtribuido.CodResponsavelTecnico)
+                        list.Add(responsavelAtribuido);
+                }
+            }
+
+            var model = new RelatoModel
+            {
+                Relato = obj,
+                ListRelatoArquivo = obj.ListArquivo,
+                CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
+                NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura,
+                NomLocal = resultLocal.DscLocal,
+                NomSubLocal = resultSubLocal.DscSubLocal,
+                NomAssunto = resultAssunto.DscAssunto,
+                NomSubAssunto = resultSubAssunto.DscSubAssunto,
+                ListEmpresas = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"),
+                ListResponsavelTecnico = list
+
+
+            };
+
+            SetCrudMessage(1);
+
+            return View(model);
+
+        }
+
+        //[ClaimsAuthorize("Relatos", "Classificar")]
+        public async Task<IActionResult> Atribuir(int id, string message = null)
+        {
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                SetNotifyMessage((int)EnumNotify.Error, message);
+            }
+            else
+            {
+                ViewBag.NotifyMessage = -1;
+                ViewBag.Notify = "null";
+            }
+
+
+            var obj = ApiClientFactory.Instance.GetRelatoById(id);
+
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
+            var resultLocal = ApiClientFactory.Instance.GetLocalById(obj.CodLocal);
+            var resultSubLocal = ApiClientFactory.Instance.GetSubLocalById(obj.CodSubLocal);
+            var resultAssunto = ApiClientFactory.Instance.GetAssuntoById(obj.CodAssunto);
+            var resultSubAssunto = ApiClientFactory.Instance.GetSubAssuntoById(obj.CodSubAssunto);
+            var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
+
+            var command = new AtribuirResponsavelTecnicoCommand
+            {
+
+                CodRelato = obj.CodRelato,
+                AlteradoPor = User.Identity.Name,
+                FlgStatusRelato = (int)EnumStatusRelato.AguardandoParecerTecnico,
+                CodResponsavelTecnico = id,
+                CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuida
+            };
+
+            await ApiClientFactory.Instance.AtribuirResponsavelTecnico(command);
+
+            var listAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(obj.CodRelato);
+            var listResposavel = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
+            var list = new List<ResponsavelTecnicoDto>();
+            foreach (var ItemAtribuido in listAtribuido)
+            {
+                foreach (var responsavelAtribuido in listResposavel)
+                {
+                    if (ItemAtribuido.CodResponsavelTecnico == responsavelAtribuido.CodResponsavelTecnico)
+                        list.Add(responsavelAtribuido);
+                }
+            }
+            var model = new RelatoModel
+            {
+                Relato = obj,
+                ListRelatoArquivo = obj.ListArquivo,
+                CodUnidadeInfraestrutura = obj.CodUnidadeInfraestrutura,
+                NomUnidadeÌnfraestrutura = resultUnidade.NomUnidadeÌnfraestrutura,
+                NomLocal = resultLocal.DscLocal,
+                NomSubLocal = resultSubLocal.DscSubLocal,
+                NomAssunto = resultAssunto.DscAssunto,
+                NomSubAssunto = resultSubAssunto.DscSubAssunto,
+                ListEmpresas = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"),
+                ListResponsavelTecnico = list
+            };
+
+            return View(model);
+
+        }
+
+        public ActionResult RemoverAtribuicao(int idRelato, int idResponsavel, string message = null)
+        {
+
+            return View();
+
+        }
+        public JsonResult GetResponsavelByEmpresa(int id)
+        {
+            var listResposavel = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
+
+            listResposavel = listResposavel
+                .Where(x => x.Empresa.CodEmpresa == id)
+                .Select(s => new ResponsavelTecnicoDto
+                {
+                    CodResponsavelTecnico = s.CodResponsavelTecnico,
+                    NomResponsavelTecnico = s.NomResponsavelTecnico
+                }).ToList();
+            var texto = "Selecione o responsável técnico";
+            if (listResposavel.Count == 0)
+            {
+                texto = "Nenhum responsável técnico cadastrado nesse empresa";
+            }
+
+            listResposavel.Insert(0, new ResponsavelTecnicoDto { CodResponsavelTecnico = 0, NomResponsavelTecnico = texto });
+
+            return Json(new SelectList(listResposavel, "CodResponsavelTecnico", "NomResponsavelTecnico"));
         }
 
         public JsonResult GetSubLocalByLocal(int id)
@@ -247,15 +450,35 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodSubLocal = s.CodSubLocal,
                     DscSubLocal = s.DscSubLocal
                 }).ToList();
-            var texto = "Selecione sub local";
-            if (listDdlSubLocal.Count == 0)
-            {
-                texto = "Nenhum sub local cadastrado nesse local";
-            }
+            //var texto = "Selecione sub local";
+            //if (listDdlSubLocal.Count == 0)
+            //{
+            //    texto = "Nenhum sub local cadastrado nesse local";
+            //}
 
-            listDdlSubLocal.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = texto });
+            //listDdlSubLocal.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = texto });
 
             return Json(new SelectList(listDdlSubLocal, "CodSubLocal", "DscSubLocal"));
+        }
+
+        [HttpGet]
+        public JsonResult AtribuirResponsavelTecnico(int id)
+        {
+
+            var listSublocal = ApiClientFactory.Instance.GetSubLocalAll();
+
+            var listDdlSubLocal = listSublocal
+                .Where(x => x.Local.CodLocal == id)
+                .Select(s => new SubLocalDto
+                {
+                    CodSubLocal = s.CodSubLocal,
+                    DscSubLocal = s.DscSubLocal
+                }).ToList();
+
+
+            //return Json(new { data = listaClientes }, JsonRequestBehavior.AllowGet);
+            return Json(listDdlSubLocal);
+
         }
         public JsonResult GetSubAssuntoByLocal(int id)
         {
@@ -268,46 +491,15 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodSubAssunto = s.CodSubAssunto,
                     DscSubAssunto = s.DscSubAssunto
                 }).ToList();
-            var texto = "Selecione o sub assunto";
-            if (listDdlSubAssunto.Count==0)
-            {
-                texto = "Nenhum sub assunto cadastrado nesse local";
-            }
+            //var texto = "Selecione o sub assunto";
+            //if (listDdlSubAssunto.Count == 0)
+            //{
+            //    texto = "Nenhum sub assunto cadastrado nesse local";
+            //}
 
-            listDdlSubAssunto.Insert(0, new SubAssuntoDto { CodSubAssunto = 0, DscSubAssunto = texto });
+            //listDdlSubAssunto.Insert(0, new SubAssuntoDto { CodSubAssunto = 0, DscSubAssunto = texto });
 
             return Json(new SelectList(listDdlSubAssunto, "CodSubAssunto", "DscSubAssunto"));
-        }
-
-        //[ClaimsAuthorize("Relatos", "Classificar")]
-        [HttpPost]
-        public ActionResult Edit(IFormCollection collection)
-        {
-
-            try
-            {
-                
-               var command = new ClassificarRelatoCommand
-                {
-                  
-                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
-                    AlteradoPor = User.Identity.Name,
-                    CodLocal = int.Parse(collection["ddlLocal"].ToString()),
-                    CodSubLocal = int.Parse(collection["ddlSubLocal"].ToString()),
-                    CodAssunto = int.Parse(collection["ddlAssunto"].ToString()),
-                    CodSubAssunto = int.Parse(collection["ddlSubAssunto"].ToString()),
-                    FlgStatusRelato = (int)EnumStatusRelato.Ocorrenciaclassificada
-
-
-                };
-                ApiClientFactory.Instance.ClassificarRelato(command);
-
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
-            }
-            catch (Exception e)
-            {
-                return View();
-            }
         }
 
         [ClaimsAuthorize("Relatos", "Cancelar")]
@@ -333,8 +525,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                // mas chega aqui
-                
+
                 var command = new CancelRelatoCommand
                 {
 
@@ -346,17 +537,16 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 };
 
-               ApiClientFactory.Instance.CancelRelato(command);
+                ApiClientFactory.Instance.CancelRelato(command);
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
             }
             catch (Exception e)
             {
-                 return View();
+                return View();
             }
         }
 
-               
         [HttpPost]
         public ActionResult Classificar(IFormCollection collection)
         {

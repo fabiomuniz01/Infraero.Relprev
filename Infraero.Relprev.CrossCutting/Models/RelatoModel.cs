@@ -5,6 +5,7 @@ using System.Text;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Microsoft.AspNetCore.Http;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 
 namespace Infraero.Relprev.CrossCutting.Models
 {
@@ -28,10 +29,28 @@ namespace Infraero.Relprev.CrossCutting.Models
 
         //adiciona para exibir na edição
         public string NomUnidadeÌnfraestrutura { get; set; }
+        //adiciona para exibir na atrubuição
+        public string NomLocal { get; set; }
+        //adiciona para exibir na atrubuição
+        public string NomSubLocal { get; set; }
+        //adiciona para exibir na atrubuição
+        public string NomAssunto { get; set; }
+        //adiciona para exibir na atrubuição
+        public string NomSubAssunto { get; set; }
+
+
+        public SelectList ListEmpresas { get; set; }
+        public int CodEmpresa { get; set; }
+        public SelectList ListResponsavel { get; set; }
+        public int CodResponsavel { get; set; }
+   
+
+
         public RelatoDto Relato { get; set; }
 
         public List<IFormFile> ListArquivo { get; set; }
         public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
+        public List<ResponsavelTecnicoDto> ListResponsavelTecnico { get; set; }
         public IFormFile Arquivo { get; set; }
     }
 }

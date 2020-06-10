@@ -1,4 +1,6 @@
-﻿var vm = new Vue({
+﻿
+
+var vm = new Vue({
     el: "#form",
     mounted: function () {
         var self = this;
@@ -10,7 +12,7 @@
                 allowClear: true
             });
 
-            $(".select2").each(function () {
+             $(".select2").each(function () {
                 var $this = $(this),
                     opts = {};
 
@@ -30,43 +32,43 @@
                 $(this).trigger('blur');
             });
 
-            $("#ddlLocal").change(function () {
+            $("#ddlEmpresa").change(function () {
 
-                var url = "../GetSubLocalByLocal";
+                var url = "../GetResponsavelByEmpresa";
 
-                var ddlSource = "#ddlLocal";
+                var ddlSource = "#ddlEmpresa";
 
                 $.getJSON(url,
-                    { id: $(ddlSource).val() },
+                    { id: $(ddlEmpresa).val() },
                     function (data) {
-                        var items = '<option value="">Selecione o sub local</option>';
-                        $("#ddlSubLocal").empty;
+                        var items = '<option value="">Selecione o reponsável técnico</option>';
+                        $("#ddlResponsavel").empty;
                         $.each(data,
-                             function (i, row) {
+                            function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
-                        $("#ddlSubLocal").html(items);
+                        $("#ddlResponsavel").html(items);
                     });
             });
-
             $("#ddlAssunto").change(function () {
 
-                var url = "../GetSubAssuntoByLocal";
+                var url = "../GetResponsavelByEmpresa";
 
                 var ddlSource = "#ddlAssunto";
 
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '<option value="">Selecione o sub assunto</option>';
-                        $("#ddlSubAssunto").empty;
+                        var items = '';
+                        $("#ddlResponsavel").empty;
                         $.each(data,
                             function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
-                        $("#ddlSubAssunto").html(items);
+                        $("#ddlResponsavel").html(items);
                     });
             });
+
 
             (function ($) {
 
@@ -100,50 +102,9 @@
 
             }).apply(this, [jQuery]);
 
-            //$('#arquivosDatatable').DataTable({
-            //    "columns": [
-            //        { "data": "name" },
-            //        {
-            //            "data": null,
-            //            "sortable": false,
-            //            "render": function (c) {
-            //                return "<a style='color:#d43f3a' href='javascript:(crud.deleteModal(" +
-            //                    c.Id +
-            //                    "))'><i class='fa fa-trash'></i></a>";
-            //            }
-            //        }
-            //    ],
-            //    "searching": false,
-            //    "lengthChange": false,
-            //    "pageLength": 3,
-            //    "language": {
-            //        "sEmptyTable": "Nenhum registro encontrado",
-            //        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            //        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            //        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            //        "sInfoPostFix": "",
-            //        "sInfoThousands": ".",
-            //        "sLengthMenu": "_MENU_ resultados por página",
-            //        "sLoadingRecords": "Carregando...",
-            //        "sProcessing": "Processando...",
-            //        "sZeroRecords": "Nenhum registro encontrado",
-            //        "sSearch": "Pesquisar: ",
-            //        "oPaginate": {
-            //            "sNext": "Próximo →" +
-            //                "" +
-            //                "",
-            //            "sPrevious": "← Anterior",
-            //            "sFirst": "Primeiro",
-            //            "sLast": "Último"
-            //        },
-            //        "oAria": {
-            //            "sSortAscending": ": Ordenar colunas de forma ascendente",
-            //            "sSortDescending": ": Ordenar colunas de forma descendente"
-            //        }
-            //    }
-            //});
 
-            
+
+
         }).apply(this, [jQuery]);
     },
     methods: {
