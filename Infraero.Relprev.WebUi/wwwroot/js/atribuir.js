@@ -12,12 +12,7 @@ var vm = new Vue({
                 allowClear: true
             });
 
-            //$("#atribuir").click(function () {
-
-                
-            //});
-
-            $(".select2").each(function () {
+             $(".select2").each(function () {
                 var $this = $(this),
                     opts = {};
 
@@ -46,7 +41,7 @@ var vm = new Vue({
                 $.getJSON(url,
                     { id: $(ddlEmpresa).val() },
                     function (data) {
-                        var items = '';
+                        var items = '<option value="">Selecione o reponsável técnico</option>';
                         $("#ddlResponsavel").empty;
                         $.each(data,
                             function (i, row) {

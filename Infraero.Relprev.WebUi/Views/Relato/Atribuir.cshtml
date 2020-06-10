@@ -143,6 +143,14 @@
                                     title="Por favor selecione o responsável técnico." required
                                     asp-for="CodEmpresa"
                                     asp-items="Model.ListEmpresas">
+                                @if (Model.ListEmpresas.Count() > 0)
+                                {
+                                    <option value="">Selecione a empresa</option>
+                                }
+                                else
+                                {
+                                    <option value="">Nenhuma empresa encontrada nesse unidade de infraestrutura</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -154,11 +162,21 @@
                                     title="Por favor selecione um responsável técnico." required
                                     asp-for="CodResponsavel"
                                     asp-items="Model.ListResponsavel">
-                                <option value="">Selecione uma empresa</option>
+                                @if (Model.ListResponsavel != null)
+                                {
+                                    @if (Model.ListResponsavel.Count() > 0)
+                                    {
+                                        <option value="">Selecione um responsável técnico</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="">Nenhuma responsável técnico encontrada nessa empresa</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="col-sm-2">
-                            
+
                             <button class="btn  btn-primary pull-left mr-2">Adicionar &nbsp;&nbsp;<i class="fa fa-plus"></i></button>
                         </div>
                     </div>
@@ -178,23 +196,23 @@
                                     <td>@Html.DisplayFor(modelItem => item.Empresa.NomRazaoSocial)</td>
                                     <td>@Html.DisplayFor(modelItem => item.NomResponsavelTecnico)</td>
                                     <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="RemoverAtribucao" asp-controller="Relato" asp-route-id="@item.CodResponsavelTecnico" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-remove"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Remover Atribuição" asp-action="RemoverAtribuicao" asp-controller="Relato" asp-route-id="@item.CodResponsavelTecnico, " class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             }
 
                         </tbody>
                     </table>
-                  
+
 
 
                 </div>
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
-                            @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
+                            @*<button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                                <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>*@
+                            <a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Sair &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
                         </div>
                     </div>
@@ -220,30 +238,80 @@
     <script src="~/js/formatTable.js"></script>
 
 
+
     <script>
+        /*
+Name: 			UI Elements / Modals - Examples
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version: 	2.0.0
+*/
 
-        var notify = @ViewBag.NotifyMessage;
-        var messagem = @ViewBag.Notify;
+        (function ($) {
 
-        if (notify===0) {
-            new PNotify({
-                title: 'Atribuir Responsável Técnico',
-                text: messagem,
-                type: 'success'
+            'use strict';
+
+            var crub = @ViewBag.CrudMessage;
+
+            if (crub===1) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Atibuição realizada com sucesso!',
+                    type: 'success'
+                });
+            }else if (crub === 2) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning'
+                });
+            }else if (crub === 3) {
+                new PNotify({
+                    title: 'Relato',
+                    text: 'Atibuição excluída com sucesso.',
+                    type: 'error'
+                });
+            }
+
+
+
+            /*
+            Basic
+            */
+            $('.modal-basic').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
             });
-        }else if (notify === 1) {
-            new PNotify({
-                title: 'Atribuir Responsável Técnico',
-                text: messagem,
-                type: 'warning'
+
+            /*
+            Sizes
+            */
+            $('.modal-sizes').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true
             });
-        }else if (notify === 2) {
-            new PNotify({
-                title: 'Atribuir Responsável Técnico',
-                text: messagem,
-                type: 'error'
+
+            /*
+            Modal Dismiss
+            */
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
             });
-        }
+
+        }).apply(this, [jQuery]);
+        // Tooltip
+        (function ($) {
+
+            'use strict';
+
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
+            }
+
+        }).apply(this, [jQuery]);
+
 
     </script>
 }

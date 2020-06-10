@@ -75,7 +75,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
                             var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
                             {
                                 CodRelato = entity.CodRelato,
-                                CodResponsavelTecnico = usu.CodUsuario,
+                                CodResponsavelTecnico = objResposavelTecnico.CodResponsavelTecnico,
                                 CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
                                 DthAtribuicao = DateTime.Now,
                                 CriadoPor = request.AlteradoPor,

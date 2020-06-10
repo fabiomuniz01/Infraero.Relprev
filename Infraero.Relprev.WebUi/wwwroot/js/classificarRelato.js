@@ -39,10 +39,10 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '';
+                        var items = '<option value="">Selecione o sub local</option>';
                         $("#ddlSubLocal").empty;
                         $.each(data,
-                            function (i, row) {
+                             function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
                         $("#ddlSubLocal").html(items);
@@ -58,7 +58,7 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '';
+                        var items = '<option value="">Selecione o sub assunto</option>';
                         $("#ddlSubAssunto").empty;
                         $.each(data,
                             function (i, row) {

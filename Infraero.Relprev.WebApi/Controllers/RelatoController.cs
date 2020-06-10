@@ -55,8 +55,7 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                command.NumTelefoneRelator = Criptografia.Encriptar(command.NumTelefoneRelator);
-
+               
                 var unidade = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = (int)command.CodUnidadeInfraestrutura });
 
                 command.Sigla = unidade.Sigla;
@@ -65,7 +64,7 @@ namespace Infraero.Relprev.WebApi.Controllers
 
                 command.CodPerfilSgso = sgsoRole.Id;
 
-                command.CodSituacaoAtribuicao = (int) EnumSituacaoAtribuicao.OcorrenciaAtribuída;
+                command.CodSituacaoAtribuicao = (int) EnumSituacaoAtribuicao.OcorrenciaAtribuida;
 
                 var result = await Mediator.Send(command);
 
@@ -229,7 +228,7 @@ namespace Infraero.Relprev.WebApi.Controllers
 
                 command.CodPerfilSgso = sgsoRole.Id;
 
-                command.CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuída;
+                command.CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuida;
 
                 var result = await Mediator.Send(command);
 
