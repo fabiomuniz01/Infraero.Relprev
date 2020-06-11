@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using AutoMapper;
 using Infraero.Relprev.Application.Common.Mappings;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
-using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 
 namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos
 {
@@ -12,7 +12,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
     {
         [Key]
         public int CodAtribuicaoRelato { get; set; }
-        public int CodResponsavelTecnico { get; set; }
+        public int CodResponsavelTecnicoSgso { get; set; }
         public int CodRelato { get; set; }
         public int CodSituacaoAtribuicao { get; set; }
         public string DscParecerTecnico { get; set; }
@@ -20,10 +20,10 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
         public DateTime DthAtribuicao { get; set; }
         public DateTime? DthFimAtendimento { get; set; }
         public string ObsAtribuicao { get; set; }
-
-        
-        [ForeignKey("CodResponsavelTecnico")]
-        public ResponsavelTecnicoDto ResponsavelTecnico { get; set; }
+        [ForeignKey("CodResponsavelTecnicoSgso")]
+        public UsuarioDto ResponsavelTecnicoSgso { get; set; }
+        [ForeignKey("CodRelato")]
+        public RelatoDto Relato { get; set; }
 
 
 

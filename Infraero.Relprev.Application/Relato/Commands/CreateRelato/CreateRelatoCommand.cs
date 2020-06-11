@@ -50,6 +50,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         NomEmpresaRelator = request.NomEmpresaRelator,
                         CriadoPor = request.CriadoPor,
                         DataCriacao = DateTime.Now,
+                        //Rn0033 - Nao Iniciado
                         FlgStatusRelato = request.FlgStatusRelato,
                         FlagAtivo = true,
                         NumRelato = string.Empty
@@ -59,6 +60,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 
                     await _context.SaveChangesAsync(cancellationToken);
 
+                    //Rn0086
                     entity.NumRelato = DateTime.Now.Year.ToString() + request.Sigla +
                                        entity.CodRelato.ToString().PadLeft(4, '0').ToString();
 
@@ -81,41 +83,30 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
 
                         await _context.SaveChangesAsync(cancellationToken);
                     }
-
+                    //Rn0032
                     var listUsuario = await _context.Usuario.Where(x =>
                             x.CodPerfil == request.CodPerfilSgso &&
                             x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura)
                         .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
 
-
                     foreach (var usu in listUsuario)
                     {
-                        var objResposavelTecnico = await _context.ResponsavelTecnico
-                        .Where(x => x.NumCpf == usu.NumCpf)
-                        .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
-                        .OrderBy(t => t.CodResponsavelTecnico)
-                        .FirstOrDefaultAsync(cancellationToken);
-
-                        if (objResposavelTecnico != null)
+                        var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
                         {
-                            var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
-                            {
-                                CodRelato = entity.CodRelato,
-                                CodResponsavelTecnico = objResposavelTecnico.CodResponsavelTecnico,
-                                CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
-                                DthAtribuicao = DateTime.Now,
-                                CriadoPor = request.CriadoPor,
-                                DataCriacao = DateTime.Now,
-                                FlagAtivo = true
-                            };
+                            CodRelato = entity.CodRelato,
+                            CodResponsavelTecnicoSgso = usu.CodUsuario,
+                            CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                            DthAtribuicao = DateTime.Now,
+                            CriadoPor = request.CriadoPor,
+                            DataCriacao = DateTime.Now,
+                            FlagAtivo = true
+                        };
 
-                            _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+                        _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
 
-                            await _context.SaveChangesAsync(cancellationToken);
-                        }
+                        await _context.SaveChangesAsync(cancellationToken);
                     }
-
 
                     return entity.CodRelato;
                 }
@@ -128,7 +119,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
         }
 
         public string CriadoPor { get; set; }
-
         public int CodRelato { get; set; }
         public string DscRelato { get; set; }
         public string DatOcorrencia { get; set; }

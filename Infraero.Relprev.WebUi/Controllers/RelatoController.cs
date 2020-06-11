@@ -36,6 +36,10 @@ using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
+using Infraero.Relprev.CrossCutting.Helpers;
+using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
+
 //using Infraero.Relprev.Application.Relato.Commands.RemoverResponsavelTecnico;
 
 //using System.Web.Mvc;
@@ -56,25 +60,30 @@ namespace Infraero.Relprev.WebUi.Controllers
             _emailSender = emailSender;
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
-        private async Task SendRn0064Email(string email)
+
+        [ClaimsAuthorize("Relatos", "Consultar")]
+        public IActionResult Index(int? crud)
         {
-
-            var callbackUrl = Url.ActionLink("ResetPassword",
-                "Identity/Account");
-
-            var message =
-                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/Rn0064Email.html"));
-            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl.Replace("%2FAccount", "/Account")));
-
-            await _emailSender.SendEmailAsync(email, "Novo relato de prevenção",
-                message);
+            SetCrudMessage(crud);
+            var response = ApiClientFactory.Instance.GetGridRelato();
+            return View(response);
         }
 
         [ClaimsAuthorize("Relatos", "Cadastrar")]
-        public ActionResult Create()
+        public ActionResult Create(string message = null)
         {
             try
             {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    SetNotifyMessage((int)EnumNotify.Error, message);
+                }
+                else
+                {
+                    ViewBag.NotifyMessage = -1;
+                    ViewBag.Notify = "null";
+                }
+
                 var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
                 var model = new RelatoModel
@@ -84,10 +93,9 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 return View(model);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
-                return View();
+                return RedirectToAction(nameof(Create), new { message = ex.Message });
             }
 
         }
@@ -103,16 +111,13 @@ namespace Infraero.Relprev.WebUi.Controllers
                 string uniqueFileName = null;
                 var listRelatoArquivo = new List<RelatoArquivoDto>();
 
-
                 if (collection.Files.Count > 0)
                 {
                     var file = collection.Files;
 
                     foreach (var item in file)
                     {
-
                         string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "RelatoArquivo");
-
                         string extension = Path.GetExtension(item.FileName);
                         uniqueFileName = Guid.NewGuid().ToString() + extension;
                         var realName = item.GetFilename();
@@ -121,12 +126,10 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                         listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
                     }
-
                 }
 
                 var command = new CreateRelatoCommand
                 {
-
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
                     DatOcorrencia = collection["DtOcorrencia"].ToString(),
                     HorOcorrencia = collection["HorOcorrencia"].ToString(),
@@ -136,7 +139,8 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscRelato = collection["DscOcorrenciaRelator"].ToString(),
                     NomRelator = collection["NomRelator"].ToString(),
                     EmailRelator = collection["EmailRelator"].ToString(),
-                    NumTelefoneRelator = collection["NumTelefoneRelator"].ToString(),
+                    //Rn0079
+                    NumTelefoneRelator = Criptografia.Encriptar(collection["NumTelefoneRelator"].ToString()),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
                     ListRelatoArquivo = listRelatoArquivo,
                     FlgStatusRelato = (int)EnumStatusRelato.NaoIniciado,
@@ -145,38 +149,74 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
 
-
+                //Rn0064
                 var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato));
 
                 foreach (var atribuicao in listAtribuicaoSgso)
                 {
-                    //email atribuicao
-                    await SendRn0064Email(atribuicao.ResponsavelTecnico.EndEmail);
+                    await SendRn0064Email(atribuicao);
+                }
+
+                //Rn0065
+                if (string.IsNullOrEmpty(command.EmailRelator))
+                {
+                    await SendRn0065Email(idRelato);
                 }
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
-
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-
-                var model = new RelatoModel
-                {
-                    ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
-
-                };
-
-                return View(model);
+                return RedirectToAction(nameof(Create), new { message = ex.Message });
             }
         }
 
-        [ClaimsAuthorize("Relatos", "Consultar")]
-        public IActionResult Index(int? crud)
+        private async Task SendRn0064Email(AtribuicaoRelatoDto atribuicao)
         {
-            SetCrudMessage(crud);
-            var response = ApiClientFactory.Instance.GetGridRelato();
-            return View(response);
+            var callbackUrl = Url.Page(
+                "/Relato/Edit/" + atribuicao.CodRelato);
+
+            var message =
+                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/EmailPadrao.html"));
+
+            message = message.Replace("%NAME%", atribuicao.ResponsavelTecnicoSgso.NomUsuario);
+
+            message = message.Replace("%TEXTO%", $"Um novo relato de prevenção foi  cadastrado em {atribuicao.Relato.DatOcorrencia}, " +
+                                                 $"às {atribuicao.Relato.HorOcorrencia}, sob o  nº {atribuicao.Relato.NumRelato}. " +
+                                                 $"Solicitamos dar tratamento ao relato");
+
+            message = message.Replace("%TXTBOTAO%", "Classificar relato de prevenção");
+
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
+
+            await _emailSender.SendEmailAsync(atribuicao.ResponsavelTecnicoSgso.Email, "Novo relato de prevenção",
+                message);
+        }
+
+        private async Task SendRn0065Email(long idRelato)
+        {
+            var callbackUrl = Url.Page(
+                "http://www.relprev.com.br");
+
+            var relato = ApiClientFactory.Instance.GetRelatoById((int) idRelato);
+
+            var message =
+                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/EmailPadrao.html"));
+
+            message = message.Replace("%NAME%", relato.NomRelator);
+
+            message = message.Replace("%TEXTO%", $"Recebemos seu relato registrado em {relato.DatOcorrencia}, às {relato.HorOcorrencia}. " +
+                                                 $"O número do seu relato é {relato.NumRelato}. " +
+                                                 $"Por meio dele você poderá consultar o andamento das tratativas clicando no botão abaixo. " +
+                                                 $"Em breve, você receberá uma resposta contendo uma análise da situação reportada e / ou das ações corretivas implementadas. " +
+                                                 $"Agradecemos a sua colaboração para com o nosso sistema de prevenção.");
+
+            message = message.Replace("%TXTBOTAO%", "Andamento relato de prevenção");
+
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
+
+            await _emailSender.SendEmailAsync(relato.EmailRelator, "Novo relato de prevenção",
+                message);
         }
 
         [ClaimsAuthorize("Relatos", "Classificar")]
@@ -265,7 +305,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 foreach (var atribuicao in listAtribuicaoSgso)
                 {
                     //email atribuicao
-                    await SendRn0064Email(atribuicao.ResponsavelTecnico.EndEmail);
+                    await SendRn0064Email(atribuicao);
                 }
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
@@ -319,7 +359,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 foreach (var responsavelAtribuido in listResposavel)
                 {
-                    if (ItemAtribuido.CodResponsavelTecnico == responsavelAtribuido.CodResponsavelTecnico)
+                    if (ItemAtribuido.CodResponsavelTecnicoSgso == responsavelAtribuido.CodResponsavelTecnico)
                         list.Add(responsavelAtribuido);
                 }
             }
@@ -389,7 +429,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 foreach (var responsavelAtribuido in listResposavel)
                 {
-                    if (ItemAtribuido.CodResponsavelTecnico == responsavelAtribuido.CodResponsavelTecnico)
+                    if (ItemAtribuido.CodResponsavelTecnicoSgso == responsavelAtribuido.CodResponsavelTecnico)
                         list.Add(responsavelAtribuido);
                 }
             }

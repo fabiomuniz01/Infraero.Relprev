@@ -1,4 +1,5 @@
-﻿@model Infraero.Relprev.Application.Relato.Queries.GetRelatos.GridRelato
+﻿@using Infraero.Relprev.CrossCutting.Enumerators
+@model Infraero.Relprev.Application.Relato.Queries.GetRelatos.GridRelato
 
 @{
     ViewData["Title"] = "Consultar";
@@ -40,16 +41,13 @@
                                     <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
                                     <td>@Html.DisplayFor(modelItem => item.HorOcorrencia)</td>
                                     <td class="actions">
-                                        @if (item.StatusRelato == "Não Iniciado")
+                                        @if (item.FlgStatusRelato == (int)EnumStatusRelato.NaoIniciado)
                                         {
-                                            <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #eea236'><i class="fa fa-check"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #47A447'><i class="fa fa-sort-alpha-asc"></i></a>
                                         }
-                                        @*@if (item.StatusRelato == "Ocorrência classificada")
-                                        {*@
-                                            <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Atribuir" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #eea236'><i class="fa fa-users"></i></a>
-                                       @* }*@
-                                            <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-remove"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Finalizar" asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default remove-row" style='color: #eea236'><i class="fa fa-trash-o"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Atribuir" asp-action="Index" asp-controller="AtribuirRespRelato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #0088CC'><i class="fa fa-plug"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-times-circle-o"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Finalizar" asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default remove-row" style='color: #eea236'><i class="fa fa-handshake-o"></i></a>
                                         </td>
                                 </tr>
                             }

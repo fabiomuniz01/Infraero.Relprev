@@ -17,9 +17,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasComment("Sequencial da tabela");
 
-            builder.Property(t => t.CodResponsavelTecnico)
-                .HasColumnName("COD_RESPONSAVEL")
-                .HasComment("Código do respontavel da atribuicao do relato");
+            builder.Property(t => t.CodResponsavelTecnicoSgso)
+                .HasColumnName("COD_RESPONSAVEL_SGSO")
+                .HasComment("Código do responsavel SGSO da atribuicao do relato");
 
            builder.Property(t => t.CodRelato)
                 .HasColumnName("COD_RELATO")

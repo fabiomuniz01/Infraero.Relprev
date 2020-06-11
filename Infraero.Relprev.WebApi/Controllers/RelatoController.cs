@@ -90,6 +90,7 @@ namespace Infraero.Relprev.WebApi.Controllers
                         CodRelato = s.CodRelato,
                         NumRelato = s.NumRelato,
                         StatusRelato = ((EnumStatusRelato)s.FlgStatusRelato).GetDescription(),
+                        FlgStatusRelato = s.FlgStatusRelato,
                         DatOcorrencia = s.DatOcorrencia,
                         HorOcorrencia = s.HorOcorrencia,
                         CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura,
