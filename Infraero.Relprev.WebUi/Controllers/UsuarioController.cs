@@ -234,25 +234,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Usuario", "Alterar")]
         public JsonResult GetUsuarioByCpf(string cpf)
         {
-
             try
             {
-                if (string.IsNullOrEmpty(cpf))
+                if (!string.IsNullOrEmpty(cpf))
                 {
-                    throw new Exception(
-                        "Cpf não informado.");
-                }
+                    var result = ApiClientFactory.Instance.GetUsuarioByCpf(cpf);
 
-                var result = ApiClientFactory.Instance.GetUsuarioByCpf(cpf);
-                if (result.Result.CodUsuario != null)
-                {
                     throw new Exception(
                         "Já existe um usuário cadastrado com esse cpf.");
                 }
 
-                return Json(false);
-
-
+                throw new Exception(
+                    "Cpf não informado.");
             }
             catch (Exception ex)
             {

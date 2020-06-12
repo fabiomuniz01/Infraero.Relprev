@@ -46,48 +46,34 @@ namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
 
                     entity.AlteradoPor = request.AlteradoPor;
                     entity.DataAlteracao = DateTime.Now;
+                    //Rn0034 - Ocorrência classificada 
                     entity.FlgStatusRelato = request.FlgStatusRelato;
                     entity.CodLocal = request.CodLocal;
                     entity.CodSubLocal = request.CodSubLocal;
                     entity.CodAssunto = request.CodAssunto;
                     entity.CodSubAssunto = request.CodSubAssunto;
 
+                    //Rn0073
+                    if (request.FlgDscOcorrencia)
+                    {
+
+                        var entityHistorico = await _context.HistoricoRelato
+                            .Where(x => x.CodRelato == request.CodRelato)
+                            .FirstOrDefaultAsync(cancellationToken);
+
+                        entityHistorico.DscUltimaOcorrencia = entity.DscOcorrenciaRelator;
+                        //Rn0034 - Ocorrência classificada 
+                        entityHistorico.DscClassificacao = request.DscClassificada;
+                        entityHistorico.AlteradoPor = request.AlteradoPor;
+                        entityHistorico.DataAlteracao = DateTime.Now;
+                        
+                        await _context.SaveChangesAsync(cancellationToken);
+
+                        entity.DscOcorrenciaRelator = request.DscOcorrenciaRelator;
+                    }
+
                     await _context.SaveChangesAsync(cancellationToken);
 
-                    //Atendendo a RN0089
-
-                    var listUsuario = await _context.Usuario.Where(x =>
-                                x.CodPerfil == request.CodPerfilSgso &&
-                                x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura)
-                            .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
-                            .ToListAsync(cancellationToken);
-
-                    foreach (var usu in listUsuario)
-                    {
-                        var objResposavelTecnico = await _context.ResponsavelTecnico
-                        .Where(x => x.NumCpf == usu.NumCpf)
-                        .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
-                        .OrderBy(t => t.CodResponsavelTecnico)
-                        .FirstOrDefaultAsync(cancellationToken);
-
-                        if (objResposavelTecnico != null)
-                        {
-                            var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
-                            {
-                                CodRelato = entity.CodRelato,
-                                CodResponsavelTecnicoSgso = objResposavelTecnico.CodResponsavelTecnico,
-                                CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
-                                DthAtribuicao = DateTime.Now,
-                                CriadoPor = request.AlteradoPor,
-                                DataCriacao = DateTime.Now,
-                                FlagAtivo = true
-                            };
-
-                            _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
-
-                            await _context.SaveChangesAsync(cancellationToken);
-                        }
-                    }
                     return true;
                 }
                 catch
@@ -96,9 +82,14 @@ namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
                 }
             }
         }
-        public int CodRelato { get; set; }
 
-        public string DscRelato { get; set; }
+        public string DscClassificada { get; set; }
+
+        public bool FlgDscOcorrencia { get; set; }
+
+        public string DscOcorrenciaRelator { get; set; }
+
+        public int CodRelato { get; set; }
 
         public int CodUnidadeInfraestrutura { get; set; }
 

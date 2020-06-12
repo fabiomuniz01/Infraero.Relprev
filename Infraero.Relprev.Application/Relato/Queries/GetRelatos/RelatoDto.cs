@@ -5,6 +5,12 @@ using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfra
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
+using Infraero.Relprev.Application.ConfigurarAmbiente.Queries.GetConfigurarAmbientes;
+using Infraero.Relprev.Application.HistoricoRelato.Queries.GetHistoricoRelatos;
+using Infraero.Relprev.Application.Local.Queries.GetLocals;
+using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
+using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 
 namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
 {
@@ -25,15 +31,24 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public string StatusRelato { get; set; }
         public string DscMotivoRelator { get; set; }
         [ForeignKey("CodRelato")]
-        public virtual List<RelatoArquivoDto> ListArquivo { get; set; }
+        public List<RelatoArquivoDto> ListArquivo { get; set; }
+        [ForeignKey("CodRelato")]
+        public HistoricoRelatoDto HistoricoRelato { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
         [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
-
-        public int CodUnidadeInfraestrutura { get; set; }
         public int CodLocal { get; set; }
+        [ForeignKey("CodLocal")]
+        public LocalDto Local { get; set; }
         public int CodSubLocal { get; set; }
+        [ForeignKey("CodSubLocal")]
+        public SubLocalDto SubLocal { get; set; }
         public int CodAssunto { get; set; }
+        [ForeignKey("CodAssunto")]
+        public AssuntoDto Assunto { get; set; }
         public int CodSubAssunto { get; set; }
+        [ForeignKey("CodSubAssunto")]
+        public SubAssuntoDto SubAssunto { get; set; }
 
         public void Mapping(Profile profile)
         {

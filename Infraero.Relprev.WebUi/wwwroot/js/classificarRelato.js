@@ -6,6 +6,46 @@
 
             'use strict';
 
+            var datatableInit = function () {
+
+                $('#datatable-default').dataTable({
+                    dom: '<"row"<"col-lg-6"l><"col-lg-6"f>><"table-responsive"t>p',
+                    "searching": false,
+                    "lengthChange": false,
+                    "pageLength": 3,
+                    "language": {
+                        "sEmptyTable": "Nenhum registro encontrado",
+                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ".",
+                        "sLengthMenu": "_MENU_ resultados por página",
+                        "sLoadingRecords": "Carregando...",
+                        "sProcessing": "Processando...",
+                        "sZeroRecords": "Nenhum registro encontrado",
+                        "sSearch": "Pesquisar: ",
+                        "oPaginate": {
+                            "sNext": "Próximo →" +
+                                "" +
+                                "",
+                            "sPrevious": "← Anterior",
+                            "sFirst": "Primeiro",
+                            "sLast": "Último"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Ordenar colunas de forma ascendente",
+                            "sSortDescending": ": Ordenar colunas de forma descendente"
+                        }
+                    }
+                });
+
+            };
+
+            $(function () {
+                datatableInit();
+            });
+
             var $select = $(".select2").select2({
                 allowClear: true
             });
@@ -39,10 +79,10 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '<option value="">Selecione o sub local</option>';
+                        var items = '';
                         $("#ddlSubLocal").empty;
                         $.each(data,
-                             function (i, row) {
+                            function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
                         $("#ddlSubLocal").html(items);
@@ -58,7 +98,7 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '<option value="">Selecione o sub assunto</option>';
+                        var items = '';
                         $("#ddlSubAssunto").empty;
                         $.each(data,
                             function (i, row) {
@@ -68,82 +108,25 @@
                     });
             });
 
-            (function ($) {
+            $("#form").validate({
+                highlight: function (label) {
+                    $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                success: function (label) {
+                    $(label).closest('.form-group').removeClass('has-error');
+                    label.remove();
+                },
+                errorPlacement: function (error, element) {
+                    var placement = element.closest('.input-group');
+                    if (!placement.get(0)) {
+                        placement = element;
+                    }
+                    if (error.text() !== '') {
+                        placement.after(error);
+                    }
+                }
+            });
 
-                'use strict';
-
-                /*
-                Basic
-                */
-                $('.modal-basic').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    modal: true
-                });
-
-                /*
-                Sizes
-                */
-                $('.modal-sizes').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    modal: true
-                });
-
-                /*
-                Modal Dismiss
-                */
-                $(document).on('click', '.modal-dismiss', function (e) {
-                    e.preventDefault();
-                    $.magnificPopup.close();
-                });
-
-            }).apply(this, [jQuery]);
-
-            //$('#arquivosDatatable').DataTable({
-            //    "columns": [
-            //        { "data": "name" },
-            //        {
-            //            "data": null,
-            //            "sortable": false,
-            //            "render": function (c) {
-            //                return "<a style='color:#d43f3a' href='javascript:(crud.deleteModal(" +
-            //                    c.Id +
-            //                    "))'><i class='fa fa-trash'></i></a>";
-            //            }
-            //        }
-            //    ],
-            //    "searching": false,
-            //    "lengthChange": false,
-            //    "pageLength": 3,
-            //    "language": {
-            //        "sEmptyTable": "Nenhum registro encontrado",
-            //        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            //        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            //        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            //        "sInfoPostFix": "",
-            //        "sInfoThousands": ".",
-            //        "sLengthMenu": "_MENU_ resultados por página",
-            //        "sLoadingRecords": "Carregando...",
-            //        "sProcessing": "Processando...",
-            //        "sZeroRecords": "Nenhum registro encontrado",
-            //        "sSearch": "Pesquisar: ",
-            //        "oPaginate": {
-            //            "sNext": "Próximo →" +
-            //                "" +
-            //                "",
-            //            "sPrevious": "← Anterior",
-            //            "sFirst": "Primeiro",
-            //            "sLast": "Último"
-            //        },
-            //        "oAria": {
-            //            "sSortAscending": ": Ordenar colunas de forma ascendente",
-            //            "sSortDescending": ": Ordenar colunas de forma descendente"
-            //        }
-            //    }
-            //});
-
-            
         }).apply(this, [jQuery]);
     },
     methods: {
@@ -165,6 +148,11 @@
                 $("#" + el).addClass("loading-overlay-showing");
                 self.loading = flag;
             }
+        },
+        NovaDescricao: function() {
+            $("#DscOcorrenciaRelator").prop('readonly', false);
+            $("#DscOcorrenciaRelator").val('');
+            $("#FlgDscOcorrencia").val('true');
         }
     }
 });

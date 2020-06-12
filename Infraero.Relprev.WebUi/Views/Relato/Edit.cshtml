@@ -33,13 +33,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <input type="hidden" id="CodUnidadeInfraestrutura" name="CodUnidadeInfraestrutura" value="@Model.Relato.CodUnidadeInfraestrutura">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-9">
                             <input readonly id="DscUnidadeInfraestrutura" name="DscUnidadeInfraestrutura"
                                    placeholder="eg.: Unidade Infraestrutura"
                                    class="form-control"
-                                   value="@Model.NomUnidadeÌnfraestrutura">
+                                   value="@Model.Relato.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -98,18 +97,21 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência <span class="required">*</span></label>
                         <div class="col-sm-7">
-                            <textarea readonly type="text" rows="3" name="DscOcorrenciaRelator" class="form-control" placeholder="eg.: Descrição da ocorrência do relato"
+                            <textarea readonly type="text" rows="3" id="DscOcorrenciaRelator" name="DscOcorrenciaRelator"
+                                      class="form-control" placeholder="eg.: Descrição da ocorrência do relato"
+                                      v-on:click="NovaDescricao"
                                       required maxlength="1000">@Model.Relato.DscOcorrenciaRelator</textarea>
                         </div>
                         <div class="col-sm-2">
-                            <button type="reset" class="btn btn-warning pull-left mr-2">Nova Descrição &nbsp;&nbsp;<i class="fa fa-pencil"></i></button>
+                            <input type="hidden" id="FlgDscOcorrencia" name="FlgDscOcorrencia" value="false">
+                            <a v-on:click="NovaDescricao" class="btn btn-warning pull-left mr-2" style="color: white !important;">Nova Descrição &nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
 
-                            <table class="table table-responsive-md table-striped mb-0">
+                            <table id="datatable-default" class="table table-responsive-md table-striped mb-0">
                                 <thead>
                                     <tr>
                                         <th colspan="4" class="text-center">Nome dos arquivos anexo</th>
@@ -142,14 +144,7 @@
                                     title="Por favor selecione o local da ocorrência." required
                                     asp-for="CodLocal"
                                     asp-items="Model.ListLocal">
-                                @if (Model.ListLocal.Count() > 0)
-                                {
                                     <option value="">Selecione o local</option>
-                                }
-                                else
-                                {
-                                    <option value="">Nenhum local encontrado nessa unidade de infraestrutura</option>
-                                }
                             </select>
                         </div>
                     </div>
@@ -160,15 +155,7 @@
                                     title="Por favor selecione o sub local da ocorrência." required
                                     asp-for="CodSubLocal"
                                     asp-items="Model.ListSubLocal">
-                                @if (Model.ListSubLocal.Count() > 0)
-                                {
                                     <option value="">Selecione o sub local</option>
-                                }
-                                else
-                                {
-                                    <option value="">Nenhum sub local encontrado para esse local</option>
-                                }
-
                             </select>
                         </div>
                     </div>
@@ -179,14 +166,7 @@
                                     title="Por favor selecione o sub local da ocorrência." required
                                     asp-for="CodAssunto"
                                     asp-items="Model.ListAssunto">
-                                @if (Model.ListAssunto.Count() > 0)
-                                {
                                     <option value="">Selecione o assunto</option>
-                                }
-                                else
-                                {
-                                    <option value="">Nenhum assunto encontrado nesse unidade de infraestrutura</option>
-                                }
                             </select>
                         </div>
                     </div>
@@ -197,14 +177,7 @@
                                     title="Por favor selecione o sub assunto da ocorrência." required
                                     asp-for="CodSubAssunto"
                                     asp-items="Model.ListSubAssunto">
-                                @if (Model.ListSubAssunto.Count() > 0)
-                                {
                                     <option value="">Selecione o sub assunto</option>
-                                }
-                                else
-                                {
-                                    <option value="">Nenhum sub assunto encontrado para o assunto</option>
-                                }
                             </select>
                         </div>
                     </div>
@@ -213,7 +186,8 @@
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
                             <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <a href="@Url.Action("Index", "Relato")" class="btn btn-danger pull-left mr-2">Cancelar Relato&nbsp;&nbsp;<i class="fa fa-remove"></i></a>
+                            <a href="@Url.Action("Index", "AtribuirRespRelato", new { id = Model.Relato.CodRelato })" class="btn btn-warning pull-left mr-2">Atribuir Responsável&nbsp;&nbsp;<i class="fa fa-plug"></i></a>
                             @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
 
                         </div>
@@ -226,18 +200,16 @@
 <!-- Modal Form -->
 
 @section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
     <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
     <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
-    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
 }
 @section Scripts {
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/select2/js/select2.js"></script>
-    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
     <script src="~/js/classificarRelato.js"></script>
-    <script src="~/js/formatTable.js"></script>
 
 
     <script>

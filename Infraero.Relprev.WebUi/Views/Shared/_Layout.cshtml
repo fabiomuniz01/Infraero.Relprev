@@ -189,7 +189,7 @@
 
                                 }
 
-                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.UsuarioPublico }, requirement)).Succeeded)
+                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.UsuarioPublico, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
                                 {
                                     <li class="nav-parent nav-expanded">
                                         <a class="nav-link" href="#">
@@ -207,11 +207,11 @@
                                                     Consultar
                                                 </a>
                                             </li>
-                                            <li>
+                                            @*<li>
                                                 <a class="nav-link" href="@Url.Action("Edit", "Relato")">
                                                     Classificar
                                                 </a>
-                                            </li>
+                                            </li>*@
                                             <li>
                                                 <a class="nav-link" href="@Url.Action("Cancel", "Relato")">
                                                     Cancelar

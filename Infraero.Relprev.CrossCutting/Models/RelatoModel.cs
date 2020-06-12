@@ -13,41 +13,19 @@ namespace Infraero.Relprev.CrossCutting.Models
     {
         public SelectList ListUnidadeInfraestrutura { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-
         public SelectList ListLocal { get; set; }
         public int CodLocal { get; set; }
-
         public SelectList ListSubLocal { get; set; }
         public int CodSubLocal { get; set; }
-
         public SelectList ListAssunto { get; set; }
         public int CodAssunto { get; set; }
-
         public SelectList ListSubAssunto { get; set; }
         public int CodSubAssunto { get; set; }
-
-
-        //adiciona para exibir na edição
-        public string NomUnidadeÌnfraestrutura { get; set; }
-        //adiciona para exibir na atrubuição
-        public string NomLocal { get; set; }
-        //adiciona para exibir na atrubuição
-        public string NomSubLocal { get; set; }
-        //adiciona para exibir na atrubuição
-        public string NomAssunto { get; set; }
-        //adiciona para exibir na atrubuição
-        public string NomSubAssunto { get; set; }
-
-
-        public SelectList ListEmpresas { get; set; }
+        public SelectList ListEmpresa { get; set; }
         public int CodEmpresa { get; set; }
         public SelectList ListResponsavel { get; set; }
         public int CodResponsavel { get; set; }
-   
-
-
         public RelatoDto Relato { get; set; }
-
         public List<IFormFile> ListArquivo { get; set; }
         public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
         public List<ResponsavelTecnicoDto> ListResponsavelTecnico { get; set; }

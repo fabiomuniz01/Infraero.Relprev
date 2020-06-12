@@ -43,7 +43,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
                         DscLocalOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
                         DscOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
-                        DscRelato = request.DscRelato,
                         NomRelator = request.NomRelator,
                         EmailRelator = request.EmailRelator,
                         NumTelefoneRelator = request.NumTelefoneRelator,
@@ -57,6 +56,19 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                     };
 
                     _context.Relato.Add(entity);
+
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    //Rn0033 - Ocorrencia Não Iniciada
+                    var entityHistoricoRelato = new Domain.Entities.HistoricoRelato
+                    {
+                        CodRelato = entity.CodRelato,
+                        DscNaoIniciado = request.DscOcorrenciaStatus,
+                        CriadoPor = request.CriadoPor,
+                        DataCriacao = DateTime.Now
+                    };
+
+                    _context.HistoricoRelato.Add(entityHistoricoRelato);
 
                     await _context.SaveChangesAsync(cancellationToken);
 
@@ -108,6 +120,13 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         await _context.SaveChangesAsync(cancellationToken);
                     }
 
+                    //Rn0039 - Ocorrência Atribuída
+                    entityHistoricoRelato.DscAtribuicao = "Ocorrência Atribuída, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm");
+                    entityHistoricoRelato.AlteradoPor = request.CriadoPor;
+                    entityHistoricoRelato.DataAlteracao = DateTime.Now;
+
+                    await _context.SaveChangesAsync(cancellationToken);
+
                     return entity.CodRelato;
                 }
                 catch (Exception e)
@@ -117,6 +136,8 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                 
             }
         }
+
+        public string DscOcorrenciaStatus { get; set; }
 
         public string CriadoPor { get; set; }
         public int CodRelato { get; set; }

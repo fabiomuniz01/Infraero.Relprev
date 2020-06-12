@@ -1,4 +1,5 @@
-﻿using Infraero.Relprev.Domain.Entities;
+﻿using System.Linq;
+using Infraero.Relprev.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace Infraero.Relprev.Application
         DbSet<Domain.Entities.Modulo> Modulo { get; set; }
         DbSet<Domain.Entities.ConfigurarAmbiente> ConfigurarAmbiente { get; set; }
         DbSet<Domain.Entities.AtribuicaoRelato> AtribuicaoRelato { get; set; }
+        DbSet<Domain.Entities.HistoricoRelato> HistoricoRelato { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

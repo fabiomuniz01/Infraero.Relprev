@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Exceptions;
 using Infraero.Relprev.Application.Common.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
 {
@@ -29,6 +31,18 @@ namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
                 entity.DataAlteracao = DateTime.Now;
                 await _context.SaveChangesAsync(cancellationToken);
 
+                var entityHistorico = await _context.HistoricoRelato
+                    .Where(x => x.CodRelato == entity.CodRelato)
+                    .FirstOrDefaultAsync(cancellationToken);
+
+                entityHistorico.DscUltimaOcorrencia = entity.DscOcorrenciaRelator;
+                //Rn0034 - Ocorrência classificada 
+                entityHistorico.DscCancelamento = request.DscCancelamento;
+                entityHistorico.AlteradoPor = request.AlteradoPor;
+                entityHistorico.DataAlteracao = DateTime.Now;
+
+                await _context.SaveChangesAsync(cancellationToken);
+
                 return entity.CodRelato;
             }
         }
@@ -37,5 +51,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
         public string AlteradoPor { get; set; }
         public int FlgStatusRelato { get; set; }
         public int CodRelato { get; set; }
+        public string DscCancelamento { get; set; }
     }
 }

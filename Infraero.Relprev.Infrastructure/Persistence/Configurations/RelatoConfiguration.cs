@@ -61,8 +61,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
               .HasMaxLength(100)
               .HasColumnName("NOM_EMPRESA_RELATOR");
 
-            builder.Property(t => t.DscRelato)
-              .HasColumnName("DSC_RELATO")
+            builder.Property(t => t.DscOcorrenciaRelator)
+              .HasColumnName("DSC_OCORRENCIA_RELATOR")
               .HasMaxLength(1000)
               .IsRequired();
 
