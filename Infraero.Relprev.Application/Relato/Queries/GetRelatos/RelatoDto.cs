@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public string NomEmpresaRelator { get; set; }
         public int FlgStatusRelato { get; set; }
         public string StatusRelato { get; set; }
-        public string DscMotivoRelator { get; set; }
+        public string DscMotivoCancelamento { get; set; }
         [ForeignKey("CodRelato")]
         public List<RelatoArquivoDto> ListArquivo { get; set; }
         [ForeignKey("CodRelato")]
