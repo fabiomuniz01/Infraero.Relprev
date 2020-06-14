@@ -67,8 +67,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         #region Métodos Públicos
 
         [ClaimsAuthorize("Relatos", "Consultar")]
-        public IActionResult Index(int? crud)
+        public IActionResult Index(int? crud, int? notify, string message = null)
         {
+            
+            SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridRelato();
             return View(response);
@@ -311,7 +313,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(nameof(Index), new { message = "O relato poderá ser cancelado somente antes de ser iniciado (Classificado)." });
+                    return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Warning, message = "O relato poderá ser cancelado somente antes de ser iniciado (Classificado)." });
                 }
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });

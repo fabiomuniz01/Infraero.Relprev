@@ -45,10 +45,10 @@
                                         {
                                             <a data-toggle="tooltip" data-placement="top" title="Classificar" asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #47A447'><i class="fa fa-sort-alpha-asc"></i></a>
                                         }
-                                            <a data-toggle="tooltip" data-placement="top" title="Atribuir" asp-action="Index" asp-controller="AtribuirRespRelato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #0088CC'><i class="fa fa-plug"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-times-circle-o"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Finalizar" asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default remove-row" style='color: #eea236'><i class="fa fa-handshake-o"></i></a>
-                                        </td>
+                                        <a data-toggle="tooltip" data-placement="top" title="Atribuir" asp-action="Index" asp-controller="AtribuirRespRelato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #0088CC'><i class="fa fa-plug"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Cancelar" asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default edit-row" style='color: #d43f3a'><i class="fa fa-times-circle-o"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Finalizar" asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" class="on-default remove-row" style='color: #191C21'><i class="fa fa-check-square-o"></i></a>
+                                    </td>
                                 </tr>
                             }
 
@@ -79,21 +79,21 @@ Theme Version: 	2.0.0
 
             'use strict';
 
-            var crub = @ViewBag.CrudMessage;
+            var crud = @ViewBag.CrudMessage;
 
-            if (crub===1) {
+            if (crud===1) {
                 new PNotify({
                     title: 'Relato',
                     text: 'Cadastro realizado com sucesso!',
                     type: 'success'
                 });
-            }else if (crub === 2) {
+            }else if (crud === 2) {
                 new PNotify({
                     title: 'Relato',
                     text: 'Dados alterados com sucesso.',
                     type: 'warning'
                 });
-            }else if (crub === 3) {
+            }else if (crud === 3) {
                 new PNotify({
                     title: 'Relato',
                     text: 'Registro excluído com sucesso.',
@@ -101,46 +101,36 @@ Theme Version: 	2.0.0
                 });
             }
 
+            var notify = @ViewBag.NotifyMessage;
+            var messagem = '@ViewBag.Notify';
 
+            if (notify===0) {
+                new PNotify({
+                    title: 'Relato',
+                    text: messagem,
+                    type: 'success'
+                });
+            }else if (notify === 1) {
+                new PNotify({
+                    title: 'Relato',
+                    text: messagem,
+                    type: 'warning'
+                });
+            }else if (notify === 2) {
+                new PNotify({
+                    title: 'Relato',
+                    text: messagem,
+                    type: 'error'
+                });
+            }
 
-            /*
-            Basic
-            */
-            $('.modal-basic').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
-            });
-
-            /*
-            Sizes
-            */
-            $('.modal-sizes').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
-            });
-
-            /*
-            Modal Dismiss
-            */
-            $(document).on('click', '.modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
-            });
-
-        }).apply(this, [jQuery]);
-        // Tooltip
-        (function ($) {
-
-            'use strict';
-
+            //Tooltip
             if ($.isFunction($.fn['tooltip'])) {
                 $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
             }
 
-        }).apply(this, [jQuery]);
 
+        }).apply(this, [jQuery]);
 
     </script>
 }

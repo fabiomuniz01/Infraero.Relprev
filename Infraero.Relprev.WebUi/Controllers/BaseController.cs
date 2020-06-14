@@ -33,6 +33,9 @@ namespace Infraero.Relprev.WebUi.Controllers
                 case (int)EnumCrud.Deleted:
                     ViewBag.CrudMessage = (int)EnumCrud.Deleted;
                     break;
+                default:
+                    ViewBag.CrudMessage = -1;
+                    break;
             }
         }
         public void SetNotifyMessage(int? notify, string message)
@@ -42,6 +45,14 @@ namespace Infraero.Relprev.WebUi.Controllers
                 case (int)EnumNotify.Error:
                     ViewBag.NotifyMessage = (int)EnumNotify.Error;
                     ViewBag.Notify = message;
+                    break;
+                case (int)EnumNotify.Warning:
+                    ViewBag.NotifyMessage = (int)EnumNotify.Warning;
+                    ViewBag.Notify = message;
+                    break;
+                default:
+                    ViewBag.NotifyMessage = -1;
+                    ViewBag.Notify = "null";
                     break;
             }
         }
