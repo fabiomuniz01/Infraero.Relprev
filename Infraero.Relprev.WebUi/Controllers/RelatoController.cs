@@ -253,8 +253,18 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Relatos", "Cancelar")]
-        public ActionResult Cancel(int id)
+        public ActionResult Cancel(int id, string message = null)
         {
+            if (!string.IsNullOrEmpty(message))
+            {
+                SetNotifyMessage((int)EnumNotify.Error, message);
+            }
+            else
+            {
+                ViewBag.NotifyMessage = -1;
+                ViewBag.Notify = "null";
+            }
+
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
             var model = new RelatoModel
@@ -263,6 +273,53 @@ namespace Infraero.Relprev.WebUi.Controllers
             };
 
             return View(model);
+        }
+
+
+
+        [ClaimsAuthorize("Relatos", "Cancelar")]
+        [HttpPost]
+        public async Task<ActionResult> Cancel(IFormCollection collection)
+        {
+            try
+            {
+                var command = new CancelRelatoCommand
+                {
+                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                    //Rn0040
+                    DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
+                    //Rn0041
+                    FlgStatusRelato = (int)EnumStatusRelato.Cancelado,
+                    DscCancelamento = "Ocorrência cancelada, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
+                    AlteradoPor = User.Identity.Name,
+                };
+
+                var relato = ApiClientFactory.Instance.GetRelatoById(command.CodRelato);
+
+                //Rn0092
+                int[] arrStatus = { (int)EnumStatusRelato.NaoIniciado, (int)EnumStatusRelato.Ocorrenciaclassificada };
+
+                if (arrStatus.Contains(relato.FlgStatusRelato))
+                {
+                    await ApiClientFactory.Instance.CancelRelato(command);
+
+                    //Rn0042
+                    if (!string.IsNullOrEmpty(relato.EmailRelator))
+                    {
+                        await SendRn0042Email(relato);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index), new { message = "O relato poderá ser cancelado somente antes de ser iniciado (Classificado)." });
+                }
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
 
         #endregion
@@ -413,46 +470,6 @@ namespace Infraero.Relprev.WebUi.Controllers
             //return Json(new { data = listaClientes }, JsonRequestBehavior.AllowGet);
             return Json(listDdlSubLocal);
 
-        }
-
-        [ClaimsAuthorize("Relatos", "Cancelar")]
-        [HttpPost]
-        public async Task<ActionResult> Cancel(IFormCollection collection)
-        {
-            try
-            {
-                var command = new CancelRelatoCommand
-                {
-                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
-                    //Rn0040
-                    DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
-                    //Rn0041
-                    FlgStatusRelato = (int)EnumStatusRelato.Cancelado,
-                    DscCancelamento = "Ocorrência cancelada, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
-                    AlteradoPor = User.Identity.Name,
-                };
-
-                var relato = ApiClientFactory.Instance.GetRelatoById(command.CodRelato);
-
-                int[] arrStatus = {(int) EnumStatusRelato.NaoIniciado, (int) EnumStatusRelato.Ocorrenciaclassificada};
-
-                if (arrStatus.Contains(relato.FlgStatusRelato))
-                {
-                    await ApiClientFactory.Instance.CancelRelato(command);
-
-                    //Rn0042
-                    if (!string.IsNullOrEmpty(relato.EmailRelator))
-                    {
-                        await SendRn0042Email(relato);
-                    }
-                }
-
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
-            }
-            catch (Exception e)
-            {
-                return View();
-            }
         }
 
         

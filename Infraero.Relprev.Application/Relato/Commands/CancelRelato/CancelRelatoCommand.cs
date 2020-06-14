@@ -36,7 +36,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
                     .FirstOrDefaultAsync(cancellationToken);
 
                 entityHistorico.DscUltimaOcorrencia = entity.DscOcorrenciaRelator;
-                //Rn0034 - Ocorrência classificada 
+                //Rn0041 - Ocorrência cancelada 
                 entityHistorico.DscCancelamento = request.DscCancelamento;
                 entityHistorico.AlteradoPor = request.AlteradoPor;
                 entityHistorico.DataAlteracao = DateTime.Now;
