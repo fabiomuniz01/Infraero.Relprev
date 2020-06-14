@@ -25,7 +25,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CancelRelato
             {
                 var entity = await _context.Relato.FindAsync(request.CodRelato);
 
-                entity.DscMotivoRelato = request.DscMotivoCancelamento;
+                entity.DscMotivoCancelamento = request.DscMotivoCancelamento;
                 entity.FlgStatusRelato = request.FlgStatusRelato;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;

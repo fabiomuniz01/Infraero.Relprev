@@ -21,7 +21,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string EmailRelator { get; set; }
         public string NumTelefoneRelator { get; set; }
         public string NomEmpresaRelator { get; set; }
-        public string DscMotivoRelato { get; set; }
+        public string DscMotivoCancelamento { get; set; }
         public int FlgStatusRelato { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
         [ForeignKey("CodUnidadeInfraestrutura")]

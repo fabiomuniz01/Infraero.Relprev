@@ -74,7 +74,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
              .HasColumnName("COD_UNIDADE_ESINFRAESTRUTURA")
              .IsRequired();
 
-            builder.Property(t => t.DscMotivoRelato)
+            builder.Property(t => t.DscMotivoCancelamento)
             .HasColumnName("DSC_MOTIVO_CANCELAMENTO")
             .HasMaxLength(500);
 
