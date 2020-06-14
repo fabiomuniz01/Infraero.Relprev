@@ -14,5 +14,6 @@ namespace Infraero.Relprev.Domain.Entities
         public string DscAtribuicao { get; set; }
         public string DscClassificacao { get; set; }
         public string DscCancelamento { get; set; }
+        public string DscFinalizacao { get; set; }
     }
 }

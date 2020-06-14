@@ -7,8 +7,9 @@ namespace Infraero.Relprev.Domain.Entities
 {
     public class Assunto : AuditableEntity
     {
-        [Key]
+        [Key, Column(Order = 0)]
         public int CodAssunto { get; set; }
+        [Column(Order = 1)]
         public string DscAssunto { get; set; }
 
         [ForeignKey("CodAssunto")]

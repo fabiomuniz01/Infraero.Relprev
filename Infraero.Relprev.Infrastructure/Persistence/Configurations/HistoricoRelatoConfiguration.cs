@@ -17,6 +17,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasComment("Sequencial da tabela");
 
+            builder.Property(t => t.CodRelato)
+                .HasColumnName("COD_RELATO")
+                .IsRequired()
+                .HasComment("Codigo sequencial do relato");
+
             builder.Property(t => t.DscUltimaOcorrencia)
                 .HasColumnName("DSC_ULTIMA_OCORRENCIA")
                 .HasMaxLength(255)
@@ -42,10 +47,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasMaxLength(255)
                 .HasComment("Descriçao do status de classificação");
 
-            builder.Property(t => t.CodRelato)
-                .HasColumnName("COD_RELATO")
-                .IsRequired()
-                .HasComment("Codigo sequencial do relato");
+            builder.Property(t => t.DscFinalizacao)
+                .HasColumnName("DSC_FINALIZACAO")
+                .HasMaxLength(255)
+                .HasComment("Descriçao do status de finalização");
 
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO").HasComment("Usuário que realizou a inclusão");
