@@ -94,6 +94,9 @@ namespace Infraero.Relprev.WebApi.Controllers
                         DatOcorrencia = s.DatOcorrencia,
                         HorOcorrencia = s.HorOcorrencia,
                         CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura,
+                        DscOcorrenciaRelator = s.DscOcorrenciaRelator,
+                        UnidadeInfraestrutura = s.UnidadeInfraestrutura,
+                                              
 
                     })
                 };

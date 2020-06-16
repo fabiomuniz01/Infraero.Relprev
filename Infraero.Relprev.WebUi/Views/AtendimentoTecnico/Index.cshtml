@@ -1,4 +1,5 @@
-﻿
+﻿@using Infraero.Relprev.CrossCutting.Enumerators
+@model Infraero.Relprev.Application.Relato.Queries.GetRelatos.GridRelato
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +9,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post))
+        @using (@Html.BeginForm("Index", "AtendimentoTecnico", FormMethod.Post))
         {
             <section class="card">
                 <header class="card-header">
@@ -28,7 +29,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input readonly type="text" name="email" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                                <input type="text" value="@ViewBag.NumRelato" name="NumRelato" id="NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
                             </div>
                         </div>
                     </div>
@@ -39,9 +40,18 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                <input type="text" class="form-control" name="start" placeholder="eg.: Data de inicio do período ">
+
+                                <input id="DtStart" name="DtStart" value="@ViewBag.DtStart"
+                                       title="Por favor informe a data início da ocorrência."
+                                       style="z-index: auto;"
+                                       data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
+                                       placeholder="Data início do período" class="form-control startdate">
                                 <span class="input-group-addon">até</span>
-                                <input type="text" class="form-control" name="end" placeholder="eg.: Data Final do Período">
+                                <input id="DtEnd" name="DtEnd" value="@ViewBag.DtEnd"
+                                       title="Por favor informe a data fim da ocorrência."
+                                       style="z-index: auto;"
+                                       data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
+                                       placeholder="Data fim do período" class="form-control startdate">
                             </div>
                         </div>
                     </div>
@@ -49,9 +59,11 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-7">
-                            <select data-plugin-selectTwo class="form-control populate" disabled="disabled">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
+                            <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
+                                    title="Por favor selecione uma unidade de infraestrutura." 
+                                   
+                                    asp-items="ViewBag.UnidadeInfraestrutura">
+                                <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                     </div>
@@ -59,9 +71,10 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico<span class="required">*</span></label>
                         <div class="col-lg-7">
-                            <select data-plugin-selectTwo class="form-control populate" disabled="disabled">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
+                            <select class="form-control populate select2" name="ddlResponsavelTecnico" id="ddlResponsavelTecnico"
+                                    title="Por favor selecione um responsável tecnico."
+                                    asp-items="ViewBag.ResponsavelTecnico">
+                                <option value="">Selecionar Responável Técnico</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
@@ -85,37 +98,37 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Situação dos Relatos<span class="required">*</span></label>
                         <div class="col-sm-8">
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample1" name="radioExample" checked="">
+                                <input type="radio" id="radioExample1" name="rdoStatus" checked="" value="">
                                 <label for="radioExample1">Todos</label>
                             </div>
 
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample2" name="radioExample">
+                                <input type="radio" id="rdoTodos" name="rdoStatus" value="@EnumStatusRelato.NaoIniciado.GetHashCode()">
                                 <label for="radioExample2">Não iniciados</label>
                             </div>
 
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample3" name="radioExample">
+                                <input type="radio" id="rdoTecnico" name="rdoStatus" value="@EnumStatusRelato.AguardandoParecerTecnico.GetHashCode()">
                                 <label for="radioExample3">Aguardando Parecer</label>
                             </div>
 
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample4" name="radioExample">
+                                <input type="radio" id="rdoComplemento" name="rdoStatus" value="@EnumStatusRelato.AguardandoComplemento.GetHashCode()">
                                 <label for="radioExample4">Aguardando Complemento</label>
                             </div>
 
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample5" name="radioExample">
+                                <input type="radio" id="rdoResposta" name="rdoStatus" value="@EnumStatusRelato.AguardandoResposta.GetHashCode()">
                                 <label for="radioExample5">Aguardando resposta</label>
                             </div>
 
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample5" name="radioExample">
+                                <input type="radio" id="rdoFinalizado" name="rdoStatus" value="@EnumStatusRelato.Finalizado">
                                 <label for="radioExample5">Finalizado</label>
                             </div>
 
                             <div class="radio-custom radio-danger">
-                                <input type="radio" id="radioExample5" name="radioExample">
+                                <input type="radio" id="rdoCancelado" name="rdoStatus" value="@EnumStatusRelato.Cancelado">
                                 <label for="radioExample5">Cancelado</label>
                             </div>
 
@@ -137,30 +150,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach (var item in Model.aaData)
+                                    {
                                     <tr>
-                                        <td>2019-CSAT-21365</td>
-                                        <td>Unidade Infraetrutura 1</td>
-                                        <td>06/12/2019</td>
-                                        <td>Piso Molhado entrada porta A</td>
-                                        <td>Status</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DscOcorrenciaRelator)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.StatusRelato)</td>
+                                        <th class="text-center">Ações</th>
                                         <td class="text-center">
-                                            <a data-toggle="tooltip" data-placement="top" title="Realiza o cancelamento do Relato de Prevenção " 
-                                               asp-action="Edit" asp-controller="Local" asp-route-Empid="2" 
+                                            <a data-toggle="tooltip" data-placement="top" title="Realiza o cancelamento do Relato de Prevenção "
+                                               asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" 
                                                class="on-default edit-row" style='color:#d43f3a'><i class="fa fa-times-circle"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Apresenta a tela de detalhamento do Relato de Prevenção" 
-                                               asp-action="Edit" asp-controller="Local" asp-route-Empid="2" 
+                                            <a data-toggle="tooltip" data-placement="top" title="Apresenta a tela de detalhamento do Relato de Prevenção"
+                                               asp-action="" asp-controller="" asp-route-id="@item.CodRelato" 
                                                class="on-default edit-row color" style='color:#00A1F2'><i class="fa fa-eye"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Realiza a Classificação do Relato de prevenção" 
-                                               asp-action="Edit" asp-controller="Local" asp-route-Empid="2" 
+                                            <a data-toggle="tooltip" data-placement="top" title="Realiza a Classificação do Relato de prevenção"
+                                               asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" 
                                                class="on-default edit-row color" style='color:#5AB75A'><i class="fa fa-check-square-o"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Finaliza o Relato de Prevenção" 
-                                               asp-action="Edit" asp-controller="Local" asp-route-Empid="2" 
+                                            <a data-toggle="tooltip" data-placement="top" title="Finaliza o Relato de Prevenção"
+                                               asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" 
                                                class="on-default edit-row color" style='color:#444444'><i class="fa fa-flag"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Atribuir responsável técnico" 
-                                               asp-action="Edit" asp-controller="Local" asp-route-Empid="2" 
+                                            <a data-toggle="tooltip" data-placement="top" title="Atribuir responsável técnico"
+                                               asp-action="Index" asp-controller="AtribuirRespRelato" asp-route-id="@item.CodRelato" 
                                                class="on-default edit-row color" style='color:#777777'><i class="fa fa-users"></i></a>
                                         </td>
                                     </tr>
+                                    }
                                 </tbody>
                             </table>
 
@@ -207,15 +224,22 @@
 </div>
 @section CssSpecificVendor {
 
-    <link rel="stylesheet" href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
     <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+    <link href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css" />
 }
 @section Scripts {
-    <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
-    <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="~/js/empresa.js"></script>
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
+    <script src="~/vendor/select2/js/select2.js"></script>
+    <script src="~/vendor/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+    <script src="~/js/atendimento.js"></script>
 
     <script>
         // Tooltip
