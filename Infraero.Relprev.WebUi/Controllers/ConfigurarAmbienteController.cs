@@ -18,7 +18,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    [Authorize(Policy = ModuloAccess.Cadastros)]
+    [Authorize(Policy = ModuloAccess.ConfigurarAmbiente)]
     public class ConfigurarAmbienteController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;

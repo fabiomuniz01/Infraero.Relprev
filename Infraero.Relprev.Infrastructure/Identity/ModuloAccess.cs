@@ -8,5 +8,6 @@
         public const string AtendimentoTecnico = "AtendimentoTecnico";
         public const string ParecerTecnico = "ParecerTecnico";
         public const string ContratoSmartStream = "ContratoSmartStream";
+        public const string ConfigurarAmbiente = "ConfigurarAmbiente";
     }
 }

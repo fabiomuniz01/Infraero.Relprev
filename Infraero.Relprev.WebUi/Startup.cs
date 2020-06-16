@@ -169,6 +169,11 @@ namespace Infraero.Relprev.WebUi
                         || context.User.IsInRole(UserRoles.ResponsavelTecnico)
                         || context.User.IsInRole(UserRoles.UsuarioPublico)));
 
+                options.AddPolicy(ModuloAccess.ConfigurarAmbiente, policy =>
+                    policy.RequireAssertion(context =>
+                        context.User.IsInRole(UserRoles.Administrator)
+                        || context.User.IsInRole(UserRoles.GestorSgsoSite)));
+
             });
 
             services.AddMvc().AddRazorPagesOptions(options =>

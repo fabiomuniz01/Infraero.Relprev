@@ -69,7 +69,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Relatos", "Consultar")]
         public IActionResult Index(int? crud, int? notify, string message = null)
         {
-            
+
             SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridRelato();
@@ -77,19 +77,11 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Relatos", "Cadastrar")]
-        public ActionResult Create(string message = null)
+        public ActionResult Create(int? notify, string message = null)
         {
             try
             {
-                if (!string.IsNullOrEmpty(message))
-                {
-                    SetNotifyMessage((int)EnumNotify.Error, message);
-                }
-                else
-                {
-                    ViewBag.NotifyMessage = -1;
-                    ViewBag.Notify = "null";
-                }
+                SetNotifyMessage(notify, message);
 
                 var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
@@ -102,7 +94,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction(nameof(Create), new { message = ex.Message });
+                return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
             }
 
         }
@@ -181,19 +173,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Relatos", "Classificar")]
-        public ActionResult Edit(int id, string message = null)
+        public ActionResult Edit(int id)
         {
-
-            if (!string.IsNullOrEmpty(message))
-            {
-                SetNotifyMessage((int)EnumNotify.Error, message);
-            }
-            else
-            {
-                ViewBag.NotifyMessage = -1;
-                ViewBag.Notify = "null";
-            }
-
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
@@ -255,18 +236,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Relatos", "Cancelar")]
-        public ActionResult Cancel(int id, string message = null)
+        public ActionResult Cancel(int id)
         {
-            if (!string.IsNullOrEmpty(message))
-            {
-                SetNotifyMessage((int)EnumNotify.Error, message);
-            }
-            else
-            {
-                ViewBag.NotifyMessage = -1;
-                ViewBag.Notify = "null";
-            }
-
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
             var model = new RelatoModel
@@ -299,7 +270,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var relato = ApiClientFactory.Instance.GetRelatoById(command.CodRelato);
 
                 //Rn0092
-                int[] arrStatus = { (int)EnumStatusRelato.NaoIniciado, (int)EnumStatusRelato.Ocorrenciaclassificada };
+                int[] arrStatus = { (int)EnumStatusRelato.NaoIniciado, (int)EnumStatusRelato.Ocorrenciaclassificada, (int)EnumStatusRelato.Cancelado };
 
                 if (arrStatus.Contains(relato.FlgStatusRelato))
                 {
@@ -322,6 +293,19 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 return View();
             }
+        }
+
+        [ClaimsAuthorize("Relatos", "Finalizar")]
+        public ActionResult Finalize(int id)
+        {
+            var obj = ApiClientFactory.Instance.GetRelatoById(id);
+
+            var model = new RelatoModel
+            {
+                Relato = obj,
+            };
+
+            return View(model);
         }
 
         #endregion
@@ -425,8 +409,8 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
 
-                await _emailSender.SendEmailAsync(relato.EmailRelator, "Relato de prevenção cancelado.",
-                    message);
+            await _emailSender.SendEmailAsync(relato.EmailRelator, "Relato de prevenção cancelado.",
+                message);
         }
         #endregion
 
@@ -474,12 +458,8 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         }
 
-        
 
-        [ClaimsAuthorize("Relatos", "Finalizar")]
-        public ActionResult Finalize()
-        {
-            return View();
-        }
+
+        
     }
 }
