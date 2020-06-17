@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Models;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +32,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             var model = new AtendimentoTecnicoModel()
             {
-                ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListResponsavel = new SelectList(new List<ResponsavelTecnicoDto>(), "CodResponsavelTecnico", "NomResponsavelTecnico")
             };
 
@@ -80,5 +82,23 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             return View(response);
         }
+
+
+        #region Metodos publicos
+
+        
+
+        //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
+        public JsonResult GetListResponsavelTecnicoByUnidade(int id)
+        {
+            var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(id);
+
+            
+            //result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Unidade de infraestrutura" });
+
+            return Json(new SelectList(null, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
+        }
+
+        #endregion
     }
 }

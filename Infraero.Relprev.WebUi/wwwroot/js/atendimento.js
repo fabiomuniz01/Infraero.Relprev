@@ -64,19 +64,27 @@
                 $(this).trigger('blur');
             });
 
+            $("#ddlUnidadeInfraestrutura").change(function () {
+
+                var url = "../AtendimentoTecnico/GetListResponsavelTecnicoByUnidade";
+                
+                var ddlSource = "#ddlUnidadeInfraestrutura";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function (data) {
+                        var items = '';
+                        $("#ddlResponsavelTecnico").empty;
+                        $.each(data,
+                            function (i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlResponsavelTecnico").html(items);
+                    });
+            });
+
             $("#form").validate({
-                rules: {
-                    "EmailRelator": {
-                        required: false,
-                        email: true
-                    },
-                },
-                messages: {
-                    "EmailRelator": {
-                        required: "Por favor informe o endereço eletrônico válido do usuário.",
-                        email: "Formato de e-mail inválido."
-                    },
-                },
+                
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },
