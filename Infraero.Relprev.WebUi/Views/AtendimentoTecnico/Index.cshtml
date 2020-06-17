@@ -1,5 +1,5 @@
 ﻿@using Infraero.Relprev.CrossCutting.Enumerators
-@model Infraero.Relprev.Application.Relato.Queries.GetRelatos.GridRelato
+@model Infraero.Relprev.CrossCutting.Models.AtendimentoTecnicoModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Index", "AtendimentoTecnico", FormMethod.Post))
+        @using (@Html.BeginForm("Index", "AtendimentoTecnico", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -29,7 +29,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input type="text" value="@ViewBag.NumRelato" name="NumRelato" id="NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                                <input type="text" name="NumRelato" id="NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
                             </div>
                         </div>
                     </div>
@@ -41,13 +41,13 @@
                                     <i class="fa fa-calendar"></i>
                                 </span>
 
-                                <input id="DtStart" name="DtStart" value="@ViewBag.DtStart"
+                                <input id="DtStart" name="DtStart" 
                                        title="Por favor informe a data início da ocorrência."
                                        style="z-index: auto;"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
                                        placeholder="Data início do período" class="form-control startdate">
                                 <span class="input-group-addon">até</span>
-                                <input id="DtEnd" name="DtEnd" value="@ViewBag.DtEnd"
+                                <input id="DtEnd" name="DtEnd" 
                                        title="Por favor informe a data fim da ocorrência."
                                        style="z-index: auto;"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
@@ -60,8 +60,9 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-7">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
-                                    title="Por favor selecione uma unidade de infraestrutura."
-                                    asp-items="ViewBag.UnidadeInfraestrutura">
+                                    title="Por favor selecione uma unidade de infraestrutura." required
+                                    asp-for="CodUnidadeInfraestrutura"
+                                    asp-items="Model.ListUnidadeInfraestrutura">
                                 <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
@@ -71,13 +72,14 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico<span class="required">*</span></label>
                         <div class="col-lg-7">
                             <select class="form-control populate select2" name="ddlResponsavelTecnico" id="ddlResponsavelTecnico"
-                                    title="Por favor selecione um responsável tecnico."
-                                    asp-items="ViewBag.ResponsavelTecnico">
-                                <option value="">Selecionar Responável Técnico</option>
+                                    title="Por favor selecione uma responsável." required
+                                    asp-for="CodResponsavel"
+                                    asp-items="Model.ListResponsavel">
+                                <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn  btn-primary pull-left mr-2">Pesquisar &nbsp;&nbsp;<i class="fa fa-search"></i></button>
+                            <button class="btn  btn-primary pull-left mr-2"  v-on:click="GetListRelato()">Pesquisar &nbsp;&nbsp;<i class="fa fa-search"></i></button>
                         </div>
                     </div>
 
@@ -149,7 +151,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.aaData)
+                                    @foreach (var item in Model.ListRelato.aaData)
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>

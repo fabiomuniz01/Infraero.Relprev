@@ -117,59 +117,28 @@
                 self.loading = flag;
             }
         }
-        
+        ,
+        GetUnidadeBySigla: function (event) {
+            var self = this;
+            self.ShowLoad(true, "vUnidade");
+
+            axios.get("GetUnidadeBySigla/?sigla=" + self.params.sigla).then(result => {
+
+                if (result.data.dep_codigo === undefined) {
+                    new PNotify({
+                        title: 'Atendimento Técnico',
+                        text: result.data,
+                        type: 'error'
+                    });
+                } else {
+                    self.UnidadeInfraEstruturaDto.Dependencia = result.data;
+                }
+                self.ShowLoad(false, "vAtendimento");
+
+            }).catch(error => {
+                Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
+                self.ShowLoad(false, "vAtendimento");
+            });
+        }
     }
 });
-
-function UploadFile() {
-
-    var fileUpload = $("#files").get(0);
-
-    var files = fileUpload.files;
-
-    var data = new FormData();
-
-    data.append(files[0].name, files[0]);
-
-    $.ajax({
-
-        type: "POST",
-
-        url: "UploadFile",
-
-        contentType: false,
-
-        processData: false,
-
-        data: data,
-
-        async: false,
-
-        beforeSend: function () {
-
-            $("#divloader").show()
-
-        },
-
-        success: function (message) {
-
-            alert(message);
-            $('input[name="hidenFile"]').val(message);
-
-        },
-
-        error: function () {
-
-            alert("Error!");
-
-        },
-
-        complete: function () {
-
-            $("#divloader").hide()
-
-        }
-
-    });
-
-}

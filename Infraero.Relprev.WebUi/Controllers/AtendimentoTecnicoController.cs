@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Utility;
@@ -26,13 +27,14 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var response = ApiClientFactory.Instance.GetGridRelato();
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-            var resultResponsavelTecnico = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
 
+            var model = new AtendimentoTecnicoModel()
+            {
+                ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                ListResponsavel = new SelectList(new List<ResponsavelTecnicoDto>(), "CodResponsavelTecnico", "NomResponsavelTecnico")
+            };
 
-            ViewBag.UnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura");
-            ViewBag.ResponsavelTecnico = new SelectList(resultResponsavelTecnico, "CodResponsavelTecnico", "NomResponsavelTecnico");
-
-            return View(response);
+            return View(model);
         }
         [HttpPost]
         public ActionResult Index(IFormCollection collection)
