@@ -36,6 +36,13 @@ namespace Infraero.Relprev.CoreApiClient
             return Get<ConfigurarAmbienteDto>(requestUrl);
         }
 
+        public List<ConfigurarAmbienteDto> GetConfigurarAmbienteAll()
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceConfigurarAmbiente}/GetConfigurarAmbienteAll/"));
+            return Get<List<ConfigurarAmbienteDto>>(requestUrl);
+        }
+
         #endregion
 
     }

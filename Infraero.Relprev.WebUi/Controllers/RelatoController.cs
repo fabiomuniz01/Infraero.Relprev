@@ -37,6 +37,7 @@ using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecn
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
+using Infraero.Relprev.Application.ConfigurarAmbiente.Commands.CreateConfigurarAmbiente;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.CrossCutting.Extensions;
 using Infraero.Relprev.CrossCutting.Helpers;
@@ -84,7 +85,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                 Relato = resultRelato
 
-                
+
             };
             return View(model);
         }
@@ -251,14 +252,25 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Relatos", "Cancelar")]
         public ActionResult Cancel(int id)
         {
+
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
-            var model = new RelatoModel
+            var configAmbiente = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
+            
+            //Rn0100
+            if (configAmbiente != null)
             {
-                Relato = obj,
-            };
+                obj.DscMotivoCancelamento = configAmbiente.TextoMotivoCancelamento;
 
-            return View(model);
+                var model = new RelatoModel
+                {
+                    Relato = obj,
+                };
+
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, message = "Não existe configuração de ambiente registrada. Favor realizar a configuração do ambiente." });
         }
 
         [ClaimsAuthorize("Relatos", "Cancelar")]
@@ -471,6 +483,6 @@ namespace Infraero.Relprev.WebUi.Controllers
 
 
 
-        
+
     }
 }
