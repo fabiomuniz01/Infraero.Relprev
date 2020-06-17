@@ -69,6 +69,12 @@ namespace Infraero.Relprev.WebUi.Controllers
             if (!collection["ddlUnidadeInfraestrutura"].ToString().IsNullOrEmpty())
                 response.aaData = response.aaData.Where(x => x.CodUnidadeInfraestrutura == Convert.ToInt32(collection["ddlUnidadeInfraestrutura"].ToString())).ToList();
 
+            if (!collection["ddlUnidadeInfraestrutura"].ToString().IsNullOrEmpty())
+                response.aaData = response.aaData.Where(x => x.CodUnidadeInfraestrutura == Convert.ToInt32(collection["ddlUnidadeInfraestrutura"].ToString())).ToList();
+
+            //if (!collection["ddlResponsavelTecnico"].ToString().IsNullOrEmpty())
+            //filtrar aqui por responsável
+
 
             return View(response);
         }

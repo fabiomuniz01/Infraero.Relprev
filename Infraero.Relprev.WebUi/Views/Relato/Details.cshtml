@@ -1,0 +1,161 @@
+﻿@model Infraero.Relprev.CrossCutting.Models.RelatoModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (@Html.BeginForm("Details", "Relato", FormMethod.Post, new { id = "form" }))
+        {
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+
+                    <h2 class="card-title">Detalhamento do relato</h2>
+
+                </header>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nº do relato </label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input readonly id="CodNumRelato" name="CodNumRelato" value=" @Model.Relato.NumRelato" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Unidade de Infraestrutura<span class="required">*</span></label>
+
+                        <div class="col-lg-9">
+                            <input readonly id="UnidadeInfraestrutura" name="UnidadeInfraestrutura" value=" @Model.Relato.UnidadeInfraestrutura.DscCodUnidadeDescricao" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência</label>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input readonly id="DtOcorrencia" name="DtOcorrencia"
+                                       data-plugin-masked-input data-input-mask="99/99/9999"
+                                       placeholder="eg.: Data da ocorrência de prevenção"
+                                       class="form-control"
+                                       value="@Model.Relato.DatOcorrencia">
+                            </div>
+                        </div>
+
+                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da Ocorrência</label>
+                        <div class="col-lg-3 pull-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </span>
+                                <input readonly type="text"
+                                       id="HorOcorrencia" name="HorOcorrencia"
+                                       data-plugin-timepicker class="form-control"
+                                       data-plugin-options='{ "showMeridian": false }'
+                                       placeholder="eg.: Horário da ocorrência"
+                                       value="@Model.Relato.HorOcorrencia">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3"
+                                      name="DscLocalOcorrenciaRelator"
+                                      class="form-control"
+                                      maxlength="200">@Model.Relato.DscLocalOcorrenciaRelator</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência/Nova descrição <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly
+                                      name="DscEnvolvidosOcorrencia"
+                                      type="text" rows="3"
+                                      class="form-control"
+                                      maxlength="500">@Model.Relato.DscOcorrenciaRelator</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <h4 class="pt-3 mb-0">Classificação</h4>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly id="DscLocal" name="DscLocal"
+                                   placeholder="eg.: Local da ocorrência"
+                                   class="form-control"
+                                   value="@Model.Relato.Local.DscLocal">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Local de ocorrência   <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly id="DscSubLocal" name="DscSubLocal"
+                                   class="form-control"
+                                   value="@Model.Relato.SubLocal.DscSubLocal">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly id="DsAssunto" name="DsAssunto"
+                                   class="form-control"
+                                   value="@Model.Relato.Assunto.DscAssunto">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Assunto<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <input readonly id="DsSubAssunto" name="DsSubAssunto"
+                                   class="form-control"
+                                   value="@Model.Relato.SubAssunto.DscSubAssunto">
+                        </div>
+                    </div>
+               
+                </div>
+                <footer class="card-footer">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-9">
+                            <button class="btn  btn-success pull-left mr-2">Enviar &nbsp;&nbsp;<i class="fa fa-paper-plane"></i></button>
+                            <a href="#" class="btn btn-danger pull-left mr-2">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></a>
+                            @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
+
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        }
+    </div>
+</div>
+
+@section CssSpecificVendor {
+    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+    <link rel="stylesheet" href="vendor/pnotify/pnotify.custom.css" />
+}
+@section Scripts {
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/vendor/pnotify/pnotify.custom.js"></script>
+    <script src="~/js/empresa.js"></script>
+
+
+}
+
+
+
+

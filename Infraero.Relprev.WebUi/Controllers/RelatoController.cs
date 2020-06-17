@@ -76,6 +76,19 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(response);
         }
 
+        public ActionResult Details(int id)
+        {
+            var resultRelato = ApiClientFactory.Instance.GetRelatoById(id);
+
+            var model = new RelatoModel
+            {
+                Relato = resultRelato
+
+                
+            };
+            return View(model);
+        }
+
         [ClaimsAuthorize("Relatos", "Cadastrar")]
         public ActionResult Create(int? notify, string message = null)
         {
@@ -247,8 +260,6 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             return View(model);
         }
-
-
 
         [ClaimsAuthorize("Relatos", "Cancelar")]
         [HttpPost]

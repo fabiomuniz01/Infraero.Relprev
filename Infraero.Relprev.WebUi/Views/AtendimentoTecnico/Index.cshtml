@@ -60,8 +60,7 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-7">
                             <select class="form-control populate select2" name="ddlUnidadeInfraestrutura" id="ddlUnidadeInfraestrutura"
-                                    title="Por favor selecione uma unidade de infraestrutura." 
-                                   
+                                    title="Por favor selecione uma unidade de infraestrutura."
                                     asp-items="ViewBag.UnidadeInfraestrutura">
                                 <option value="">Selecionar Unidade de infraestrutura</option>
                             </select>
@@ -152,31 +151,34 @@
                                 <tbody>
                                     @foreach (var item in Model.aaData)
                                     {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.DscOcorrenciaRelator)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.StatusRelato)</td>
-                                        <th class="text-center">Ações</th>
-                                        <td class="text-center">
-                                            <a data-toggle="tooltip" data-placement="top" title="Realiza o cancelamento do Relato de Prevenção "
-                                               asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato" 
-                                               class="on-default edit-row" style='color:#d43f3a'><i class="fa fa-times-circle"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Apresenta a tela de detalhamento do Relato de Prevenção"
-                                               asp-action="" asp-controller="" asp-route-id="@item.CodRelato" 
-                                               class="on-default edit-row color" style='color:#00A1F2'><i class="fa fa-eye"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Realiza a Classificação do Relato de prevenção"
-                                               asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato" 
-                                               class="on-default edit-row color" style='color:#5AB75A'><i class="fa fa-check-square-o"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Finaliza o Relato de Prevenção"
-                                               asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato" 
-                                               class="on-default edit-row color" style='color:#444444'><i class="fa fa-flag"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Atribuir responsável técnico"
-                                               asp-action="Index" asp-controller="AtribuirRespRelato" asp-route-id="@item.CodRelato" 
-                                               class="on-default edit-row color" style='color:#777777'><i class="fa fa-users"></i></a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.DscOcorrenciaRelator)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.StatusRelato)</td>
+                                            <th class="text-center">Ações</th>
+                                            <td class="text-center">
+                                                <a data-toggle="tooltip" data-placement="top" title="Realiza o cancelamento do Relato de Prevenção "
+                                                   asp-action="Cancel" asp-controller="Relato" asp-route-id="@item.CodRelato"
+                                                   class="on-default edit-row" style='color:#d43f3a'><i class="fa fa-times-circle"></i></a>
+                                                @if (item.FlgStatusRelato != (int)EnumStatusRelato.NaoIniciado)
+                                                {
+                                                    <a data-toggle="tooltip" data-placement="top" title="Apresenta a tela de detalhamento do Relato de Prevenção"
+                                                       asp-action="Details" asp-controller="Relato" asp-route-id="@item.CodRelato"
+                                                       class="on-default edit-row color" style='color:#00A1F2'><i class="fa fa-eye"></i></a>
+                                                }
+                                                <a data-toggle="tooltip" data-placement="top" title="Realiza a Classificação do Relato de prevenção"
+                                                   asp-action="Edit" asp-controller="Relato" asp-route-id="@item.CodRelato"
+                                                   class="on-default edit-row color" style='color:#5AB75A'><i class="fa fa-check-square-o"></i></a>
+                                                <a data-toggle="tooltip" data-placement="top" title="Finaliza o Relato de Prevenção"
+                                                   asp-action="Finalize" asp-controller="Relato" asp-route-id="@item.CodRelato"
+                                                   class="on-default edit-row color" style='color:#444444'><i class="fa fa-flag"></i></a>
+                                                <a data-toggle="tooltip" data-placement="top" title="Atribuir responsável técnico"
+                                                   asp-action="Index" asp-controller="AtribuirRespRelato" asp-route-id="@item.CodRelato"
+                                                   class="on-default edit-row color" style='color:#777777'><i class="fa fa-users"></i></a>
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
