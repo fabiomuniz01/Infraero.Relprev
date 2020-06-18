@@ -9,7 +9,7 @@ using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
-
+using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -42,6 +42,12 @@ namespace Infraero.Relprev.CoreApiClient
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceRelato}/CancelRelato"));
+            return Post(requestUrl, command);
+        }
+        public Task<long> FinalizeRelato(FinalizeRelatoCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/FinalizeRelato"));
             return Post(requestUrl, command);
         }
 

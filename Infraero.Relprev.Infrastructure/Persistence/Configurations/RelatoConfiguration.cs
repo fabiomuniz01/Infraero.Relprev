@@ -78,6 +78,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             .HasColumnName("DSC_MOTIVO_CANCELAMENTO")
             .HasMaxLength(500);
 
+            builder.Property(t => t.DscAcoesCorretivasRecomendadas)
+            .HasColumnName("DSC_ACOES_CORRETIVAS_RECOMENDADAS")
+            .HasMaxLength(500);
+
             builder.Property(t => t.FlgStatusRelato)
              .HasColumnName("FLG_STATUS_RELATO")
              .IsRequired();

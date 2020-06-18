@@ -33,7 +33,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Index(int? crud)
         {
             SetCrudMessage(crud);
-            var response = ApiClientFactory.Instance.GetConfigurarAmbienteById(0);
+            var response = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
             return View(response);
         }
 
