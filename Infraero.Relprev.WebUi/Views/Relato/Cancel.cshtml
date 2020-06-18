@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Cancel", "Relato", FormMethod.Post,  new { id = "form" }))
+        @using (@Html.BeginForm("Cancel", "Relato", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -21,7 +21,7 @@
 
                 </header>
 
-                <div class="card-body">
+                <div class="card-body" id="vRelato">
                     <div class="form-group row">
                         <label class="col-lg-3 control-label text-sm-right pt-2">Nº do relato </label>
                         <div class="col-lg-4">
@@ -30,7 +30,18 @@
                                     <i class="fa fa-key"></i>
                                 </span>
                                 <input type="hidden" id="CodRelato" name="CodRelato" value="@Model.Relato.CodRelato">
-                                <input readonly id="CodNumRelato" name="CodNumRelato" value="@Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                                @*<input id="CodNumRelato" name="CodNumRelato" value="@Model.Relato.NumRelato"
+                                    class="form-control" placeholder="eg.: Número identificador do relato" maxlength="12" v-model="params.relato"
+                                    onkeyup="this.value = this.value.toUpperCase();"
+                                    style="z-index: auto;"/>*@
+                                <input readonly id="CodNumRelato" name="CodNumRelato" value="@Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="12" />
+                                @*<span class="input-group-btn">
+                                        <button id="relato" v-on:click="GetRelatoByNumRelato"
+                                                style="z-index: auto;"
+                                                class="btn btn-primary" type="button">
+                                            &nbsp;&nbsp;<i class="fa fa-search"></i>
+                                        </button>
+                                    </span>*@
                             </div>
                         </div>
                     </div>
@@ -166,6 +177,7 @@
 @section CssSpecificVendor {
 }
 @section Scripts {
+    <script src="~/js/cancelar.js"></script>
 }
 
 

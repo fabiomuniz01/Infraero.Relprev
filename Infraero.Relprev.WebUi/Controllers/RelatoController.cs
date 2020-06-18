@@ -252,6 +252,17 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Relatos", "Cancelar")]
         public ActionResult Cancel(int id)
         {
+            if (id==0)
+            {
+                var model = new RelatoModel
+                {
+                    Relato = new RelatoDto()
+                };
+
+                model.Relato.UnidadeInfraestrutura = new UnidadeInfraEstruturaDto();
+
+                return View(model);
+            }
 
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
@@ -436,6 +447,47 @@ namespace Infraero.Relprev.WebUi.Controllers
                 message);
         }
         #endregion
+
+        #region Método públicos
+
+        public JsonResult GetRelatoByNumRelato(string numRelato)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(numRelato))
+                {
+                    throw new Exception(
+                        "Número do relato não informado.");
+                }
+
+                var result = ApiClientFactory.Instance.GetRelatoByNumRelato(numRelato.ToUpper().Trim());
+
+                if (result == null)
+                {
+                    throw new Exception(
+                        "Relato não encontrado.");
+                }
+
+                var configAmbiente = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
+
+                //Rn0100
+                if (configAmbiente == null)
+                {
+                    throw new Exception(
+                        "Não existe configuração de ambiente registrada. Favor realizar a configuração do ambiente.");
+                }
+
+                return Json(result.CodRelato);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+
+
+        }
+        #endregion
+
 
 
         public JsonResult GetResponsavelByEmpresa(int id)
