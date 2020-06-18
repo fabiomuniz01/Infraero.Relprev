@@ -34,7 +34,7 @@ var vm = new Vue({
 
             $("#ddlEmpresa").change(function () {
 
-                var url = "../GetResponsavelByEmpresa";
+                var url = "../../AtribuirRespRelato/GetListResponsavelTecnicoByEmpresa";
 
                 var ddlSource = "#ddlEmpresa";
 
@@ -42,33 +42,15 @@ var vm = new Vue({
                     { id: $(ddlEmpresa).val() },
                     function (data) {
                         var items = '<option value="">Selecione o reponsável técnico</option>';
-                        $("#ddlResponsavel").empty;
+                        $("#ddlResponsavelTecnico").empty;
                         $.each(data,
                             function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
-                        $("#ddlResponsavel").html(items);
+                        $("#ddlResponsavelTecnico").html(items);
                     });
             });
-            $("#ddlAssunto").change(function () {
-
-                var url = "../GetResponsavelByEmpresa";
-
-                var ddlSource = "#ddlAssunto";
-
-                $.getJSON(url,
-                    { id: $(ddlSource).val() },
-                    function (data) {
-                        var items = '';
-                        $("#ddlResponsavel").empty;
-                        $.each(data,
-                            function (i, row) {
-                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
-                            });
-                        $("#ddlResponsavel").html(items);
-                    });
-            });
-
+          
 
             (function ($) {
 

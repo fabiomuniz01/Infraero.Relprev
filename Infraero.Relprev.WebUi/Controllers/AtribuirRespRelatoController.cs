@@ -77,5 +77,16 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             return View(model);
         }
+
+
+        //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
+        public JsonResult GetListResponsavelTecnicoByEmpresa(int id)
+        {
+            var result = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == id).ToList();
+
+
+          return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
+        }
+
     }
 }
