@@ -38,6 +38,7 @@ using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 using Infraero.Relprev.Application.ConfigurarAmbiente.Commands.CreateConfigurarAmbiente;
+using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.CrossCutting.Extensions;
 using Infraero.Relprev.CrossCutting.Helpers;
@@ -252,7 +253,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Relatos", "Cancelar")]
         public ActionResult Cancel(int id)
         {
-            if (id==0)
+            if (id == 0)
             {
                 var model = new RelatoModel
                 {
@@ -267,7 +268,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
             var configAmbiente = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
-            
+
             //Rn0100
             if (configAmbiente != null)
             {
@@ -340,6 +341,40 @@ namespace Infraero.Relprev.WebUi.Controllers
             };
 
             return View(model);
+        }
+
+        [ClaimsAuthorize("Relatos", "Finalizar")]
+        [HttpPost]
+        public async Task<ActionResult> Finalizr(IFormCollection collection)
+        {
+            try
+            {
+                var command = new FinalizeRelatoCommand
+                {
+                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                    //Rn0048
+                    FlgStatusRelato = (int)EnumStatusRelato.Finalizado,
+                    DscFinalizacao = "Ocorrência finalizada, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
+                    AlteradoPor = User.Identity.Name,
+                };
+
+                await ApiClientFactory.Instance.FinalizeRelato(command);
+
+                var relato = ApiClientFactory.Instance.GetRelatoById(command.CodRelato);
+                
+                //Rn0047
+                if (!string.IsNullOrEmpty(relato.EmailRelator))
+                {
+                    await SendRn0047Email(relato);
+                }
+
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
 
         #endregion
@@ -439,11 +474,30 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             message = message.Replace("%TEXTO%", $"O relato de prevenção nº {relato.NumRelato} foi  cancelado.");
 
-            message = message.Replace("%TXTBOTAO%", "Classificar relato de prevenção");
+            message = message.Replace("%TXTBOTAO%", "Cancelar relato de prevenção");
 
             message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
 
             await _emailSender.SendEmailAsync(relato.EmailRelator, "Relato de prevenção cancelado.",
+                message);
+        }
+        private async Task SendRn0047Email(RelatoDto relato)
+        {
+            var callbackUrl = Url.Page(
+                "/Relato/Edit/");
+
+            var message =
+                System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/EmailPadrao.html"));
+
+            message = message.Replace("%NAME%", relato.NomEmpresaRelator);
+
+            message = message.Replace("%TEXTO%", $"O relato de prevenção nº {relato.NumRelato} foi  finalizado.");
+
+            message = message.Replace("%TXTBOTAO%", "Finalizado relato de prevenção");
+
+            message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
+
+            await _emailSender.SendEmailAsync(relato.EmailRelator, "Relato de prevenção Finalizado.",
                 message);
         }
         #endregion

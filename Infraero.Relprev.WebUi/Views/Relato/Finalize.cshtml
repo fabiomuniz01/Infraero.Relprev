@@ -1,4 +1,4 @@
-﻿
+﻿@model Infraero.Relprev.CrossCutting.Models.RelatoModel
 @{
     ViewData["Title"] = "Finalize";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,44 +27,63 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input readonly type="text" name="email" class="form-control" value="02081984" maxlength="100" />
+                                <input type="hidden" id="CodRelato" name="CodRelato" value="@Model.Relato.CodRelato">
+
+                                <input readonly id="CodNumRelato" name="CodNumRelato" value="@Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="12" />
+
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate" disabled="disabled">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                            </select>
+                            <input readonly id="DscUnidadeInfraestrutura" name="DscUnidadeInfraestrutura"
+                                   placeholder="eg.: Unidade Infraestrutura"
+                                   class="form-control"
+                                   value="@Model.Relato.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência <span class="required">*</span></label>
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência</label>
                         <div class="col-lg-3">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                <input readonly id="date" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="eg.: Data da ocorrência de prevenção" class="form-control">
+                                <input readonly id="DtOcorrencia" name="DtOcorrencia"
+                                       data-plugin-masked-input data-input-mask="99/99/9999"
+                                       placeholder="eg.: Data da ocorrência de prevenção"
+                                       class="form-control"
+                                       value="@Model.Relato.DatOcorrencia">
                             </div>
                         </div>
 
-                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da Ocorrência <span class="required">*</span></label>
+                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da Ocorrência</label>
                         <div class="col-lg-3 pull-left">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </span>
-                                <input readonly type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }' placeholder="eg.: Horário da ocorrência">
+                                <input readonly type="text"
+                                       id="HorOcorrencia" name="HorOcorrencia"
+                                       data-plugin-timepicker class="form-control"
+                                       data-plugin-options='{ "showMeridian": false }'
+                                       placeholder="eg.: Horário da ocorrência"
+                                       value="@Model.Relato.HorOcorrencia">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  " required maxlength="200" />
+                            <div class="col-sm-9">
+                                <textarea readonly type="text" rows="3"
+                                          name="DscLocalOcorrenciaRelator"
+                                          class="form-control"
+                                          placeholder="eg.: Nome do Local da Ocorrência do relato  "
+                                          required
+                                          maxlength="200">@Model.Relato.DscLocalOcorrenciaRelator</textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -81,38 +100,57 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Local da ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do local da ocorrência" required maxlength="200" />
+                            <input readonly id="DscLocal" name="DscLocal"
+                                   placeholder="eg.: Local da ocorrência"
+                                   class="form-control"
+                                   value="@Model.Relato.Local.DscLocal">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Sub Local de ocorrência   <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ocorrência" required maxlength="200" />
+                            <input readonly id="DscSubLocal" name="DscSubLocal"
+                                   placeholder="eg.: Sub Local da ocorrência"
+                                   class="form-control"
+                                   value="@Model.Relato.SubLocal.DscSubLocal">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Assunto <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do assunto" required maxlength="200" />
+                            <input readonly id="DsAssunto" name="DsAssunto"
+                                   placeholder="eg.: Assunto da ocorrência"
+                                   class="form-control"
+                                   value="@Model.Relato.Assunto.DscAssunto">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Sub Assunto<span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do sub assunto" required maxlength="200" />
+                            <input readonly id="DsSubAssunto" name="DsSubAssunto"
+                                   placeholder="eg.: Sub Assunto da ocorrência"
+                                   class="form-control"
+                                   value="@Model.Relato.SubAssunto.DscSubAssunto">
                         </div>
                     </div>
                     <br />
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Envolvidos na ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição dos envolvidos na ocorrência" required maxlength="500"></textarea>
+                            <textarea readonly
+                                      name="DscEnvolvidosOcorrencia"
+                                      type="text" rows="3"
+                                      class="form-control"
+                                      placeholder="eg.: Pessoas e / ou veículos envolvidos no relato"
+                                      required
+                                      maxlength="500">@Model.Relato.DscEnvolvidosOcorrencia</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da Ocorrência/Nova Descrição <span class="required">*</span></label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição da nova ocorrência" required maxlength="200"></textarea>
+                            <textarea readonly type="text" rows="3" name="DscOcorrenciaRelator" class="form-control" placeholder="eg.: Descrição da ocorrência do relato"
+                                      required maxlength="1000">@Model.Relato.DscOcorrenciaRelator</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -158,7 +196,8 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Ações corretivas Recomendadas<span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição das ações corretivas recomendadas" required maxlength="60"></textarea>
+                            <textarea type="text" rows="3" id="AcoesCorretivasRecomendadas" name="AcoesCorretivasRecomendadas" 
+                                      class="form-control" placeholder="eg.: Descrição das ações corretivas recomendadas" required maxlength="60"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">

@@ -49,6 +49,7 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public int CodSubAssunto { get; set; }
         [ForeignKey("CodSubAssunto")]
         public SubAssuntoDto SubAssunto { get; set; }
+        public string DscAcoesCorretivasRecomendadas { get; set; }
 
         public void Mapping(Profile profile)
         {

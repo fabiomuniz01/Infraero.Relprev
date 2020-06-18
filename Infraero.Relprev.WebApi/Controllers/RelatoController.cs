@@ -17,6 +17,7 @@ using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
+using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
 
 namespace Infraero.Relprev.WebApi.Controllers
 {
@@ -205,6 +206,23 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
+        [HttpPost("FinalizeRelato")]
+        public async Task<ActionResult<long>> FinalizeRelato(FinalizeRelatoCommand command)
+        {
+            try
+            {
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
         
         [HttpPost("UpdateRelato")]
         public async Task<ActionResult<bool>> UpdateRelato(ClassificarRelatoCommand command)
@@ -228,22 +246,5 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
 
         }
-
-    
-
-        //[HttpPost("DeleteRelato")]
-        //public async Task<ActionResult<bool>> DeleteRelato(DeleteRelatoCommand command)
-        //{
-        //    try
-        //    {
-        //        var result = await Mediator.Send(command);
-        //        return result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e);
-        //        throw;
-        //    }
-        //}
     }
 }
