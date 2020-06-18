@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
+using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Models;
@@ -33,7 +34,8 @@ namespace Infraero.Relprev.WebUi.Controllers
             var model = new AtendimentoTecnicoModel()
             {
                 ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
-                ListResponsavel = new SelectList(new List<ResponsavelTecnicoDto>(), "CodResponsavelTecnico", "NomResponsavelTecnico")
+                ListResponsavel = new SelectList(new List<ResponsavelTecnicoDto>(), "CodResponsavelTecnico", "NomResponsavelTecnico"),
+                ListRelato = response
             };
 
             return View(model);
@@ -41,62 +43,77 @@ namespace Infraero.Relprev.WebUi.Controllers
         [HttpPost]
         public ActionResult Index(IFormCollection collection)
         {
+
             var response = ApiClientFactory.Instance.GetGridRelato();
-
-            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
-            var resultResponsavelTecnico = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
-
-            ViewBag.UnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura");
-            ViewBag.ResponsavelTecnico = new SelectList(resultResponsavelTecnico, "CodResponsavelTecnico", "NomResponsavelTecnico");
 
 
             if (!collection["NumRelato"].ToString().IsNullOrEmpty())
-            {
                 response.aaData = response.aaData.Where(x => x.NumRelato == collection["NumRelato"].ToString()).ToList();
-                ViewBag.NumRelato = collection["NumRelato"].ToString();
-            }
-                
-            
-            if(!collection["DtStart"].ToString().IsNullOrEmpty() && !collection["DtEnd"].ToString().IsNullOrEmpty())
+
+
+
+            if (!collection["DtOcorrenciaInicio"].ToString().IsNullOrEmpty() && !collection["DtOcorrenciaFim"].ToString().IsNullOrEmpty())
             {
-                ViewBag.DtStart = collection["DtStart"].ToString();
-                ViewBag.DtEnd = collection["DtEnd"].ToString();
-                response.aaData = response.aaData.Where(x => x.DatOcorrencia >= Convert.ToDateTime(collection["DtStart"].ToString())
-               && x.DatOcorrencia <= Convert.ToDateTime(collection["DtEnd"].ToString())
+                response.aaData = response.aaData.Where(x => x.DatOcorrencia >= Convert.ToDateTime(collection["DtOcorrenciaInicio"].ToString())
+               && x.DatOcorrencia <= Convert.ToDateTime(collection["DtOcorrenciaFim"].ToString())
                ).ToList();
             }
-               
+           
 
             if (!collection["rdoStatus"].ToString().IsNullOrEmpty())
-                response.aaData = response.aaData.Where(x => x.FlgStatusRelato == Convert.ToInt32( collection["rdoStatus"].ToString())).ToList();
-            
-            if (!collection["ddlUnidadeInfraestrutura"].ToString().IsNullOrEmpty())
-                response.aaData = response.aaData.Where(x => x.CodUnidadeInfraestrutura == Convert.ToInt32(collection["ddlUnidadeInfraestrutura"].ToString())).ToList();
+                response.aaData = response.aaData.Where(x => x.FlgStatusRelato == Convert.ToInt32(collection["rdoStatus"].ToString())).ToList();
 
-            if (!collection["ddlUnidadeInfraestrutura"].ToString().IsNullOrEmpty())
-                response.aaData = response.aaData.Where(x => x.CodUnidadeInfraestrutura == Convert.ToInt32(collection["ddlUnidadeInfraestrutura"].ToString())).ToList();
-
-            //if (!collection["ddlResponsavelTecnico"].ToString().IsNullOrEmpty())
-            //filtrar aqui por responsável
+            //if (!collection["ddlUnidadeInfraestrutura"].ToString().IsNullOrEmpty())
+            //    response.aaData = response.aaData.Where(x => x.CodUnidadeInfraestrutura == Convert.ToInt32(collection["ddlUnidadeInfraestrutura"].ToString())).ToList();
 
 
-            return View(response);
+
+            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
+
+            var model = new AtendimentoTecnicoModel()
+            {
+                ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                ListResponsavel = new SelectList(new List<ResponsavelTecnicoDto>(), "CodResponsavelTecnico", "NomResponsavelTecnico"),
+                ListRelato = response,
+                NumRelato = collection["NumRelato"].ToString(),
+                DtOcorrenciaInicio= collection["DtOcorrenciaInicio"].ToString(),
+                DtOcorrenciaFim = collection["DtOcorrenciaFim"].ToString()
+
+            };
+
+            return View(model);
         }
 
 
         #region Metodos publicos
 
-        
+        //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
+        public JsonResult GetListEmpresaByUnidade(int id)
+        {
+            //var result = ApiClientFactory.Instance.GetEmpresaByIdUnidade(id);
+            var result = ApiClientFactory.Instance.GetVinculoUnidadeEmpresaAll().Where(v => v.CodUnidadeInfraestrutura == id);
+            var resultEmpresa = result.Select(e =>
+                                new EmpresaDto
+                                {
+                                    CodEmpresa = e.CodEmpresa,
+                                    NomRazaoSocial = e.NomEmpresa
+                                }).ToList();
+
+            resultEmpresa.Insert(0, new EmpresaDto { CodEmpresa = 0, NomRazaoSocial = "Selecionar uma empresa" });
+
+            return Json(new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"));
+        }
+
 
         //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
-        public JsonResult GetListResponsavelTecnicoByUnidade(int id)
+        public JsonResult GetListResponsavelTecnicoByEmpresa(int id)
         {
-            var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(id);
+            var result = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == id).ToList();
 
-            
-            //result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Unidade de infraestrutura" });
 
-            return Json(new SelectList(null, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
+            result.Insert(0, new ResponsavelTecnicoDto { CodResponsavelTecnico = 0, NomResponsavelTecnico = "Selecionar Unidade de infraestrutura" });
+
+            return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
         }
 
         #endregion

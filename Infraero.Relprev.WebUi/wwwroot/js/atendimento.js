@@ -26,18 +26,18 @@
             }
 
 
-            var $DtOcorrencia = $("#DtStart");
-            $DtOcorrencia.mask('00/00/0000', { reverse: false });
-            $('#DtStart').datepicker({
+            var $DtOcorrenciaInicio = $("#DtOcorrenciaInicio");
+            $DtOcorrenciaInicio.mask('00/00/0000', { reverse: false });
+            $('#DtOcorrenciaInicio').datepicker({
                 format: "dd/mm/yyyy",
                 todayBtn: "linked",
                 language: "pt-BR",
                 orientation: "bottom left",
                 autoclose: true
             });
-            var $DtOcorrencia = $("#DtEnd");
-            $DtOcorrencia.mask('00/00/0000', { reverse: false });
-            $('#DtEnd').datepicker({
+            var $DtOcorrenciaFim = $("#DtOcorrenciaFim");
+            $DtOcorrenciaFim.mask('00/00/0000', { reverse: false });
+            $('#DtOcorrenciaFim').datepicker({
                 format: "dd/mm/yyyy",
                 todayBtn: "linked",
                 language: "pt-BR",
@@ -64,11 +64,11 @@
                 $(this).trigger('blur');
             });
 
-            $("#ddlUnidadeInfraestrutura").change(function () {
+            $("#ddlEmpresa").change(function () {
 
-                var url = "../AtendimentoTecnico/GetListResponsavelTecnicoByUnidade";
+                var url = "../AtendimentoTecnico/GetListResponsavelTecnicoByEmpresa";
                 
-                var ddlSource = "#ddlUnidadeInfraestrutura";
+                var ddlSource = "#ddlEmpresa";
 
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
@@ -83,6 +83,43 @@
                     });
             });
 
+            $("#ddlUnidadeInfraestrutura").change(function () {
+
+                var url = "../AtendimentoTecnico/GetListEmpresaByUnidade";
+
+                var ddlSource = "#ddlUnidadeInfraestrutura";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function (data) {
+                        var items = '';
+                        $("#ddlEmpresa").empty;
+                        $.each(data,
+                            function (i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlEmpresa").html(items);
+                    });
+            });
+
+            $("#ddlEmpresa").change(function () {
+
+                var url = "../AtendimentoTecnico/GetListResponsavelTecnico";
+
+                var ddlSource = "#ddlEmpresa";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function (data) {
+                        var items = '';
+                        $("#ddlResponsavelTecnico").empty;
+                        $.each(data,
+                            function (i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlResponsavelTecnico").html(items);
+                    });
+            });
             $("#form").validate({
                 
                 highlight: function (label) {
