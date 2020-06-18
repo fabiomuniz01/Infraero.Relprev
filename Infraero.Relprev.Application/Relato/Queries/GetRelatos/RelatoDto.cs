@@ -38,16 +38,12 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         [ForeignKey("CodUnidadeInfraestrutura")]
         public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
         public int CodLocal { get; set; }
-        [ForeignKey("CodLocal")]
         public LocalDto Local { get; set; }
         public int CodSubLocal { get; set; }
-        [ForeignKey("CodSubLocal")]
         public SubLocalDto SubLocal { get; set; }
         public int CodAssunto { get; set; }
-        [ForeignKey("CodAssunto")]
         public AssuntoDto Assunto { get; set; }
         public int CodSubAssunto { get; set; }
-        [ForeignKey("CodSubAssunto")]
         public SubAssuntoDto SubAssunto { get; set; }
         public string DscAcoesCorretivasRecomendadas { get; set; }
 

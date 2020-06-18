@@ -335,9 +335,15 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
+            obj.Local = ApiClientFactory.Instance.GetLocalById(obj.CodLocal);
+            obj.SubLocal = ApiClientFactory.Instance.GetSubLocalById(obj.CodSubLocal);
+            obj.Assunto = ApiClientFactory.Instance.GetAssuntoById(obj.CodAssunto);
+            obj.SubAssunto = ApiClientFactory.Instance.GetSubAssuntoById(obj.CodSubAssunto);
+
             var model = new RelatoModel
             {
                 Relato = obj,
+
             };
 
             return View(model);
@@ -345,7 +351,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         [ClaimsAuthorize("Relatos", "Finalizar")]
         [HttpPost]
-        public async Task<ActionResult> Finalizr(IFormCollection collection)
+        public async Task<ActionResult> Finalize(IFormCollection collection)
         {
             try
             {
@@ -358,10 +364,14 @@ namespace Infraero.Relprev.WebUi.Controllers
                     AlteradoPor = User.Identity.Name,
                 };
 
-                await ApiClientFactory.Instance.FinalizeRelato(command);
-
                 var relato = ApiClientFactory.Instance.GetRelatoById(command.CodRelato);
-                
+
+                //Rn0088 - deve ser implementada após finalizar o caso de uso de parecer tecnico
+                if (true)
+                {
+                    await ApiClientFactory.Instance.FinalizeRelato(command);
+                }
+
                 //Rn0047
                 if (!string.IsNullOrEmpty(relato.EmailRelator))
                 {

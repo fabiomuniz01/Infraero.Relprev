@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post))
+        @using (@Html.BeginForm("Finalize", "Relato", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -196,61 +196,35 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Ações corretivas Recomendadas<span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" id="AcoesCorretivasRecomendadas" name="AcoesCorretivasRecomendadas" 
-                                      class="form-control" placeholder="eg.: Descrição das ações corretivas recomendadas" required maxlength="60"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Nome do arquivo</label>
-                        <div class="col-lg-6">
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <div class="input-append">
-                                    <div class="uneditable-input">
-                                        <i class="fa fa-file fileupload-exists"></i>
-                                        <span class="fileupload-preview"></span>
-                                    </div>
-                                    <span class="btn btn-default btn-file">
-                                        <span class="fileupload-exists">Alterar</span>
-                                        <span class="fileupload-new">Selecione o arquivo</span>
-                                        <input type="file" />
-                                    </span>
-                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remover</a>
-                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Anexar</a>
-                                </div>
-                            </div>
+                            <textarea type="text" rows="3" id="AcoesCorretivasRecomendadas" name="AcoesCorretivasRecomendadas"
+                                      class="form-control" placeholder="eg.: Descrição das ações corretivas recomendadas"
+                                      title="Por favor informe a descrição das ações corretivas recomendadas"
+                                      required maxlength="60"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
-                            <table class="table table-responsive-md table-striped mb-0">
+
+                            <table id="datatable-default" class="table table-responsive-md table-striped mb-0">
                                 <thead>
                                     <tr>
+                                        <th colspan="4" class="text-center">Nome dos arquivos anexo</th>
+                                    </tr>
+
+                                    <tr>
                                         <th>Arquivo</th>
-                                        <th>Responsável</th>
-                                        <th>Fase do anexo</th>
-                                        <th>Data e hora</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>atendimento.png</td>
-                                        <td>Uriel</td>
-                                        <td>Parecer técnico</td>
-                                        <td>05/12/2019 10:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>relato.png</td>
-                                        <td>Miguel</td>
-                                        <td>Parecer técnico</td>
-                                        <td>01/12/2019 18:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>atendimento.png</td>
-                                        <td>Maria Flor</td>
-                                        <td>Parecer técnico</td>
-                                        <td>05/12/2019 08:00</td>
-                                    </tr>
+                                    @foreach (var item in @Model.Relato.ListArquivo)
+                                    {
+                                        <tr>
+                                            <td>@item.Arquivo</td>
+
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
 
@@ -260,8 +234,7 @@
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <button class="btn  btn-warning pull-left mr-2">Finalizar Atendimento &nbsp;&nbsp;<i class="fa fa-upload"></i></button>
+                            <button data-toggle="tooltip" data-placement="bottom" title="Finalizar Atendimento" class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
                             <a href="@Url.Action("Index", "Relato")" class="btn btn-danger pull-left mr-2">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></a>
                             @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
 
@@ -273,11 +246,13 @@
     </div>
 </div>
 @section CssSpecificVendor {
-    <link rel="stylesheet" href="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
+    <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
 }
 @section Scripts {
-    <script src="~/vendor/autosize/autosize.js"></script>
-    <script src="~/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/js/finalizar.js"></script>
 }
 
 
