@@ -36,7 +36,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        [ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
+        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public async Task<ActionResult> Index(int id, string message = null)
         {
             RelatoModel model = null;
@@ -51,9 +51,13 @@ namespace Infraero.Relprev.WebUi.Controllers
                 ViewBag.Notify = "null";
             }
 
-            if (id != 0) return View(model);
+            if (id == 0) return View(model);
 
             var obj = ApiClientFactory.Instance.GetRelatoById(id);
+            obj.Local = ApiClientFactory.Instance.GetLocalById(obj.CodLocal);
+            obj.SubLocal = ApiClientFactory.Instance.GetSubLocalById(obj.CodSubLocal);
+            obj.Assunto = ApiClientFactory.Instance.GetAssuntoById(obj.CodAssunto);
+            obj.SubAssunto = ApiClientFactory.Instance.GetSubAssuntoById(obj.CodSubAssunto);
 
             var resultVinculoUnidadeEmpresa = ApiClientFactory.Instance.GetVinculoUnidadeEmpresaAll();
 
