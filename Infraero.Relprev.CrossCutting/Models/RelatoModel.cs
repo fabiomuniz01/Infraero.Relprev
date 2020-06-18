@@ -6,6 +6,7 @@ using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Microsoft.AspNetCore.Http;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 
 namespace Infraero.Relprev.CrossCutting.Models
 {
@@ -28,7 +29,7 @@ namespace Infraero.Relprev.CrossCutting.Models
         public RelatoDto Relato { get; set; }
         public List<IFormFile> ListArquivo { get; set; }
         public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
-        public List<ResponsavelTecnicoDto> ListResponsavelTecnico { get; set; }
+        public List<UsuarioDto> ListResponsavelTecnico { get; set; }
         public IFormFile Arquivo { get; set; }
     }
 }
