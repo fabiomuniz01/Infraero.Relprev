@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
+using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Models;
@@ -46,6 +47,23 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             var response = ApiClientFactory.Instance.GetGridRelato();
 
+            if (!collection["ddlResponsavelTecnico"].ToString().IsNullOrEmpty())
+            {
+                var CodResponsavel = Convert.ToInt32(collection["ddlResponsavelTecnico"].ToString());
+                var responseRelatoResp = ApiClientFactory.Instance.GetAtribuicaoRelatoAll().Where(a=>a.ResponsavelTecnico.CodResponsavelTecnico == CodResponsavel).ToList();
+                response.aaData = responseRelatoResp.Select(r =>
+                                new RelatoDto
+                                {
+                                    CodRelato = r.Relato.CodRelato,
+                                    NumRelato=r.Relato.NumRelato,
+                                    FlgStatusRelato=r.Relato.FlgStatusRelato,
+                                    UnidadeInfraestrutura =r.Relato.UnidadeInfraestrutura,
+                                    DatOcorrencia = r.Relato.DatOcorrencia,
+                                    DscOcorrenciaRelator =r.Relato.DscOcorrenciaRelator,
+                                    StatusRelato = r.Relato.StatusRelato
+                                    
+                                }).ToList();
+            }
 
             if (!collection["NumRelato"].ToString().IsNullOrEmpty())
                 response.aaData = response.aaData.Where(x => x.NumRelato == collection["NumRelato"].ToString()).ToList();
@@ -63,9 +81,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             if (!collection["rdoStatus"].ToString().IsNullOrEmpty())
                 response.aaData = response.aaData.Where(x => x.FlgStatusRelato == Convert.ToInt32(collection["rdoStatus"].ToString())).ToList();
 
-            //if (!collection["ddlUnidadeInfraestrutura"].ToString().IsNullOrEmpty())
-            //    response.aaData = response.aaData.Where(x => x.CodUnidadeInfraestrutura == Convert.ToInt32(collection["ddlUnidadeInfraestrutura"].ToString())).ToList();
-
+            
 
 
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();

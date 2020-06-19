@@ -41,7 +41,13 @@ namespace Infraero.Relprev.CoreApiClient
             return Post(requestUrl, command);
         }
 
-      
+        public List<AtribuicaoRelatoDto> GetAtribuicaoRelatoAll()
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceAtribuicaoRelato}/GetAtribuicaoRelatoAll/"));
+            return Get<List<AtribuicaoRelatoDto>>(requestUrl);
+        }
+
         #endregion
 
         #region Methods
