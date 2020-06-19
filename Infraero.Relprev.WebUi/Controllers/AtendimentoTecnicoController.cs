@@ -44,7 +44,6 @@ namespace Infraero.Relprev.WebUi.Controllers
         [HttpPost]
         public ActionResult Index(IFormCollection collection)
         {
-
             var response = ApiClientFactory.Instance.GetGridRelato();
 
             if (!collection["ddlResponsavelTecnico"].ToString().IsNullOrEmpty())
@@ -103,33 +102,17 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         #region Metodos publicos
 
-        //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
-        public JsonResult GetListEmpresaByUnidade(int id)
-        {
-            //var result = ApiClientFactory.Instance.GetEmpresaByIdUnidade(id);
-            var result = ApiClientFactory.Instance.GetVinculoUnidadeEmpresaAll().Where(v => v.CodUnidadeInfraestrutura == id);
-            var resultEmpresa = result.Select(e =>
-                                new EmpresaDto
-                                {
-                                    CodEmpresa = e.CodEmpresa,
-                                    NomRazaoSocial = e.NomEmpresa
-                                }).ToList();
-
-            resultEmpresa.Insert(0, new EmpresaDto { CodEmpresa = 0, NomRazaoSocial = "Selecionar uma empresa" });
-
-            return Json(new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"));
-        }
-
+        
 
         //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
-        public JsonResult GetListResponsavelTecnicoByEmpresa(int id)
+        public JsonResult GetListResponsavelTecnicoByUnidade(int id)
         {
-            var result = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == id).ToList();
+            var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(id);
 
+            
+            //result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Unidade de infraestrutura" });
 
-            result.Insert(0, new ResponsavelTecnicoDto { CodResponsavelTecnico = 0, NomResponsavelTecnico = "Selecionar Unidade de infraestrutura" });
-
-            return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
+            return Json(new SelectList(null, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
         }
 
         #endregion

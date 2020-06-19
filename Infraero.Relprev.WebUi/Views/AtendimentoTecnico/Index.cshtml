@@ -29,7 +29,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input type="text" name="NumRelato" id="NumRelato" value="@Model.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
+                                <input type="text" name="NumRelato" id="NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="100" />
                             </div>
                         </div>
                     </div>
@@ -41,15 +41,13 @@
                                     <i class="fa fa-calendar"></i>
                                 </span>
 
-                                <input id="DtOcorrenciaInicio" name="DtOcorrenciaInicio"
-                                       value="@Model.DtOcorrenciaInicio"
+                                <input id="DtStart" name="DtStart" 
                                        title="Por favor informe a data início da ocorrência."
                                        style="z-index: auto;"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
                                        placeholder="Data início do período" class="form-control startdate">
                                 <span class="input-group-addon">até</span>
-                                <input id="DtOcorrenciaFim" name="DtOcorrenciaFim"
-                                       value="@Model.DtOcorrenciaFim"
+                                <input id="DtEnd" name="DtEnd" 
                                        title="Por favor informe a data fim da ocorrência."
                                        style="z-index: auto;"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'

@@ -101,24 +101,27 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                             x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura)
                         .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
-
-                    foreach (var usu in listUsuario)
+                    if (listUsuario.Count > 0)
                     {
-                        var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                        foreach (var usu in listUsuario)
                         {
-                            CodRelato = entity.CodRelato,
-                            CodResponsavelTecnicoSgso = usu.CodUsuario,
-                            CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
-                            DthAtribuicao = DateTime.Now,
-                            CriadoPor = request.CriadoPor,
-                            DataCriacao = DateTime.Now,
-                            FlagAtivo = true
-                        };
+                            var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
+                            {
+                                CodRelato = entity.CodRelato,
+                                CodResponsavelTecnicoSgso = usu.CodUsuario,
+                                CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                                DthAtribuicao = DateTime.Now,
+                                CriadoPor = request.CriadoPor,
+                                DataCriacao = DateTime.Now,
+                                FlagAtivo = true
+                            };
 
-                        _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+                            _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
 
-                        await _context.SaveChangesAsync(cancellationToken);
+                            await _context.SaveChangesAsync(cancellationToken);
+                        }
                     }
+                   
 
                     //Rn0039 - Ocorrência Atribuída
                     entityHistoricoRelato.DscAtribuicao = "Ocorrência Atribuída, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm");

@@ -37,19 +37,11 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
-        public async Task<ActionResult> Index(int id, string message = null)
+        public async Task<ActionResult> Index(int id, int? notify, string message = null)
         {
             RelatoModel model = null;
 
-            if (!string.IsNullOrEmpty(message))
-            {
-                SetNotifyMessage((int)EnumNotify.Error, message);
-            }
-            else
-            {
-                ViewBag.NotifyMessage = -1;
-                ViewBag.Notify = "null";
-            }
+            SetNotifyMessage(notify, message);
 
             if (id == 0) return View(model);
 
@@ -69,10 +61,17 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NomRazaoSocial = s.NomEmpresa
                 }).ToList();
 
+            var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
+
+            var result = resultResponsavel.Select(s => s.ResponsavelTecnicoSgso).ToList();
+
+
+
             model = new RelatoModel
             {
                 Relato = obj,
-                ListEmpresa = new SelectList(resultListEmpresa, "CodEmpresa", "NomRazaoSocial")
+                ListEmpresa = new SelectList(resultListEmpresa, "CodEmpresa", "NomRazaoSocial"),
+                ListResponsavelTecnico = result
             };
 
             return View(model);
