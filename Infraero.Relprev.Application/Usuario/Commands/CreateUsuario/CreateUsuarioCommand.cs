@@ -39,6 +39,11 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
 
                 await _context.SaveChangesAsync(cancellationToken);
 
+                var perfil = _context.
+
+
+                if(entity.CodPerfil == )
+
                 return entity.CodUsuario;
             }
         }

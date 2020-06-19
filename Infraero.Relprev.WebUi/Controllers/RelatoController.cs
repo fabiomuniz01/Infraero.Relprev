@@ -167,11 +167,14 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 //Rn0064
                 var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato));
-
-                foreach (var atribuicao in listAtribuicaoSgso)
+                if (listAtribuicaoSgso.Count > 0)
                 {
-                    await SendRn0064Email(atribuicao);
+                    foreach (var atribuicao in listAtribuicaoSgso)
+                    {
+                        await SendRn0064Email(atribuicao);
+                    }
                 }
+
 
                 //Rn0065
                 if (!string.IsNullOrEmpty(command.EmailRelator))
@@ -183,7 +186,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction(nameof(Create), new { message = ex.Message });
+                return View();
             }
         }
 
