@@ -96,32 +96,30 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         await _context.SaveChangesAsync(cancellationToken);
                     }
                     //Rn0032
-                    var listUsuario = await _context.Usuario.Where(x =>
-                            x.CodPerfil == request.CodPerfilSgso &&
-                            x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura)
-                        .ProjectTo<UsuarioDto>(_mapper.ConfigurationProvider)
+                    var listUsuario = await _context.ResponsavelTecnico.Where(x =>
+                            x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura
+                            && x.FlagGestorSgso == true)
+                        .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
-                    if (listUsuario.Count > 0)
+
+                    foreach (var usu in listUsuario)
                     {
-                        foreach (var usu in listUsuario)
+                        var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
                         {
-                            var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
-                            {
-                                CodRelato = entity.CodRelato,
-                                CodResponsavelTecnicoSgso = usu.CodUsuario,
-                                CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
-                                DthAtribuicao = DateTime.Now,
-                                CriadoPor = request.CriadoPor,
-                                DataCriacao = DateTime.Now,
-                                FlagAtivo = true
-                            };
+                            CodRelato = entity.CodRelato,
+                            CodResponsavelTecnico = usu.CodResponsavelTecnico,
+                            CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                            DthAtribuicao = DateTime.Now,
+                            CriadoPor = request.CriadoPor,
+                            DataCriacao = DateTime.Now,
+                            FlagAtivo = true
+                        };
 
-                            _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+                        _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
 
-                            await _context.SaveChangesAsync(cancellationToken);
-                        }
+                        await _context.SaveChangesAsync(cancellationToken);
                     }
-                   
+
 
                     //Rn0039 - Ocorrência Atribuída
                     entityHistoricoRelato.DscAtribuicao = "Ocorrência Atribuída, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm");
@@ -136,7 +134,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                 {
                     return 0;
                 }
-                
+
             }
         }
 

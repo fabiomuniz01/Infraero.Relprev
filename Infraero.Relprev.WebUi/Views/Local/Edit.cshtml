@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "Local", FormMethod.Post))
+        @using (@Html.BeginForm("Edit", "Local", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -33,7 +33,10 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Local de Ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="DscLocal" class="form-control" placeholder="eg.: Descrição do  sub assunto relacionado as  ocorrências  " required maxlength="50">@Model.Local.DscLocal</textarea>
+                            <textarea type="text" rows="3" name="DscLocal" class="form-control"
+                                      placeholder="eg.: Nome do local da ocorrência cadastrado" 
+                                      title="Por favor informe o nome do local da ocorrência cadastrado" 
+                                      required maxlength="255">@Model.Local.DscLocal</textarea>
                             <label class="col-sm-3 control-label text-sm-right pt-2"></label>
                             <label class="col-sm-9 control-label text-sm-left pt-2"><span class="required">* Verificar orientações da empresa para cadastro do Local de Ocorrência</span></label>
                         </div>
@@ -62,7 +65,6 @@
     <script src="~/vendor/select2/js/select2.js"></script>
 
     <script>
-        // Select2
         (function ($) {
 
             'use strict';
@@ -90,6 +92,26 @@
             $select.on('change', function () {
                 $(this).trigger('blur');
             });
+
+            $("#form").validate({
+                highlight: function (label) {
+                    $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                success: function (label) {
+                    $(label).closest('.form-group').removeClass('has-error');
+                    label.remove();
+                },
+                errorPlacement: function (error, element) {
+                    var placement = element.closest('.input-group');
+                    if (!placement.get(0)) {
+                        placement = element;
+                    }
+                    if (error.text() !== '') {
+                        placement.after(error);
+                    }
+                }
+            });
+
 
         }).apply(this, [jQuery]);
         (function ($) {

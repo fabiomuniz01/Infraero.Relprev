@@ -39,10 +39,26 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var perfil = _context.
+                //Rn0101
+                if (request.UsuarioSgso)
+                {
+                    var entityResponsavelTecnico = new Domain.Entities.ResponsavelTecnico
+                    {
+                        NomResponsavelTecnico = request.NomUsuario,
+                        NumCpf = request.NumCpf,
+                        EndEmail = request.Email,
+                        NumTelefone = request.NumTelefone,
+                        CriadoPor = request.CriadoPor,
+                        CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                        CodEmpresa = request.CodEmpresa,
+                        FlagGestorSgso = true,
+                        DataCriacao = DateTime.Now
+                    };
 
+                    _context.ResponsavelTecnico.Add(entityResponsavelTecnico);
 
-                if(entity.CodPerfil == )
+                    await _context.SaveChangesAsync(cancellationToken);
+                }
 
                 return entity.CodUsuario;
             }
@@ -65,5 +81,6 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresa { get; set; }
         public string CodPerfil { get; set; }
+        public bool UsuarioSgso { get; set; }
     }
 }

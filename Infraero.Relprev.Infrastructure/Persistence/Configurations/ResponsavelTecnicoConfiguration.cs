@@ -53,6 +53,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasComment("Codigo sequencial da empresa");
 
+            builder.Property(t => t.FlagGestorSgso)
+                .HasColumnName("FLG_GESTOR_SGSO")
+                .HasComment("Flag gestor sgso site");
+
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO").HasComment("Usuário que realizou a inclusão");
             builder.Property(p => p.DataCriacao).HasColumnName("DTH_INCLUSAO").HasComment("Data da inclusão");

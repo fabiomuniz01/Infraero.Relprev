@@ -13,7 +13,6 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
     {
         [Key]
         public int CodAtribuicaoRelato { get; set; }
-        public int CodResponsavelTecnicoSgso { get; set; }
         public int CodResponsavelTecnico { get; set; }
         public int CodRelato { get; set; }
         public int CodSituacaoAtribuicao { get; set; }
