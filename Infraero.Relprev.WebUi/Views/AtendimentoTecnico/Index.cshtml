@@ -67,19 +67,31 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Empresa<span class="required">*</span></label>
+                        <div class="col-lg-7">
+                            <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
+                                    title="Por favor selecione uma empresa." required
+                                    asp-for="CodEmpresa"
+                                    asp-items="Model.ListEmpresa">
+                                <option value="">Selecionar uma empresa</option>
+                            </select>
+                        </div>
+                        
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico<span class="required">*</span></label>
                         <div class="col-lg-7">
                             <select class="form-control populate select2" name="ddlResponsavelTecnico" id="ddlResponsavelTecnico"
-                                    title="Por favor selecione uma responsável." required
+                                    title="Por favor selecione um responsável." required
                                     asp-for="CodResponsavel"
                                     asp-items="Model.ListResponsavel">
-                                <option value="">Selecionar Unidade de infraestrutura</option>
+                                <option value="">Selecionar um responsável</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn  btn-primary pull-left mr-2"  v-on:click="GetListRelato()">Pesquisar &nbsp;&nbsp;<i class="fa fa-search"></i></button>
+                            <button class="btn  btn-primary pull-left mr-2" v-on:click="GetListRelato()">Pesquisar &nbsp;&nbsp;<i class="fa fa-search"></i></button>
                         </div>
                     </div>
 
@@ -151,7 +163,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @*@foreach (var item in Model.ListRelato.aaData)
+                                    @foreach (var item in Model.ListRelato.aaData)
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>
@@ -181,7 +193,7 @@
                                                    class="on-default edit-row color" style='color:#777777'><i class="fa fa-users"></i></a>
                                             </td>
                                         </tr>
-                                    }*@
+                                    }
                                 </tbody>
                             </table>
 

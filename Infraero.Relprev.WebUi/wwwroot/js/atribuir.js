@@ -34,7 +34,7 @@ var vm = new Vue({
 
             $("#ddlEmpresa").change(function () {
 
-                var url = "../GetResponsavelByEmpresa";
+                var url = "../../AtribuirRespRelato/GetListResponsavelTecnicoByEmpresa";
 
                 var ddlSource = "#ddlEmpresa";
 
@@ -42,72 +42,47 @@ var vm = new Vue({
                     { id: $(ddlEmpresa).val() },
                     function (data) {
                         var items = '<option value="">Selecione o reponsável técnico</option>';
-                        $("#ddlResponsavel").empty;
+                        $("#ddlResponsavelTecnico").empty;
                         $.each(data,
                             function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
-                        $("#ddlResponsavel").html(items);
+                        $("#ddlResponsavelTecnico").html(items);
                     });
             });
-            $("#ddlAssunto").change(function () {
+          
 
-                var url = "../GetResponsavelByEmpresa";
+            (function ($) {
 
-                var ddlSource = "#ddlAssunto";
+                'use strict';
 
-                $.getJSON(url,
-                    { id: $(ddlSource).val() },
-                    function (data) {
-                        var items = '';
-                        $("#ddlResponsavel").empty;
-                        $.each(data,
-                            function (i, row) {
-                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
-                            });
-                        $("#ddlResponsavel").html(items);
-                    });
-            });
-
-            var datatableInit = function () {
-
-                $('#datatable-default').dataTable({
-                    dom: '<"row"<"col-lg-6"l><"col-lg-6"f>><"table-responsive"t>p',
-                    "searching": false,
-                    "lengthChange": false,
-                    "pageLength": 3,
-                    "language": {
-                        "sEmptyTable": "Nenhum registro encontrado",
-                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sInfoThousands": ".",
-                        "sLengthMenu": "_MENU_ resultados por página",
-                        "sLoadingRecords": "Carregando...",
-                        "sProcessing": "Processando...",
-                        "sZeroRecords": "Nenhum registro encontrado",
-                        "sSearch": "Pesquisar: ",
-                        "oPaginate": {
-                            "sNext": "Próximo →" +
-                                "" +
-                                "",
-                            "sPrevious": "← Anterior",
-                            "sFirst": "Primeiro",
-                            "sLast": "Último"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Ordenar colunas de forma ascendente",
-                            "sSortDescending": ": Ordenar colunas de forma descendente"
-                        }
-                    }
+                /*
+                Basic
+                */
+                $('.modal-basic').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
                 });
 
-            };
+                /*
+                Sizes
+                */
+                $('.modal-sizes').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    modal: true
+                });
 
-            $(function () {
-                datatableInit();
-            });
+                /*
+                Modal Dismiss
+                */
+                $(document).on('click', '.modal-dismiss', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                });
+
+            }).apply(this, [jQuery]);
 
 
 

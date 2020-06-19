@@ -5,6 +5,7 @@ using AutoMapper;
 using Infraero.Relprev.Application.Common.Mappings;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 
 namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos
 {
@@ -13,6 +14,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
         [Key]
         public int CodAtribuicaoRelato { get; set; }
         public int CodResponsavelTecnicoSgso { get; set; }
+        public int CodResponsavelTecnico { get; set; }
         public int CodRelato { get; set; }
         public int CodSituacaoAtribuicao { get; set; }
         public string DscParecerTecnico { get; set; }
@@ -22,6 +24,8 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
         public string ObsAtribuicao { get; set; }
         [ForeignKey("CodResponsavelTecnicoSgso")]
         public UsuarioDto ResponsavelTecnicoSgso { get; set; }
+        [ForeignKey("CodResponsavelTecnico")]
+        public ResponsavelTecnicoDto ResponsavelTecnico { get; set; }
         [ForeignKey("CodRelato")]
         public RelatoDto Relato { get; set; }
 

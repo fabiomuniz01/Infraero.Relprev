@@ -21,7 +21,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasColumnName("COD_RESPONSAVEL_SGSO")
                 .HasComment("Código do responsavel SGSO da atribuicao do relato");
 
-           builder.Property(t => t.CodRelato)
+            builder.Property(t => t.CodResponsavelTecnico)
+                 .HasColumnName("COD_RESPONSAVEL_TECNICO")
+                 .HasComment("Código do responsavel SGSO da atribuicao do relato");
+
+            builder.Property(t => t.CodRelato)
                 .HasColumnName("COD_RELATO")
                 .IsRequired()
                 .HasComment("Código sequencial do relato");
@@ -51,6 +55,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasColumnName("DSC_OBS_ATRIBUICAO")
                 .HasMaxLength(455)
                 .HasComment("Descrição da observação da atribuição");
+
+
 
 
             //BaseEntity

@@ -85,5 +85,21 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
 
         }
+
+        [HttpGet("GetAtribuicaoRelatoAll")]
+        public async Task<List<AtribuicaoRelatoDto>> GetAtribuicaoRelatoAll()
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetAtribuicaoRelatoAllQuery());
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
     }
 }
