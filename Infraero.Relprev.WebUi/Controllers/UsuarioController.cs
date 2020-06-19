@@ -85,6 +85,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+
                 var command = new CreateUsuarioCommand
                 {
 
@@ -98,6 +99,14 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodPerfil = collection["ddlPerfil"].ToString(),
                     CriadoPor = User.Identity.Name
                 };
+
+                var obj = ApiClientFactory.Instance.GetPerfilById(command.CodPerfil);
+
+                if (obj.NomPerfil == UserRoles.GestorSgsoSite)
+                {
+                    command.UsuarioSgso = true;
+                }
+
 
                 ApiClientFactory.Instance.CreateUsuario(command);
 

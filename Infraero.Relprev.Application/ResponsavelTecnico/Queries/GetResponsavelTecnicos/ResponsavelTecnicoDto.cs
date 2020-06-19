@@ -19,6 +19,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
         public int CodEmpresa { get; set; }
         public EmpresaDto Empresa { get; set; }
         public string DscEmpresa { get; set; }
+        public bool FlagGestorSgso { get; set; }
 
 
         public void Mapping(Profile profile)

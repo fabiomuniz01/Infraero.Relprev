@@ -10,7 +10,6 @@ namespace Infraero.Relprev.Domain.Entities
     {
         [Key]
         public int CodAtribuicaoRelato { get; set; }
-        public int CodResponsavelTecnicoSgso { get; set; }
         public int CodResponsavelTecnico { get; set; }
         public int CodRelato { get; set; }
         public int CodSituacaoAtribuicao { get; set; }
@@ -19,8 +18,6 @@ namespace Infraero.Relprev.Domain.Entities
         public DateTime DthAtribuicao { get; set; }
         public DateTime? DthFimAtendimento { get; set; }
         public string ObsAtribuicao { get; set; }
-        [ForeignKey("CodResponsavelTecnicoSgso")]
-        public Usuario ResponsavelTecnicoSgso { get; set; }
         [ForeignKey("CodResponsavelTecnico")]
         public ResponsavelTecnico ResponsavelTecnico { get; set; }
         [ForeignKey("CodRelato")]

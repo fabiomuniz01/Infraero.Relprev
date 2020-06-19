@@ -43,7 +43,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsav
                     var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
                     {
                         CodRelato = entity.CodRelato,
-                        CodResponsavelTecnicoSgso = request.CodResponsavelTecnico,
+                        CodResponsavelTecnico = request.CodResponsavelTecnico,
                         CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
                         DthAtribuicao = DateTime.Now,
                         CriadoPor = request.AlteradoPor,
