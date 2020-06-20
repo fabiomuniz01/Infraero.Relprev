@@ -91,7 +91,8 @@
 
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
-                                    title="Por favor selecione uma empresa." required
+                                    title="Por favor selecione uma empresa." required 
+                                    name="ddlEmpresa[]" multiple="multiple"
                                     asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
                                 <option value="">Selecionar Empresa</option>
                             </select>
