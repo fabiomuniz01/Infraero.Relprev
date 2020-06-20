@@ -61,7 +61,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             var model = new UsuarioModel
             {
-            ListUnidadeInfraestrutura = new SelectList(new List<UnidadeInfraEstruturaDto>(), "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                ListUnidadeInfraestrutura = new SelectList(new List<UnidadeInfraEstruturaDto>(), "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListEmpresa = new SelectList(resultEmpresa, "CodEmpresa", "NomRazaoSocial"),
                 ListPerfil = new SelectList(resultPerfil, "CodPerfil", "NomPerfil")
             };
@@ -106,7 +106,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                 {
                     command.UsuarioSgso = true;
                 }
-
 
                 ApiClientFactory.Instance.CreateUsuario(command);
 
@@ -241,20 +240,23 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Usuario", "Alterar")]
-        public JsonResult GetUsuarioByCpf(string cpf)
+        public async Task<JsonResult> GetUsuarioByCpf(string cpf)
         {
             try
             {
                 if (!string.IsNullOrEmpty(cpf))
                 {
-                    var result = ApiClientFactory.Instance.GetUsuarioByCpf(cpf);
+                    var result = await ApiClientFactory.Instance.GetUsuarioByCpf(cpf);
 
-                    throw new Exception(
-                        "Já existe um usuário cadastrado com esse cpf.");
+                    if (result)
+                    {
+                        throw new Exception("Já existe um usuário cadastrado com esse cpf.");
+                    }
+
+                    return Json(result);
                 }
 
-                throw new Exception(
-                    "Cpf não informado.");
+                throw new Exception("Cpf não informado.");
             }
             catch (Exception ex)
             {
@@ -263,6 +265,32 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
 
 
+        }
+
+        [ClaimsAuthorize("Usuario", "Consultar")]
+        public async Task<JsonResult> GetUsuarioByEmail(string email)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(email))
+                {
+                    var result = await ApiClientFactory.Instance.GetUsuarioByEmail(email);
+
+                    if (result)
+                    {
+                        throw new Exception("Já existe um usuário cadastrado com esse email.");
+                    }
+
+                    return Json(result);
+                }
+
+                throw new Exception("Email não informado.");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+
+            }
         }
     }
 }

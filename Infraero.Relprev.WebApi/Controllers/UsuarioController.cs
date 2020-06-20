@@ -201,17 +201,46 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
-        [HttpPost("GetUsuarioByCpf")]
-        public async Task<UsuarioDto> GetUsuarioByCpf([FromBody]string cpf)
+        [HttpGet("GetUsuarioByName/{name}")]
+        public async Task<WebProfileUser> GetUsuarioByName(string name)
         {
             try
             {
-                var result =  _db.Users.FirstOrDefault(user => user.Cpf == cpf);
-                return await Task.FromResult(result ==null? new UsuarioDto() : new UsuarioDto {CodUsuarioLogin = result.Id});
+                var result = await _userManager.FindByEmailAsync(name);
+                return result;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+        [HttpPost("GetUsuarioByCpf")]
+        public async Task<bool> GetUsuarioByCpf([FromBody]string cpf)
+        {
+            try
+            {
+                var result = _db.Users.Where(user => user.Cpf == cpf).Any();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("GetUsuarioByEmail")]
+        public async Task<bool> GetUsuarioByEmail(string email)
+        {
+            try
+            {
+                var result =  _db.Users.Where(user => user.Email == email).Any();
+                return result;
+            }
+            catch (Exception e)
+            {
                 throw;
             }
         }
