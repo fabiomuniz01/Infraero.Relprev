@@ -186,7 +186,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception ex)
             {
-                return View();
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
             }
         }
 
@@ -434,9 +434,9 @@ namespace Infraero.Relprev.WebUi.Controllers
             var message =
                 System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/EmailPadrao.html"));
 
-            message = message.Replace("%NAME%", atribuicao.ResponsavelTecnicoSgso.NomUsuario);
+            message = message.Replace("%NAME%", atribuicao.ResponsavelTecnico.NomResponsavelTecnico);
 
-            message = message.Replace("%TEXTO%", $"Um novo relato de prevenção foi  cadastrado em {atribuicao.Relato.DatOcorrencia}, " +
+            message = message.Replace("%TEXTO%", $"Um novo relato de prevenção foi cadastrado em {atribuicao.Relato.DatOcorrencia}, " +
                                                  $"às {atribuicao.Relato.HorOcorrencia}, sob o  nº {atribuicao.Relato.NumRelato}. " +
                                                  $"Solicitamos dar tratamento ao relato");
 
@@ -444,9 +444,9 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
 
-            if (!atribuicao.ResponsavelTecnicoSgso.Email.IsNullOrEmpty())
+            if (!atribuicao.ResponsavelTecnico.EndEmail.IsNullOrEmpty())
             {
-                await _emailSender.SendEmailAsync(atribuicao.ResponsavelTecnicoSgso.Email, "Novo relato de prevenção",
+                await _emailSender.SendEmailAsync(atribuicao.ResponsavelTecnico.EndEmail, "Novo relato de prevenção",
                     message);
             }
         }

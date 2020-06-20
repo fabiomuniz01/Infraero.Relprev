@@ -21,9 +21,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
         public DateTime DthAtribuicao { get; set; }
         public DateTime? DthFimAtendimento { get; set; }
         public string ObsAtribuicao { get; set; }
-        [ForeignKey("CodResponsavelTecnicoSgso")]
-        public UsuarioDto ResponsavelTecnicoSgso { get; set; }
-        [ForeignKey("CodResponsavelTecnico")]
+       [ForeignKey("CodResponsavelTecnico")]
         public ResponsavelTecnicoDto ResponsavelTecnico { get; set; }
         [ForeignKey("CodRelato")]
         public RelatoDto Relato { get; set; }

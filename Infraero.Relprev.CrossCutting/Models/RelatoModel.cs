@@ -29,7 +29,7 @@ namespace Infraero.Relprev.CrossCutting.Models
         public RelatoDto Relato { get; set; }
         public List<IFormFile> ListArquivo { get; set; }
         public List<RelatoArquivoDto> ListRelatoArquivo { get; set; }
-        public List<UsuarioDto> ListResponsavelTecnico { get; set; }
+        public List<ResponsavelTecnicoDto> ListResponsavelTecnico { get; set; }
         public IFormFile Arquivo { get; set; }
     }
 }
