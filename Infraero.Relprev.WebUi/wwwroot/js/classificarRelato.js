@@ -79,7 +79,7 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '';
+                        var items = '<option value="">Selecionar sub local</option>';
                         $("#ddlSubLocal").empty;
                         $.each(data,
                             function (i, row) {
@@ -98,7 +98,7 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '';
+                        var items = '<option value="">Selecionar sub assunto</option>';
                         $("#ddlSubAssunto").empty;
                         $.each(data,
                             function (i, row) {
