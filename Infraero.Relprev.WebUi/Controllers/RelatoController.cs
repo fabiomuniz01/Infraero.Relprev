@@ -71,7 +71,6 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("Relatos", "Consultar")]
         public IActionResult Index(int? crud, int? notify, string message = null)
         {
-
             SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridRelato();
@@ -406,8 +405,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubLocal = s.DscSubLocal
                 }).ToList();
 
-            listDdlSubLocal.Insert(0, new SubLocalDto { CodSubLocal = 0, DscSubLocal = "Selecione o sub local" });
-
             return Json(new SelectList(listDdlSubLocal, "CodSubLocal", "DscSubLocal"));
         }
         public JsonResult GetSubAssuntoByLocal(int id)
@@ -422,9 +419,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubAssunto = s.DscSubAssunto
                 }).ToList();
 
-            listDdlSubAssunto.Insert(0, new SubAssuntoDto { CodSubAssunto = 0, DscSubAssunto = "Selecione o sub assunto" });
-
-            return Json(new SelectList(listDdlSubAssunto, "CodSubAssunto", "DscSubAssunto"));
+           return Json(new SelectList(listDdlSubAssunto, "CodSubAssunto", "DscSubAssunto"));
         }
         private async Task SendRn0064Email(AtribuicaoRelatoDto atribuicao)
         {
@@ -574,8 +569,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                 texto = "Nenhum responsável técnico cadastrado nesse empresa";
             }
 
-            listResposavel.Insert(0, new ResponsavelTecnicoDto { CodResponsavelTecnico = 0, NomResponsavelTecnico = texto });
-
             return Json(new SelectList(listResposavel, "CodResponsavelTecnico", "NomResponsavelTecnico"));
         }
 
@@ -599,9 +592,5 @@ namespace Infraero.Relprev.WebUi.Controllers
             return Json(listDdlSubLocal);
 
         }
-
-
-
-
     }
 }

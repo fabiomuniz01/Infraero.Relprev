@@ -70,6 +70,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 Relato = obj,
                 ListEmpresa = new SelectList(resultListEmpresa, "CodEmpresa", "NomRazaoSocial"),
                 ListResponsavelTecnico = result
+              
             };
 
             return View(model);
