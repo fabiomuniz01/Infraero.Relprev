@@ -108,7 +108,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             ResponsavelTecnicoModel model = null;
 
-            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.Identity.Name);
+            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
