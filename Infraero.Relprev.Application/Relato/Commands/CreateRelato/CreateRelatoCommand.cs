@@ -102,6 +102,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
 
+
                     foreach (var usu in listUsuario)
                     {
                         var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato

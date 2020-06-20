@@ -63,9 +63,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
 
-            var result = resultResponsavel.Select(s => s.ResponsavelTecnicoSgso).ToList();
-
-
+            var result = resultResponsavel.Select(s => s.ResponsavelTecnico).ToList();
 
             model = new RelatoModel
             {
@@ -84,7 +82,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var result = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == id).ToList();
 
 
-          return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
+            return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
         }
 
     }
