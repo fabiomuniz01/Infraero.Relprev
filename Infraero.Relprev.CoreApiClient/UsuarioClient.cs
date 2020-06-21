@@ -4,6 +4,7 @@ using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.Application.Usuario.Commands.CreateUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.DeleteUsuario;
 using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
+using Infraero.Relprev.Infrastructure.Identity;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -57,12 +58,24 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceUsuario}/GetUsuarioById/{id}"));
             return Get<UsuarioDto>(requestUrl);
         }
+        public WebProfileUser GetUsuarioByName(string name)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceUsuario}/GetUsuarioByName/{name}"));
+            return Get<WebProfileUser>(requestUrl);
+        }
 
-        public Task<UsuarioDto> GetUsuarioByCpf(string cpf)
+        public Task<bool> GetUsuarioByCpf(string cpf)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceUsuario}/GetUsuarioByCpf"));
-            return PostAsync<UsuarioDto, string>(requestUrl, cpf);
+            return PostAsync<bool, string>(requestUrl, cpf);
+        }
+        public Task<bool> GetUsuarioByEmail(string email)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceUsuario}/GetUsuarioByEmail"));
+            return PostAsync<bool, string>(requestUrl, email);
         }
 
         #endregion

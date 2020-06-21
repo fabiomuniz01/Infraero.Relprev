@@ -49,5 +49,6 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
         public string NumDocumento { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresa { get; set; }
+        public string[] arrEmpresa { get; set; }
     }
 }

@@ -46,7 +46,10 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário"
+                                <input type="text" id="EndEmail" name="EndEmail"  
+                                       v-model="params.email"
+                                       v-on:blur="ExisteEmail"
+                                       class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário"
                                        maxlength="40"
                                        title="Por favor informe um endereço eletrônico válido do usuário" required />
                             </div>
