@@ -80,6 +80,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+                var listEmpresa = collection["ddlEmpresa[]"].ToArray();
                 var command = new CreateResponsavelTecnicoCommand
                 {
 
@@ -89,7 +90,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefone = collection["NumTelefone"].ToString(),
                     NumDocumento = collection["NumDocumento"].ToString(),
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    CodEmpresa = int.Parse(collection["ddlEmpresa"].ToString()),
+                    arrEmpresa = listEmpresa,
                     CriadoPor = User.Identity.Name
                 };
 
@@ -108,7 +109,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             ResponsavelTecnicoModel model = null;
 
-            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.Identity.Name);
+            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
@@ -127,8 +128,8 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             model = new ResponsavelTecnicoModel
             {
-                ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
-                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial"),
+                ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura", obj.CodUnidadeInfraestrutura),
+                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial", obj.CodEmpresa),
                 ResponsavelTecnico = obj
             };
 

@@ -2,7 +2,8 @@
     el: "#form",
     data: {
         params: {
-            cpf: ""
+            cpf: "",
+            email:""
         },
         loading: false
     },
@@ -164,6 +165,27 @@
             self.ShowLoad(true, "vUsuario");
 
             axios.get("GetUsuarioByCpf/?cpf=" + self.params.cpf).then(result => {
+
+                if (result.data !== false) {
+                    new PNotify({
+                        title: 'Usuario',
+                        text: result.data,
+                        type: 'error'
+                    });
+                }
+
+                self.ShowLoad(false, "vUsuario");
+
+            }).catch(error => {
+                Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
+                self.ShowLoad(false, "vUsuario");
+            });
+        },
+        ExisteEmail: function () {
+            var self = this;
+            self.ShowLoad(true, "vUsuario");
+
+            axios.get("GetUsuarioByEmail/?email=" + self.params.email).then(result => {
 
                 if (result.data !== false) {
                     new PNotify({

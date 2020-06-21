@@ -125,7 +125,7 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '';
+                        var items = '<option value="">Selecionar empresa</option>';
                         $("#ddlUnidadeInfraestrutura").empty;
                         $.each(data,
                             function (i, row) {
