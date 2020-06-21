@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
+using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRelato;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Enumerators;
@@ -70,20 +70,77 @@ namespace Infraero.Relprev.WebUi.Controllers
                 Relato = obj,
                 ListEmpresa = new SelectList(resultListEmpresa, "CodEmpresa", "NomRazaoSocial"),
                 ListResponsavelTecnico = result
-              
+
             };
 
             return View(model);
         }
 
+        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Cadastrar")]
+        [HttpPost]
+        public async Task<IActionResult> Index(IFormCollection collection)
+        {
+            try
+            {
+                var listResponsavelTecnico = new List<ResponsavelTecnicoDto>();
 
-        //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
+                foreach (var item in collection["ListCodResponsavel"].ToString().Split(","))
+                {
+                    if (item.Length > 0)
+                        listResponsavelTecnico.Add(ApiClientFactory.Instance.GetResponsavelTecnicoById(Convert.ToInt32(item)));
+                }
+
+                foreach (var ItemResponsavel in listResponsavelTecnico)
+                {
+                    if (!ItemResponsavel.FlagGestorSgso)
+                    {
+                        var command = new CreateAtribuicaoRelatoCommand
+                        {
+                            CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                            FlgStatusRelato = (int)EnumStatusRelato.AguardandoParecerTecnico,
+                            CodResponsavelTecnico = ItemResponsavel.CodResponsavelTecnico,
+                            DscAtribuicao = "Ocorrência Atribuída, em " + DateTime.Now.ToString("dd / MM / yyyy") + "," + DateTime.Now.ToString("hh:mm"),
+                            CriadoPor = User.Identity.Name,
+                            AlteradoPor = User.Identity.Name
+                        };
+
+                        var idRelato = await ApiClientFactory.Instance.CreateAtribuicaoRelato(command);
+                    }
+
+                }
+
+
+
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Index), new { message = "Erro" });
+            }
+        }
+
+        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public JsonResult GetListResponsavelTecnicoByEmpresa(int id)
         {
             var result = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == id).ToList();
 
-
             return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
+        }
+
+        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
+        public JsonResult GetListResponsavelTecnicoByRelato(int id)
+        {
+            var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
+
+            return Json(resultResponsavel.Select(s => new AtribuirRespRelatoModel
+            {
+                CodEmpresa = s.ResponsavelTecnico.Empresa.CodEmpresa.ToString(),
+                NomeEmpresa = s.ResponsavelTecnico.Empresa.NomRazaoSocial,
+                CodResponsavel = s.CodResponsavelTecnico.ToString(),
+                NomeResponsavel = s.ResponsavelTecnico.NomResponsavelTecnico
+            }
+            ).ToList());
         }
 
     }

@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>
                                     <td>@Html.DisplayFor(modelItem => item.StatusRelato)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
+                                    <td>@item.DatOcorrencia.ToShortDateString()</td>
                                     <td>@Html.DisplayFor(modelItem => item.HorOcorrencia)</td>
                                     <td class="actions">
                                         @if (item.FlgStatusRelato == (int)EnumStatusRelato.NaoIniciado)

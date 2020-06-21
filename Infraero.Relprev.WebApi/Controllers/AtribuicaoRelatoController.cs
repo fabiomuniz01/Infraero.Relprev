@@ -50,12 +50,12 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpPost("CreateAtribuicaoRelato")]
-        public async Task<ActionResult<long>> CreateRelato(CreateAtribuicaoRelatoCommand command)
+        public async Task<ActionResult<bool>> CreateAtribuicaoRelato(CreateAtribuicaoRelatoCommand command)
         {
             try
             {
 
-                var unidade = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = (int)command.CodUnidadeInfraestrutura });
+                //var unidade = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = (int)command.CodUnidadeInfraestrutura });
 
                 var result = await Mediator.Send(command);
 

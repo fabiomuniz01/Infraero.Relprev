@@ -63,23 +63,41 @@
             $select.on('change', function () {
                 $(this).trigger('blur');
             });
+            $("#ddlEmpresa").change(function () {
 
-            $("#ddlUnidadeInfraestrutura").change(function () {
+                var url = "../AtendimentoTecnico/GetListResponsavelTecnicoByEmpresa";
 
-                var url = "../AtendimentoTecnico/GetListResponsavelTecnicoByUnidade";
-                
-                var ddlSource = "#ddlUnidadeInfraestrutura";
+                var ddlSource = "#ddlEmpresa";
 
                 $.getJSON(url,
-                    { id: $(ddlSource).val() },
+                    { id: $(ddlEmpresa).val() },
                     function (data) {
-                        var items = '<option value="">Selecionar responsável técnico</option>';
+                        var items = '<option value="">Selecionar responsávelo técnico</option>';
                         $("#ddlResponsavelTecnico").empty;
                         $.each(data,
                             function (i, row) {
                                 items += "<option value='" + row.value + "'>" + row.text + "</option>";
                             });
                         $("#ddlResponsavelTecnico").html(items);
+                    });
+            });
+
+            $("#ddlUnidadeInfraestrutura").change(function () {
+
+                var url = "../AtendimentoTecnico/GetListEmpresaByUnidae";
+                
+                var ddlSource = "#ddlUnidadeInfraestrutura";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function (data) {
+                        var items = '<option value="">Selecionar empresa</option>';
+                        $("#ddlEmpresa").empty;
+                        $.each(data,
+                            function (i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlEmpresa").html(items);
                     });
             });
 

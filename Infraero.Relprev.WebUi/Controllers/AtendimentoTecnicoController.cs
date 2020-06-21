@@ -81,7 +81,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 response.aaData = response.aaData.Where(x => x.FlgStatusRelato == Convert.ToInt32(collection["rdoStatus"].ToString())).ToList();
 
             
-
+           
 
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
@@ -102,17 +102,31 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         #region Metodos publicos
 
-        
+        //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
+        public JsonResult GetListResponsavelTecnicoByEmpresa(int id)
+        {
+            var result = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == id).ToList();
+
+            return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
+        }
+
 
         //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
-        public JsonResult GetListResponsavelTecnicoByUnidade(int id)
+        public JsonResult GetListEmpresaByUnidae(int id)
         {
-            var result = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(id);
+            var resultVinculoUnidadeEmpresa = ApiClientFactory.Instance.GetVinculoUnidadeEmpresaAll();
 
-            
+            var resultListEmpresa = resultVinculoUnidadeEmpresa
+                .Where(x => x.CodUnidadeInfraestrutura == id)
+                .Select(s => new EmpresaDto
+                {
+                    CodEmpresa = s.CodEmpresa,
+                    NomRazaoSocial = s.NomEmpresa
+                }).ToList();
+
             //result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidade = "", DscCodUnidadeDescricao = "Selecionar Unidade de infraestrutura" });
 
-            return Json(new SelectList(null, "CodUnidadeInfraestrutura", "DscCodUnidadeDescricao"));
+            return Json(new SelectList(resultListEmpresa, "CodEmpresa", "NomRazaoSocial"));
         }
 
         #endregion

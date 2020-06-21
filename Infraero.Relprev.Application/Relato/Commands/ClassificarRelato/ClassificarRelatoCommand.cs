@@ -35,8 +35,6 @@ namespace Infraero.Relprev.Application.Relato.Commands.ClassificarRelato
             {
                 try
                 {
-
-
                     var entity = await _context.Relato.FindAsync(request.CodRelato);
 
                     if (entity == null)

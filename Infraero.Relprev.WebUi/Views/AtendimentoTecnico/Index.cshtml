@@ -168,7 +168,7 @@
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>
                                             <td>@Html.DisplayFor(modelItem => item.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.DatOcorrencia)</td>
+                                            <td>@item.DatOcorrencia.ToShortDateString()</td>
                                             <td>@Html.DisplayFor(modelItem => item.DscOcorrenciaRelator)</td>
                                             <td>@Html.DisplayFor(modelItem => item.StatusRelato)</td>
                                             <th class="text-center">Ações</th>
