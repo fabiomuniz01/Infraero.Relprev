@@ -49,6 +49,9 @@ namespace Infraero.Relprev.WebUi
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RelprevDbConnectionString")));
 
+            //services.AddDbContext<ApplicationDbContextPg>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("RelprevDbConnectionString")));
+
 
 
             /*****
@@ -87,6 +90,7 @@ namespace Infraero.Relprev.WebUi
                 .AddRoles<IdentityRole>()
                 //.AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+                //.AddEntityFrameworkStores<ApplicationDbContextPg>();
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -1,29 +1,27 @@
-﻿using Infraero.Relprev.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Infraero.Relprev.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
 {
-    
-
-    public class SubAssuntoConfiguration : IEntityTypeConfiguration<SubAssunto>
+    class VinculoResponsavelEmpresaConfiguration : IEntityTypeConfiguration<VinculoResponsavelEmpresa>
     {
-        public void Configure(EntityTypeBuilder<SubAssunto> builder)
+        public void Configure(EntityTypeBuilder<VinculoResponsavelEmpresa> builder)
         {
-            builder.ToTable("CAD_SUBASSUNTO");
+            builder.ToTable("CAD_VINCULO_RESPONSAVEL_EMPRESA");
 
-            builder.Property(t => t.CodSubAssunto)
-                .HasColumnName("SEQ_SUBASSUNTO")
+            builder.Property(t => t.CodVinculoResponsavelEmpresa)
+                .HasColumnName("SEQ_VINCULO_RESPONSAVEL_EMPRESA")
                 .IsRequired();//.HasComment("Sequencial da tabela");
 
-            builder.Property(t => t.DscSubAssunto)
-                .HasColumnName("DSC_SUBASSUNTO")
-                .HasMaxLength(255)
-                .IsRequired();//.HasComment("Descrição do subassunto");
-            builder.Property(t => t.CodAssunto)
-                .HasColumnName("COD_ASSUNTO")
-                .IsRequired();//.HasComment("Código sequencial do subassunto");
+            builder.Property(t => t.CodEmpresa)
+                .HasColumnName("COD_EMPRESA");//.HasComment("Sequencial da tabela empresa");
 
+            builder.Property(t => t.CodResponsavelTecnico)
+                .HasColumnName("COD_RESPONSAVEL_TECNICO");//.HasComment("Sequencial da tabela responsavel tecnico");
 
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");//.HasComment("Usuário que realizou a inclusão");
