@@ -164,17 +164,17 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico<span class="required">*</span></label>
                         <div class="col-lg-7">
                             @*@if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
-            {
-                <select class="form-control populate select2" name="ddlResponsavelTecnico" id="ddlResponsavelTecnico"
-                        title="Por favor selecione uma empresa." required multiple
-                        asp-for="CodResponsavel" asp-items="Model.ListResponsavel">
-                    <option value="">Selecionar Responsável técnico</option>
-                </select>
-            }
-            else
-            {
+                                {
+                                    <select class="form-control populate select2" name="ddlResponsavelTecnico" id="ddlResponsavelTecnico"
+                                            title="Por favor selecione uma empresa." required multiple
+                                            asp-for="CodResponsavel" asp-items="Model.ListResponsavel">
+                                        <option value="">Selecionar Responsável técnico</option>
+                                    </select>
+                                }
+                                else
+                                {
 
-            }*@
+                                }*@
                             <select class="form-control populate select2" id="ddlResponsavelTecnico"
                                     name="ddlResponsavelTecnico[]" multiple="multiple"
                                     title="Por favor selecione um responsável." required
@@ -185,7 +185,7 @@
                         </div>
                         <div class="col-sm-2">
                             @*<button class="btn  btn-primary pull-left mr-2" v-on:click="GetListRelato()">Pesquisar &nbsp;&nbsp;<i class="fa fa-search"></i></button>*@
-                            <a href="#" class="btn  btn-primary pull-left mr-2" v-on:click="Adicionar">Adicionar &nbsp;&nbsp;<i class="fa fa-plus"></i></a>
+                            <a href="#" class="btn  btn-primary pull-left mr-2" id="adicionar" v-on:click="Adicionar">Adicionar &nbsp;&nbsp;<i class="fa fa-plus"></i></a>
                         </div>
                         <input type="hidden" id="ListCodResponsavel" name="ListCodResponsavel">
                     </div>
@@ -213,9 +213,8 @@
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left mr-2">Enviar &nbsp;&nbsp;<i class="fa fa-paper-plane"></i></button>
-                            <a href="#" class="btn btn-danger pull-left mr-2">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></a>
-                            @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
+                            <a href="@Url.Action("Enviar", "AtribuirRespRelato", new {id = Model.Relato.CodRelato} )" class="btn  btn-success pull-left mr-2">Enviar &nbsp;&nbsp;<i class="fa fa-paper-plane"></i></a>
+                            <a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
                         </div>
                     </div>
@@ -247,11 +246,11 @@
                 $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
             }
 
-            
+
 
         }).apply(this, [jQuery]);
-       
-        
+
+
 
     </script>
 }
