@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRelato;
+using Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuicaoRelato;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Enumerators;
@@ -107,6 +108,33 @@ namespace Infraero.Relprev.WebUi.Controllers
                         var idRelato = await ApiClientFactory.Instance.CreateAtribuicaoRelato(command);
                     }
 
+                }
+
+
+
+
+                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Index), new { message = "Erro" });
+            }
+        }
+
+        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Cadastrar")]
+        [HttpPost]
+        public async Task<IActionResult> Enviar(int id)
+        {
+            try
+            {
+                await ApiClientFactory.Instance.UpdateAtribuicaoEnvioRelato(new UpdateAtribuicaoEnvioRelatoCommand{CodRelato=id});
+
+
+
+                var listAtribuicao = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id).Select(s=>!s.FlagAtivo);
+
+                foreach (var item in listAtribuicao)
+                {
                 }
 
 
