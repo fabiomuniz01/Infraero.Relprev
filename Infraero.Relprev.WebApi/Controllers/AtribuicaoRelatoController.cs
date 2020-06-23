@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRelato;
+using Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiucaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuicaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 
@@ -32,6 +33,7 @@ namespace Infraero.Relprev.WebApi.Controllers
             _db = db;
             _roleManager = roleManager;
         }
+
         [HttpPost("AtribuirResponsavelTecnico")]
         public async Task<ActionResult<long>> AtribuirResponsavelTecnico(CreateResponsavelTecnicoCommand command)
         {
@@ -49,6 +51,7 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
+
         [HttpPost("CreateAtribuicaoRelato")]
         public async Task<ActionResult<bool>> CreateAtribuicaoRelato(CreateAtribuicaoRelatoCommand command)
         {
@@ -56,6 +59,42 @@ namespace Infraero.Relprev.WebApi.Controllers
             {
 
                 //var unidade = await Mediator.Send(new GetUnidadeInfraEstruturaByIdQuery { CodUnidadeInfraestrutura = (int)command.CodUnidadeInfraestrutura });
+
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+       
+        [HttpPost("DeleteAtribuicaoRelato")]
+        public async Task<ActionResult<long>> DeleteAtribuicaoRelato(DeleteAtribiucaoRelatoCommand command)
+        {
+            try
+            {
+
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+        [HttpPost("UpdateAtribuicaoRelato")]
+        public async Task<ActionResult<bool>> UpdateAtribuicaoRelato(UpdateAtribuicaoRelatoCommand command)
+        {
+            try
+            {
 
                 var result = await Mediator.Send(command);
 

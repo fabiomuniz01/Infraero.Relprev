@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Persistence\Migrations\20200526030727_Relprev004-ntit.cs" />
     <Compile Remove="Persistence\Migrations\20200526030727_Relprev004-ntit.Designer.cs" />
   </ItemGroup>

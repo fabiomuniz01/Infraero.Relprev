@@ -22,25 +22,44 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuica
             {
                 var entity = await _context.AtribuicaoRelato.FindAsync(request.CodAtribuicaoRelato);
 
-                if (entity == null)
-                {
-                    throw new NotFoundException(nameof(Domain.Entities.AtribuicaoRelato), request.CodUnidadeInfraestrutura);
-                }
 
-                
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
+                entity.FlagAtivo = true;
 
+                await _context.SaveChangesAsync(cancellationToken);
+
+                //Rn0033 - Ocorrencia Não Iniciada
+                var entityHistoricoRelato = new Domain.Entities.HistoricoRelato
+                {
+                    CodRelato = entity.CodRelato,
+                    DscAtribuicao  = "Ocorrência Atribuída, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
+                    CriadoPor = request.AlteradoPor,
+                    DataCriacao = DateTime.Now
+                };
+
+                _context.HistoricoRelato.Add(entityHistoricoRelato);
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                var entityRelato = await _context.Relato.FindAsync(entity.CodRelato);
+
+                if (entity == null)
+                {
+                    throw new NotFoundException(nameof(Domain.Entities.Relato), entity.CodRelato);
+                }
+                entityRelato.AlteradoPor = request.AlteradoPor;
+                entityRelato.DataAlteracao = DateTime.Now;
+                entityRelato.FlgStatusRelato = request.FlgStatusRelato;
+
+                _context.Relato.Update(entityRelato);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return true;
             }
         }
 
-        public string DscAtribuicaoRelato { get; set; }
-
-        public int CodUnidadeInfraestrutura { get; set; }
-
+        public int FlgStatusRelato { get; set; }
         public string AlteradoPor { get; set; }
         public int CodAtribuicaoRelato { get; set; }
     }
