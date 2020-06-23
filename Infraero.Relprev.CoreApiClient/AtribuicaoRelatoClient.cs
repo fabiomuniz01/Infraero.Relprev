@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuicaoRelato;
-//using Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribuicaoRelato;
+using Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiucaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 
 
@@ -27,13 +27,13 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceAtribuicaoRelato}/UpdateAtribuicaoRelato"));
             return Post(requestUrl, command);
         }
-        //public Task<long> DeleteAtribuicaoRelato(DeleteAtribuicaoRelatoCommand command)
-        //{
-        //    var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-        //        $"{ResourceAtribuicaoRelato}/DeleteAtribuicaoRelato"));
-        //    return Post(requestUrl, command);
+        public Task<long> DeleteAtribuicaoRelato(DeleteAtribiucaoRelatoCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceAtribuicaoRelato}/DeleteAtribuicaoRelato"));
+            return Post(requestUrl, command);
 
-        //}
+        }
         public Task<long> AtribuirResponsavelTecnico(CreateResponsavelTecnicoCommand command)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,

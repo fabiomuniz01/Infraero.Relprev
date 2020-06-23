@@ -36,15 +36,11 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiuca
 
                     var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
                     {
-                        CodAtribuicaoRelato = request.CodAtribuicao,
-                        CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
-                        DthAtribuicao = DateTime.Now,
-                        CriadoPor = request.AlteradoPor,
-                        DataCriacao = DateTime.Now,
-                        FlagAtivo = false
+                        CodAtribuicaoRelato = request.CodAtribuicao
+                       
                     };
 
-                    _context.AtribuicaoRelato.Add(entityAtribuicaoRelato);
+                    _context.AtribuicaoRelato.Remove(entityAtribuicaoRelato);
 
                     await _context.SaveChangesAsync(cancellationToken);
                     
@@ -57,9 +53,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiuca
             }
         }
         public int CodAtribuicao { get; set; }
-        public int CodUnidadeInfraestrutura { get; set; }
-        public string AlteradoPor { get; set; }
-        public int CodSituacaoAtribuicao { get; set; }
+       
        
     }
 }
