@@ -64,8 +64,13 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceAtribuicaoRelato}/GetAtribuicaoByIdRelato/{id}"));
             return Get<List<AtribuicaoRelatoDto>>(requestUrl);
         }
-        
 
+        public Task<long> UpdateAtribuicaoEnvioRelato(UpdateAtribuicaoEnvioRelatoCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceAtribuicaoRelato}/UpdateAtribuicaoRelato"));
+            return Post(requestUrl, command);
+        }
 
         #endregion
 
