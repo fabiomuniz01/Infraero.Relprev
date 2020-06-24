@@ -68,7 +68,7 @@ namespace Infraero.Relprev.WebApi.Controllers
             try
             {
 
-                var result = await Mediator.Send(new GetResponsavelTecnicoByIdEmpresaQuery { Id = id, GestorSgSO = Convert.ToBoolean(EnumGestorSGSO.NaoGestorSGSO) });
+                var result = await Mediator.Send(new GetResponsavelTecnicoByIdEmpresaQuery { Id = id });
                 return result;
             }
             catch (Exception e)
