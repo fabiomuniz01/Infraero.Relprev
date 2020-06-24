@@ -1,9 +1,5 @@
-﻿@using System.Security.Claims
-@using Infraero.Relprev.Infrastructure.Identity
-@using Infraero.Relprev.WebUi.Services
-@using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
-@model Infraero.Relprev.CrossCutting.Models.RelatoModel
+﻿@using Microsoft.AspNetCore.Authorization
+@model Infraero.Relprev.CrossCutting.Models.AtribuirRespRelatoModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -203,8 +199,8 @@
                                 @foreach (var item in Model.ListResponsavelTecnico)
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.NomeEmpresa)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.NomeResponsavel)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ResponsavelTecnico.Empresa.NomRazaoSocial)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ResponsavelTecnico.NomResponsavelTecnico)</td>
                                         <td class="actions">
                                             <a data-toggle="tooltip" data-placement="top" title="Remover" asp-action="Delete" asp-controller="AtribuirRespRelato" asp-route-idRelato="@Model.Relato.CodRelato" asp-route-idEmpresa ="@item.CodEmpresa" asp-route-idResponsavel = "@item.CodResponsavel" class="on-default remove-row" style='color: #191C21'><i class="fa fa-trash"></i></a>
                                         </td>
