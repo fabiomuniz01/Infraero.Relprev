@@ -195,7 +195,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public JsonResult GetListResponsavelTecnicoByEmpresa(int idEmpresa, int idRelato)
         {
-            var resultResponsavel = ApiClientFactory.Instance.GetResponsavelTecnicoByIdEmpresa(idEmpresa);
+            var resultResponsavel = ApiClientFactory.Instance.GetResponsavelTecnicoByIdEmpresa(idEmpresa).Select(s=>s.CodResponsavelTecnico);
 
             var resultResponsavelAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(idRelato)
                 .Where(a => resultResponsavel.Contains(a.CodResponsavelTecnico));
