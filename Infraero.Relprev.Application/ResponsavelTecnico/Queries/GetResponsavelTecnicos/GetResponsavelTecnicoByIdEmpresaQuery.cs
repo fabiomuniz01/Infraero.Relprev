@@ -32,7 +32,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
                 try
                 {
                     var responseModel = await _context.ResponsavelTecnico
-                        .Where(r=>r.Empresa.CodEmpresa==request.Id && r.FlagGestorSgso==request.GestorSgSO)
+                        .Where(r=>r.Empresa.CodEmpresa==request.Id && r.FlagGestorSgso==false)
                         .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.NomResponsavelTecnico)
                         .ToListAsync(cancellationToken);
