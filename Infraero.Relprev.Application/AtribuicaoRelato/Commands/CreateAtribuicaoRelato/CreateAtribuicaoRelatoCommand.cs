@@ -35,6 +35,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuica
                         CodRelato = request.CodRelato,
                         CodResponsavelTecnico = request.CodResponsavelTecnico,
                         CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                        //CodUsuarioAtribuidor = request.CodUsuarioAtribuidor
                         DthAtribuicao = DateTime.Now,
                         CriadoPor = request.CriadoPor,
                         DataCriacao = DateTime.Now,

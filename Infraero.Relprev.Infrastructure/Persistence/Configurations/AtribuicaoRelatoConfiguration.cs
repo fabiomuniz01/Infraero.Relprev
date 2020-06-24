@@ -31,7 +31,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasMaxLength(455);//.HasComment("Descrição do parecer técnico");
 
             builder.Property(t => t.CodUsuarioAtribuidor)
-                .HasColumnName("COD_USUARIO_ATRIBUIDOR");//.HasComment("Código sequencial do usuário atribuidor. OBS: caso valor nulo, usuario atribuidor igual a SistemaRelprev");
+                .HasColumnName("COD_USUARIO_ATRIBUIDOR")
+                .HasMaxLength(455);//.HasComment("Código sequencial do usuário atribuidor. OBS: caso valor nulo, usuario atribuidor igual a SistemaRelprev");
 
             builder.Property(t => t.DthAtribuicao)
                 .HasColumnName("DTH_ATRIBUICAO");//.HasComment("Data Hora da atribuição");

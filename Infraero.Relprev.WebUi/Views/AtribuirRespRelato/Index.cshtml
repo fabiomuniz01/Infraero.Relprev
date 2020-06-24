@@ -202,7 +202,11 @@
                                         <td>@Html.DisplayFor(modelItem => item.ResponsavelTecnico.Empresa.NomRazaoSocial)</td>
                                         <td>@Html.DisplayFor(modelItem => item.ResponsavelTecnico.NomResponsavelTecnico)</td>
                                         <td class="actions">
-                                            <a data-toggle="tooltip" data-placement="top" title="Remover" asp-action="Delete" asp-controller="AtribuirRespRelato" asp-route-idRelato="@Model.Relato.CodRelato" asp-route-idEmpresa ="@item.ResponsavelTecnico.CodEmpresa" asp-route-idResponsavel = "@item.ResponsavelTecnico.CodResponsavelTecnico" class="on-default remove-row" style='color: #191C21'><i class="fa fa-trash"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Remover" asp-action="Delete" asp-controller="AtribuirRespRelato"
+                                               asp-route-idRelato="@Model.Relato.CodRelato" asp-route-idEmpresa="@item.ResponsavelTecnico.CodEmpresa"
+                                               asp-route-idResponsavel="@item.ResponsavelTecnico.CodResponsavelTecnico" class="on-default remove-row" style="color: #d43f3a">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -271,19 +275,19 @@ Theme Version: 	2.0.0
             if (crud===1) {
                 new PNotify({
                     title: 'Atribuição',
-                    text: 'Responsável atribuído com sucesso!',
+                    text: 'Cadastro realizado com sucesso!',
                     type: 'success'
                 });
             }else if (crud === 2) {
                 new PNotify({
                     title: 'Atribuição',
-                    text: 'Responsável atribuído com sucesso.',
+                    text: 'Dados alterados com sucesso.',
                     type: 'warning'
                 });
             }else if (crud === 3) {
                 new PNotify({
                     title: 'Atribuição',
-                    text: 'Responsável excluído com sucesso.',
+                    text: 'Registro excluído com sucesso.',
                     type: 'error'
                 });
             }
