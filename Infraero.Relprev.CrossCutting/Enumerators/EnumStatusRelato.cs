@@ -16,7 +16,9 @@ namespace Infraero.Relprev.CrossCutting.Enumerators
         AguardandoComplemento = 4,
         [Description("Finalizado")]
         Finalizado = 5,
-        [Description("Ocorrência classificada")]
-        Ocorrenciaclassificada = 6
+        [Description("Ocorrência Classificada")]
+        Ocorrenciaclassificada = 6,
+        [Description("Ocorrência Atribuída")]
+        Atribuido = 7
     }
 }

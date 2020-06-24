@@ -21,7 +21,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.FinalizeRelato
                 _context = context;
             }
 
-            public async Task<long> Handle(FinalizeRelatoCommand request, CancellationToken FinalizelationToken)
+            public async Task<long> Handle(FinalizeRelatoCommand request, CancellationToken cancellationToken)
             {
                 var entity = await _context.Relato.FindAsync(request.CodRelato);
 
@@ -29,18 +29,18 @@ namespace Infraero.Relprev.Application.Relato.Commands.FinalizeRelato
                 entity.FlgStatusRelato = request.FlgStatusRelato;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
-                await _context.SaveChangesAsync(FinalizelationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
                 var entityHistorico = await _context.HistoricoRelato
                     .Where(x => x.CodRelato == entity.CodRelato)
-                    .FirstOrDefaultAsync(FinalizelationToken);
+                    .FirstOrDefaultAsync(cancellationToken);
 
                 //Rn0041 - Ocorrência Finalizada 
                 entityHistorico.DscFinalizacao = request.DscFinalizacao;
                 entityHistorico.AlteradoPor = request.AlteradoPor;
                 entityHistorico.DataAlteracao = DateTime.Now;
 
-                await _context.SaveChangesAsync(FinalizelationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
                 return entity.CodRelato;
             }

@@ -18,6 +18,7 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
 using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
+using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 
 namespace Infraero.Relprev.WebApi.Controllers
 {
@@ -235,6 +236,24 @@ namespace Infraero.Relprev.WebApi.Controllers
 
                 command.CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuida;
 
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+        
+        [HttpPost("UpdateRelatoAtribuido")]
+        public async Task<ActionResult<bool>> UpdateRelatoAtribuido(UpdateRelatoAtribuidoCommand command)
+        {
+            try
+            {
                 var result = await Mediator.Send(command);
 
                 return result;

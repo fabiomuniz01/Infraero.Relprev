@@ -1,9 +1,19 @@
-﻿@model Infraero.Relprev.Application.Perfil.Queries.GetPerfils.GridPerfil
+﻿@using System.Security.Claims
+@using Infraero.Relprev.Infrastructure.Identity
+@using Infraero.Relprev.WebUi.Services
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@model Infraero.Relprev.Application.Perfil.Queries.GetPerfils.GridPerfil
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    var userRole = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role).Value;
 
+    var requirement = new UserInRoleRequirement(userRole);
+
+}
 
 <div class="row">
     <div class="col-lg-12">
@@ -40,7 +50,12 @@
                                     <td>@Html.DisplayFor(modelItem => item.NomPerfil)</td>
                                     <td class="actions">
                                         <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Perfil" asp-route-id="@item.CodPerfil" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
-                                        <a data-toggle="tooltip" data-placement="top" title="Excluir"asp-action="Delete" asp-controller="Perfil" asp-route-id="@item.CodPerfil"  class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+
+                                        @if (item.NomPerfil != UserRoles.Administrator)
+                                        {
+                                            <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="Delete" asp-controller="Perfil" asp-route-id="@item.CodPerfil" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                        }
+
                                     </td>
                                 </tr>
                             }
