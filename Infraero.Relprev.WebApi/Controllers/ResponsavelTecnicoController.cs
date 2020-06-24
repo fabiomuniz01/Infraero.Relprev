@@ -5,6 +5,7 @@ using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavel
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.CrossCutting.Enumerators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Infraero.Relprev.WebApi.Controllers
@@ -50,6 +51,24 @@ namespace Infraero.Relprev.WebApi.Controllers
             try
             {
                 var result = await Mediator.Send(new GetResponsavelTecnicoByIdQuery { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+
+        [HttpGet("GetResponsavelTecnicoByIdEmpresa/{id}")]
+        public async Task<List<ResponsavelTecnicoDto>> GetResponsavelTecnicoByIdEmpresa(int id)
+        {
+            try
+            {
+
+                var result = await Mediator.Send(new GetResponsavelTecnicoByIdEmpresaQuery { Id = id, GestorSgSO = Convert.ToBoolean(EnumGestorSGSO.NaoGestorSGSO) });
                 return result;
             }
             catch (Exception e)
