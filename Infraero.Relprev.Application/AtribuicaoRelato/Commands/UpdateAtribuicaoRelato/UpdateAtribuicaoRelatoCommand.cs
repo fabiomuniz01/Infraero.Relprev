@@ -29,7 +29,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuica
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                //Rn0033 - Ocorrencia Não Iniciada
+                //Rn0033 - Ocorrencia Atribuída
                 var entityHistoricoRelato = new Domain.Entities.HistoricoRelato
                 {
                     CodRelato = entity.CodRelato,

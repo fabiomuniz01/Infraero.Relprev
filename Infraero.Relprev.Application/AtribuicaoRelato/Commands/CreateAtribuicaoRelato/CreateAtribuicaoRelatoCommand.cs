@@ -60,5 +60,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuica
         public int CodResponsavelTecnico { get; set; }
         public string CriadoPor { get; set; }
         public bool FlagAtivo { get; set; }
+        public int FlgStatusRelato { get; set; }
+        public string DscAtribuicao { get; set; }
     }
 }

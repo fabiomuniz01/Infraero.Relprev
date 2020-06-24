@@ -7,6 +7,7 @@ using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRel
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiucaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuicaoRelato;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
+using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
@@ -95,36 +96,44 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                var listResponsavelTecnico = new List<ResponsavelTecnicoDto>();
+                var listResponsavel = collection["ddlResponsavelTecnico[]"];
 
-                foreach (var item in collection["ListCodResponsavel"].ToString().Split(","))
+                foreach (var resp in listResponsavel)
                 {
-                    if (item.Length > 0)
-                        listResponsavelTecnico.Add(ApiClientFactory.Instance.GetResponsavelTecnicoById(Convert.ToInt32(item)));
-                }
+                    var responsavel = ApiClientFactory.Instance.GetResponsavelTecnicoById(Convert.ToInt32(resp));
 
-                foreach (var ItemResponsavel in listResponsavelTecnico)
-                {
-                    if (!ItemResponsavel.FlagGestorSgso)
+                    if (!responsavel.FlagGestorSgso)
                     {
                         var command = new CreateAtribuicaoRelatoCommand
                         {
                             CodRelato = int.Parse(collection["CodRelato"].ToString()),
-                            CodResponsavelTecnico = ItemResponsavel.CodResponsavelTecnico,
+                            CodResponsavelTecnico = Convert.ToInt32(resp),
                             CriadoPor = User.Identity.Name,
-                            FlagAtivo = false
+                            FlagAtivo = false,
+                            
                         };
 
-                        var idRelato = await ApiClientFactory.Instance.CreateAtribuicaoRelato(command);
+                        await ApiClientFactory.Instance.CreateAtribuicaoRelato(command);
                     }
-
                 }
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+                var commandUpdateRelato = new UpdateRelatoAtribuidoCommand
+                {
+                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                    //Rn0039 Ocorrência Atribuída
+                    FlgStatusRelato = (int) EnumStatusRelato.Atribuido,
+                    DscAtribuicao = "Ocorrência Atribuída, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " +
+                                    DateTime.Now.ToString("hh:mm"),
+                    AlteradoPor = User.Identity.Name
+                };
+
+                await ApiClientFactory.Instance.UpdateRelatoAtribuido(commandUpdateRelato);
+
+                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Success, id= int.Parse(collection["CodRelato"].ToString()), message="Relato atribuído com sucesso" });
             }
             catch (Exception ex)
             {
-                return RedirectToAction(nameof(Index), new { message = "Erro" });
+                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, id = int.Parse(collection["CodRelato"].ToString()), message = ex.Message });
             }
         }
 
