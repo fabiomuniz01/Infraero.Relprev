@@ -43,7 +43,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public async Task<ActionResult> Index(int id, int? crud, int? notify, string message = null)
         {
-            RelatoModel model = null;
+            AtribuirRespRelatoModel model = null;
 
             SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
@@ -66,25 +66,13 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NomRazaoSocial = s.NomEmpresa
                 }).ToList();
 
-            var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id).Where(a => a.ResponsavelTecnico.FlagGestorSgso == false).ToList();
+            var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id).Where(a => a.ResponsavelTecnico.FlagGestorSgso == false);
 
-
-
-            var result = resultResponsavel.Select(s => new AtribuirRespRelatoModel
-            {
-                CodEmpresa = s.ResponsavelTecnico.Empresa.CodEmpresa.ToString(),
-                NomeEmpresa = s.ResponsavelTecnico.Empresa.NomRazaoSocial,
-                CodResponsavel = s.CodResponsavelTecnico.ToString(),
-                NomeResponsavel = s.ResponsavelTecnico.NomResponsavelTecnico
-            }
-            ).ToList();
-
-            model = new RelatoModel
+            model = new AtribuirRespRelatoModel
             {
                 Relato = obj,
                 ListEmpresa = new SelectList(resultListEmpresa, "CodEmpresa", "NomRazaoSocial"),
-                ListResponsavelTecnico = result
-
+                ListResponsavelTecnico = resultResponsavel.ToList()
             };
 
             return View(model);
@@ -204,31 +192,11 @@ namespace Infraero.Relprev.WebUi.Controllers
         //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public JsonResult GetListResponsavelTecnicoByEmpresa(int idEmpresa, int idRelato)
         {
-            var resultResponsavel = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == idEmpresa && r.FlagGestorSgso == false).ToList();
+            var resultResponsavel = ApiClientFactory.Instance.GetResponsavelByIdEmpresa(idEmpresa).Select(s=>s.CodResponsavel);
 
             var resultResponsavelAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(idRelato)
-                .Where(a => a.ResponsavelTecnico.Empresa.CodEmpresa == idEmpresa)
+                .Where(a => resultResponsavel.Contains(a.CodResponsavelTecnico))
                 .ToList();
-
-
-            if (resultResponsavel.Count > 0)
-            {
-
-                foreach (var atribuido in resultResponsavelAtribuido)
-                {
-                    for (int i = 0; i < resultResponsavel.Count; i++)
-                    {
-                        if (resultResponsavel[i].CodResponsavelTecnico == atribuido.ResponsavelTecnico.CodResponsavelTecnico)
-                        {
-                            resultResponsavel.RemoveAt(i);
-                            i--;
-
-                        }
-                    }
-                }
-
-            }
-
 
             return Json(new SelectList(resultResponsavel, "CodResponsavelTecnico", "NomResponsavelTecnico"));
         }
