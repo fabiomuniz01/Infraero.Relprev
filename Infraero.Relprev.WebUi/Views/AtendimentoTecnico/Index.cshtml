@@ -41,13 +41,13 @@
                                     <i class="fa fa-calendar"></i>
                                 </span>
 
-                                <input id="DtStart" name="DtStart" 
+                                <input id="DtStart" name="DtStart"
                                        title="Por favor informe a data início da ocorrência."
                                        style="z-index: auto;"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
                                        placeholder="Data início do período" class="form-control startdate">
                                 <span class="input-group-addon">até</span>
-                                <input id="DtEnd" name="DtEnd" 
+                                <input id="DtEnd" name="DtEnd"
                                        title="Por favor informe a data fim da ocorrência."
                                        style="z-index: auto;"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
@@ -55,7 +55,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-7">
@@ -77,9 +76,8 @@
                                 <option value="">Selecionar uma empresa</option>
                             </select>
                         </div>
-                        
-                    </div>
 
+                    </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Responsável Técnico<span class="required">*</span></label>
                         <div class="col-lg-7">
@@ -94,10 +92,6 @@
                             <button class="btn  btn-primary pull-left mr-2" v-on:click="GetListRelato()">Pesquisar &nbsp;&nbsp;<i class="fa fa-search"></i></button>
                         </div>
                     </div>
-
-
-
-
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
@@ -105,8 +99,6 @@
 
                         </div>
                     </div>
-
-
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Situação dos Relatos<span class="required">*</span></label>
                         <div class="col-sm-8">
@@ -147,7 +139,6 @@
 
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
@@ -163,7 +154,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.ListRelato.aaData)
+                                    @foreach (var item in Model.ListRelato)
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.NumRelato)</td>

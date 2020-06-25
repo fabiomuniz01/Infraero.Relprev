@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
-using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+
+using Infraero.Relprev.CoreApiClient;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
@@ -15,6 +17,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
+using Infraero.Relprev.Application.AtendimentoTecnico.Queries.GetAtendimentoTecnico;
+using Newtonsoft.Json;
+using System.Text;
+using System.Net.Http;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -29,7 +35,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
         public ActionResult Index()
         {
-            var response = ApiClientFactory.Instance.GetGridRelato();
+            var response = ApiClientFactory.Instance.GetRelatoAll();
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
             var model = new AtendimentoTecnicoModel()
@@ -41,57 +47,70 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             return View(model);
         }
+
         [HttpPost]
-        public ActionResult Index(IFormCollection collection)
+        public async Task<ActionResult> Index(IFormCollection collection)
         {
+            List<RelatoDto> ObjListRelato = new List<RelatoDto>();
             var response = ApiClientFactory.Instance.GetGridRelato();
 
-            if (!collection["ddlResponsavelTecnico"].ToString().IsNullOrEmpty())
-            {
-                var CodResponsavel = Convert.ToInt32(collection["ddlResponsavelTecnico"].ToString());
-                var responseRelatoResp = ApiClientFactory.Instance.GetAtribuicaoRelatoAll().Where(a=>a.ResponsavelTecnico.CodResponsavelTecnico == CodResponsavel).ToList();
-                response.aaData = responseRelatoResp.Select(r =>
-                                new RelatoDto
-                                {
-                                    CodRelato = r.Relato.CodRelato,
-                                    NumRelato=r.Relato.NumRelato,
-                                    FlgStatusRelato=r.Relato.FlgStatusRelato,
-                                    UnidadeInfraestrutura =r.Relato.UnidadeInfraestrutura,
-                                    DatOcorrencia = r.Relato.DatOcorrencia,
-                                    DscOcorrenciaRelator =r.Relato.DscOcorrenciaRelator,
-                                    StatusRelato = r.Relato.StatusRelato
-                                    
-                                }).ToList();
-            }
+            //if (!collection["ddlResponsavelTecnico"].ToString().IsNullOrEmpty())
+            //{
+            //    var CodResponsavel = Convert.ToInt32(collection["ddlResponsavelTecnico"].ToString());
+            //    var responseRelatoResp = ApiClientFactory.Instance.GetAtribuicaoRelatoByIdResponsavel(CodResponsavel);
 
-            if (!collection["NumRelato"].ToString().IsNullOrEmpty())
-                response.aaData = response.aaData.Where(x => x.NumRelato == collection["NumRelato"].ToString()).ToList();
+            //    foreach (var Item in responseRelatoResp)
+            //    {
+            //        ObjListRelato.Add(ApiClientFactory.Instance.GetRelatoById(Item.CodRelato));
 
+            //    }
+            //}
 
+            //if (!collection["NumRelato"].ToString().IsNullOrEmpty())
+            //{
+            //    ObjListRelato.Add(ApiClientFactory.Instance.GetRelatoByNumRelato(collection["NumRelato"].ToString()));
 
-            if (!collection["DtOcorrenciaInicio"].ToString().IsNullOrEmpty() && !collection["DtOcorrenciaFim"].ToString().IsNullOrEmpty())
-            {
-                response.aaData = response.aaData.Where(x => x.DatOcorrencia >= Convert.ToDateTime(collection["DtOcorrenciaInicio"].ToString())
-               && x.DatOcorrencia <= Convert.ToDateTime(collection["DtOcorrenciaFim"].ToString())
-               ).ToList();
-            }
+            //}
+
+            //if (!collection["rdoStatus"].ToString().IsNullOrEmpty())
+            //{
+            //    ObjListRelato = ApiClientFactory.Instance.GetRelatoByStatus(Convert.ToInt32(collection["rdoStatus"].ToString()));
+
+            //}
+
+            //if (!collection["DtStart"].ToString().IsNullOrEmpty() && !collection["DtEnd"].ToString().IsNullOrEmpty())
+            //{
+
+            //    DateTime DataInicio = Convert.ToDateTime(collection["DtStart"].ToString());
+            //    DateTime DataFim = Convert.ToDateTime(collection["DtEnd"].ToString());
+
+            //    ObjListRelato = ApiClientFactory.Instance.GetRelatoByDate(DataInicio, DataFim);
+            //}
+
            
-
-            if (!collection["rdoStatus"].ToString().IsNullOrEmpty())
-                response.aaData = response.aaData.Where(x => x.FlgStatusRelato == Convert.ToInt32(collection["rdoStatus"].ToString())).ToList();
-
             
-           
+            var atendimentorequet = new AtendimentoTecnicoDto.AtendimentoTecnicoRequest            {
+                
+                NumRelato = collection["NumRelato"].ToString(),
+                CodResponsavelTecnico = collection["ddlResponsavelTecnico"].ToString()
+            };
 
+
+            var relatos = new AtendimentoTecnicoDto.AtendimentoTecnicoResponse
+            {
+                ListRelato = await ApiClientFactory.Instance.GetAtendimentoTecnico(atendimentorequet)
+            };
+
+            //var relatos = await ApiClientFactory.Instance.GetAtendimentoTecnico(atendimento);
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
             var model = new AtendimentoTecnicoModel()
             {
                 ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListResponsavel = new SelectList(new List<ResponsavelTecnicoDto>(), "CodResponsavelTecnico", "NomResponsavelTecnico"),
-                ListRelato = response,
+                ListRelato = relatos.ListRelato,
                 NumRelato = collection["NumRelato"].ToString(),
-                DtOcorrenciaInicio= collection["DtOcorrenciaInicio"].ToString(),
+                DtOcorrenciaInicio = collection["DtOcorrenciaInicio"].ToString(),
                 DtOcorrenciaFim = collection["DtOcorrenciaFim"].ToString()
 
             };
@@ -105,7 +124,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         //[ClaimsAuthorize("AtendimentoTecnico", "Consultar")]
         public JsonResult GetListResponsavelTecnicoByEmpresa(int id)
         {
-            var result = ApiClientFactory.Instance.GetResponsavelTecnicoAll().Where(r => r.CodEmpresa == id).ToList();
+            var result = ApiClientFactory.Instance.GetResponsavelTecnicoByIdEmpresa(id);
 
             return Json(new SelectList(result, "CodResponsavelTecnico", "NomResponsavelTecnico"));
         }

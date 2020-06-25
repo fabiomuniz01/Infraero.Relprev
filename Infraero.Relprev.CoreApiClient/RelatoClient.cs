@@ -10,6 +10,7 @@ using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
+using System;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -63,6 +64,13 @@ namespace Infraero.Relprev.CoreApiClient
 
         #region Methods
 
+        public List<RelatoDto> GetRelatoAll()
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/GetRelatoAll/"));
+            return Get<List<RelatoDto>>(requestUrl);
+        }
+
         public RelatoDto GetRelatoById(int id)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
@@ -76,6 +84,14 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceRelato}/GetRelatoByNumRelato/{id}"));
             return Get<RelatoDto>(requestUrl);
         }
+
+        public List<RelatoDto> GetRelatoByStatus(int id)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/GetRelatoByStatus/{id}"));
+            return Get<List<RelatoDto>>(requestUrl);
+        }
+
         #endregion
 
     }

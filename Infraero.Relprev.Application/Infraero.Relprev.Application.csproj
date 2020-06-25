@@ -28,6 +28,7 @@
     <ProjectReference Include="..\Infraero.Relprev.Domain\Infraero.Relprev.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AtendimentoTecnico\Commands\SelectAtendimentoTecnico\" />
     <Folder Include="Common\Mappings\" />
   </ItemGroup>
   <ItemGroup>
