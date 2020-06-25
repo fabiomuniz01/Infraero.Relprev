@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRelato;
@@ -25,6 +26,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
+using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -43,7 +45,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             ApplicationSettings.WebApiUrl = _appSettings.Value.WebApiBaseUrl;
         }
 
-        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
+        [ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public async Task<ActionResult> Index(int id, int? crud, int? notify, string message = null)
         {
             AtribuirRespRelatoModel model = null;
@@ -81,7 +83,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             return View(model);
         }
 
-        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Cadastrar")]
+        [ClaimsAuthorize("AtribuirResponsavelRelato", "Incluir")]
         [HttpPost]
         public async Task<IActionResult> Index(IFormCollection collection)
         {
@@ -99,6 +101,8 @@ namespace Infraero.Relprev.WebUi.Controllers
                         {
                             CodRelato = int.Parse(collection["CodRelato"].ToString()),
                             CodResponsavelTecnico = Convert.ToInt32(resp),
+                            CodSituacaoAtribuicao = (int) EnumSituacaoAtribuicao.OcorrenciaAtribuida,
+                            CodUsuarioAtribuidor = User.FindFirst(ClaimTypes.NameIdentifier).Value,
                             CriadoPor = User.Identity.Name,
                             FlagAtivo = false,
                             
@@ -131,7 +135,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
 
-        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Cadastrar")]
+        [ClaimsAuthorize("AtribuirResponsavelRelato", "Excluir")]
         public async Task<IActionResult> Delete(string idRelato, string idEmpresa, string idResponsavel)
         {
             try
@@ -160,7 +164,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Cadastrar")]
+        [ClaimsAuthorize("AtribuirResponsavelRelato", "Enviar")]
         public async Task<IActionResult> Enviar(int id)
         {
             try
@@ -192,7 +196,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        //[ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
+        [ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public JsonResult GetListResponsavelTecnicoByEmpresa(int idEmpresa, int idRelato)
         {
             var resultResponsavel = ApiClientFactory.Instance.GetResponsavelTecnicoByIdEmpresa(idEmpresa);
@@ -213,7 +217,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         private async Task SendRn0038Email(AtribuicaoRelatoDto atribuicao)
         {
             var callbackUrl = Url.Page(
-                "/Relato/Edit/" + atribuicao.CodRelato);
+                "/Relato/Index/" + atribuicao.CodRelato);
 
             var message = System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "emailtemplates/EmailPadrao.html"));
 
