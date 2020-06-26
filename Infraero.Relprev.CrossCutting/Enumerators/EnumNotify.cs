@@ -2,8 +2,8 @@
 {
     public enum EnumNotify
     {
+        Success = 0,
         Warning = 1,
-        Error = 2,
-        Success = 3
+        Error = 2
     }
 }

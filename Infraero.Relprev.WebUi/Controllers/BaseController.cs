@@ -42,6 +42,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             switch (notify)
             {
+                case (int)EnumNotify.Success:
+                    ViewBag.NotifyMessage = (int)EnumNotify.Success;
+                    ViewBag.Notify = message;
+                    break;
                 case (int)EnumNotify.Error:
                     ViewBag.NotifyMessage = (int)EnumNotify.Error;
                     ViewBag.Notify = message;

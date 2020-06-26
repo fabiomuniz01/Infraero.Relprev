@@ -30,6 +30,17 @@ namespace Infraero.Relprev.Application.Relato.Commands.UpdateRelato
                     throw new NotFoundException(nameof(Domain.Entities.Relato), request.CodUnidadeInfraestrutura);
                 }
 
+                var listAtribuicao = await _context.AtribuicaoRelato
+                    .Where(x => x.CodRelato == request.CodRelato)
+                    .OrderBy(t => t.CodAtribuicaoRelato)
+                    .ToListAsync(cancellationToken);
+
+                foreach (var atribuicaoRelato in listAtribuicao)
+                {
+                    //atribuicaoRelato.CodUsuarioAtribuidor = 
+                }
+
+
                 entity.FlgStatusRelato = request.FlgStatusRelato;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;

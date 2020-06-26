@@ -35,6 +35,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuica
                         CodRelato = request.CodRelato,
                         CodResponsavelTecnico = request.CodResponsavelTecnico,
                         CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
+                        CodUsuarioAtribuidor = request.CodUsuarioAtribuidor,
                         DthAtribuicao = DateTime.Now,
                         CriadoPor = request.CriadoPor,
                         DataCriacao = DateTime.Now,
@@ -54,7 +55,9 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuica
                 }
             }
         }
-        
+
+        public string CodUsuarioAtribuidor { get; set; }
+
         public int CodRelato { get; set; }
         public int CodSituacaoAtribuicao { get; set; }
         public int CodResponsavelTecnico { get; set; }
