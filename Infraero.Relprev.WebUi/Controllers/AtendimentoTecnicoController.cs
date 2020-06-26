@@ -89,26 +89,22 @@ namespace Infraero.Relprev.WebUi.Controllers
 
            
             
-            var atendimentorequet = new AtendimentoTecnicoDto.AtendimentoTecnicoRequest            {
+            var obj = new AtendimentoRequest {
                 
                 NumRelato = collection["NumRelato"].ToString(),
-                CodResponsavelTecnico = collection["ddlResponsavelTecnico"].ToString()
+                CodResponsavelTecnico = Convert.ToInt32(collection["ddlResponsavelTecnico"].ToString())
             };
 
 
-            var relatos = new AtendimentoTecnicoDto.AtendimentoTecnicoResponse
-            {
-                ListRelato = await ApiClientFactory.Instance.GetAtendimentoTecnico(atendimentorequet)
-            };
+            var listRelato = await ApiClientFactory.Instance.GetAtendimentoTecnico(obj);
 
-            //var relatos = await ApiClientFactory.Instance.GetAtendimentoTecnico(atendimento);
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
             var model = new AtendimentoTecnicoModel()
             {
                 ListUnidadeInfraestrutura = new SelectList(resultUnidade, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListResponsavel = new SelectList(new List<ResponsavelTecnicoDto>(), "CodResponsavelTecnico", "NomResponsavelTecnico"),
-                ListRelato = relatos.ListRelato,
+                ListRelato = listRelato,
                 NumRelato = collection["NumRelato"].ToString(),
                 DtOcorrenciaInicio = collection["DtOcorrenciaInicio"].ToString(),
                 DtOcorrenciaFim = collection["DtOcorrenciaFim"].ToString()

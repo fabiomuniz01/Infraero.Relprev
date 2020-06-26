@@ -15,25 +15,13 @@ namespace Infraero.Relprev.CoreApiClient
 
         #region Main Methods
 
-        public Task<List<RelatoDto>> GetAtendimentoTecnico(AtendimentoTecnicoDto.AtendimentoTecnicoRequest obj)
+        public Task<List<RelatoDto>> GetAtendimentoTecnico(AtendimentoRequest obj)
         {
-            var json = JsonConvert.SerializeObject(obj);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceAtendimentoTecnico}/GetAtendimentoTecnico"));
             
-            return PostAsync<List<RelatoDto>, AtendimentoTecnicoDto.AtendimentoTecnicoRequest>(requestUrl, obj);
-            
+            return PostAsync<List<RelatoDto>, AtendimentoRequest>(requestUrl, obj);
         }
-
-        //public Task<ResponsavelTecnicoDto> GetResponsavelByCpf(string cpf)
-        //{
-        //    var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-        //        $"{ResourceResponsavelTecnico}/GetResponsavelByCpf"));
-        //    return PostAsync<ResponsavelTecnicoDto, string>(requestUrl, cpf);
-        //}
-
 
         #endregion
 
