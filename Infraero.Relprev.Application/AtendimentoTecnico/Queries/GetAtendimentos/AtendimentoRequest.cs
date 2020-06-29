@@ -10,8 +10,8 @@ namespace Infraero.Relprev.Application.AtendimentoTecnico.Queries.GetAtendimento
             public string NumRelato { get; set; }
             public int CodResponsavelTecnico { get; set; }
             public string FlgStatusRelato { get; set; }
-            public string DtIniOcorrencia { get; set; }
-            public string DtFimOcorrencia { get; set; }
+            public string DtOcorrenciaInicio { get; set; }
+            public string DtOcorrenciaFim { get; set; }
     }
 
     

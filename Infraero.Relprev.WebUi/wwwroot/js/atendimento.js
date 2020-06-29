@@ -26,18 +26,18 @@
             }
 
             //os campos de frontend deve ter os mesmos nomes da entity.cs
-            var $DtOcorrencia = $("#DtStart");
+            var $DtOcorrencia = $("#DtOcorrenciaInicio");
             $DtOcorrencia.mask('00/00/0000', { reverse: false });
-            $('#DtStart').datepicker({
+            $('#DtOcorrenciaInicio').datepicker({
                 format: "dd/mm/yyyy",
                 todayBtn: "linked",
                 language: "pt-BR",
                 orientation: "bottom left",
                 autoclose: true
             });
-            var $DtOcorrencia = $("#DtEnd");
+            var $DtOcorrencia = $("#DtOcorrenciaFim");
             $DtOcorrencia.mask('00/00/0000', { reverse: false });
-            $('#DtEnd').datepicker({
+            $('#DtOcorrenciaFim').datepicker({
                 format: "dd/mm/yyyy",
                 todayBtn: "linked",
                 language: "pt-BR",
