@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 
 namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
 {
@@ -20,15 +23,19 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment _host;
         private readonly UserManager<WebProfileUser> _userManager;
+        private readonly IOptions<ParametersModel> _parameters;
 
         public ForgotPasswordModel(UserManager<WebProfileUser> userManager, IEmailSender emailSender,
             IHostingEnvironment host,
-            ApplicationDbContext db)
+            ApplicationDbContext db,
+            IOptions<ParametersModel> parameters
+            )
         {
             _userManager = userManager;
             _emailSender = emailSender;
             _host = host;
             _db = db;
+            _parameters = parameters;
         }
 
         [BindProperty] public InputModel Input { get; set; }
@@ -68,6 +75,10 @@ namespace Infraero.Relprev.WebUi.Areas.Identity.Pages.Account
             var message =
                 System.IO.File.ReadAllText(Path.Combine(_host.WebRootPath, "emailtemplates/ForgotPassword.html"));
             message = message.Replace("%NAME%", user.Nome);
+            message = message.Replace("%SITE%", "https://relprev.dvt.infraero.gov.br");
+            message = message.Replace("%TEMPOTOKEN%", _parameters.Value.TokenTime.ToString());
+            message = message.Replace("%HORA%", DateTime.Now.ToString("hh:mm"));
+            message = message.Replace("%DATA%", DateTime.Now.ToString("dd/MM/yyyy"));
             message = message.Replace("%CALLBACK%", HtmlEncoder.Default.Encode(callbackUrl));
 
 
