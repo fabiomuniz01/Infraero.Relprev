@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Infraero.Relprev.WebUi.Configuration;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
@@ -25,6 +26,8 @@ namespace Infraero.Relprev.WebUi.Services
             myMessage.From = new EmailAddress(_settings.FromEmail, _settings.FromName);
             myMessage.Subject = subject;
             myMessage.HtmlContent = htmlMessage;
+
+            var credentials = new NetworkCredential()
 
             var transportWeb = new SendGridClient(apiKey);
             await transportWeb.SendEmailAsync(myMessage);
