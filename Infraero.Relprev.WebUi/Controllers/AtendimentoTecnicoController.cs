@@ -76,7 +76,6 @@ namespace Infraero.Relprev.WebUi.Controllers
                 NumRelato = obj.NumRelato,
                 DtOcorrenciaInicio = obj.DtOcorrenciaInicio,
                 DtOcorrenciaFim = obj.DtOcorrenciaFim
-
             };
 
             return View(model);
