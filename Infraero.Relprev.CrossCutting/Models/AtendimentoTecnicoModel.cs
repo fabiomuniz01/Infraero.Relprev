@@ -14,7 +14,7 @@ namespace Infraero.Relprev.CrossCutting.Models
         public SelectList ListEmpresa { get; set; }
         public int CodResponsavel { get; set; }
         public SelectList ListResponsavel { get; set; }
-        public GridRelato ListRelato { get; set; }
+        public List<RelatoDto> ListRelato { get; set; }
         public string NumRelato { get; set; }
         public string DtOcorrenciaInicio { get; set; }
         public string DtOcorrenciaFim { get; set; }

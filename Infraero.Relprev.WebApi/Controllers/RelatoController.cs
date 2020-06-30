@@ -33,6 +33,7 @@ namespace Infraero.Relprev.WebApi.Controllers
             _db = db;
             _roleManager = roleManager;
         }
+
         [HttpPost("ClassificarRelato")]
         public async Task<ActionResult<bool>> ClassificarRelato(ClassificarRelatoCommand command)
         {
@@ -132,6 +133,22 @@ namespace Infraero.Relprev.WebApi.Controllers
             try
             {
                 var result = await Mediator.Send(new GetRelatoByIdQuery { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+        [HttpGet("GetRelatoByStatus/{id}")]
+        public async Task<List<RelatoDto>> GetRelatoByStatus(int id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetRelatoByStatusQuery { Id = id });
                 return result;
             }
             catch (Exception e)

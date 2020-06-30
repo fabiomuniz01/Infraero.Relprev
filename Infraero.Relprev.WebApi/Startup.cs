@@ -45,7 +45,13 @@ namespace Infraero.Relprev.WebApi
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
 
-            services.AddControllers();
+            services.AddControllers().ConfigureApiBehaviorOptions(options =>
+            {
+                options.SuppressConsumesConstraintForFormFileParameters = true;
+                options.SuppressInferBindingSourcesForParameters = true;
+                options.SuppressModelStateInvalidFilter = true;
+                options.SuppressMapClientErrors = true;
+            });
 
             services.AddApplication();
 

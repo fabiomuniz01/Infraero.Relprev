@@ -25,7 +25,7 @@
 
             }
 
-
+            //os campos de frontend deve ter os mesmos nomes da entity.cs
             var $DtOcorrencia = $("#DtStart");
             $DtOcorrencia.mask('00/00/0000', { reverse: false });
             $('#DtStart').datepicker({
@@ -72,7 +72,7 @@
                 $.getJSON(url,
                     { id: $(ddlEmpresa).val() },
                     function (data) {
-                        var items = '<option value="">Selecionar responsávelo técnico</option>';
+                        var items = '<option value="">Selecionar um responsável</option>';
                         $("#ddlResponsavelTecnico").empty;
                         $.each(data,
                             function (i, row) {
@@ -91,7 +91,7 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '<option value="">Selecionar empresa</option>';
+                        var items = '<option value="">Selecionar uma empresa</option>';
                         $("#ddlEmpresa").empty;
                         $.each(data,
                             function (i, row) {
@@ -142,29 +142,6 @@
                 $("#" + el).addClass("loading-overlay-showing");
                 self.loading = flag;
             }
-        }
-        ,
-        GetUnidadeBySigla: function (event) {
-            var self = this;
-            self.ShowLoad(true, "vUnidade");
-
-            axios.get("GetUnidadeBySigla/?sigla=" + self.params.sigla).then(result => {
-
-                if (result.data.dep_codigo === undefined) {
-                    new PNotify({
-                        title: 'Atendimento Técnico',
-                        text: result.data,
-                        type: 'error'
-                    });
-                } else {
-                    self.UnidadeInfraEstruturaDto.Dependencia = result.data;
-                }
-                self.ShowLoad(false, "vAtendimento");
-
-            }).catch(error => {
-                Site.Notification("Erro ao buscar e analisar dados", error.response.data, "error", 1);
-                self.ShowLoad(false, "vAtendimento");
-            });
         }
     }
 });
