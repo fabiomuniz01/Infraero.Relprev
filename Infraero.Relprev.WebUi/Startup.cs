@@ -113,8 +113,6 @@ namespace Infraero.Relprev.WebUi
                 options.User.RequireUniqueEmail = false;
             });
 
-
-
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
@@ -127,9 +125,15 @@ namespace Infraero.Relprev.WebUi
                 options.SlidingExpiration = true;
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
-
-
             });
+
+            services.Configure<ParametersModel>(Configuration.GetSection("RelprevParameters"));
+            
+            var config = Configuration.GetSection("RelprevParameters").Get<ParametersModel>();
+
+            //sets the amount of time a generated token remains valid. PS: Defaults to 1 day.
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+                options.TokenLifespan = TimeSpan.FromMinutes(config.TokenTime));
 
             // Register email service. Configured in appsettings.json
             services.AddTransient<IEmailSender, SendGridEmailService>();
