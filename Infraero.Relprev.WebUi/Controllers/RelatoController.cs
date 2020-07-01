@@ -35,7 +35,6 @@ using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
-using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
 using Infraero.Relprev.Application.ConfigurarAmbiente.Commands.CreateConfigurarAmbiente;
 using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
@@ -557,7 +556,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var listResposavel = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
 
             listResposavel = listResposavel
-                .Where(x => x.Empresa.CodEmpresa == id)
+                //.Where(x => x.Empresa.CodEmpresa == id)
                 .Select(s => new ResponsavelTecnicoDto
                 {
                     CodResponsavelTecnico = s.CodResponsavelTecnico,

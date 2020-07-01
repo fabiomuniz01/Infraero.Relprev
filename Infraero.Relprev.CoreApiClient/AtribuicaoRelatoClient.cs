@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuicaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiucaoRelato;
@@ -33,12 +32,6 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceAtribuicaoRelato}/DeleteAtribuicaoRelato"));
             return Post(requestUrl, command);
 
-        }
-        public Task<long> AtribuirResponsavelTecnico(CreateResponsavelTecnicoCommand command)
-        {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceAtribuicaoRelato}/AtribuirResponsavelTecnico"));
-            return Post(requestUrl, command);
         }
 
         public List<AtribuicaoRelatoDto> GetAtribuicaoRelatoAll()

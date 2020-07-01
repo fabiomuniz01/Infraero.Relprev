@@ -17,6 +17,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasColumnName("SEQ_VINCULO_RESPONSAVEL_EMPRESA")
                 .IsRequired();//.HasComment("Sequencial da tabela");
 
+            builder.Property(t => t.CodUnidadeInfraestrutura)
+                .HasColumnName("COD_UNIDADE_INFRAESTRUTURA");//.HasComment("Sequencial da tabela unidade de infraestrutura");
+
             builder.Property(t => t.CodEmpresa)
                 .HasColumnName("COD_EMPRESA");//.HasComment("Sequencial da tabela empresa");
 
