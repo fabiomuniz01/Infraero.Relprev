@@ -30,12 +30,13 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
             {
                 try
                 {
-                    var responseModel = await Queryable.Where(_context.AtribuicaoRelato, x=>x.CodRelato==request.Id)
+                    var responseModel = await Queryable
+                        .Where(_context.AtribuicaoRelato, x => x.CodRelato == request.Id)
                         .ProjectTo<AtribuicaoRelatoDto>(_mapper.ConfigurationProvider)
                         .OrderBy(t => t.CodAtribuicaoRelato)
                         .ToListAsync(cancellationToken);
 
-                    
+
                     return responseModel;
                 }
                 catch (Exception e)
@@ -43,7 +44,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
                     Console.WriteLine(e);
                     throw;
                 }
-                
+
             }
         }
 

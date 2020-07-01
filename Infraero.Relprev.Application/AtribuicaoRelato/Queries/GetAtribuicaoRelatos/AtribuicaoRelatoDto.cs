@@ -17,7 +17,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
         public int CodRelato { get; set; }
         public int CodSituacaoAtribuicao { get; set; }
         public string DscParecerTecnico { get; set; }
-        public int CodUsuarioAtribuidor { get; set; }
+        public string CodUsuarioAtribuidor { get; set; }
         public DateTime DthAtribuicao { get; set; }
         public DateTime? DthFimAtendimento { get; set; }
         public string ObsAtribuicao { get; set; }

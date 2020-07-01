@@ -107,6 +107,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                     {
                         var entityAtribuicaoRelato = new Domain.Entities.AtribuicaoRelato
                         {
+                            CodUsuarioAtribuidor = request.CodUsuarioAtribuidor,
                             CodRelato = entity.CodRelato,
                             CodResponsavelTecnico = usu.CodResponsavelTecnico,
                             CodSituacaoAtribuicao = request.CodSituacaoAtribuicao,
@@ -139,8 +140,8 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
             }
         }
 
+        public string CodUsuarioAtribuidor { get; set; }
         public string DscOcorrenciaStatus { get; set; }
-
         public string CriadoPor { get; set; }
         public int CodRelato { get; set; }
         public string DscRelato { get; set; }

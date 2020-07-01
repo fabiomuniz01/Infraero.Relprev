@@ -27,7 +27,7 @@ namespace Infraero.Relprev.WebUi.Services
             myMessage.Subject = subject;
             myMessage.HtmlContent = htmlMessage;
 
-            var credentials = new NetworkCredential()
+            var credentials = new NetworkCredential();
 
             var transportWeb = new SendGridClient(apiKey);
             await transportWeb.SendEmailAsync(myMessage);
