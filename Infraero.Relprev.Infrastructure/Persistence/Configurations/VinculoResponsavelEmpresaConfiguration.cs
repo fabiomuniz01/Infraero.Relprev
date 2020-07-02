@@ -18,9 +18,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .IsRequired();//.HasComment("Sequencial da tabela");
 
             builder.Property(t => t.CodUnidadeInfraestrutura)
+                .IsRequired()
                 .HasColumnName("COD_UNIDADE_INFRAESTRUTURA");//.HasComment("Sequencial da tabela unidade de infraestrutura");
 
             builder.Property(t => t.CodEmpresa)
+                .IsRequired()
                 .HasColumnName("COD_EMPRESA");//.HasComment("Sequencial da tabela empresa");
 
             builder.Property(t => t.CodResponsavelTecnico)

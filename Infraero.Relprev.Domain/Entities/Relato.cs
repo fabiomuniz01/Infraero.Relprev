@@ -33,10 +33,10 @@ namespace Infraero.Relprev.Domain.Entities
 
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> ListArquivo { get; set; }
-
         public string DscAcoesCorretivasRecomendadas { get; set; }
-        //[ForeignKey("CodRelato")]
-        //public HistoricoRelato HistoricoRelato { get; set; }
+        public string DscParecerTecnicoRespondido { get; set; }
+        public string DscMotivoDevolucao { get; set; }
+        public string DscNovoParecerTecnico { get; set; }
 
 
     }

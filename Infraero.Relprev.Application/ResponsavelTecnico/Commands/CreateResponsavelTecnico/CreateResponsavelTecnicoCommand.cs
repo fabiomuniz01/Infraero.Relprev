@@ -27,6 +27,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                     NumTelefone = request.NumTelefone,
                     NumDocumento = request.NumDocumento,
                     CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                    FlagGestorSgso = false,
                     CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now
                 };
@@ -40,7 +41,9 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                     {
                         CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
                         CodEmpresa = Convert.ToInt32(item),
-                        CodResponsavelTecnico = entity.CodResponsavelTecnico
+                        CodResponsavelTecnico = entity.CodResponsavelTecnico,
+                        CriadoPor = request.CriadoPor,
+                        DataCriacao = DateTime.Now
                     };
 
                     _context.VinculoResponsavelEmpresa.Add(entityVinculo);

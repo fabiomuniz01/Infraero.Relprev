@@ -194,6 +194,8 @@ namespace Infraero.Relprev.WebUi
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
             services.Configure<SettingsModel>(Configuration.GetSection("RelprevSettings"));
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

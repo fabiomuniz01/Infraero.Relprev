@@ -3,12 +3,15 @@
     data: {
         params: {
             cpf: "",
-            email:""
+            email: "",
+            contrato: {}
         },
         loading: false
     },
     mounted: function () {
         var self = this;
+
+        self.params.contrato = ccc
         (function ($) {
 
             'use strict';
