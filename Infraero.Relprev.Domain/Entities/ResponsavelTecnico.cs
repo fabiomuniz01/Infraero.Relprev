@@ -15,9 +15,6 @@ namespace Infraero.Relprev.Domain.Entities
         public string NumDocumento { get; set; }
         public string EndEmail { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-        
-        [ForeignKey("CodEmpresa")]
-        public List<VinculoResponsavelEmpresa> ListEmpresa { get; set; }
         public bool FlagGestorSgso { get; set; }
     }
 }

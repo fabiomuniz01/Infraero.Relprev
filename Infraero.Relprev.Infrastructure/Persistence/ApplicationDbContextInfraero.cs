@@ -37,7 +37,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CriadoPor = _currentUserService.UsuarioId;
                         entry.Entity.DataCriacao = DateTime.Now;
                         break;
                     case EntityState.Modified:
