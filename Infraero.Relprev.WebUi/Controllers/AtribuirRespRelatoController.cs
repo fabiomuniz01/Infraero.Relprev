@@ -142,7 +142,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             {
                
                 var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato))
-                    .Where(r => r.ResponsavelTecnico.Empresa.CodEmpresa == Convert.ToInt32(idEmpresa) && r.ResponsavelTecnico.CodResponsavelTecnico == Convert.ToInt32(idResponsavel))
+                    .Where(r => r.ResponsavelTecnico.CodResponsavelTecnico == Convert.ToInt32(idResponsavel))
                     .FirstOrDefault();
 
                 if (resultResponsavel != null)

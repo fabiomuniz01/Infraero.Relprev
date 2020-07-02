@@ -37,7 +37,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
                     var data = responseModel.Select(c => new ResponsavelTecnicoDto
                     {
                         CodResponsavelTecnico = c.CodResponsavelTecnico, NomResponsavelTecnico=c.NomResponsavelTecnico,
-                        NumCpf = c.NumCpf, EndEmail=c.EndEmail, DscEmpresa = c.Empresa.NomRazaoSocial, NumTelefone = c.NumTelefone
+                        NumCpf = c.NumCpf, EndEmail=c.EndEmail, DscEmpresa = string.Join(',', c.ListEmpresa.Select(s => s.Empresa.NomRazaoSocial)) , NumTelefone = c.NumTelefone
                     });
 
                     grid.aaData = data;

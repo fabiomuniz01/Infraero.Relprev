@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using AutoMapper;
 using Infraero.Relprev.Application.Common.Mappings;
-using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
-using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
-using Infraero.Relprev.Domain.Entities;
+using Infraero.Relprev.Application.VinculoResponsavelEmpresa.Queries.GetVinculoResponsavelEmpresa;
 
 namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos
 {
@@ -15,12 +14,12 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
         public string NumTelefone { get; set; }
         public string NumDocumento { get; set; }
         public string EndEmail { get; set; }
-        public int CodUnidadeInfraestrutura { get; set; }
-        public int CodEmpresa { get; set; }
-        public EmpresaDto Empresa { get; set; }
-        public string DscEmpresa { get; set; }
         public bool FlagGestorSgso { get; set; }
+        public int CodUnidadeInfraestrutura { get; set; }
 
+        [ForeignKey("CodEmpresa")]
+        public List<VinculoResponsavelEmpresaDto> ListEmpresa { get; set; }
+        public string DscEmpresa { get; internal set; }
 
         public void Mapping(Profile profile)
         {

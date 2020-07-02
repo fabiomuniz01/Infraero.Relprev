@@ -34,7 +34,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
                 entity.EndEmail = request.EndEmail;
                 entity.NumTelefone = request.NumTelefone;
                 entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
-                entity.CodEmpresa = request.CodEmpresa;
+                //entity.CodEmpresa = request.CodEmpresa;
                 entity.AlteradoPor = request.AlteradoPor;
 
                 await _context.SaveChangesAsync(cancellationToken);

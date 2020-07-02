@@ -26,15 +26,27 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                     EndEmail = request.EndEmail,
                     NumTelefone = request.NumTelefone,
                     NumDocumento = request.NumDocumento,
-                    CriadoPor = request.CriadoPor,
                     CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
-                    CodEmpresa = request.CodEmpresa,
+                    CriadoPor = request.CriadoPor,
                     DataCriacao = DateTime.Now
                 };
 
                 _context.ResponsavelTecnico.Add(entity);
-
                 await _context.SaveChangesAsync(cancellationToken);
+
+                foreach (var item in request.arrEmpresa)
+                {
+                    var entityVinculo = new Domain.Entities.VinculoResponsavelEmpresa
+                    {
+                        CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                        CodEmpresa = Convert.ToInt32(item),
+                        CodResponsavelTecnico = entity.CodResponsavelTecnico
+                    };
+
+                    _context.VinculoResponsavelEmpresa.Add(entityVinculo);
+                    await _context.SaveChangesAsync(cancellationToken);
+                }
+
 
                 return entity.CodResponsavelTecnico;
             }

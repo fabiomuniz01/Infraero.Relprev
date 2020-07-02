@@ -199,11 +199,11 @@
                                 @foreach (var item in Model.ListResponsavelTecnico)
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.ResponsavelTecnico.Empresa.NomRazaoSocial)</td>
+                                        <td>@*@Html.DisplayFor(modelItem => item.ResponsavelTecnico.Empresa.NomRazaoSocial)*@@*@item.ResponsavelTecnico.CodEmpresa*@</td>
                                         <td>@Html.DisplayFor(modelItem => item.ResponsavelTecnico.NomResponsavelTecnico)</td>
                                         <td class="actions">
                                             <a data-toggle="tooltip" data-placement="top" title="Remover" asp-action="Delete" asp-controller="AtribuirRespRelato"
-                                               asp-route-idRelato="@Model.Relato.CodRelato" asp-route-idEmpresa="@item.ResponsavelTecnico.CodEmpresa"
+                                               asp-route-idRelato="@Model.Relato.CodRelato" asp-route-idEmpresa="0"
                                                asp-route-idResponsavel="@item.ResponsavelTecnico.CodResponsavelTecnico" class="on-default remove-row" style="color: #d43f3a">
                                                 <i class="fa fa-trash"></i>
                                             </a>

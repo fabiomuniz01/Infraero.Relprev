@@ -50,12 +50,22 @@ namespace Infraero.Relprev.Application.Usuario.Commands.CreateUsuario
                         NumTelefone = request.NumTelefone,
                         CriadoPor = request.CriadoPor,
                         CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
-                        CodEmpresa = request.CodEmpresa,
                         FlagGestorSgso = true,
                         DataCriacao = DateTime.Now
                     };
 
                     _context.ResponsavelTecnico.Add(entityResponsavelTecnico);
+
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    var entityVinculo = new Domain.Entities.VinculoResponsavelEmpresa
+                    {
+                        CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                        CodEmpresa = request.CodEmpresa,
+                        CodResponsavelTecnico = entityResponsavelTecnico.CodResponsavelTecnico
+                    };
+
+                    _context.VinculoResponsavelEmpresa.Add(entityVinculo);
 
                     await _context.SaveChangesAsync(cancellationToken);
                 }
