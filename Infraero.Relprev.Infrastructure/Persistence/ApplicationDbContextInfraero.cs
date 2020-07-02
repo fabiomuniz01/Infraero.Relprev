@@ -37,10 +37,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.DataCriacao = new DateTime(2020, 6, 25, 20, 43, 16, 940, DateTimeKind.Local).AddTicks(838);
+                        entry.Entity.CriadoPor = _currentUserService.UsuarioId;
+                        entry.Entity.DataCriacao = DateTime.Now;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.DataAlteracao = new DateTime(2020, 6, 25, 20, 43, 16, 940, DateTimeKind.Local).AddTicks(838);
+                        entry.Entity.DataAlteracao = DateTime.Now;
                         break;
                 }
             }

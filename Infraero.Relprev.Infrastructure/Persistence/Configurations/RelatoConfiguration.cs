@@ -73,6 +73,18 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             .HasColumnName("DSC_ACOES_CORRETIVAS_RECOMENDADAS")
             .HasMaxLength(500);
 
+            builder.Property(t => t.DscParecerTecnicoRespondido)
+            .HasColumnName("DSC_PARECER_TECNICO_RESPONDIDO")
+            .HasMaxLength(500);
+
+            builder.Property(t => t.DscMotivoDevolucao)
+            .HasColumnName("DSC_MOTIVO_DEVOLUCAO")
+            .HasMaxLength(500);
+
+            builder.Property(t => t.DscNovoParecerTecnico)
+            .HasColumnName("DSC_NOVO_PARECER_TECNICO")
+            .HasMaxLength(500);
+
             builder.Property(t => t.FlgStatusRelato)
              .HasColumnName("FLG_STATUS_RELATO")
              .IsRequired();

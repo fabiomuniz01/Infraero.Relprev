@@ -97,8 +97,9 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                     }
                     //Rn0032
                     var listUsuario = await _context.ResponsavelTecnico.Where(x =>
-                            x.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura
-                            && x.FlagGestorSgso == true)
+                            //x.ListEmpresa.CodUnidadeInfraestrutura == request.CodUnidadeInfraestrutura
+                            //&& 
+                            x.FlagGestorSgso == true)
                         .ProjectTo<ResponsavelTecnicoDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
 
