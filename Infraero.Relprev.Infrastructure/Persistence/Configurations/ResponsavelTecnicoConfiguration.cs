@@ -37,6 +37,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasColumnName("END_RESPONSAVEL_TECNICO")
                 .HasMaxLength(50);//.HasComment("Endereço eletrônico do Responsável Técnico ");
 
+            builder.Property(t => t.CodUnidadeInfraestrutura)
+                .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
+                .IsRequired();//.HasComment("Codigo sequencia da unidade de infraestrutura");
+
             builder.Property(t => t.FlagGestorSgso)
                 .HasColumnName("FLG_GESTOR_SGSO");//.HasComment("Flag gestor sgso site");
 
