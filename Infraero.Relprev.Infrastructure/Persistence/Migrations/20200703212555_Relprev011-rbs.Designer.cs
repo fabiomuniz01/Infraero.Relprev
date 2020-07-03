@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200703212555_Relprev011-rbs")]
+    partial class Relprev011rbs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1303,9 +1305,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DscAcoesCorretivasRecomendadas")
-                        .HasColumnName("DSC_ACOES_CORRETIVAS_RECOMENDADAS")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DscEnvolvidosOcorrencia")
                         .IsRequired()
@@ -1324,11 +1324,20 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
 
+                    b.Property<string>("DscMotivoDevolucao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DscNovoParecerTecnico")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DscOcorrenciaRelator")
                         .IsRequired()
                         .HasColumnName("DSC_OCORRENCIA_RELATOR")
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
+
+                    b.Property<string>("DscParecerTecnicoRespondido")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailRelator")
                         .HasColumnName("EMAIL_RELATOR")
