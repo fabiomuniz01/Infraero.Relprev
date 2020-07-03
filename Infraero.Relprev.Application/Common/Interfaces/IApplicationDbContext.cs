@@ -18,12 +18,15 @@ namespace Infraero.Relprev.Application
         DbSet<Domain.Entities.Local> Local { get; set; }
         DbSet<Domain.Entities.Relato> Relato { get; set; }
         DbSet<Domain.Entities.RelatoArquivo> RelatoArquivo { get; set; }
+        DbSet<Domain.Entities.Parecer> Parecer { get; set; }
+        DbSet<Domain.Entities.ParecerArquivo> ParecerArquivo { get; set; }
         DbSet<Domain.Entities.Perfil> Perfil { get; set; }
         DbSet<Domain.Entities.VinculoUnidadeEmpresa> VinculoUnidadeEmpresa { get; set; }
         DbSet<Domain.Entities.Modulo> Modulo { get; set; }
         DbSet<Domain.Entities.ConfigurarAmbiente> ConfigurarAmbiente { get; set; }
         DbSet<Domain.Entities.AtribuicaoRelato> AtribuicaoRelato { get; set; }
         DbSet<Domain.Entities.HistoricoRelato> HistoricoRelato { get; set; }
+        DbSet<Domain.Entities.HistoricoParecer> HistoricoParecer { get; set; }
         DbSet<Domain.Entities.VinculoResponsavelEmpresa> VinculoResponsavelEmpresa { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

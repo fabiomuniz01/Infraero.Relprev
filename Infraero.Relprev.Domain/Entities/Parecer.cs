@@ -16,6 +16,7 @@ namespace Infraero.Relprev.Domain.Entities
         public Relato Relato { get; set; }
         
         public string DscParecer { get; set; }
+        public string DscComplemento { get; set; }
         public string DscMotivoDevolucao { get; set; }
         public int FlgStatusParecer { get; set; }
 

@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200703223233_Relprev014-rbs")]
+    partial class Relprev014rbs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -802,7 +804,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.HasKey("CodHistoricoParecer");
 
-                    b.ToTable("HST_CAD_PARECER");
+                    b.ToTable("HST_CAD_Parecer");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.HistoricoRelato", b =>
