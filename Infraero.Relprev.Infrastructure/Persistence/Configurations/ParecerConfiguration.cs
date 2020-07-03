@@ -26,6 +26,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                .HasMaxLength(500)
                .IsRequired();//.HasComment("Descrição do motivo da devolucao");
 
+            builder.Property(t => t.CodRelato)
+             .HasColumnName("COD_RELATO")
+             .IsRequired();//.HasComment("Relato a qual p parecer é atribuído");
+
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");//.HasComment("Usuário que realizou a inclusão");
             builder.Property(p => p.DataCriacao).HasColumnName("DTH_INCLUSAO");//.HasComment("Data da inclusão");
