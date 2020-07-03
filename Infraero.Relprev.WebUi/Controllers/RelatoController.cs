@@ -43,6 +43,7 @@ using Infraero.Relprev.CrossCutting.Extensions;
 using Infraero.Relprev.CrossCutting.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
+using System.Security.Claims;
 
 //using Infraero.Relprev.Application.Relato.Commands.RemoverResponsavelTecnico;
 
@@ -151,6 +152,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscRelato = collection["DscOcorrenciaRelator"].ToString(),
                     NomRelator = collection["NomRelator"].ToString(),
                     EmailRelator = collection["EmailRelator"].ToString(),
+                    CodUsuarioAtribuidor = User.FindFirst(ClaimTypes.NameIdentifier).Value,
                     //Rn0079
                     NumTelefoneRelator = Criptografia.Encriptar(collection["NumTelefoneRelator"].ToString()),
                     NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
@@ -196,7 +198,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
             var resultLocal = ApiClientFactory.Instance.GetLocalAll();
             var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
-            var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(obj.CodLocal);
+            var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
 
             var resultLocalUnidade = resultLocal
                 .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
@@ -418,7 +420,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     DscSubAssunto = s.DscSubAssunto
                 }).ToList();
 
-           return Json(new SelectList(listDdlSubAssunto, "CodSubAssunto", "DscSubAssunto"));
+            return Json(new SelectList(listDdlSubAssunto, "CodSubAssunto", "DscSubAssunto"));
         }
         private async Task SendRn0064Email(AtribuicaoRelatoDto atribuicao)
         {

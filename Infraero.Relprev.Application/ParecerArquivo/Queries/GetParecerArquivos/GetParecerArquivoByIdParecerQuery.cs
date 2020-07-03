@@ -9,34 +9,34 @@ using Infraero.Relprev.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos
+namespace Infraero.Relprev.Application.ParecerArquivo.Queries.GetParecerArquivos
 {
-    public class GetAtribuicaoRelatoByIdRelatoQuery : IRequest<List<AtribuicaoRelatoDto>>
+    public class GetParecerArquivoByIdParecerQuery : IRequest<List<ParecerArquivoDto>>
     {
         public int Id { get; set; }
 
-        public class GetAtribuicaoRelatoByIdRelatoQueryHandler : IRequestHandler<GetAtribuicaoRelatoByIdRelatoQuery, List<AtribuicaoRelatoDto>>
+        public class GetParecerArquivoByIdParecerQueryHandler : IRequestHandler<GetParecerArquivoByIdParecerQuery, List<ParecerArquivoDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
 
-            public GetAtribuicaoRelatoByIdRelatoQueryHandler(IApplicationDbContext context, IMapper mapper)
+            public GetParecerArquivoByIdParecerQueryHandler(IApplicationDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<List<AtribuicaoRelatoDto>> Handle(GetAtribuicaoRelatoByIdRelatoQuery request, CancellationToken cancellationToken)
+            public async Task<List<ParecerArquivoDto>> Handle(GetParecerArquivoByIdParecerQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
-                    var responseModel = await Queryable
-                        .Where(_context.AtribuicaoRelato, x => x.CodRelato == request.Id)
-                        .ProjectTo<AtribuicaoRelatoDto>(_mapper.ConfigurationProvider)
-                        .OrderBy(t => t.CodAtribuicaoRelato)
+                    var responseModel = await _context.ParecerArquivo
+                        .Where(x=>x.CodParecer==request.Id)
+                        .ProjectTo<ParecerArquivoDto>(_mapper.ConfigurationProvider)
+                        .OrderBy(t => t.CodParecerArquivo)
                         .ToListAsync(cancellationToken);
 
-
+                    
                     return responseModel;
                 }
                 catch (Exception e)
@@ -44,7 +44,7 @@ namespace Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRel
                     Console.WriteLine(e);
                     throw;
                 }
-
+                
             }
         }
 

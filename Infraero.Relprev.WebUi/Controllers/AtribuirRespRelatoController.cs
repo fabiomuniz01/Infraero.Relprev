@@ -30,7 +30,7 @@ using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSit
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
-    [Authorize(Policy = ModuloAccess.AtribuirResponsavelRelato)]
+    //[Authorize(Policy = ModuloAccess.AtribuirResponsavelRelato)]
     public class AtribuirRespRelatoController : BaseController
     {
         private readonly IOptions<SettingsModel> _appSettings;

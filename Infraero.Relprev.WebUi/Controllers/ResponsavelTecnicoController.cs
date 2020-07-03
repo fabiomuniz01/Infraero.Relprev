@@ -46,7 +46,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Create()
         {
             var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
+           
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
             var model = new ResponsavelTecnicoModel
@@ -54,6 +54,8 @@ namespace Infraero.Relprev.WebUi.Controllers
                 ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
                 ListEmpresa = new SelectList(new List<EmpresaDto>(), "CodEmpresa", "NomRazaoSocial")
             };
+
+
             return View(model);
         }
 

@@ -61,11 +61,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public DbSet<Modulo> Modulo { get; set; }
         public DbSet<Relato> Relato { get; set; }
         public DbSet<RelatoArquivo> RelatoArquivo { get; set; }
+        public DbSet<Parecer> Parecer { get; set; }
+        public DbSet<ParecerArquivo> ParecerArquivo { get; set; }
         public DbSet<ConfigurarAmbiente> ConfigurarAmbiente { get; set; }
         public DbSet<AtribuicaoRelato> AtribuicaoRelato { get; set; }
-
-
-
+        public virtual DbSet<HistoricoParecer> HistoricoParecer { get; set; }
 
 
 

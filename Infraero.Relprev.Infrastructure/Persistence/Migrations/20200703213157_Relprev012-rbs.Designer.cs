@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200703213157_Relprev012-rbs")]
+    partial class Relprev012rbs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -753,58 +755,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.HistoricoParecer", b =>
-                {
-                    b.Property<int>("CodHistoricoParecer")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("SEQ_HISTORICO_PARECER")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AlteradoPor")
-                        .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CodParecer")
-                        .HasColumnName("COD_PARECER")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CriadoPor")
-                        .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DscComplementoParecer")
-                        .HasColumnName("DSC_COMPLEMENTO_PARECER")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("DscParecer")
-                        .HasColumnName("DSC_PARECER")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("DscUltimaOcorrencia")
-                        .HasColumnName("DSC_ULTIMA_OCORRENCIA")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<bool>("FlagAtivo")
-                        .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit");
-
-                    b.HasKey("CodHistoricoParecer");
-
-                    b.ToTable("HST_CAD_PARECER");
-                });
-
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.HistoricoRelato", b =>
                 {
                     b.Property<int>("CodHistoricoRelato")
@@ -1081,10 +1031,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnName("NOM_USU_ALTERACAO")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CodRelato")
-                        .HasColumnName("COD_RELATO")
-                        .HasColumnType("int");
-
                     b.Property<string>("CriadoPor")
                         .HasColumnName("NOM_USU_INCLUSAO")
                         .HasColumnType("nvarchar(max)");
@@ -1097,12 +1043,8 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnName("DTH_INCLUSAO")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DscComplemento")
-                        .HasColumnName("DSC_COMPLEMENTO_PARECER")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
                     b.Property<string>("DscMotivoDevolucao")
+                        .IsRequired()
                         .HasColumnName("DSC_MOTIVO_DEVOLUCAO")
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
@@ -1121,8 +1063,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CodParecer");
-
-                    b.HasIndex("CodRelato");
 
                     b.ToTable("CAD_PARECER");
                 });
@@ -1178,8 +1118,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasMaxLength(200);
 
                     b.HasKey("CodParecerArquivo");
-
-                    b.HasIndex("CodParecer");
 
                     b.ToTable("CAD_PARECER_ARQUIVO");
                 });
@@ -1976,10 +1914,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.HasKey("CodVinculoResponsavelEmpresa");
 
-                    b.HasIndex("CodEmpresa");
-
-                    b.HasIndex("CodResponsavelTecnico");
-
                     b.ToTable("CAD_VINCULO_RESPONSAVEL_EMPRESA");
                 });
 
@@ -2260,71 +2194,62 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Relato", "Relato")
                         .WithMany()
                         .HasForeignKey("CodRelato")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", "ResponsavelTecnico")
                         .WithMany()
                         .HasForeignKey("CodResponsavelTecnico")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.SituacaoAtribuicaoRelato", null)
                         .WithMany("AtribuicaoRelato")
-                        .HasForeignKey("SituacaoAtribuicaoRelatoCodSituacaoAtribuicao")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("SituacaoAtribuicaoRelatoCodSituacaoAtribuicao");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.ContratoUtilizacaoSistema", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Empresa", "CodEmpresaNavigation")
                         .WithMany()
-                        .HasForeignKey("CodEmpresaNavigationCodEmpresa")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodEmpresaNavigationCodEmpresa");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
                         .WithMany()
-                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.EmpresaLocalidade", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Empresa", "CodEmpresaNavigation")
                         .WithMany()
-                        .HasForeignKey("CodEmpresaNavigationCodEmpresa")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodEmpresaNavigationCodEmpresa");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
                         .WithMany()
-                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.EmpresaResponsavelTecnico", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
                         .WithMany()
-                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", "CodResponsavelTecnicoNavigation")
                         .WithMany()
-                        .HasForeignKey("CodResponsavelTecnicoNavigationCodResponsavelTecnico")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodResponsavelTecnicoNavigationCodResponsavelTecnico");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Evento", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioNavigation")
                         .WithMany()
-                        .HasForeignKey("CodUsuarioNavigationCodUsuario")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodUsuarioNavigationCodUsuario");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.TipoEvento", "TipEventoNavigation")
                         .WithMany("Evento")
-                        .HasForeignKey("TipEventoNavigationTipEvento")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("TipEventoNavigationTipEvento");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Funcionalidade", b =>
@@ -2332,7 +2257,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Modulo", null)
                         .WithMany("ListFuncionalidades")
                         .HasForeignKey("CodModulo")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -2341,24 +2266,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", "UnidadeInfraestrutura")
                         .WithMany()
                         .HasForeignKey("CodUnidadeInfraestrutura")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Parecer", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Relato", "Relato")
-                        .WithMany()
-                        .HasForeignKey("CodRelato")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.ParecerArquivo", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Parecer", null)
-                        .WithMany("ListArquivo")
-                        .HasForeignKey("CodParecer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2367,26 +2274,22 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.FuncaoSistema", "CodFuncaoNavigation")
                         .WithMany("PerfilFuncao")
-                        .HasForeignKey("CodFuncaoNavigationCodFuncao")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodFuncaoNavigationCodFuncao");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.Perfil", "CodPerfilNavigation")
                         .WithMany()
-                        .HasForeignKey("CodPerfilNavigationCodPerfil")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodPerfilNavigationCodPerfil");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.PerfilUsuario", b =>
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Perfil", "CodPerfilNavigation")
                         .WithMany()
-                        .HasForeignKey("CodPerfilNavigationCodPerfil")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodPerfilNavigationCodPerfil");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioNavigation")
                         .WithMany()
-                        .HasForeignKey("CodUsuarioNavigationCodUsuario")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodUsuarioNavigationCodUsuario");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Relato", b =>
@@ -2394,7 +2297,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", "UnidadeInfraestrutura")
                         .WithMany()
                         .HasForeignKey("CodUnidadeInfraestrutura")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -2403,7 +2306,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Relato", null)
                         .WithMany("ListArquivo")
                         .HasForeignKey("CodRelato")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -2412,7 +2315,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Assunto", null)
                         .WithMany("SubAssuntoList")
                         .HasForeignKey("CodAssunto")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -2421,7 +2324,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Local", "Local")
                         .WithMany()
                         .HasForeignKey("CodLocal")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -2429,28 +2332,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
                         .WithMany()
-                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal");
 
                     b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioNavigation")
                         .WithMany()
-                        .HasForeignKey("CodUsuarioNavigationCodUsuario")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.VinculoResponsavelEmpresa", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Empresa", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("CodEmpresa")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", null)
-                        .WithMany("ListVinculoResponsavelEmpresa")
-                        .HasForeignKey("CodResponsavelTecnico")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CodUsuarioNavigationCodUsuario");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
