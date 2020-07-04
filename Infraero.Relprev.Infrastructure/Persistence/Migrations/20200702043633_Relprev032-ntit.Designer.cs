@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200702043633_Relprev032-ntit")]
+    partial class Relprev032ntit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -585,45 +587,35 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                 {
                     b.Property<int>("CodFuncionalidade")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("SEQ_Funcionalidade")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlteradoPor")
-                        .HasColumnName("NOM_USU_ALTERACAO")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodModulo")
-                        .HasColumnName("COD_MODULO")
                         .HasColumnType("int");
 
                     b.Property<string>("CriadoPor")
-                        .HasColumnName("NOM_USU_INCLUSAO")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnName("DTH_ALTERACAO")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnName("DTH_INCLUSAO")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("FlagAtivo")
-                        .HasColumnName("FLG_ATIVO")
                         .HasColumnType("bit");
 
                     b.Property<string>("NomFuncionalidade")
-                        .IsRequired()
-                        .HasColumnName("NOM_FUNCIONALIDADE")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CodFuncionalidade");
 
                     b.HasIndex("CodModulo");
 
-                    b.ToTable("TAB_FUNCIONALIDADE");
+                    b.ToTable("Funcionalidade");
 
                     b.HasData(
                         new
@@ -761,58 +753,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                             FlagAtivo = false,
                             NomFuncionalidade = "Consultar,Incluir,Alterar"
                         });
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.HistoricoParecer", b =>
-                {
-                    b.Property<int>("CodHistoricoParecer")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("SEQ_HISTORICO_PARECER")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AlteradoPor")
-                        .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CodParecer")
-                        .HasColumnName("COD_PARECER")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CriadoPor")
-                        .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DscComplementoParecer")
-                        .HasColumnName("DSC_COMPLEMENTO_PARECER")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("DscParecer")
-                        .HasColumnName("DSC_PARECER")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("DscUltimaOcorrencia")
-                        .HasColumnName("DSC_ULTIMA_OCORRENCIA")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<bool>("FlagAtivo")
-                        .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit");
-
-                    b.HasKey("CodHistoricoParecer");
-
-                    b.ToTable("HST_CAD_PARECER");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.HistoricoRelato", b =>
@@ -1079,121 +1019,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Parecer", b =>
-                {
-                    b.Property<int>("CodParecer")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("SEQ_PARECER")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AlteradoPor")
-                        .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CodRelato")
-                        .HasColumnName("COD_RELATO")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CriadoPor")
-                        .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DscComplemento")
-                        .HasColumnName("DSC_COMPLEMENTO_PARECER")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("DscMotivoDevolucao")
-                        .HasColumnName("DSC_MOTIVO_DEVOLUCAO")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("DscParecer")
-                        .IsRequired()
-                        .HasColumnName("DSC_PARECER")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<bool>("FlagAtivo")
-                        .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("FlgStatusParecer")
-                        .HasColumnType("int");
-
-                    b.HasKey("CodParecer");
-
-                    b.HasIndex("CodRelato");
-
-                    b.ToTable("CAD_PARECER");
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.ParecerArquivo", b =>
-                {
-                    b.Property<int>("CodParecerArquivo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("SEQ_PARECER_ARQUIVO")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AlteradoPor")
-                        .HasColumnName("NOM_USU_ALTERACAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Arquivo")
-                        .IsRequired()
-                        .HasColumnName("NOM_ARQUIVO_UNICO")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Caminho")
-                        .IsRequired()
-                        .HasColumnName("DIR_CAMINHO")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<int>("CodParecer")
-                        .HasColumnName("COD_PARECER")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CriadoPor")
-                        .HasColumnName("NOM_USU_INCLUSAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnName("DTH_ALTERACAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnName("DTH_INCLUSAO")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("FlagAtivo")
-                        .HasColumnName("FLG_ATIVO")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NomeArquivo")
-                        .IsRequired()
-                        .HasColumnName("NOM_ARQUIVO")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.HasKey("CodParecerArquivo");
-
-                    b.HasIndex("CodParecer");
-
-                    b.ToTable("CAD_PARECER_ARQUIVO");
-                });
-
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Perfil", b =>
                 {
                     b.Property<int>("CodPerfil")
@@ -1398,11 +1223,26 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
 
+                    b.Property<string>("DscMotivoDevolucao")
+                        .HasColumnName("DSC_MOTIVO_DEVOLUCAO")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("DscNovoParecerTecnico")
+                        .HasColumnName("DSC_NOVO_PARECER_TECNICO")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
                     b.Property<string>("DscOcorrenciaRelator")
                         .IsRequired()
                         .HasColumnName("DSC_OCORRENCIA_RELATOR")
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
+
+                    b.Property<string>("DscParecerTecnicoRespondido")
+                        .HasColumnName("DSC_PARECER_TECNICO_RESPONDIDO")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<string>("EmailRelator")
                         .HasColumnName("EMAIL_RELATOR")
@@ -2351,24 +2191,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", "UnidadeInfraestrutura")
                         .WithMany()
                         .HasForeignKey("CodUnidadeInfraestrutura")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Parecer", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Relato", "Relato")
-                        .WithMany()
-                        .HasForeignKey("CodRelato")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.ParecerArquivo", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Parecer", null)
-                        .WithMany("ListArquivo")
-                        .HasForeignKey("CodParecer")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

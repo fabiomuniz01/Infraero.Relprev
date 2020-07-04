@@ -17,8 +17,8 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
         public bool FlagGestorSgso { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
 
-        [ForeignKey("CodEmpresa")]
-        public List<VinculoResponsavelEmpresaDto> ListEmpresa { get; set; }
+        [ForeignKey("CodResponsavelTecnico")]
+        public List<VinculoResponsavelEmpresaDto> ListVinculoResponsavelEmpresa { get; set; }
         public string DscEmpresa { get; internal set; }
 
         public void Mapping(Profile profile)

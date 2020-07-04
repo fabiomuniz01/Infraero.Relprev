@@ -131,7 +131,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             model = new ResponsavelTecnicoModel
             {
                 ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura", obj.CodUnidadeInfraestrutura),
-                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial", obj.ListEmpresa.Select(s=>s.CodEmpresa)),
+                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial", obj.ListVinculoResponsavelEmpresa.Select(s=>s.CodEmpresa)),
                 ResponsavelTecnico = obj
             };
 
