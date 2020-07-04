@@ -31,17 +31,15 @@ namespace Infraero.Relprev.Application.Relato.Commands.CompleteParecer
                 entity.DataAlteracao = DateTime.Now;
                 await _context.SaveChangesAsync(cancellationToken);
 
-                //var entityHistorico = await _context.HistoricoRelato
-                //    .Where(x => x.CodRelato == entity.CodRelato)
-                //    .FirstOrDefaultAsync(cancellationToken);
+                var entityHistorico = await _context.HistoricoParecer
+                    .Where(x => x.CodParecer == entity.CodParecer)
+                    .FirstOrDefaultAsync(cancellationToken);
 
-                //entityHistorico.DscUltimaOcorrencia = entity.DscOcorrenciaRelator;
-                ////Rn0041 - Ocorrência cancelada 
-                //entityHistorico.DscCancelamento = request.DscCancelamento;
-                //entityHistorico.AlteradoPor = request.AlteradoPor;
-                //entityHistorico.DataAlteracao = DateTime.Now;
+                entityHistorico.DscComplementoParecer = request.DscComplemtoParecer;
+                entityHistorico.AlteradoPor = request.AlteradoPor;
+                entityHistorico.DataAlteracao = DateTime.Now;
 
-                //await _context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
                 return entity.CodParecer;
             }
