@@ -38,19 +38,22 @@ namespace Infraero.Relprev.Application.Parecer.Commands.CreateParecer
                     var entity = new Domain.Entities.Parecer
                     {
                         DscParecer = request.DscParecer,
+                        CodRelato = request.CodRelato,
                         CriadoPor = request.CriadoPor,
                         DataCriacao = DateTime.Now,
                         FlgStatusParecer = request.FlgStatusParecer,
                         FlagAtivo = true
-                       };
+                    };
 
                     _context.Parecer.Add(entity);
 
                     await _context.SaveChangesAsync(cancellationToken);
 
-                    //Rn0033 - Ocorrencia Não Iniciada
+                    //[RN0045]
                     var entityHistoricoParecer = new Domain.Entities.HistoricoParecer
                     {
+                        DscUltimaOcorrencia = request.DscParecerStatus,
+
                         CodParecer = entity.CodParecer,
                         DscParecer = request.DscParecer,
                         CriadoPor = request.CriadoPor,
@@ -61,7 +64,7 @@ namespace Infraero.Relprev.Application.Parecer.Commands.CreateParecer
 
                     await _context.SaveChangesAsync(cancellationToken);
 
-                   
+
                     foreach (var item in request.ListParecerArquivo)
                     {
                         var entityParecerArquivo = new Domain.Entities.ParecerArquivo
@@ -79,9 +82,26 @@ namespace Infraero.Relprev.Application.Parecer.Commands.CreateParecer
 
                         await _context.SaveChangesAsync(cancellationToken);
                     }
-                   
 
-                    
+                    var entityRelato = await _context.Relato.FindAsync(request.CodRelato);
+
+                    entityRelato.FlgStatusRelato = request.FlgStatusRelato;
+                    entityRelato.AlteradoPor = request.CriadoPor;
+                    entityRelato.DataAlteracao = DateTime.Now;
+
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    var entityHistorico = await _context.HistoricoRelato
+                        .Where(x => x.CodRelato == entity.CodRelato)
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    //Rn0045 - Ocorrência atendida, DD/MM/AAAA, HH:MM 
+                    entityHistorico.DscParecer = request.DscParecerStatus;
+                    entityHistorico.AlteradoPor = request.CriadoPor;
+                    entityHistorico.DataAlteracao = DateTime.Now;
+
+                    await _context.SaveChangesAsync(cancellationToken);
+
                     return entity.CodParecer;
                 }
                 catch (Exception e)
@@ -91,11 +111,13 @@ namespace Infraero.Relprev.Application.Parecer.Commands.CreateParecer
 
             }
         }
-
+        public int CodRelato { get; set; }
         public string DscParecer { get; set; }
+        public string DscParecerStatus { get; set; }
         public string CriadoPor { get; set; }
         public List<ParecerArquivoDto> ListParecerArquivo { get; set; }
         public int FlgStatusParecer { get; set; }
-    
+        public int FlgStatusRelato { get; set; }
+
     }
 }

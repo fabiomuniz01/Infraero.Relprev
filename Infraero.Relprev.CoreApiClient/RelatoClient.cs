@@ -33,6 +33,12 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceRelato}/UpdateRelatoAtribuido"));
             return Post(requestUrl, command);
         }
+        public async Task<long> UpdateRelatoAtendimento(UpdateRelatoAtendimentoCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceRelato}/UpdateRelatoAtendimento"));
+            return await Post(requestUrl, command);
+        }
         public Task<long> ClassificarRelato(ClassificarRelatoCommand command)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
