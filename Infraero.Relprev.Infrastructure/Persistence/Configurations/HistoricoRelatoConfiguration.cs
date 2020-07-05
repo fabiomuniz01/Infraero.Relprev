@@ -44,6 +44,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .HasColumnName("DSC_FINALIZACAO")
                 .HasMaxLength(255);//.HasComment("Descriçao do status de finalização");
 
+            builder.Property(t => t.DscParecer)
+                .HasColumnName("DSC_PARECER")
+                .HasMaxLength(255);//.HasComment("Descriçao do status de finalização");
+
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");//.HasComment("Usuário que realizou a inclusão");
             builder.Property(p => p.DataCriacao).HasColumnName("DTH_INCLUSAO");//.HasComment("Data da inclusão");

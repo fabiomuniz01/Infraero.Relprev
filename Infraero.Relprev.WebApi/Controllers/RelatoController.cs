@@ -282,5 +282,22 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
 
         }
+        
+        [HttpPost("UpdateRelatoAtendimento")]
+        public async Task<ActionResult<bool>> UpdateRelatoAtendimento(UpdateRelatoAtendimentoCommand command)
+        {
+            try
+            {
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
     }
 }

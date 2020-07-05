@@ -19,6 +19,11 @@ namespace Infraero.Relprev.CrossCutting.Enumerators
         [Description("Ocorrência Classificada")]
         Ocorrenciaclassificada = 6,
         [Description("Ocorrência Atribuída")]
-        Atribuido = 7
+        Atribuido = 7,
+        [Description("Em  Andamento")]
+        EmAndamento = 8,
+        [Description("Ocorrência Atendida")]
+        OcorrenciaAtendida = 9
+
     }
 }

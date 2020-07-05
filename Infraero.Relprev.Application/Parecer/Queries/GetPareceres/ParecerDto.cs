@@ -10,7 +10,7 @@ using Infraero.Relprev.Application.ConfigurarAmbiente.Queries.GetConfigurarAmbie
 
 using Infraero.Relprev.Application.HistoricoParecer.Queries.GetHistoricoParecer;
 
-namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
+namespace Infraero.Relprev.Application.Parecer.Queries.GetParecer
 {
     public class ParecerDto : IMapFrom<Domain.Entities.Parecer>
     {
