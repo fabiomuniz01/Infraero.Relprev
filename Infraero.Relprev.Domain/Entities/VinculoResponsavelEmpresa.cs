@@ -17,5 +17,6 @@ namespace Infraero.Relprev.Domain.Entities
         
         [ForeignKey("CodEmpresa")]
         public Empresa Empresa { get; set; }
+        public ResponsavelTecnico ResponsavelTecnico { get; set; }
     }
 }

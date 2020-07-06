@@ -17,11 +17,31 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .IsRequired();//.HasComment("Sequencial da tabela");
 
             builder.Property(t => t.CodUnidade)
-                .HasColumnName("COD_UNIDADE")
+                .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
                 .IsRequired();//.HasComment("Código da unidade");
 
+            builder.Property(t => t.Descricao)
+                .HasColumnName("DSC_UNIDADE_INFRAESTRUTURA")
+                .IsRequired();//.HasComment("Detalhamento da Unidade de Infraestrutura");
+
+            builder.Property(t => t.DtIniVigencia)
+                .HasColumnName("DTH_INI_VIGENCIA")
+                .IsRequired();//.HasComment("Data de Início do período de vigência da Unidade cadastrada");
+
+            builder.Property(t => t.DtFimVigencia)
+                .HasColumnName("DTH_FIM_VIGENCIA")
+                .IsRequired();//.HasComment("Data de Fim do período de vigência da Unidade cadastrada");
+
+            builder.Property(t => t.Endereco)
+                .HasColumnName("END_UNIDADE_INFRAESTRUTURA")
+                .IsRequired();//.HasComment("Localização da Unidade de Infraestrutura");
+
+            builder.Property(t => t.NomUnidadeÌnfraestrutura)
+                .HasColumnName("NOM_UNIDADE_INFRAESTRUTURA")
+                .IsRequired();//.HasComment("Localização da Unidade de Infraestrutura");
+
             builder.Property(t => t.Sigla)
-                .HasColumnName("SIG_UNIDADE")
+                .HasColumnName("SIG_UNIDADE_INFRAESTRUTURA")
                 .HasMaxLength(8)
                 .IsRequired();//.HasComment("Sigla da unidade");
 

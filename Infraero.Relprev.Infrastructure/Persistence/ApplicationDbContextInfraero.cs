@@ -97,6 +97,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            builder.Entity<ResponsavelTecnico>().HasMany(b => b.ListVinculoResponsavelEmpresa)
+                .WithOne(x => x.ResponsavelTecnico)
+                .HasForeignKey(p => p.CodResponsavelTecnico)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<Modulo>().HasData(
                 new Modulo { CodModulo = 1, NomModulo = "UnidadeInfraestrutura", CriadoPor = "SistemaRelprev", DataCriacao = new DateTime(2020, 6, 25, 20, 43, 16, 940, DateTimeKind.Local).AddTicks(838) },
                 new Modulo { CodModulo = 2, NomModulo = "Empresa", CriadoPor = "SistemaRelprev", DataCriacao = new DateTime(2020, 6, 25, 20, 43, 16, 940, DateTimeKind.Local).AddTicks(838) },

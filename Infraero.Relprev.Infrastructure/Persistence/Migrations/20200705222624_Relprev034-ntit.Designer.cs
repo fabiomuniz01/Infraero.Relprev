@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200705222624_Relprev034-ntit")]
+    partial class Relprev034ntit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1779,7 +1781,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("CodUnidade")
                         .IsRequired()
-                        .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
+                        .HasColumnName("COD_UNIDADE")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CriadoPor")
@@ -1795,21 +1797,15 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnName("DSC_UNIDADE_INFRAESTRUTURA")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DtFimVigencia")
-                        .HasColumnName("DTH_FIM_VIGENCIA")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DtIniVigencia")
-                        .HasColumnName("DTH_INI_VIGENCIA")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Endereco")
-                        .IsRequired()
-                        .HasColumnName("END_UNIDADE_INFRAESTRUTURA")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("FlagAtivo")
@@ -1817,13 +1813,11 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("NomUnidadeÌnfraestrutura")
-                        .IsRequired()
-                        .HasColumnName("NOM_UNIDADE_INFRAESTRUTURA")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sigla")
                         .IsRequired()
-                        .HasColumnName("SIG_UNIDADE_INFRAESTRUTURA")
+                        .HasColumnName("SIG_UNIDADE")
                         .HasColumnType("nvarchar(8)")
                         .HasMaxLength(8);
 
@@ -2471,10 +2465,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", "ResponsavelTecnico")
+                    b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", null)
                         .WithMany("ListVinculoResponsavelEmpresa")
                         .HasForeignKey("CodResponsavelTecnico")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

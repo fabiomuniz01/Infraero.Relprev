@@ -35,28 +35,36 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
-        public IActionResult Index(int? crud)
+        public IActionResult Index(int? crud, int? notify, string message = null)
         {
+            SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridResponsavelTecnico();
             return View(response);
         }
 
         [ClaimsAuthorize("ResponsavelTecnico", "Incluir")]
-        public ActionResult Create()
+        public ActionResult Create(int? notify, string message = null)
         {
-            var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-           
-            var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
-
-            var model = new ResponsavelTecnicoModel
+            try
             {
-                ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
-                ListEmpresa = new SelectList(new List<EmpresaDto>(), "CodEmpresa", "NomRazaoSocial")
-            };
+                SetNotifyMessage(notify, message);
+                var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
-            return View(model);
+                var model = new ResponsavelTecnicoModel
+                {
+                    ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura"),
+                    ListEmpresa = new SelectList(new List<EmpresaDto>(), "CodEmpresa", "NomRazaoSocial")
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
+            }
         }
 
         [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
@@ -66,9 +74,10 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             var result5 = result4
                 .Where(x => x.CodUnidadeInfraestrutura == id)
-                .Select(s => new EmpresaDto { 
+                .Select(s => new EmpresaDto
+                {
                     CodEmpresa = s.CodEmpresa,
-                    NomRazaoSocial = s.NomEmpresa 
+                    NomRazaoSocial = s.NomEmpresa
                 }).ToList();
 
             result5.Insert(0, new EmpresaDto { CodEmpresa = 0, NomRazaoSocial = "Selecionar Empresa" });
@@ -131,7 +140,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             model = new ResponsavelTecnicoModel
             {
                 ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura", obj.CodUnidadeInfraestrutura),
-                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial", obj.ListVinculoResponsavelEmpresa.Select(s=>s.CodEmpresa)),
+                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial", obj.ListVinculoResponsavelEmpresa.Select(s => s.CodEmpresa)),
                 ResponsavelTecnico = obj
             };
 

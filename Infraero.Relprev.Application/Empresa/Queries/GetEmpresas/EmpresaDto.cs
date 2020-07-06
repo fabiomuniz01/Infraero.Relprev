@@ -17,7 +17,7 @@ namespace Infraero.Relprev.Application.Empresa.Queries.GetEmpresas
         public int CodVinculoUnidadeEmpresa { get; set; }
 
         [ForeignKey("CodEmpresa")]
-        public ICollection<VinculoUnidadeEmpresaDto> VinculoUnidadeEmpresaList { get; set; }
+        public List<VinculoUnidadeEmpresaDto> ListVinculoUnidadeEmpresa { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -91,7 +91,7 @@
 
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlEmpresa" id="ddlEmpresa"
-                                    title="Por favor selecione uma empresa." required 
+                                    title="Por favor selecione uma empresa." required
                                     name="ddlEmpresa[]" multiple="multiple"
                                     asp-for="CodEmpresa" asp-items="Model.ListEmpresa">
                                 <option value="">Selecionar Empresa</option>
@@ -124,6 +124,31 @@
     <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
     <script src="~/js/responsavel.js"></script>
     <script>
+    (function ($) {
+
+        'use strict';
+
+        var crud = @ViewBag.CrudMessage;
+
+        if (crud===1) {
+            new PNotify({
+                title: 'Responsável Técnico',
+                text: 'Cadastro realizado com sucesso!',
+                type: 'success'
+            });
+        }else if (crud === 2) {
+            new PNotify({
+                title: 'Responsável Técnico',
+                text: 'Dados alterados com sucesso.',
+                type: 'warning'
+            });
+        }else if (crud === 3) {
+            new PNotify({
+                title: 'Responsável Técnico',
+                text: 'Registro excluído com sucesso.',
+                type: 'error'
+            });
+        }
 
         var notify = @ViewBag.NotifyMessage;
         var messagem = @ViewBag.Notify;
@@ -147,6 +172,14 @@
                 type: 'error'
             });
         }
+
+        //Tooltip
+        if ($.isFunction($.fn['tooltip'])) {
+            $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
+        }
+
+    }).apply(this, [jQuery]);
+
 
     </script>
 }

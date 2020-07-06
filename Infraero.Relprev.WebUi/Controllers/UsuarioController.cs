@@ -72,7 +72,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         public JsonResult GetUnidadeByIdEmpresa(int id)
         {
             var result = ApiClientFactory.Instance.GetEmpresaAll().FirstOrDefault(x => x.CodEmpresa == id)
-                .VinculoUnidadeEmpresaList.ToList().Select(s => new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura, NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura }).ToList();
+                .ListVinculoUnidadeEmpresa.ToList().Select(s => new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura, NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura }).ToList();
 
             result.Insert(0, new UnidadeInfraEstruturaDto { CodUnidadeInfraestrutura = 0, NomUnidadeÌnfraestrutura = "Selecionar Unidade de infraestrutura" });
 
@@ -157,7 +157,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
 
             var resultUnidade = resultEmpresa.FirstOrDefault(x => x.CodEmpresa == obj.CodEmpresa)
-                ?.VinculoUnidadeEmpresaList.Select(s => new UnidadeInfraEstruturaDto
+                ?.ListVinculoUnidadeEmpresa.Select(s => new UnidadeInfraEstruturaDto
                 {
                     CodUnidadeInfraestrutura = s.CodUnidadeInfraestrutura,
                     NomUnidadeÌnfraestrutura = s.NomUnidadeInfraestrutura
