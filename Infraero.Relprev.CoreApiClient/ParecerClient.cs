@@ -29,10 +29,10 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceParecer}/AvaluateParecer"));
             return Post(requestUrl, command);
         }
-        public Task<long> CompletePàrecer(CompleteParecerCommand command)
+        public Task<long> CompleteParecer(CompleteParecerCommand command)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                $"{ResourceParecer}/CompletePàrecer"));
+                $"{ResourceParecer}/CompleteParecer"));
             return Post(requestUrl, command);
         }
 

@@ -82,7 +82,7 @@ namespace Infraero.Relprev.WebApi.Controllers
                         CodParecer = s.CodParecer,
                         StatusParecer = ((EnumStatusParecer)s.FlgStatusParecer).GetDescription(),
                         FlgStatusParecer = s.FlgStatusParecer,
-                        DscPasrecer =s.DscPasrecer,
+                        DscParecer =s.DscParecer,
                         DscComplementoParecer = s.DscComplementoParecer
                     })
                 };
@@ -191,7 +191,7 @@ namespace Infraero.Relprev.WebApi.Controllers
         }
 
         [HttpPost("CompleteParecer")]
-        public async Task<ActionResult<long>> CancelParecer(CompleteParecerCommand command)
+        public async Task<ActionResult<long>> CompleteParecer(CompleteParecerCommand command)
         {
             try
             {

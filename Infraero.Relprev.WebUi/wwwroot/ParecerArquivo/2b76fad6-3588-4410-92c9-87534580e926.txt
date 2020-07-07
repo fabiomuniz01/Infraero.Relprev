@@ -1,0 +1,9 @@
+DESKTOP-9RGJN31\\SQLEXPRESS
+
+Add-Migration Relprev014-rbs -Context ApplicationDbContext -OutputDir "Persistence/Migrations"
+"ApiKey": "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"
+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
+
+update-database -Context ApplicationDbContext
+
+

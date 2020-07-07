@@ -16,7 +16,8 @@ namespace Infraero.Relprev.Application.Parecer.Queries.GetParecer
     {
         public int CodRelato { get; set; }
         public int CodParecer { get; set; }
-        public string DscPasrecer { get; set; }
+        public string DscParecer { get; set; }
+        public string DscMotivoDevolucao { get; set; }
         public string DscComplementoParecer { get; set; }
         public int FlgStatusParecer { get; set; }
         public string StatusParecer { get; set; }

@@ -150,43 +150,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
             }
         }
-        public IActionResult Complete(int id)
-        {
-            try
-            {
-                var obj = ApiClientFactory.Instance.GetRelatoById(id);
-
-                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
-                var resultLocal = ApiClientFactory.Instance.GetLocalAll();
-                var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
-                var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
-
-                var resultLocalUnidade = resultLocal
-                    .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
-                    .Select(s => new LocalDto
-                    {
-                        CodLocal = s.CodLocal,
-                        DscLocal = s.DscLocal
-                    }).ToList();
-
-                var model = new ParecerModel
-                {
-                    Relato = obj,
-                    ListLocal = new SelectList(resultLocalUnidade, "CodLocal", "DscLocal"),
-                    ListSubLocal = new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal"),
-                    ListAssunto = new SelectList(resultAssunto, "CodAssunto", "DscAssunto"),
-                    ListSubAssunto = new SelectList(new List<SubAssuntoDto>(), "CodSubAssunto", "DscSubAssunto"),
-                };
-
-           
-
-                return View(model);
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
-            }
-        }
+   
         public IActionResult Evaluate(int id)
         {
             try
@@ -231,6 +195,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> Evaluate(IFormCollection collection)
         {
@@ -258,6 +223,96 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
+        public IActionResult Complete(int id)
+        {
+            try
+            {
+                var objParecer = ApiClientFactory.Instance.GetParecerById(id);
+
+                var obj = ApiClientFactory.Instance.GetRelatoById(objParecer.CodRelato);
+
+                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
+                var resultLocal = ApiClientFactory.Instance.GetLocalAll();
+                var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
+                var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(objParecer.CodRelato);
+
+                var resultLocalUnidade = resultLocal
+                    .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
+                    .Select(s => new LocalDto
+                    {
+                        CodLocal = s.CodLocal,
+                        DscLocal = s.DscLocal
+                    }).ToList();
+                //.StatusParecer = ((EnumStatusRelato)s.FlgStatusRelato).GetDescription();
+
+                var model = new ParecerModel
+                {
+                    Relato = obj,
+                    Parecer = objParecer,
+                    ListHistoricoParecer = objParecer.HistoricoParecer,
+                    ListParecerArquivo = objParecer.ListArquivo,
+                    ListLocal = new SelectList(resultLocalUnidade, "CodLocal", "DscLocal"),
+                    ListSubLocal = new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal"),
+                    ListAssunto = new SelectList(resultAssunto, "CodAssunto", "DscAssunto"),
+                    ListSubAssunto = new SelectList(new List<SubAssuntoDto>(), "CodSubAssunto", "DscSubAssunto"),
+
+                };
+
+
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Complete), new { notify = (int)EnumNotify.Error, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Complete(IFormCollection collection)
+        {
+            try
+            {
+                string uniqueFileName = null;
+                var listParecerArquivo = new List<ParecerArquivoDto>();
+
+                if (collection.Files.Count > 0)
+                {
+                    var file = collection.Files;
+
+                    foreach (var item in file)
+                    {
+                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "ParecerArquivo");
+                        string extension = Path.GetExtension(item.FileName);
+                        uniqueFileName = Guid.NewGuid().ToString() + extension;
+                        var realName = item.GetFilename();
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        item.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                        listParecerArquivo.Add(new ParecerArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "ParecerArquivo" });
+                    }
+                }
+
+
+                var command = new CompleteParecerCommand
+                {
+                    CodParecer = int.Parse(collection["CodParecer"].ToString()),
+                    DscComplemtoParecer = collection["DscComplementoParecer"].ToString(),
+                    FlgStatusParecer = EnumStatusParecer.ParecerCompletado.GetHashCode(),
+                    DscParecerStatus = EnumStatusParecer.ParecerCompletado.GetDescription() + ", " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
+                    AlteradoPor = User.Identity.Name,
+                    ListParecerArquivo = listParecerArquivo
+                };
+
+                var idParecer = await ApiClientFactory.Instance.CompleteParecer(command);
+
+                return RedirectToAction(nameof(Complete), new { crud = (int)EnumCrud.Created });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Complete), new { notify = (int)EnumNotify.Error, message = ex.Message });
+            }
+        }
         public IActionResult Reply()
         {
             return View();
