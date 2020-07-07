@@ -22,6 +22,8 @@ namespace Infraero.Relprev.Domain.Entities
 
         [ForeignKey("CodParecer")]
         public virtual ICollection<ParecerArquivo> ListArquivo { get; set; }
+        [ForeignKey("CodParecer")]
+        public virtual ICollection<HistoricoParecer> HistoricoParecer { get; set; }
 
     }
 }

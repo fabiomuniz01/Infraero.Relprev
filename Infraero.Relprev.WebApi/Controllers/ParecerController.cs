@@ -18,7 +18,7 @@ using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
-
+using Infraero.Relprev.Application.Parecer.Commands.AvaluateParecer;
 
 namespace Infraero.Relprev.WebApi.Controllers
 {
@@ -50,6 +50,23 @@ namespace Infraero.Relprev.WebApi.Controllers
                 throw;
             }
             
+        }
+
+        [HttpPost("AvaluateParecer")]
+        public async Task<ActionResult<long>> AvaluateParecer(AvaluateParecerCommand command)
+        {
+            try
+            {
+                var result = await Mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         [HttpGet("GetGridParecer")]
@@ -125,7 +142,22 @@ namespace Infraero.Relprev.WebApi.Controllers
 
         }
 
-    
+        [HttpGet("GetParecerByIdRelato/{id}")]
+        public async Task<List<ParecerDto>> GetParecerByIdRelato(int id)
+        {
+            try
+            {
+                var result = await Mediator.Send(new GetParecerByIdRelatoQuery { Id = id });
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
         [HttpGet("GetParecerArquivosById/{id}")]
         public async Task<ParecerArquivoDto> GetParecerArquivosById(int id)
         {

@@ -31,7 +31,14 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             builder.Property(t => t.DscComplementoParecer)
                 .HasColumnName("DSC_COMPLEMENTO_PARECER")
                 .HasMaxLength(255);//.HasComment("Descriçao do complemento do parecer");
-                       
+
+            builder.Property(t => t.DscMotivoDevolucao)
+                .HasColumnName("DSC_MOTIVO_DEVOLUCAO")
+                .HasMaxLength(255);//.HasComment("Descriçao do motivo da devolução");
+
+            builder.Property(t => t.FlgStatusParecer)
+             .HasColumnName("FLG_STATUS_RELATO")
+             .IsRequired();//.HasComment("Status do parecer");     
 
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");//.HasComment("Usuário que realizou a inclusão");

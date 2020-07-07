@@ -1,6 +1,8 @@
-﻿
+﻿@using Infraero.Relprev.CrossCutting.Enumerators
+@model Infraero.Relprev.CrossCutting.Models.ParecerModel
+@inject Microsoft.Extensions.Configuration.IConfiguration configuration
 @{
-    ViewData["Title"] = "Evaluate";
+    ViewData["Title"] = "Parecer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,7 +10,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Edit", "Relato", FormMethod.Post))
+        @using (@Html.BeginForm("Evaluate", "Parecer", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -28,123 +30,116 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input readonly type="text" name="email" class="form-control" value="02081984" maxlength="100" />
+                                <input type="hidden" id="CodRelato" name="CodRelato" value="@Model.Relato.CodRelato">
+                                <input type="hidden" id="CodParecer" name="CodParecer" value="@Model.Parecer.CodParecer">
+
+                                <input readonly id="CodNumRelato" name="CodNumRelato" value="@Model.Relato.NumRelato" class="form-control" placeholder="eg.: Número identificador do relato" maxlength="12" />
+
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Unidade de infraestrutura <span class="required">*</span></label>
                         <div class="col-lg-9">
-                            <select data-plugin-selectTwo class="form-control populate" disabled="disabled">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                            </select>
+                            <input readonly id="DscUnidadeInfraestrutura" name="DscUnidadeInfraestrutura"
+                                   placeholder="eg.: Unidade Infraestrutura"
+                                   class="form-control"
+                                   value="@Model.Relato.UnidadeInfraestrutura.NomUnidadeÌnfraestrutura">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência <span class="required">*</span></label>
+                        <label class="col-lg-3 control-label text-lg-right pt-2">Data da ocorrência</label>
                         <div class="col-lg-3">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                <input readonly id="date" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="eg.: Data da ocorrência de prevenção" class="form-control">
+                                <input readonly id="DtOcorrencia" name="DtOcorrencia"
+                                       data-plugin-masked-input data-input-mask="99/99/9999"
+                                       placeholder="eg.: Data da ocorrência de prevenção"
+                                       class="form-control"
+                                       value="@Model.Relato.DatOcorrencia">
                             </div>
                         </div>
 
-                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da Ocorrência <span class="required">*</span></label>
+                        <label class="col-lg-2 control-label text-lg-right pt-2">Hora da Ocorrência</label>
                         <div class="col-lg-3 pull-left">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </span>
-                                <input readonly type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }' placeholder="eg.: Horário da ocorrência">
+                                <input readonly type="text"
+                                       id="HorOcorrencia" name="HorOcorrencia"
+                                       data-plugin-timepicker class="form-control"
+                                       data-plugin-options='{ "showMeridian": false }'
+                                       placeholder="eg.: Horário da ocorrência"
+                                       value="@Model.Relato.HorOcorrencia">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Local da Ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Nome do Local da Ocorrência do relato  " required maxlength="200" />
+                            <textarea readonly type="text" rows="3"
+                                      name="DscLocalOcorrenciaRelator"
+                                      class="form-control"
+                                      placeholder="eg.: Nome do Local da Ocorrência do relato  "
+                                      required
+                                      maxlength="200">@Model.Relato.DscLocalOcorrenciaRelator</textarea>
                         </div>
                     </div>
-
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2"></label>
-                        <div class="col-sm-9">
-                            <h4 class="pt-3 mb-0">Classificação</h4>
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Local da ocorrência <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do local da ocorrência" required maxlength="200" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Local de ocorrência   <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição da ocorrência" required maxlength="200" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Assunto <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do assunto" required maxlength="200" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Sub Assunto<span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <input readonly type="text" name="fullname" class="form-control" placeholder="eg.: Descrição do sub assunto" required maxlength="200" />
-                        </div>
-                    </div>
-                    <br />
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Envolvidos na ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição dos envolvidos na ocorrência" required maxlength="500"></textarea>
+                            <textarea readonly
+                                      name="DscEnvolvidosOcorrencia"
+                                      type="text" rows="3"
+                                      class="form-control"
+                                      placeholder="eg.: Pessoas e / ou veículos envolvidos no relato"
+                                      required
+                                      maxlength="500">@Model.Relato.DscEnvolvidosOcorrencia</textarea>
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Descrição da ocorrência <span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <textarea readonly type="text" rows="3" name="DscOcorrenciaRelator" class="form-control" placeholder="eg.: Descrição da ocorrência do relato"
+                                      required maxlength="1000">@Model.Relato.DscOcorrenciaRelator</textarea>
+                        </div>
+
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
-                            <table class="table table-responsive-md table-striped mb-0">
+
+                            <table id="datatable-default2" class="table table-responsive-md table-striped mb-0">
                                 <thead>
                                     <tr>
+                                        <th colspan="4" class="text-center">Histórico</th>
+                                    </tr>
+
+                                    <tr>
                                         <th>Descrição do parecer técnico</th>
+                                        <th>Complemento do parecer técnico</th>
                                         <th>Responsável técnico</th>
-                                        <th>Motivo da Devolução</th>
-                                        <th>Status do parecer </th>
-                                        <th>Data e Hora</th>
+                                        <th>Motivo da devolução</th>
+                                        <th>Status do parecer</th>
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach (var item in @Model.ListHistoricoParecer)
+                                    {
                                     <tr>
-                                        <td>Foi finalizado levantamento</td>
-                                        <td>Uriel</td>
-                                        <td>Faltou material</td>
-                                        <td>Devolvido</td>
-                                        <td>05/12/2019 10:00</td>
+                                        <td>@item.DscParecer</td>
+                                        <td>@item.DscComplementoParecer</td>
+                                        <td>Responsável</td>
+                                        <td>@item.DscMotivoDevolucao</td>
+                                        <td>@item.DscUltimaOcorrencia</td>
+
                                     </tr>
-                                    <tr>
-                                        <td>Foi realizado sinalizaçao</td>
-                                        <td>Miguel</td>
-                                        <td>Faltou material</td>
-                                        <td>Parecer aceito</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Foi enviado para atendimento</td>
-                                        <td>Maria Flor</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    }
                                 </tbody>
                             </table>
 
@@ -153,28 +148,35 @@
                     <div class="form-group row">
                         <label class="col-sm-2 control-label text-sm-right pt-2"></label>
                         <div class="col-sm-9">
-                            <table class="table table-responsive-md table-striped mb-0">
+
+                            <table id="datatable-default" class="table table-responsive-md table-striped mb-0">
                                 <thead>
                                     <tr>
+                                        <th colspan="4" class="text-center">Nome dos arquivos anexo</th>
+                                    </tr>
+
+                                    <tr>
                                         <th>Arquivo</th>
-                                        <th>Data e hora</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>atendimento.png</td>
-                                        <td>05/12/2019 10:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>relato.png</td>
-                                        <td>01/12/2019 18:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>atendimento.png</td>
-                                        <td>05/12/2019 08:00</td>
-                                    </tr>
+                                    @foreach (var item in @Model.ListParecerArquivo)
+                                    {
+                                        <tr>
+                                            <td>@item.Arquivo</td>
+
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-sm-right pt-2"></label>
+                        <div class="col-sm-9">
+                            <h4 class="pt-3 mb-0">Avaliação do Parecer</h4>
 
                         </div>
                     </div>
@@ -182,13 +184,13 @@
                         <label class="col-sm-3 control-label text-sm-right pt-2">Situação dos Relatos<span class="required">*</span></label>
                         <div class="col-sm-8">
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample1" name="radioExample" checked="">
+                                <input type="radio" id="rdoAceito" name="rdoAvaliacao" checked="" value="@EnumStatusParecer.ParecerAaceito.GetHashCode()">
                                 <label for="radioExample1">Aceitar parecer técnico</label>
                             </div>
 
                             <div class="radio-custom">
-                                <input type="radio" id="radioExample2" name="radioExample">
-                                <label for="radioExample2">Devolver para complemento</label>
+                                <input type="radio" id="rdoDevolvido" name="rdoAvaliacao" value="@EnumStatusParecer.Devolvido.GetHashCode()">
+                                <label for="radioExample2">Devolver para complemto</label>
                             </div>
 
                         </div>
@@ -196,16 +198,25 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Motivo da devolução <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea readonly type="text" rows="3" name="fullname" class="form-control" placeholder="eg.: Descrição do motivo da devolução do parecer" required maxlength="1000"></textarea>
+                            <textarea readonly
+                                      type="text"
+                                      rows="3"
+                                      id="DscMotivoParecer"
+                                      name="DscMotivoParecer"
+                                      class="form-control"
+                                      placeholder="eg.: Descrição do motivo da devolução do parecer técnico"
+                                      maxlength="500">
+                            </textarea>
                         </div>
                     </div>
+
                 </div>
                 <footer class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-sm-9">
-                            <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
-                            <a href="#" class="btn btn-danger pull-left mr-2">Sair &nbsp;&nbsp;<i class="fa fa-remove"></i></a>
-                            @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
+                            <button class="btn  btn-success pull-left mr-2" form="form" type="submit">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="reset" class="btn btn-danger pull-left mr-2">Cancelar &nbsp;&nbsp;<i class="fa fa-remove"></i></button>
+                            <a href="@Url.Action("Index", "SubLocal")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>
 
                         </div>
                     </div>
@@ -214,50 +225,28 @@
         }
     </div>
 </div>
-<div id="modalIcon" class="modal-block modal-header-color modal-block-danger mfp-hide">
-    <section class="card">
-        <header class="card-header">
-            <h2 class="card-title">Exclusão</h2>
-        </header>
-        <div class="card-body">
-            <div class="modal-wrapper">
-                <div class="modal-icon">
-                    <i class="fa fa-question-circle"></i>
-                </div>
-                <div class="modal-text">
-                    <p class="mb-0">Tem certeza que deseja <b>excluir</b> esse registro?</p>
-                </div>
-            </div>
-        </div>
-        <footer class="card-footer">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-success modal-confirm">Sim &nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i></button>
-                    <button class="btn btn-danger modal-dismiss">Não &nbsp;&nbsp;<i class="fa fa-thumbs-o-down"></i></button>
-                </div>
-            </div>
-        </footer>
-    </section>
-</div>
 @section CssSpecificVendor {
     <link rel="stylesheet" href="~/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+    <link href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css" />
 }
 @section Scripts {
     <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/js/empresa.js"></script>
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
+    <script src="~/vendor/select2/js/select2.js"></script>
+    <script src="~/vendor/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+    <script src="~/js/avaluate.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 
-    <script>
-        // Tooltip
-        (function ($) {
+}
 
-            'use strict';
-
-            if ($.isFunction($.fn['tooltip'])) {
-                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
-            }
-
-        }).apply(this, [jQuery]);
+<script>
         /*
 Name: 			UI Elements / Modals - Examples
 Written by: 	Okler Themes - (http://www.okler.net)
@@ -268,38 +257,58 @@ Theme Version: 	2.0.0
 
             'use strict';
 
-            /*
-            Basic
-            */
-            $('.modal-basic').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
-            });
+            var crud = @ViewBag.CrudMessage;
 
-            /*
-            Sizes
-            */
-            $('.modal-sizes').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true
-            });
+            if (crud===1) {
+                new PNotify({
+                    title: 'Parecer',
+                    text: 'Cadastro realizado com sucesso!',
+                    type: 'success'
+                });
+            }else if (crud === 2) {
+                new PNotify({
+                    title: 'Parecer',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning'
+                });
+            }else if (crud === 3) {
+                new PNotify({
+                    title: 'Parecer',
+                    text: 'Registro excluído com sucesso.',
+                    type: 'error'
+                });
+            }
 
-            /*
-            Modal Dismiss
-            */
-            $(document).on('click', '.modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
-            });
+            var notify = @ViewBag.NotifyMessage;
+            var messagem = '@ViewBag.Notify';
+
+            if (notify===0) {
+                new PNotify({
+                    title: 'Parecer',
+                    text: messagem,
+                    type: 'success'
+                });
+            }else if (notify === 1) {
+                new PNotify({
+                    title: 'Parecer',
+                    text: messagem,
+                    type: 'warning'
+                });
+            }else if (notify === 2) {
+                new PNotify({
+                    title: 'Parecer',
+                    text: messagem,
+                    type: 'error'
+                });
+            }
+
+            //Tooltip
+            if ($.isFunction($.fn['tooltip'])) {
+                $('[data-toggle=tooltip],[rel=tooltip]').tooltip({ container: 'body' });
+            }
+
 
         }).apply(this, [jQuery]);
-    </script>
-}
 
-
-
-
-
+</script>
 

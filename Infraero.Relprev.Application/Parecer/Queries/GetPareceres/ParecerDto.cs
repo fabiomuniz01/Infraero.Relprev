@@ -14,6 +14,7 @@ namespace Infraero.Relprev.Application.Parecer.Queries.GetParecer
 {
     public class ParecerDto : IMapFrom<Domain.Entities.Parecer>
     {
+        public int CodRelato { get; set; }
         public int CodParecer { get; set; }
         public string DscPasrecer { get; set; }
         public string DscComplementoParecer { get; set; }
@@ -23,7 +24,7 @@ namespace Infraero.Relprev.Application.Parecer.Queries.GetParecer
         [ForeignKey("CodParecer")]
         public List<ParecerArquivoDto> ListArquivo { get; set; }
         [ForeignKey("CodParecer")]
-        public HistoricoParecerDto HistoricoParecer { get; set; }
+        public List<HistoricoParecerDto> HistoricoParecer { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+using Infraero.Relprev.Application.HistoricoParecer.Queries.GetHistoricoParecer;
 
 namespace Infraero.Relprev.CrossCutting.Models
 {
@@ -31,6 +32,7 @@ namespace Infraero.Relprev.CrossCutting.Models
         public ParecerDto Parecer { get; set; }
         public List<IFormFile> ListArquivo { get; set; }
         public List<ParecerArquivoDto> ListParecerArquivo { get; set; }
+        public List<HistoricoParecerDto> ListHistoricoParecer { get; set; }
         public IFormFile Arquivo { get; set; }
     }
 }

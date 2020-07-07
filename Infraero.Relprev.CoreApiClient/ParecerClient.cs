@@ -7,6 +7,7 @@ using Infraero.Relprev.Application.Parecer.Commands.CreateParecer;
 using Infraero.Relprev.Application.Parecer.Commands.CompleteParecer;
 
 using System;
+using Infraero.Relprev.Application.Parecer.Commands.AvaluateParecer;
 
 namespace Infraero.Relprev.CoreApiClient
 {
@@ -22,19 +23,25 @@ namespace Infraero.Relprev.CoreApiClient
                 $"{ResourceParecer}/CreateParecer"));
             return Post(requestUrl, command);
         }
+        public Task<long> AvaluateParecer(AvaluateParecerCommand command)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceParecer}/AvaluateParecer"));
+            return Post(requestUrl, command);
+        }
         public Task<long> CompletePàrecer(CompleteParecerCommand command)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceParecer}/CompletePàrecer"));
             return Post(requestUrl, command);
         }
-       
-        //public GridParecer GetGridParecer()
-        //{
-        //    var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
-        //        $"{ResourceParecer}/GetGridParecer/"));
-        //    return Get<GridParecer>(requestUrl);
-        //}
+
+        public GridParecer GetGridParecer()
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceParecer}/GetGridParecer/"));
+            return Get<GridParecer>(requestUrl);
+        }
 
         #endregion
 
@@ -58,6 +65,12 @@ namespace Infraero.Relprev.CoreApiClient
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
                 $"{ResourceParecer}/GetParecerByStatus/{id}"));
+            return Get<List<ParecerDto>>(requestUrl);
+        }
+        public List<ParecerDto> GetParecerByIdRelato(int id)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourceParecer}/GetParecerByIdRelato/{id}"));
             return Get<List<ParecerDto>>(requestUrl);
         }
 

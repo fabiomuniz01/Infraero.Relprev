@@ -12,5 +12,7 @@ namespace Infraero.Relprev.Domain.Entities
         public string DscUltimaOcorrencia { get; set; }
         public string DscParecer { get; set; }
         public string DscComplementoParecer { get; set; }
+        public string DscMotivoDevolucao { get; set; }
+        public int FlgStatusParecer { get; set; }
     }
 }

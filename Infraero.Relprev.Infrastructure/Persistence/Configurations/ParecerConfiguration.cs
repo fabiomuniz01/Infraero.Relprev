@@ -33,6 +33,10 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
              .HasColumnName("COD_RELATO")
              .IsRequired();//.HasComment("Relato a qual o parecer é atribuído");
 
+            builder.Property(t => t.FlgStatusParecer)
+             .HasColumnName("FLG_STATUS_RELATO")
+             .IsRequired();//.HasComment("Status do parecer");
+
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");//.HasComment("Usuário que realizou a inclusão");
             builder.Property(p => p.DataCriacao).HasColumnName("DTH_INCLUSAO");//.HasComment("Data da inclusão");

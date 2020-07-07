@@ -57,7 +57,8 @@ namespace Infraero.Relprev.Application.Parecer.Commands.CreateParecer
                         CodParecer = entity.CodParecer,
                         DscParecer = request.DscParecer,
                         CriadoPor = request.CriadoPor,
-                        DataCriacao = DateTime.Now
+                        DataCriacao = DateTime.Now,
+                        FlgStatusParecer = request.FlgStatusParecer
                     };
 
                     _context.HistoricoParecer.Add(entityHistoricoParecer);
@@ -96,7 +97,8 @@ namespace Infraero.Relprev.Application.Parecer.Commands.CreateParecer
                         .FirstOrDefaultAsync(cancellationToken);
 
                     //Rn0045 - Ocorrência atendida, DD/MM/AAAA, HH:MM 
-                    entityHistorico.DscParecer = request.DscParecerStatus;
+                    entityHistorico.DscParecer = request.DscParecer;
+                    entityHistorico.DscUltimaOcorrencia = request.DscParecerStatus;
                     entityHistorico.AlteradoPor = request.CriadoPor;
                     entityHistorico.DataAlteracao = DateTime.Now;
 

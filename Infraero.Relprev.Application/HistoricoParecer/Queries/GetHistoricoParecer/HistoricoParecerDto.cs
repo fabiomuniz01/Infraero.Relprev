@@ -12,7 +12,10 @@ namespace Infraero.Relprev.Application.HistoricoParecer.Queries.GetHistoricoPare
         public int CodParecer { get; set; }
         public string DscParecer { get; set; }
         public string DscComplementoParecer { get; set; }
-       
+        public string DscUltimaOcorrencia { get; set; }
+        public string DscMotivoDevolucao { get; set; }
+        public int FlgStatusParecer { get; set; }
+        public string StatusParecer { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Domain.Entities.HistoricoParecer, HistoricoParecerDto>();
