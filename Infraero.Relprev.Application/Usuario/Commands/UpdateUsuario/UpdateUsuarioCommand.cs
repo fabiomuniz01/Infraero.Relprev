@@ -37,6 +37,7 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario
                 entity.CodPerfil = request.CodPerfil;
                 entity.AlteradoPor = request.AlteradoPor;
                 entity.DataAlteracao = DateTime.Now;
+                entity.NomPerfil = request.NomPerfil;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
@@ -54,5 +55,6 @@ namespace Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresa { get; set; }
         public string CodPerfil { get; set; }
+        public string NomPerfil { get; set; }
     }
 }

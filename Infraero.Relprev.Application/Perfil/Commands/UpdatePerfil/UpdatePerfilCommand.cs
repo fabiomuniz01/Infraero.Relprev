@@ -31,7 +31,7 @@ namespace Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil
 
                 entity.NomPerfil = request.NomPerfil;
                 entity.DscPerfil = request.DscPerfil;
-                entity.FlgAtivo = request.FlgAtivo;
+                entity.FlagAtivo = request.FlgAtivo;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

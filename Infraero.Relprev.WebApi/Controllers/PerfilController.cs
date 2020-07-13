@@ -10,6 +10,9 @@ using Infraero.Relprev.Application.Perfil.Commands.CreatePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
 using Infraero.Relprev.Application.Perfil.Queries.GetPerfils;
+using Infraero.Relprev.Application.Usuario.Commands.UpdateUsuario;
+using Infraero.Relprev.Application.Usuario.Queries.GetUsuarios;
+using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +24,13 @@ namespace Infraero.Relprev.WebApi.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<WebProfileUser> _userManager;
 
-        public PerfilController(ApplicationDbContext db, RoleManager<IdentityRole> roleManager)
+        public PerfilController(ApplicationDbContext db, RoleManager<IdentityRole> roleManager, UserManager<WebProfileUser> userManager)
         {
             _db = db;
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         [HttpPost("CreatePerfil")]
@@ -154,6 +159,39 @@ namespace Infraero.Relprev.WebApi.Controllers
             try
             {
                 var obj = _db.Roles.Where(x => x.Id == command.CodPerfil).FirstOrDefault();
+
+                var usersInRole =
+                    _db.UserRoles.Where(u => u.RoleId == command.CodPerfil).Select(s => s.UserId);
+
+                foreach (var id in usersInRole)
+                {
+                    var user = await _userManager.FindByIdAsync(id);
+                    if (user != null)
+                    {
+                            var userRoles = await _userManager.GetRolesAsync(new WebProfileUser { Id = user.Id });
+
+                            var rsRemove = await _userManager.RemoveFromRoleAsync(user, userRoles.FirstOrDefault());
+
+                            if (!rsRemove.Succeeded) return null;
+                            var userRole = _db.Roles.FirstOrDefault(x => x.Name.ToUpper() == command.NomPerfilUsuarioPublico.ToUpper());
+                            await _userManager.AddToRoleAsync(user, userRole.Name);
+
+                            var usuario = await Mediator.Send(new GetUsuarioByIdQuery { Id = user.Id });
+
+
+                            var commandUsu = new UpdateUsuarioCommand
+                            {
+                                NomUsuario = user.Nome,
+                                NumTelefone = user.Telefone,
+                                CodEmpresa = usuario.CodEmpresa,
+                                CodUnidadeInfraestrutura = usuario.CodUnidadeInfraestrutura,
+                                CodPerfil = userRole.Id,
+                                NomPerfil = userRole.Name,
+                            };
+                            
+                            var resultUsu = await Mediator.Send(commandUsu);
+                    }
+                }
 
                 var result = await _roleManager.DeleteAsync(obj);
 

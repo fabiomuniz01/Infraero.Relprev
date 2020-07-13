@@ -11,7 +11,6 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodPerfil { get; set; }
         public string NomPerfil { get; set; }
         public string DscPerfil { get; set; }
-        public bool FlgAtivo { get; set; }
 
     }
 }

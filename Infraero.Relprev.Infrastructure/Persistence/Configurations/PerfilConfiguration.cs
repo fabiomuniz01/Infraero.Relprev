@@ -6,27 +6,28 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
 {
     
 
-    public class FuncionalidadeConfiguration : IEntityTypeConfiguration<Funcionalidade>
+    public class PerfilConfiguration : IEntityTypeConfiguration<Perfil>
     {
-        public void Configure(EntityTypeBuilder<Funcionalidade> builder)
+        public void Configure(EntityTypeBuilder<Perfil> builder)
         {
-            builder.ToTable("TAB_FUNCIONALIDADE");
+            builder.ToTable("CAD_PERFIL");
 
-            builder.Property(t => t.CodFuncionalidade)
-                .HasColumnName("SEQ_FUNCIONALIDADE")
+            builder.Property(t => t.CodPerfil)
+                .HasColumnName("SEQ_PERFIL")
                 .IsRequired();
                 //.HasComment("Sequencial da tabela");
 
-                builder.Property(t => t.NomFuncionalidade)
-                    .HasColumnName("NOM_FUNCIONALIDADE")
+                builder.Property(t => t.NomPerfil)
+                    .HasColumnName("NOM_PERFIL")
                     .HasMaxLength(100)
                     .IsRequired();
-                //.HasComment("Descriçao do Funcionalidade");
+                //.HasComment("Nome do Perfil");
 
-                builder.Property(t => t.CodModulo)
-                    .HasColumnName("COD_MODULO")
+                builder.Property(t => t.DscPerfil)
+                    .HasColumnName("DSC_PERFIL")
+                    .HasMaxLength(255)
                     .IsRequired();
-                //.HasComment("Descriçao do Funcionalidade");
+                //.HasComment("Descriçao do Perfil");
 
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");//.HasComment("Usuário que realizou a inclusão");

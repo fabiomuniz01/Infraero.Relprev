@@ -153,17 +153,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Empresa", "Consultar")]
-        public ActionResult Link(int id, string message = null)
+        public ActionResult Link(int id, int? crud, int? notify, string message = null)
         {
-            if (!string.IsNullOrEmpty(message))
-            {
-                SetNotifyMessage((int)EnumNotify.Error, message);
-            }
-            else
-            {
-                ViewBag.NotifyMessage = -1;
-                ViewBag.Notify = "null";
-            }
+            SetNotifyMessage(notify, message);
+            SetCrudMessage(crud);
 
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaAll();
 
@@ -204,7 +197,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 {
                     ApiClientFactory.Instance.CreateVinculoUnidadeEmpresa(command);
 
-                    return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+                    return RedirectToAction(nameof(Link), new { crud = (int)EnumCrud.Created });
                 }
                 else
                 {

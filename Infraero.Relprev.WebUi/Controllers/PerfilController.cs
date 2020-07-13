@@ -139,7 +139,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                ApiClientFactory.Instance.DeletePerfil(new DeletePerfilCommand {CodPerfil = id});
+                ApiClientFactory.Instance.DeletePerfil(new DeletePerfilCommand {CodPerfil = id, NomPerfilUsuarioPublico = UserRoles.UsuarioPublico});
 
                 return RedirectToAction(nameof(Index), new {crud = (int) EnumCrud.Deleted});
             }

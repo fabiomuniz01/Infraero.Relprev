@@ -6,27 +6,22 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
 {
     
 
-    public class FuncionalidadeConfiguration : IEntityTypeConfiguration<Funcionalidade>
+    public class ModuloConfiguration : IEntityTypeConfiguration<Modulo>
     {
-        public void Configure(EntityTypeBuilder<Funcionalidade> builder)
+        public void Configure(EntityTypeBuilder<Modulo> builder)
         {
-            builder.ToTable("TAB_FUNCIONALIDADE");
+            builder.ToTable("TAB_MODULO");
 
-            builder.Property(t => t.CodFuncionalidade)
-                .HasColumnName("SEQ_FUNCIONALIDADE")
+            builder.Property(t => t.CodModulo)
+                .HasColumnName("SEQ_MODULO")
                 .IsRequired();
                 //.HasComment("Sequencial da tabela");
 
-                builder.Property(t => t.NomFuncionalidade)
-                    .HasColumnName("NOM_FUNCIONALIDADE")
+                builder.Property(t => t.NomModulo)
+                    .HasColumnName("NOM_Modulo")
                     .HasMaxLength(100)
                     .IsRequired();
-                //.HasComment("Descriçao do Funcionalidade");
-
-                builder.Property(t => t.CodModulo)
-                    .HasColumnName("COD_MODULO")
-                    .IsRequired();
-                //.HasComment("Descriçao do Funcionalidade");
+                //.HasComment("Descriçao do Modulo");
 
             //BaseEntity
             builder.Property(p => p.CriadoPor).HasColumnName("NOM_USU_INCLUSAO");//.HasComment("Usuário que realizou a inclusão");

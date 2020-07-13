@@ -29,8 +29,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                     CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
                     FlagGestorSgso = false,
                     CriadoPor = request.CriadoPor,
-                    DataCriacao = DateTime.Now,
-                    FlagAtivo = true
+                    DataCriacao = DateTime.Now
                 };
 
                 _context.ResponsavelTecnico.Add(entity);
@@ -44,7 +43,8 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateRespons
                         CodEmpresa = Convert.ToInt32(item),
                         CodResponsavelTecnico = entity.CodResponsavelTecnico,
                         CriadoPor = request.CriadoPor,
-                        DataCriacao = DateTime.Now
+                        DataCriacao = DateTime.Now,
+                    FlagAtivo = true
                     };
 
                     _context.VinculoResponsavelEmpresa.Add(entityVinculo);

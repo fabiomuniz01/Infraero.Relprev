@@ -49,8 +49,9 @@ namespace Infraero.Relprev.WebUi.Controllers
             try
             {
                 SetNotifyMessage(notify, message);
-                var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+                //[RN1013]
+                var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
                 var model = new ResponsavelTecnicoModel
@@ -101,6 +102,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumTelefone = collection["NumTelefone"].ToString(),
                     NumDocumento = collection["NumDocumento"].ToString(),
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                    //[RN1015]
                     arrEmpresa = listEmpresa,
                     CriadoPor = User.Identity.Name
                 };
@@ -119,9 +121,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         public ActionResult Edit(int id)
         {
             ResponsavelTecnicoModel model = null;
-
+            //[RN1013]
             var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
             var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(usuario.CodUnidadeInfraestrutura);
 
             var obj = ApiClientFactory.Instance.GetResponsavelTecnicoById(id);
@@ -204,7 +205,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("ResponsavelTecnico", "Consultar")]
         public JsonResult GetResponsavelTecnicoByCpf(string cpf)
         {
-
+            //[RN1014]
             try
             {
                 if (string.IsNullOrEmpty(cpf))
