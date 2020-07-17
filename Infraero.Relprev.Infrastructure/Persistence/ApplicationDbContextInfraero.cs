@@ -66,28 +66,9 @@ namespace Infraero.Relprev.Infrastructure.Persistence
         public DbSet<ConfigurarAmbiente> ConfigurarAmbiente { get; set; }
         public DbSet<AtribuicaoRelato> AtribuicaoRelato { get; set; }
         public virtual DbSet<HistoricoParecer> HistoricoParecer { get; set; }
-
-
-
-
-
-
-        public virtual DbSet<ContratoUtilizacaoSistema> ContratoUtilizacaoSistema { get; set; }
-        public virtual DbSet<EmpresaLocalidade> EmpresaLocalidade { get; set; }
-        public virtual DbSet<EmpresaResponsavelTecnico> EmpresaResponsavelTecnico { get; set; }
-        public virtual DbSet<Evento> Evento { get; set; }
-        public virtual DbSet<FuncaoSistema> FuncaoSistema { get; set; }
         public virtual DbSet<HistoricoRelato> HistoricoRelato { get; set; }
-        public virtual DbSet<Local> Localidade { get; set; }
         public virtual DbSet<Perfil> Perfil { get; set; }
-        public virtual DbSet<PerfilFuncao> PerfilFuncao { get; set; }
-        public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }
-        public virtual DbSet<SituacaoAtribuicaoRelato> SituacaoAtribuicaoRelato { get; set; }
-        public virtual DbSet<SituacaoRelato> SituacaoRelato { get; set; }
-
-        public virtual DbSet<TipoEvento> TipoEvento { get; set; }
-        public virtual DbSet<UsuarioLocalidade> UsuarioLocalidade { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

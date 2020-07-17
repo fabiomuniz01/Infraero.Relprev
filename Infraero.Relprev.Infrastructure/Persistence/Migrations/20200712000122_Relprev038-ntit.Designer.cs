@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200712000122_Relprev038-ntit")]
+    partial class Relprev038ntit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,11 +205,16 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(455)")
                         .HasMaxLength(455);
 
+                    b.Property<int?>("SituacaoAtribuicaoRelatoCodSituacaoAtribuicao")
+                        .HasColumnType("int");
+
                     b.HasKey("CodAtribuicaoRelato");
 
                     b.HasIndex("CodRelato");
 
                     b.HasIndex("CodResponsavelTecnico");
+
+                    b.HasIndex("SituacaoAtribuicaoRelatoCodSituacaoAtribuicao");
 
                     b.ToTable("CAD_ATRIBUICAO_RELATO");
                 });
@@ -262,6 +269,82 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasKey("CodConfigurarAmbiente");
 
                     b.ToTable("CAD_CONFIG_AMBIENTE");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.ContratoUtilizacaoSistema", b =>
+                {
+                    b.Property<int>("CodContrato")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CodEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodEmpresaNavigationCodEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodLocalidade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodLocalidadeNavigationCodLocal")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DatFimVigencia")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DatInicioVigencia")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DthRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailContratada")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailContratante")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NomContratada")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomCotratante")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumAtoAdm")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumContrato")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumTelefoneContratada")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumTelefoneContratante")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CodContrato");
+
+                    b.HasIndex("CodEmpresaNavigationCodEmpresa");
+
+                    b.HasIndex("CodLocalidadeNavigationCodLocal");
+
+                    b.ToTable("ContratoUtilizacaoSistema");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Empresa", b =>
@@ -321,6 +404,183 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasKey("CodEmpresa");
 
                     b.ToTable("CAD_EMPRESA");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.EmpresaLocalidade", b =>
+                {
+                    b.Property<int>("CodEmpresa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CodEmpresaNavigationCodEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodLocalidade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodLocalidadeNavigationCodLocal")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DthRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CodEmpresa");
+
+                    b.HasIndex("CodEmpresaNavigationCodEmpresa");
+
+                    b.HasIndex("CodLocalidadeNavigationCodLocal");
+
+                    b.ToTable("EmpresaLocalidade");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.EmpresaResponsavelTecnico", b =>
+                {
+                    b.Property<int>("CodEmpresaResponsavelTecnico")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CodEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodLocalidade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodLocalidadeNavigationCodLocal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodResponsavelTecnico")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodResponsavelTecnicoNavigationCodResponsavelTecnico")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DthRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NumDocumentoRepresentacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CodEmpresaResponsavelTecnico");
+
+                    b.HasIndex("CodLocalidadeNavigationCodLocal");
+
+                    b.HasIndex("CodResponsavelTecnicoNavigationCodResponsavelTecnico");
+
+                    b.ToTable("EmpresaResponsavelTecnico");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Evento", b =>
+                {
+                    b.Property<int>("CodEvento")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CodUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodUsuarioNavigationCodUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DthRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ObsEvento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipEvento")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TipEventoNavigationTipEvento")
+                        .HasColumnType("int");
+
+                    b.HasKey("CodEvento");
+
+                    b.HasIndex("CodUsuarioNavigationCodUsuario");
+
+                    b.HasIndex("TipEventoNavigationTipEvento");
+
+                    b.ToTable("Evento");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.FuncaoSistema", b =>
+                {
+                    b.Property<int>("CodFuncao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DscFuncao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FlgVisivel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CodFuncao");
+
+                    b.ToTable("FuncaoSistema");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Funcionalidade", b =>
@@ -538,11 +798,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("DscMotivoDevolucao")
-                        .HasColumnName("DSC_MOTIVO_DEVOLUCAO")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
                     b.Property<string>("DscParecer")
                         .HasColumnName("DSC_PARECER")
                         .HasColumnType("nvarchar(255)")
@@ -557,13 +812,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnName("FLG_ATIVO")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FlgStatusParecer")
-                        .HasColumnName("FLG_STATUS_RELATO")
-                        .HasColumnType("int");
-
                     b.HasKey("CodHistoricoParecer");
-
-                    b.HasIndex("CodParecer");
 
                     b.ToTable("HST_CAD_PARECER");
                 });
@@ -895,7 +1144,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("FlgStatusParecer")
-                        .HasColumnName("FLG_STATUS_RELATO")
                         .HasColumnType("int");
 
                     b.HasKey("CodParecer");
@@ -1005,6 +1253,104 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasKey("CodPerfil");
 
                     b.ToTable("CAD_PERFIL");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.PerfilFuncao", b =>
+                {
+                    b.Property<int>("CodPerfilFuncao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CodFuncao")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodFuncaoNavigationCodFuncao")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodPerfil")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodPerfilNavigationCodPerfil")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DthRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CodPerfilFuncao");
+
+                    b.HasIndex("CodFuncaoNavigationCodFuncao");
+
+                    b.HasIndex("CodPerfilNavigationCodPerfil");
+
+                    b.ToTable("PerfilFuncao");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.PerfilUsuario", b =>
+                {
+                    b.Property<int>("CodPerfilUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CodPerfil")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodPerfilNavigationCodPerfil")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodUsuarioNavigationCodUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DatFimVigencia")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DatInicioVigencia")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DthRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CodPerfilUsuario");
+
+                    b.HasIndex("CodPerfilNavigationCodPerfil");
+
+                    b.HasIndex("CodUsuarioNavigationCodUsuario");
+
+                    b.ToTable("PerfilUsuario");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Relato", b =>
@@ -1255,6 +1601,66 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.ToTable("CAD_RESPONSAVEL_TECNICO");
                 });
 
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.SituacaoAtribuicaoRelato", b =>
+                {
+                    b.Property<int>("CodSituacaoAtribuicao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DscSituacaoAtribuicao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CodSituacaoAtribuicao");
+
+                    b.ToTable("SituacaoAtribuicaoRelato");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.SituacaoRelato", b =>
+                {
+                    b.Property<int>("CodSituacaoRelato")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DscSituacaoRelato")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CodSituacaoRelato");
+
+                    b.ToTable("SituacaoRelato");
+                });
+
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.SubAssunto", b =>
                 {
                     b.Property<int>("CodSubAssunto")
@@ -1347,6 +1753,36 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasIndex("CodLocal");
 
                     b.ToTable("CAD_SUBLOCAL");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.TipoEvento", b =>
+                {
+                    b.Property<int>("TipEvento")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DscTipoEvento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("TipEvento");
+
+                    b.ToTable("TipoEvento");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UnidadeInfraestrutura", b =>
@@ -1493,6 +1929,52 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasKey("CodUsuario");
 
                     b.ToTable("CAD_USUARIO");
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UsuarioLocalidade", b =>
+                {
+                    b.Property<int>("CodUsuarioLocalidade")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlteradoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CodLocalidade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodLocalidadeNavigationCodLocal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CodUsuarioNavigationCodUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CriadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DthRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FlagAtivo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CodUsuarioLocalidade");
+
+                    b.HasIndex("CodLocalidadeNavigationCodLocal");
+
+                    b.HasIndex("CodUsuarioNavigationCodUsuario");
+
+                    b.ToTable("UsuarioLocalidade");
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.VinculoResponsavelEmpresa", b =>
@@ -1831,6 +2313,63 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasForeignKey("CodResponsavelTecnico")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.SituacaoAtribuicaoRelato", null)
+                        .WithMany("AtribuicaoRelato")
+                        .HasForeignKey("SituacaoAtribuicaoRelatoCodSituacaoAtribuicao")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.ContratoUtilizacaoSistema", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Empresa", "CodEmpresaNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodEmpresaNavigationCodEmpresa")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.EmpresaLocalidade", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Empresa", "CodEmpresaNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodEmpresaNavigationCodEmpresa")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.EmpresaResponsavelTecnico", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.ResponsavelTecnico", "CodResponsavelTecnicoNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodResponsavelTecnicoNavigationCodResponsavelTecnico")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Evento", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodUsuarioNavigationCodUsuario")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.TipoEvento", "TipEventoNavigation")
+                        .WithMany("Evento")
+                        .HasForeignKey("TipEventoNavigationTipEvento")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Funcionalidade", b =>
@@ -1838,15 +2377,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Modulo", null)
                         .WithMany("ListFuncionalidades")
                         .HasForeignKey("CodModulo")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.HistoricoParecer", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Parecer", null)
-                        .WithMany("HistoricoParecer")
-                        .HasForeignKey("CodParecer")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -1876,6 +2406,32 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasForeignKey("CodParecer")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.PerfilFuncao", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.FuncaoSistema", "CodFuncaoNavigation")
+                        .WithMany("PerfilFuncao")
+                        .HasForeignKey("CodFuncaoNavigationCodFuncao")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Perfil", "CodPerfilNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodPerfilNavigationCodPerfil")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.PerfilUsuario", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Perfil", "CodPerfilNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodPerfilNavigationCodPerfil")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodUsuarioNavigationCodUsuario")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.Relato", b =>
@@ -1912,6 +2468,19 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasForeignKey("CodLocal")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.UsuarioLocalidade", b =>
+                {
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Local", "CodLocalidadeNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodLocalidadeNavigationCodLocal")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Infraero.Relprev.Domain.Entities.Usuario", "CodUsuarioNavigation")
+                        .WithMany()
+                        .HasForeignKey("CodUsuarioNavigationCodUsuario")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Infraero.Relprev.Domain.Entities.VinculoResponsavelEmpresa", b =>

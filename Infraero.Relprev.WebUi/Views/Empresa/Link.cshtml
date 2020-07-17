@@ -95,7 +95,7 @@
                             <td>@Html.DisplayFor(modelItem => item.NomEmpresa)</td>
                             <td>@Html.DisplayFor(modelItem => item.NomUnidadeInfraestrutura)</td>
                             <td class="actions">
-                                <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="DeleteLink" asp-controller="Empresa" asp-route-id="@item.CodVinculoUnidadeEmpresa" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
+                                <a data-toggle="tooltip" data-placement="top" title="Desvincular" asp-action="DeleteLink" asp-controller="Empresa" asp-route-id="@item.CodVinculoUnidadeEmpresa" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-unlink"></i></a>
                             </td>
                         </tr>
                             }
@@ -147,6 +147,28 @@
                 new PNotify({
                     title: 'Vinculo',
                     text: messagem,
+                    type: 'error'
+                });
+            }
+
+            var crub = @ViewBag.CrudMessage;
+
+            if (crub===1) {
+                new PNotify({
+                    title: 'Vinculo',
+                    text: 'A unidade de Infraestrutura foi vinculada com sucesso.',
+                    type: 'success'
+                });
+            }else if (crub === 2) {
+                new PNotify({
+                    title: 'Vinculo',
+                    text: 'Dados alterados com sucesso.',
+                    type: 'warning'
+                });
+            }else if (crub === 3) {
+                new PNotify({
+                    title: 'Vinculo',
+                    text: 'A unidade de Infraestrutura foi desvinculada com sucesso.',
                     type: 'error'
                 });
             }

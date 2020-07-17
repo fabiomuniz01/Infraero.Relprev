@@ -79,7 +79,12 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '<option value="">Selecionar sub local</option>';
+                        var items = ''
+                        if (data.length === 0) {
+                            items = '<option value="">Nenhum sub local encontrado para o local selecionado</option>';
+                        } else {
+                            items = '<option value="">Selecionar sub local</option>';
+                        }
                         $("#ddlSubLocal").empty;
                         $.each(data,
                             function (i, row) {
@@ -98,7 +103,12 @@
                 $.getJSON(url,
                     { id: $(ddlSource).val() },
                     function (data) {
-                        var items = '<option value="">Selecionar sub assunto</option>';
+                        var items = ''
+                        if (data.length === 0) {
+                            items = '<option value="">Nenhum sub assunto encontrado para o assunto selecionado</option>';
+                        } else {
+                            items = '<option value="">Selecionar sub assunto</option>';
+                        }
                         $("#ddlSubAssunto").empty;
                         $.each(data,
                             function (i, row) {

@@ -90,25 +90,26 @@ namespace Infraero.Relprev.WebApi.Controllers
                 var resultUsu = false;
                 var user = await _userManager.FindByEmailAsync(command.Email);
 
-                if (user != null)
-                {
-                    user.Nome = command.NomUsuario;
-                    user.PhoneNumber = command.NumTelefone;
-
-                    var result = await _userManager.UpdateAsync(user);
-                    if (result.Succeeded)
+                    if (user != null)
                     {
-                        var userRoles = await _userManager.GetRolesAsync(new WebProfileUser {Id = user.Id});
+                        user.Nome = command.NomUsuario;
+                        user.PhoneNumber = command.NumTelefone;
 
-                        var rsRemove = await _userManager.RemoveFromRoleAsync(user,userRoles.FirstOrDefault());
+                        var result = await _userManager.UpdateAsync(user);
+                        if (result.Succeeded)
+                        {
+                            var userRoles = await _userManager.GetRolesAsync(new WebProfileUser {Id = user.Id});
 
-                        if (!rsRemove.Succeeded) return resultUsu;
-                        var userRole = _db.Roles.FirstOrDefault(x => x.Id == command.CodPerfil).Name;
-                        await _userManager.AddToRoleAsync(user, userRole);
-                        command.Id = user.Id;
-                        resultUsu = await Mediator.Send(command);
+                            var rsRemove = await _userManager.RemoveFromRoleAsync(user,userRoles.FirstOrDefault());
+
+                            if (!rsRemove.Succeeded) return resultUsu;
+                            var userRole = _db.Roles.FirstOrDefault(x => x.Id == command.CodPerfil).Name;
+                            await _userManager.AddToRoleAsync(user, userRole);
+                            command.Id = user.Id;
+                            command.NomPerfil = userRole;
+                            resultUsu = await Mediator.Send(command);
+                        }
                     }
-                }
                 return resultUsu;
             }
             catch (Exception e)

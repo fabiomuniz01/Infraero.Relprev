@@ -51,7 +51,7 @@
                                     <td class="actions">
                                         <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-controller="Perfil" asp-route-id="@item.CodPerfil" class="on-default edit-row" style='color: #eea236'><i class="fa fa-pencil"></i></a>
 
-                                        @if (item.NomPerfil != UserRoles.Administrator)
+                                        @if (item.NomPerfil.ToUpper() != UserRoles.Administrator.ToUpper() && item.NomPerfil.ToUpper() != UserRoles.UsuarioPublico.ToUpper())
                                         {
                                             <a data-toggle="tooltip" data-placement="top" title="Excluir" asp-action="Delete" asp-controller="Perfil" asp-route-id="@item.CodPerfil" class="on-default remove-row" style='color: #d43f3a'><i class="fa fa-trash-o"></i></a>
                                         }

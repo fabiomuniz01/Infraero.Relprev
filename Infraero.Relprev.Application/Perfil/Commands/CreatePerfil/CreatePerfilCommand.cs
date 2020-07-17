@@ -26,7 +26,7 @@ namespace Infraero.Relprev.Application.Perfil.Commands.CreatePerfil
                 {
                     NomPerfil = request.NomPerfil,
                     DscPerfil = request.DscPerfil,
-                    FlgAtivo = request.FlgAtivo
+                    FlagAtivo = request.FlgAtivo
                 };
 
                 _context.Perfil.Add(entity);

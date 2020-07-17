@@ -117,8 +117,8 @@ namespace Infraero.Relprev.WebApi.Controllers
         {
             try
             {
-                var result = await Mediator.Send(new GetResponsavelTecnicoByIdQuery { Cpf = cpf });
-                return await Task.FromResult(result == null ? new ResponsavelTecnicoDto() : new ResponsavelTecnicoDto { CodUnidadeInfraestrutura = result.CodUnidadeInfraestrutura });
+                var result = await Mediator.Send(new GetResponsavelTecnicoByCpfQuery { Cpf = cpf });
+                return result ?? new ResponsavelTecnicoDto();
             }
             catch (Exception e)
             {

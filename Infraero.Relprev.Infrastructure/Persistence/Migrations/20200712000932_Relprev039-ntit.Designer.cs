@@ -4,14 +4,16 @@ using Infraero.Relprev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200712000932_Relprev039-ntit")]
+    partial class Relprev039ntit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -538,11 +540,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("DscMotivoDevolucao")
-                        .HasColumnName("DSC_MOTIVO_DEVOLUCAO")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
                     b.Property<string>("DscParecer")
                         .HasColumnName("DSC_PARECER")
                         .HasColumnType("nvarchar(255)")
@@ -557,13 +554,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnName("FLG_ATIVO")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FlgStatusParecer")
-                        .HasColumnName("FLG_STATUS_RELATO")
-                        .HasColumnType("int");
-
                     b.HasKey("CodHistoricoParecer");
-
-                    b.HasIndex("CodParecer");
 
                     b.ToTable("HST_CAD_PARECER");
                 });
@@ -895,7 +886,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("FlgStatusParecer")
-                        .HasColumnName("FLG_STATUS_RELATO")
                         .HasColumnType("int");
 
                     b.HasKey("CodParecer");
@@ -1838,15 +1828,6 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Migrations
                     b.HasOne("Infraero.Relprev.Domain.Entities.Modulo", null)
                         .WithMany("ListFuncionalidades")
                         .HasForeignKey("CodModulo")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Infraero.Relprev.Domain.Entities.HistoricoParecer", b =>
-                {
-                    b.HasOne("Infraero.Relprev.Domain.Entities.Parecer", null)
-                        .WithMany("HistoricoParecer")
-                        .HasForeignKey("CodParecer")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
