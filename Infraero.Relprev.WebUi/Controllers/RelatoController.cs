@@ -292,8 +292,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         [HttpPost]
         public async Task<ActionResult> Cancel(IFormCollection collection)
         {
-            try
-            {
+           
                 var command = new CancelRelatoCommand
                 {
                     CodRelato = int.Parse(collection["CodRelato"].ToString()),
@@ -326,11 +325,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 }
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
-            }
-            catch (Exception e)
-            {
-                return View();
-            }
+            
         }
 
         [ClaimsAuthorize("Relatos", "Finalizar")]
