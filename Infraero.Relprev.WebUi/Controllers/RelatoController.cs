@@ -227,14 +227,26 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+                var subAssunto = 0;
+                if (collection["ddlSubAssunto"].ToString().Length > 0)
+                {
+                    subAssunto = int.Parse(collection["ddlSubAssunto"].ToString());
+                }
+
+                var subLocal = 0;
+                if (collection["ddlSubLocal"].ToString().Length > 0)
+                {
+                    subLocal = int.Parse(collection["ddlSubLocal"].ToString());
+                }
+
                 var command = new ClassificarRelatoCommand
                 {
                     CodRelato = int.Parse(collection["CodRelato"].ToString()),
                     AlteradoPor = User.Identity.Name,
                     CodLocal = int.Parse(collection["ddlLocal"].ToString()),
-                    CodSubLocal = int.Parse(collection["ddlSubLocal"].ToString()),
+                    CodSubLocal = subLocal,
                     CodAssunto = int.Parse(collection["ddlAssunto"].ToString()),
-                    CodSubAssunto = int.Parse(collection["ddlSubAssunto"].ToString()),
+                    CodSubAssunto = subAssunto,
                     //Rn0034
                     FlgStatusRelato = (int)EnumStatusRelato.Ocorrenciaclassificada,
                     DscClassificada = "Ocorrência classificada, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
@@ -249,7 +261,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception e)
             {
-                return View();
+                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, message = e.Message.ToString() });
             }
         }
 
@@ -292,40 +304,40 @@ namespace Infraero.Relprev.WebUi.Controllers
         [HttpPost]
         public async Task<ActionResult> Cancel(IFormCollection collection)
         {
-           
-                var command = new CancelRelatoCommand
+
+            var command = new CancelRelatoCommand
+            {
+                CodRelato = int.Parse(collection["CodRelato"].ToString()),
+                //Rn0040
+                DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
+                //Rn0041
+                FlgStatusRelato = (int)EnumStatusRelato.Cancelado,
+                DscCancelamento = "Ocorrência cancelada, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
+                AlteradoPor = User.Identity.Name,
+            };
+
+            var relato = ApiClientFactory.Instance.GetRelatoById(command.CodRelato);
+
+            //Rn0092
+            int[] arrStatus = { (int)EnumStatusRelato.NaoIniciado, (int)EnumStatusRelato.Ocorrenciaclassificada, (int)EnumStatusRelato.Cancelado };
+
+            if (arrStatus.Contains(relato.FlgStatusRelato))
+            {
+                await ApiClientFactory.Instance.CancelRelato(command);
+
+                //Rn0042
+                if (!string.IsNullOrEmpty(relato.EmailRelator))
                 {
-                    CodRelato = int.Parse(collection["CodRelato"].ToString()),
-                    //Rn0040
-                    DscMotivoCancelamento = collection["DscMotivoCancelamento"].ToString(),
-                    //Rn0041
-                    FlgStatusRelato = (int)EnumStatusRelato.Cancelado,
-                    DscCancelamento = "Ocorrência cancelada, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
-                    AlteradoPor = User.Identity.Name,
-                };
-
-                var relato = ApiClientFactory.Instance.GetRelatoById(command.CodRelato);
-
-                //Rn0092
-                int[] arrStatus = { (int)EnumStatusRelato.NaoIniciado, (int)EnumStatusRelato.Ocorrenciaclassificada, (int)EnumStatusRelato.Cancelado };
-
-                if (arrStatus.Contains(relato.FlgStatusRelato))
-                {
-                    await ApiClientFactory.Instance.CancelRelato(command);
-
-                    //Rn0042
-                    if (!string.IsNullOrEmpty(relato.EmailRelator))
-                    {
-                        await SendRn0042Email(relato);
-                    }
+                    await SendRn0042Email(relato);
                 }
-                else
-                {
-                    return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Warning, message = "O relato poderá ser cancelado somente antes de ser iniciado (Classificado)." });
-                }
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Warning, message = "O relato poderá ser cancelado somente antes de ser iniciado (Classificado)." });
+            }
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
-            
+            return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+
         }
 
         [ClaimsAuthorize("Relatos", "Finalizar")]

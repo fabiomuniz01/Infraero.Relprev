@@ -225,7 +225,7 @@
                                         </ul>
                                     </li>
                                 }
-                                @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
+                                @*@if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
                                 {
                                     <li>
                                         <a class="nav-link" href="@Url.Action("Index", "AtribuirRespRelato")">
@@ -233,7 +233,7 @@
                                             <span>Atribuir <br />Responsável/Relato</span>
                                         </a>
                                     </li>
-                                }
+                                }*@
                                 @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
                                 {
                                     <li>
