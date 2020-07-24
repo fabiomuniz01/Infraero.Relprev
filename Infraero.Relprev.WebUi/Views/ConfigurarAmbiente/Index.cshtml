@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @using (@Html.BeginForm("Create", "ConfigurarAmbiente", FormMethod.Post))
+        @using (@Html.BeginForm("Create", "ConfigurarAmbiente", FormMethod.Post, new { id = "form" }))
         {
             <section class="card">
                 <header class="card-header">
@@ -30,27 +30,31 @@
                         <label class="col-lg-3 control-label text-lg-right pt-2">Parecer Técnico</label>
                         <div class="col-lg-3">
                             <input type="text" id="ParecerTecnico" name="ParecerTecnico" class="form-control" value="@Model.ParecerTecnico"
-                                   placeholder="eg.: Tempo que o técnico deve ter para responder um parecer técnico" maxlength="3" />
+                                   placeholder="eg.: Tempo que o técnico deve ter para responder um parecer técnico" maxlength="3"
+                                   title="Por favor informe o tempo que o técnico deve ter para responder um parecer técnico." required />
                         </div>
 
                         <label class="col-lg-2 control-label text-lg-right pt-2">Devolvido para Complemento<span class="required">*</span></label>
                         <div class="col-lg-3 pull-left">
                             <input type="text" id="DevolvidoParaComplemento" name="DevolvidoParaComplemento" class="form-control" value="@Model.DevolvidoParaComplemento"
-                                   placeholder="eg.: Tempo de resposta do parecer técnico quando o mesmo é rejeitado e devolvido para complemento" maxlength="3" />
+                                   placeholder="eg.: Tempo de resposta do parecer técnico quando o mesmo é rejeitado e devolvido para complemento" maxlength="3"
+                                   title="Por favor informe o tempo de resposta do parecer técnico quando o mesmo é rejeitado e devolvido para complemento." required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-3 control-label text-lg-right pt-2">Tempo de Notificação (e-mail) para Responder Parecer Técnico<span class="required">*</span></label>
                         <div class="col-lg-3">
                             <input type="text" id="TempoNotificacaoParaResponder" name="TempoNotificacaoParaResponder" class="form-control" value="@Model.TempoNotificacaoParaResponder"
-                                   placeholder="eg.: Tempo em que dever ser notificado por e-mail as Respostas dos Pareceres Técnicos " maxlength="3" />
+                                   placeholder="eg.: Tempo em que dever ser notificado por e-mail as Respostas dos Pareceres Técnicos " maxlength="3"
+                                   title="Por favor informe o tempo em que dever ser notificado por e-mail as Respostas dos Pareceres Técnicos." required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Texto Descritivo para Motivo de Cancelamento <span class="required">*</span></label>
                         <div class="col-sm-9">
                             <textarea type="text" rows="3" id="TextoMotivoCancelamento" name="TextoMotivoCancelamento" class="form-control"
-                                      placeholder="eg.: Texto descritivo a ser inserido no e-mail de notificação em caso de cancelamento do relato" required maxlength="1000">@Model.TextoMotivoCancelamento</textarea>
+                                      placeholder="eg.: Texto descritivo a ser inserido no e-mail de notificação em caso de cancelamento do relato" required maxlength="1000"
+                                      title="Por favor informe o texto descritivo a ser inserido no e-mail de notificação em caso de cancelamento do relatoo." required>@Model.TextoMotivoCancelamento</textarea>
                         </div>
                     </div>
                 </div>
@@ -75,6 +79,7 @@
     </style>
 }
 @section Scripts {
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script>
         (function ($) {
 
@@ -101,6 +106,17 @@
                     type: 'error'
                 });
             }
+
+            $("#form").each(function() {
+                $(this).validate({
+                    highlight: function(element) {
+                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    },
+                    success: function(element) {
+                        $(element).closest('.form-group').removeClass('has-error');
+                    }
+                });
+            });
 
         }).apply(this, [jQuery]);
 
