@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using Infraero.Relprev.Application.ConfigurarAmbiente.Commands.UpdateConfigurarAmbiente;
+using Infraero.Relprev.Application.ConfigurarAmbiente.Queries.GetConfigurarAmbientes;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -34,7 +35,8 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
-            return View(response);
+            var result = response == null ? new ConfigurarAmbienteDto() : response;
+            return View(result);
         }
 
 

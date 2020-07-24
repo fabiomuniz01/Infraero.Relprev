@@ -4,14 +4,12 @@
         params: {
             cpf: "",
             email: "",
-            contrato: {}
+            perfil: ""
         },
         loading: false
     },
     mounted: function () {
         var self = this;
-
-        self.params.contrato = ccc
         (function ($) {
 
             'use strict';
@@ -57,6 +55,21 @@
                             });
                         $("#ddlUnidadeInfraestrutura").html(items);
                     });
+            });
+
+
+            $("#ddlUnidadeInfraestrutura").change(function () {
+
+                var sel = $('#ddlPerfil').select2('data');
+                self.params.perfil = sel.text;
+
+                if (sel.text === "Gestor SGSO SITE") {
+                    var selUnidade = $('#ddlUnidadeInfraestrutura').select2('data');
+
+                    if (selUnidade.length >1) {
+
+                    }
+                }
             });
 
             var $numCpf = $("#cpf");
@@ -137,7 +150,7 @@
                     rev = 0;
                 if (rev != parseInt(cpf.charAt(10)))
                     return false;
-                return true; 
+                return true;
 
 
             }, "Informe um CPF válido");
