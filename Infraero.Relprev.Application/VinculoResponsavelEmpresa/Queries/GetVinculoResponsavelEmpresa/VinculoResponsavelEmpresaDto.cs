@@ -2,6 +2,7 @@
 using AutoMapper;
 using Infraero.Relprev.Application.Common.Mappings;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
+using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 
 namespace Infraero.Relprev.Application.VinculoResponsavelEmpresa.Queries.GetVinculoResponsavelEmpresa
@@ -15,6 +16,9 @@ namespace Infraero.Relprev.Application.VinculoResponsavelEmpresa.Queries.GetVinc
 
         [ForeignKey("CodEmpresa")]
         public EmpresaDto Empresa { get; set; }
+
+        [ForeignKey("CodResponsavelTecnico")]
+        public ResponsavelTecnicoDto Responsavel { get; set; }
 
         public void Mapping(Profile profile)
         {

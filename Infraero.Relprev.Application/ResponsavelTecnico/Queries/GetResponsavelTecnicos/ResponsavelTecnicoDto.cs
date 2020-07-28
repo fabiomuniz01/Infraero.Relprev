@@ -19,7 +19,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavel
 
         [ForeignKey("CodResponsavelTecnico")]
         public List<VinculoResponsavelEmpresaDto> ListVinculoResponsavelEmpresa { get; set; }
-        public string DscEmpresa { get; internal set; }
+        public string DscEmpresa { get;  set; }
 
         public void Mapping(Profile profile)
         {

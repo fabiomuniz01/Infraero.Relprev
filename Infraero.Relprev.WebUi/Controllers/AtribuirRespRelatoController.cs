@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using IdentityServer4.Extensions;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.CreateAtribuicaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.DeleteAtribiucaoRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Commands.UpdateAtribuicaoRelato;
@@ -13,6 +14,8 @@ using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
+using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
+using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
@@ -71,8 +74,29 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NomRazaoSocial = s.NomEmpresa
                 }).ToList();
 
+            var resultVinculoResponsavelEmpresa = ApiClientFactory.Instance.GetVinculoResponsavelEmpresaAll();
+
+           
             var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id).Where(a => a.ResponsavelTecnico.FlagGestorSgso == false);
 
+
+
+
+            foreach (var responsavel in resultResponsavel)
+            {
+                responsavel.ResponsavelTecnico.DscEmpresa = responsavel.ResponsavelTecnico.ListVinculoResponsavelEmpresa
+                    .Where(v => v.CodResponsavelTecnico == responsavel.CodResponsavelTecnico)
+                    .FirstOrDefault().Empresa.NomRazaoSocial;
+            }
+
+            if (obj.SubLocal == null)
+            {
+                obj.SubLocal = new SubLocalDto { CodSubLocal = 0 };
+            }
+            if (obj.SubAssunto == null)
+            {
+                obj.SubAssunto = new SubAssuntoDto { CodSubAssunto = 0 };
+            }
             model = new AtribuirRespRelatoModel
             {
                 Relato = obj,
@@ -101,11 +125,11 @@ namespace Infraero.Relprev.WebUi.Controllers
                         {
                             CodRelato = int.Parse(collection["CodRelato"].ToString()),
                             CodResponsavelTecnico = Convert.ToInt32(resp),
-                            CodSituacaoAtribuicao = (int) EnumSituacaoAtribuicao.OcorrenciaAtribuida,
+                            CodSituacaoAtribuicao = (int)EnumSituacaoAtribuicao.OcorrenciaAtribuida,
                             CodUsuarioAtribuidor = User.FindFirst(ClaimTypes.NameIdentifier).Value,
                             CriadoPor = User.Identity.Name,
                             FlagAtivo = false,
-                            
+
                         };
 
                         await ApiClientFactory.Instance.CreateAtribuicaoRelato(command);
@@ -115,9 +139,9 @@ namespace Infraero.Relprev.WebUi.Controllers
                 var commandUpdateRelato = new UpdateRelatoAtribuidoCommand
                 {
                     CodRelato = int.Parse(collection["CodRelato"].ToString()),
-                    
+
                     //Rn0039 Ocorrência Atribuída
-                    FlgStatusRelato = (int) EnumStatusRelato.Atribuido,
+                    FlgStatusRelato = (int)EnumStatusRelato.Atribuido,
                     DscAtribuicao = "Ocorrência Atribuída, " + DateTime.Now.ToString("dd/MM/yyyy") + ", " +
                                     DateTime.Now.ToString("hh:mm"),
                     AlteradoPor = User.Identity.Name
@@ -125,12 +149,12 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 await ApiClientFactory.Instance.UpdateRelatoAtribuido(commandUpdateRelato);
 
-                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Success, id = int.Parse(collection["CodRelato"].ToString()), message = "Responsável(is) atribuído(s) com sucesso" });
+                return RedirectToAction(nameof(Index));
 
             }
             catch (Exception ex)
             {
-                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, id = int.Parse(collection["CodRelato"].ToString()), message = ex.Message });
+                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, id = int.Parse(collection["CodRelato"].ToString()), message = "Erro" });
             }
         }
 
@@ -140,7 +164,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-               
+
                 var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato))
                     .Where(r => r.ResponsavelTecnico.CodResponsavelTecnico == Convert.ToInt32(idResponsavel))
                     .FirstOrDefault();
@@ -156,11 +180,11 @@ namespace Infraero.Relprev.WebUi.Controllers
                 }
 
 
-                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Success, id = idRelato, message = "Responsável atribuído removido com sucesso" });
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                return RedirectToAction(nameof(Index), new { id = Convert.ToInt32(idRelato), message = "Erro" });
+                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, id = Convert.ToInt32(idRelato), message = "Erro" });
             }
         }
 
@@ -170,7 +194,10 @@ namespace Infraero.Relprev.WebUi.Controllers
             try
             {
                 var listAtribuicao = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id).Where(s => s.FlagAtivo == false);
-
+                if (listAtribuicao.Count() == 0)
+                {
+                    return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, id = id, message = "Nenhum responsável técnico foi indicado." });
+                }
                 foreach (var item in listAtribuicao)
                 {
                     var command = new UpdateAtribuicaoRelatoCommand
