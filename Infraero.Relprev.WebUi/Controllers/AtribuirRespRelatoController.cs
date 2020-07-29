@@ -149,7 +149,8 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 await ApiClientFactory.Instance.UpdateRelatoAtribuido(commandUpdateRelato);
 
-                return RedirectToAction(nameof(Index));
+        
+                return RedirectToAction(nameof(Index), new { id = int.Parse(collection["CodRelato"].ToString()) });
 
             }
             catch (Exception ex)
@@ -180,7 +181,8 @@ namespace Infraero.Relprev.WebUi.Controllers
                 }
 
 
-                return RedirectToAction(nameof(Index));
+        
+                return RedirectToAction(nameof(Index), new { id = Convert.ToInt32(idRelato) });
             }
             catch (Exception ex)
             {
