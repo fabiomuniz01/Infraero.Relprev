@@ -40,4 +40,8 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\MigrationsPg\" />
+  </ItemGroup>
+
 </Project>
