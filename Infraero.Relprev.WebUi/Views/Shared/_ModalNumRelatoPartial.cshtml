@@ -1,0 +1,33 @@
+<!-- Modal -->
+<div class="modal fade" id="myMsgNumRelatoModal" tabindex="-1" role="dialog" aria-labelledby="myMsgModalLabel" aria-hidden="true" style="z-index: 60000;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0480be;color: white;">
+                <h4 class="modal-title pull-left" id="tituloNumRelato"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-lg-3 control-label text-sm-right pt-2">Nº do relato </label>
+                        <div class="col-lg-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input id="CodNumRelato" name="CodNumRelato"
+                                       class="form-control" placeholder="eg.: Número identificador do relato" maxlength="12" v-model="params.relato"
+                                       onkeyup="this.value = this.value.toUpperCase();"
+                                       style="z-index: auto;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="acao" name="acao">
+                <button type="button" v-on:click="GetRelatoByNumRelato" class="btn btn-primary  pull-left" data-target="#myMsgNumRelatoModal"><i class='fa  fa-search'></i>&nbsp;&nbsp;Pesquisar</button>
+                <button type="button" class="btn btn-danger pull-left" data-target="#myMsgNumRelatoModal" data-dismiss="modal"><i class='fa  fa-times-circle-o'></i>&nbsp;&nbsp;Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

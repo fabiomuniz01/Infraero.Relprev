@@ -9,6 +9,7 @@ using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
 using Infraero.Relprev.Application.ConfigurarAmbiente.Queries.GetConfigurarAmbientes;
 using Infraero.Relprev.Application.HistoricoRelato.Queries.GetHistoricoRelatos;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
+using Infraero.Relprev.Application.Parecer.Queries.GetParecer;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 
@@ -30,13 +31,7 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public int FlgStatusRelato { get; set; }
         public string StatusRelato { get; set; }
         public string DscMotivoCancelamento { get; set; }
-        [ForeignKey("CodRelato")]
-        public List<RelatoArquivoDto> ListArquivo { get; set; }
-        [ForeignKey("CodRelato")]
-        public HistoricoRelatoDto HistoricoRelato { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-        [ForeignKey("CodUnidadeInfraestrutura")]
-        public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
         public int CodLocal { get; set; }
         public LocalDto Local { get; set; }
         public int CodSubLocal { get; set; }
@@ -46,6 +41,18 @@ namespace Infraero.Relprev.Application.Relato.Queries.GetRelatos
         public int CodSubAssunto { get; set; }
         public SubAssuntoDto SubAssunto { get; set; }
         public string DscAcoesCorretivasRecomendadas { get; set; }
+
+        [ForeignKey("CodRelato")]
+        public List<RelatoArquivoDto> ListArquivo { get; set; }
+
+        [ForeignKey("CodUnidadeInfraestrutura")]
+        public UnidadeInfraEstruturaDto UnidadeInfraestrutura { get; set; }
+
+        [ForeignKey("CodParecer")]
+        public ParecerDto Parecer { get; set; }
+
+        [ForeignKey("CodRelato")]
+        public HistoricoRelatoDto HistoricoRelato { get; set; }
 
         public void Mapping(Profile profile)
         {

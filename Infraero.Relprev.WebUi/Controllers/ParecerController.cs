@@ -3,40 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
-using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Models;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Infraero.Relprev.Application.ParecerArquivo.Queries.GetParecerArquivos;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using System.Linq;
-using IdentityServer4.Extensions;
-using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.CrossCutting.Extensions;
-using Infraero.Relprev.CrossCutting.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
-using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
-using System.Security.Claims;
 using System.IO;
 using Infraero.Relprev.Application.Parecer.Commands.CreateParecer;
 using Infraero.Relprev.Application.Parecer.Commands.AvaluateParecer;
 using Infraero.Relprev.Application.Parecer.Commands.CompleteParecer;
-
+using Infraero.Relprev.Application.Parecer.Queries.GetParecer;
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
-using Infraero.Relprev.Domain.Entities;
-using Infraero.Relprev.Application.HistoricoParecer.Queries.GetHistoricoParecer;
+using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -58,7 +49,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         //[ClaimsAuthorize("Parecer", "Cadastrar")]
         public async Task<ActionResult> Create(int id)
         {
-           try
+            try
             {
                 var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
@@ -90,7 +81,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     FlgStatusRelato = (int)EnumStatusRelato.EmAndamento,
                     DscParecerStatus = EnumStatusRelato.EmAndamento.GetDescription() + ", " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
                     AlteradoPor = User.Identity.Name
-                    
+
                 };
 
                 await ApiClientFactory.Instance.UpdateRelatoAtendimento(command);
@@ -143,87 +134,15 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 var idParecer = await ApiClientFactory.Instance.CreateParecer(command);
 
-               return RedirectToAction(nameof(Create), new { crud = (int)EnumCrud.Created });
+                return RedirectToAction(nameof(Create), new { crud = (int)EnumCrud.Created });
             }
             catch (Exception ex)
             {
                 return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
             }
         }
-   
+
         public IActionResult Evaluate(int id)
-        {
-            try
-            {
-                var objParecer = ApiClientFactory.Instance.GetParecerById(id);
-
-                var obj = ApiClientFactory.Instance.GetRelatoById(objParecer.CodRelato);
-
-                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
-                var resultLocal = ApiClientFactory.Instance.GetLocalAll();
-                var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
-                var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(objParecer.CodRelato);
-
-                var resultLocalUnidade = resultLocal
-                    .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
-                    .Select(s => new LocalDto
-                    {
-                        CodLocal = s.CodLocal,
-                        DscLocal = s.DscLocal
-                    }).ToList();
-                  //.StatusParecer = ((EnumStatusRelato)s.FlgStatusRelato).GetDescription();
-
-                var model = new ParecerModel
-                {
-                    Relato = obj,
-                    Parecer = objParecer,
-                    ListHistoricoParecer = objParecer.HistoricoParecer,
-                    ListParecerArquivo = objParecer.ListArquivo,
-                    ListLocal = new SelectList(resultLocalUnidade, "CodLocal", "DscLocal"),
-                    ListSubLocal = new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal"),
-                    ListAssunto = new SelectList(resultAssunto, "CodAssunto", "DscAssunto"),
-                    ListSubAssunto = new SelectList(new List<SubAssuntoDto>(), "CodSubAssunto", "DscSubAssunto"),
-                    
-                };
-
-
-
-                return View(model);
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Evaluate(IFormCollection collection)
-        {
-            try
-            {
-                var flagStatus = Convert.ToInt32(collection["rdoAvaliacao"].ToString());
-
-
-                var command = new AvaluateParecerCommand
-                {
-                    CodParecer  = int.Parse(collection["CodParecer"].ToString()),
-                    DscMotivoDevolucao = collection["DscMotivoParecer"].ToString(),
-                    FlgStatusParecer = flagStatus,
-                    DscParecerStatus = ((EnumStatusParecer)flagStatus).GetDescription() + ", " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
-                    AlteradoPor = User.Identity.Name
-                };
-
-                var idParecer = await ApiClientFactory.Instance.AvaluateParecer(command);
-
-                return RedirectToAction(nameof(Evaluate), new { crud = (int)EnumCrud.Created });
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction(nameof(Evaluate), new { notify = (int)EnumNotify.Error, message = ex.Message });
-            }
-        }
-
-        public IActionResult Complete(int id)
         {
             try
             {
@@ -246,6 +165,88 @@ namespace Infraero.Relprev.WebUi.Controllers
                 //.StatusParecer = ((EnumStatusRelato)s.FlgStatusRelato).GetDescription();
 
                 var model = new ParecerModel
+                {
+                    Relato = obj,
+                    Parecer = objParecer,
+                    ListHistoricoParecer = objParecer.HistoricoParecer,
+                    ListParecerArquivo = objParecer.ListArquivo,
+                    ListLocal = new SelectList(resultLocalUnidade, "CodLocal", "DscLocal"),
+                    ListSubLocal = new SelectList(new List<SubLocalDto>(), "CodSubLocal", "DscSubLocal"),
+                    ListAssunto = new SelectList(resultAssunto, "CodAssunto", "DscAssunto"),
+                    ListSubAssunto = new SelectList(new List<SubAssuntoDto>(), "CodSubAssunto", "DscSubAssunto"),
+
+                };
+
+
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Evaluate(IFormCollection collection)
+        {
+            try
+            {
+                var flagStatus = Convert.ToInt32(collection["rdoAvaliacao"].ToString());
+
+
+                var command = new AvaluateParecerCommand
+                {
+                    CodParecer = int.Parse(collection["CodParecer"].ToString()),
+                    DscMotivoDevolucao = collection["DscMotivoParecer"].ToString(),
+                    FlgStatusParecer = flagStatus,
+                    DscParecerStatus = ((EnumStatusParecer)flagStatus).GetDescription() + ", " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
+                    AlteradoPor = User.Identity.Name
+                };
+
+                var idParecer = await ApiClientFactory.Instance.AvaluateParecer(command);
+
+                return RedirectToAction(nameof(Evaluate), new { crud = (int)EnumCrud.Created });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Evaluate), new { notify = (int)EnumNotify.Error, message = ex.Message });
+            }
+        }
+
+        public IActionResult Complete(int id, int? crud, int? notify, string message = null)
+        {
+            try
+            {
+                ParecerModel model = new ParecerModel();
+                model.Relato = new RelatoDto();
+                model.Parecer = new ParecerDto();
+                model.Relato.UnidadeInfraestrutura = new UnidadeInfraEstruturaDto();
+
+                SetNotifyMessage(notify, message);
+                SetCrudMessage(crud);
+
+                if (id == 0) return View(model);
+
+                var objParecer = ApiClientFactory.Instance.GetParecerById(id);
+
+                var obj = ApiClientFactory.Instance.GetRelatoById(objParecer.CodRelato);
+
+                var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
+                var resultLocal = ApiClientFactory.Instance.GetLocalAll();
+                var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
+                var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(objParecer.CodRelato);
+
+                var resultLocalUnidade = resultLocal
+                    .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
+                    .Select(s => new LocalDto
+                    {
+                        CodLocal = s.CodLocal,
+                        DscLocal = s.DscLocal
+                    }).ToList();
+                //.StatusParecer = ((EnumStatusRelato)s.FlgStatusRelato).GetDescription();
+
+                model = new ParecerModel
                 {
                     Relato = obj,
                     Parecer = objParecer,
@@ -313,9 +314,64 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return RedirectToAction(nameof(Complete), new { notify = (int)EnumNotify.Error, message = ex.Message });
             }
         }
-        public IActionResult Reply()
+        public IActionResult Reply(int id, int? crud, int? notify, string message = null)
         {
-            return View();
+            try
+            {
+                ParecerModel model = new ParecerModel();
+                model.Relato = new RelatoDto();
+                model.Parecer = new ParecerDto();
+                model.Relato.UnidadeInfraestrutura = new UnidadeInfraEstruturaDto();
+
+                SetNotifyMessage(notify, message);
+                SetCrudMessage(crud);
+
+                var obj = ApiClientFactory.Instance.GetRelatoById(id);
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Reply), new { notify = (int)EnumNotify.Error, message = ex.Message });
+            }
         }
+
+        #region Método públicos
+
+        public JsonResult GetRelatoByNumRelato(string numRelato)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(numRelato))
+                {
+                    throw new Exception(
+                        "Número do relato não informado.");
+                }
+
+                var result = ApiClientFactory.Instance.GetRelatoByNumRelato(numRelato.ToUpper().Trim());
+
+                if (result == null)
+                {
+                    throw new Exception(
+                        "Relato não encontrado.");
+                }
+
+                var configAmbiente = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
+
+                //Rn0100
+                if (configAmbiente == null)
+                {
+                    throw new Exception(
+                        "Não existe configuração de ambiente registrada. Favor realizar a configuração do ambiente.");
+                }
+
+                return Json(result.CodRelato);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+        #endregion
     }
 }
