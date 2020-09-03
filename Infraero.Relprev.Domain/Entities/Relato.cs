@@ -30,8 +30,8 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodSubAssunto { get; set; }
         public string DscAcoesCorretivasRecomendadas { get; set; }
 
-        [ForeignKey("CodParecer")]
-        public Parecer Parecer { get; set; }
+        //[ForeignKey("CodParecer")]
+        //public Parecer Parecer { get; set; }
 
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> ListArquivo { get; set; }

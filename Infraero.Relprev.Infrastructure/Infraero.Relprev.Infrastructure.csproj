@@ -11,10 +11,13 @@
   <ItemGroup>
     <Compile Remove="bin\**" />
     <Compile Remove="obj\**" />
+    <Compile Remove="Persistence\MigrationsPg\**" />
     <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="obj\**" />
+    <EmbeddedResource Remove="Persistence\MigrationsPg\**" />
     <None Remove="bin\**" />
     <None Remove="obj\**" />
+    <None Remove="Persistence\MigrationsPg\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +41,6 @@
     <ProjectReference Include="..\Infraero.Relprev.CrossCutting\Infraero.Relprev.CrossCutting.csproj">
       <Private>true</Private>
     </ProjectReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Persistence\MigrationsPg\" />
   </ItemGroup>
 
 </Project>
