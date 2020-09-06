@@ -38,8 +38,7 @@ namespace Infraero.Relprev.Application.UnidadeInfraEstrutura.Commands.CreateUnid
                     Endereco = request.Endereco,
                     DtIniVigencia = Convert.ToDateTime(request.DtIniVigencia),
                     DtFimVigencia = Convert.ToDateTime(request.DtFimVigencia),
-                    CriadoPor = request.CriadoPor,
-                    FlagAtivo = true
+                    CriadoPor = request.CriadoPor
                 };
 
                 _context.UnidadeInfraestrutura.Add(entity);

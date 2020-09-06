@@ -39,6 +39,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.DataCriacao = DateTime.Now;
+                        entry.Entity.FlagAtivo = true;
                         break;
                     case EntityState.Modified:
                         entry.Entity.DataAlteracao = DateTime.Now;
