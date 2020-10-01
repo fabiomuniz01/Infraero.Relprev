@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Infraero.Relprev.Application.Assunto.Commands.CreateAssunto;
 using Infraero.Relprev.Application.Assunto.Commands.DeleteAssunto;
 using Infraero.Relprev.Application.Assunto.Commands.UpdateAssunto;
@@ -29,8 +30,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Assunto", "Consultar")]
-        public IActionResult Index(int? crud)
+        public IActionResult Index(int? crud, int? notify, string message = null)
         {
+            SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
 
             var response = ApiClientFactory.Instance.GetGridAssunto();
@@ -107,6 +109,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+                var assunto = ApiClientFactory.Instance.GetAssuntoAll().Where(x => x.CodAssunto.Equals(id)).FirstOrDefault();
+
+                if (assunto.SubAssuntoList.Any())
+                {
+                    return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Warning, message = "Esse Assunto de Ocorrência possui um Sub Assunto de Ocorrência a ele vinculado e por isso não pode ser excluído." });
+                }
+
                 ApiClientFactory.Instance.DeleteAssunto(new DeleteAssuntoCommand { Id = id });
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });

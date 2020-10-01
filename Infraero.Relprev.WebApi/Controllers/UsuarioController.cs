@@ -232,7 +232,7 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
         }
 
-        [HttpGet("GetUsuarioByEmail")]
+        [HttpPost("GetUsuarioByEmail")]
         public async Task<bool> GetUsuarioByEmail(string email)
         {
             try
