@@ -155,7 +155,7 @@
                                       class="form-control"
                                       placeholder="eg.: Descrição do motivo "
                                       required
-                                      maxlength="500">@Model.Relato.DscMotivoCancelamento
+                                      maxlength="500" title="Por favor informe o Motivo do Cancelamento">@Model.Relato.DscMotivoCancelamento
                             </textarea>
                         </div>
                     </div>
@@ -177,6 +177,7 @@
 @section CssSpecificVendor {
 }
 @section Scripts {
+    <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/js/cancelar.js"></script>
 }
 

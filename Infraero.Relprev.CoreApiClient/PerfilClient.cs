@@ -65,7 +65,14 @@ namespace Infraero.Relprev.CoreApiClient
             return Get<List<ModuloDto>>(requestUrl);
         }
 
+        public Task<bool> ExistUsuarioByIdPerfil(string id)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                $"{ResourcePerfil}/ExistUsuarioByIdPerfil"));
+            return PostAsync<bool, string>(requestUrl, id);
+        }
+
         #endregion
-        
+
     }
 }

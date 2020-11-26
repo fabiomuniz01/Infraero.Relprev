@@ -326,7 +326,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Warning, message = "O relato poderá ser cancelado somente antes de ser iniciado (Classificado)." });
             }
 
-            return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Success, message = "Relato cancelado com sucesso." });
 
         }
 

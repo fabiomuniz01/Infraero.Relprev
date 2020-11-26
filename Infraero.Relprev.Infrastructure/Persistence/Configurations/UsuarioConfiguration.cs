@@ -31,7 +31,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
 
             builder.Property(t => t.NumTelefone)
                 .HasColumnName("NUM_TELEFONE")
-                .HasMaxLength(14)
+                .HasMaxLength(15)
                 .IsRequired().HasComment("Telefone de contato do usuário");
 
             builder.Property(t => t.Email)

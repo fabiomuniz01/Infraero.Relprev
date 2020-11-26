@@ -232,5 +232,19 @@ namespace Infraero.Relprev.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpPost("ExistUsuarioByIdPerfil")]
+        public async Task<bool> ExistUsuarioByIdPerfil([FromBody] string id)
+        {
+            try
+            {
+                var result = _db.UserRoles.Where(u => u.RoleId == id).Any();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }

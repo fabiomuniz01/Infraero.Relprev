@@ -111,6 +111,14 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 }
 
+                var result2 = await ApiClientFactory.Instance.GetUsuarioByEmail(command.Email.Trim());
+
+                if (result2)
+                {
+                    return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = "Já existe usuários com o E-mail informado cadastrado na base de dados!" });
+
+                }
+
                 var obj = ApiClientFactory.Instance.GetPerfilById(command.CodPerfil);
 
                 if (obj.NomPerfil == UserRoles.GestorSgsoSite)
@@ -133,7 +141,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception e)
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 

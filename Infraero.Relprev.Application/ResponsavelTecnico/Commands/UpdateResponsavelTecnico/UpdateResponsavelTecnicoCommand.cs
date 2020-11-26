@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Infraero.Relprev.Application.Common.Exceptions;
 using Infraero.Relprev.Application.Common.Interfaces;
+using Infraero.Relprev.Application.VinculoResponsavelEmpresa.Queries.GetVinculoResponsavelEmpresa;
 using MediatR;
 
 namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateResponsavelTecnico
@@ -34,8 +36,34 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
                 entity.EndEmail = request.EndEmail;
                 entity.NumTelefone = request.NumTelefone;
                 entity.CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura;
-                //entity.CodEmpresa = request.CodEmpresa;
                 entity.AlteradoPor = request.AlteradoPor;
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                foreach (var vinc in request.ListVinculoResponsavelEmpresa)
+                {
+                    var delEntity = await _context.VinculoResponsavelEmpresa.FindAsync(vinc.CodVinculoResponsavelEmpresa);
+
+                    _context.VinculoResponsavelEmpresa.Remove(delEntity);
+
+                }
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                foreach (var item in request.arrEmpresa)
+                {
+                    var entityVinculo = new Domain.Entities.VinculoResponsavelEmpresa
+                    {
+                        CodUnidadeInfraestrutura = request.CodUnidadeInfraestrutura,
+                        CodEmpresa = Convert.ToInt32(item),
+                        CodResponsavelTecnico = entity.CodResponsavelTecnico,
+                        CriadoPor = request.AlteradoPor,
+                        DataCriacao = DateTime.Now,
+                        FlagAtivo = true
+                    };
+
+                    _context.VinculoResponsavelEmpresa.Add(entityVinculo);
+                }
 
                 await _context.SaveChangesAsync(cancellationToken);
 
@@ -52,5 +80,7 @@ namespace Infraero.Relprev.Application.ResponsavelTecnico.Commands.UpdateRespons
         public string NumDocumento { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
         public int CodEmpresa { get; set; }
+        public string[] arrEmpresa { get; set; }
+        public List<VinculoResponsavelEmpresaDto> ListVinculoResponsavelEmpresa { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Infraero.Relprev.Application.Perfil.Commands.DeletePerfil;
 using Infraero.Relprev.Application.Perfil.Commands.UpdatePerfil;
 using Infraero.Relprev.CrossCutting.Enumerators;
@@ -34,8 +35,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Perfil", "Consultar")]
-        public ActionResult Index(int? crud)
+        public ActionResult Index(int? crud, int? notify, string message = null)
         {
+            SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridPerfil();
             return View(response);
@@ -135,10 +137,17 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Perfil", "Excluir")]
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> DeleteAsync(string id)
         {
             try
             {
+                var result = await ApiClientFactory.Instance.ExistUsuarioByIdPerfil(id);
+
+                if (result)
+                {
+                    return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, message = "Existe  usuário vinculado a esse perfil." });
+                }
+
                 ApiClientFactory.Instance.DeletePerfil(new DeletePerfilCommand {CodPerfil = id, NomPerfilUsuarioPublico = UserRoles.UsuarioPublico});
 
                 return RedirectToAction(nameof(Index), new {crud = (int) EnumCrud.Deleted});

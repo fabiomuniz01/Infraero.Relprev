@@ -17,7 +17,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .IsRequired().HasComment("Sequencial da tabela");
 
                 builder.Property(t => t.NomModulo)
-                    .HasColumnName("NOM_Modulo")
+                    .HasColumnName("NOM_MODULO")
                     .HasMaxLength(100)
                     .IsRequired().HasComment("Descriçao do Modulo");
 
