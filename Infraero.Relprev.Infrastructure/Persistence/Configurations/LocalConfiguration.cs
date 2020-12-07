@@ -18,7 +18,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
 
             builder.Property(t => t.DscLocal)
                 .HasColumnName("DSC_LOCAL")
-                .HasMaxLength(255)
+                .HasMaxLength(100)
                 .IsRequired().HasComment("Descrição do local da ocorrencia");
 
             builder.Property(t => t.CodUnidadeInfraestrutura)

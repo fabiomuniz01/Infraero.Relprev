@@ -86,9 +86,9 @@
                                 &nbsp;
                             </li>
                             <li class="divider"></li>
-                            <li>
+                            @*<li>
                                 <a role="menuitem" tabindex="-1" href="@Url.Action("Index", "ConfigurarAmbiente")"><i class="fa fa-gear"></i> Configurar Ambiente</a>
-                            </li>
+                            </li>*@
                             <li>
                                 <a role="menuitem" tabindex="-1" href="#" onclick="document.forms['nav-logout'].submit();"><i class="fa fa-power-off"></i> Sair</a>
                                 <form class="form-inline" name="nav-logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})"></form>
@@ -182,6 +182,11 @@
                                             <li>
                                                 <a class="nav-link" href="@Url.Action("Index", "Perfil")">
                                                     Perfil
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "ConfigurarAmbiente")">
+                                                    Configurar Ambiente
                                                 </a>
                                             </li>
                                         </ul>

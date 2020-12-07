@@ -18,7 +18,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
             
             builder.Property(t => t.NomRazaoSocial)
                 .HasColumnName("NOM_RAZAO_SOCIAL")
-                .HasMaxLength(250)
+                .HasMaxLength(60)
                 .IsRequired().HasComment("Empresa órgão público");
 
             builder.Property(t => t.NumCnpj)

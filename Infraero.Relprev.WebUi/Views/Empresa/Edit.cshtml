@@ -37,13 +37,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-sm-right pt-2">Telefone </label>
+                        <label class="col-sm-3 control-label text-sm-right pt-2">Telefone <span class="required">*</span> </label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input name="telefone" id="telefone" data-plugin-masked-input="" data-input-mask="(99) 999-9999" value="@Model.NumTelefone" placeholder="eg.: Número de telefone para atendimento" class="form-control" />
+                                <input name="telefone" id="telefone" data-plugin-masked-input=""
+                                       style="z-index: auto;"
+                                       data-input-mask="(99) 9999-9999"
+                                       placeholder="eg.: Telefone da empresa"
+                                       Title="Por favor informe o telefone da empresa"
+                                       class="form-control"required/>
                             </div>
                         </div>
                     </div>
@@ -70,6 +75,9 @@
         (function ($) {
 
             'use strict';
+
+            var $numTel = $("#Telefone");
+            $numTel.mask('(00) 0000-0000');
 
             $("#form").validate({
                 highlight: function (label) {

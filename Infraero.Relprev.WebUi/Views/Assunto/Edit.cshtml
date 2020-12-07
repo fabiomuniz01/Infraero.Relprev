@@ -27,7 +27,7 @@
                             <textarea type="text" rows="3" name="DscAssunto" class="form-control"
                                       placeholder="eg.: Descrição do  assunto relacionado as  ocorrências."
                                       title="Por favor informe a descrição do  assunto relacionado as  ocorrências"
-                                      required maxlength="255">@Model.DscAssunto</textarea>
+                                      required maxlength="50">@Model.DscAssunto</textarea>
                         </div>
                     </div>
                 </div>
@@ -56,17 +56,33 @@
         (function ($) {
 
             'use strict';
-
-
+            
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value == '' || value.trim().length != 0;
+            }, "Sem espaço por favor e não o deixe vazio");
 
             // checkbox, radio and selects
             $("#form").each(function () {
                 $(this).validate({
+                    rules: {
+                        DscAssunto: {
+                            noSpace: true
+                        }
+                    },
                     highlight: function (element) {
                         $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
                     },
                     success: function (element) {
                         $(element).closest('.form-group').removeClass('has-error');
+                    },
+                    errorPlacement: function (error, element) {
+                        var placement = element.closest('.input-group');
+                        if (!placement.get(0)) {
+                            placement = element;
+                        }
+                        if (error.text() !== '') {
+                            placement.after(error);
+                        }
                     }
                 });
             });

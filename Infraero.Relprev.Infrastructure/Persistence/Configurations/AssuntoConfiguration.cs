@@ -18,7 +18,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
 
                 builder.Property(t => t.DscAssunto)
                     .HasColumnName("DSC_ASSUNTO")
-                    .HasMaxLength(255)
+                    .HasMaxLength(50)
                     .IsRequired().HasComment("Descriçao do assunto");
 
             //BaseEntity

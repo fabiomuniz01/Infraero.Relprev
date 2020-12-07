@@ -17,7 +17,7 @@ namespace Infraero.Relprev.Infrastructure.Persistence.Configurations
                 .IsRequired().HasComment("Sequencial da tabela");
             builder.Property(t => t.DscSubLocal)
                 .HasColumnName("DSC_SUBLOCAL")
-                .HasMaxLength(300)
+                .HasMaxLength(100)
                 .IsRequired().HasComment("Descrição do sublocal da ocorrencia");
             builder.Property(t => t.CodUnidadeInfraestrutura)
                 .HasColumnName("COD_UNIDADE_INFRAESTRUTURA")
