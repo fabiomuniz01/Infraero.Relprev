@@ -50,9 +50,9 @@
                                 </span>
                                 <input readonly id="DtOcorrencia" name="DtOcorrencia"
                                        data-plugin-masked-input data-input-mask="99/99/9999"
-                                       placeholder="eg.: Data da ocorrência de prevenção"
+                                       placeholder="eg.: Data da ocorrência de prevenção2"
                                        class="form-control"
-                                       value="@Model.Relato.DatOcorrencia">
+                                       value="@Model.Relato.DatOcorrencia.ToShortDateString()">
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
                         <div class="col-sm-7">
                             <textarea readonly type="text" rows="3" id="DscOcorrenciaRelator" name="DscOcorrenciaRelator"
                                       class="form-control" placeholder="eg.: Descrição da ocorrência do relato"
-title="Por favor informe a descrição da ocorrência do relato"
+                                      title="Por favor informe a descrição da ocorrência do relato"
                                       v-on:click="NovaDescricao"
                                       required maxlength="1000">@Model.Relato.DscOcorrenciaRelator</textarea>
                         </div>
@@ -163,7 +163,7 @@ title="Por favor informe a descrição da ocorrência do relato"
                                     title="Por favor selecione o sub local da ocorrência."
                                     asp-for="CodSubLocal"
                                     asp-items="Model.ListSubLocal">
-                                    <option value="">Selecione o sub local</option>
+                                <option value="">Selecione o sub local</option>
                             </select>
                         </div>
                     </div>
@@ -189,10 +189,10 @@ title="Por favor informe a descrição da ocorrência do relato"
                         <label class="col-sm-3 control-label text-sm-right pt-2">Sub assunto </label>
                         <div class="col-lg-9">
                             <select class="form-control populate select2" name="ddlSubAssunto" id="ddlSubAssunto"
-                                    title="Por favor selecione o sub assunto da ocorrência." 
+                                    title="Por favor selecione o sub assunto da ocorrência."
                                     asp-for="CodSubAssunto"
                                     asp-items="Model.ListSubAssunto">
-                                    <option value="">Selecione o sub assunto</option>
+                                <option value="">Selecione o sub assunto</option>
                             </select>
                         </div>
                     </div>
@@ -202,7 +202,8 @@ title="Por favor informe a descrição da ocorrência do relato"
                         <div class="col-sm-9">
                             <button class="btn  btn-success pull-left mr-2">Salvar &nbsp;&nbsp;<i class="fa fa-save"></i></button>
                             <a href="@Url.Action("Index", "Relato")" class="btn btn-danger pull-left mr-2">Cancelar Relato&nbsp;&nbsp;<i class="fa fa-remove"></i></a>
-                           @* <a href="@Url.Action("Index", "AtribuirRespRelato", new { id = Model.Relato.CodRelato })" class="btn btn-warning pull-left mr-2">Atribuir Responsável&nbsp;&nbsp;<i class="fa fa-plug"></i></a>*@
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-dark pull-left mr-2">Sair&nbsp;&nbsp;<i class="fa fa-close"></i></a>
+                            @* <a href="@Url.Action("Index", "AtribuirRespRelato", new { id = Model.Relato.CodRelato })" class="btn btn-warning pull-left mr-2">Atribuir Responsável&nbsp;&nbsp;<i class="fa fa-plug"></i></a>*@
                             @*<a href="@Url.Action("Index", "Relato")" class="btn btn-dark pull-left">Voltar &nbsp;&nbsp;<i class="fa fa-reply"></i></a>*@
 
                         </div>

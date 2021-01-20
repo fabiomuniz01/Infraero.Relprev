@@ -42,7 +42,7 @@ namespace Infraero.Relprev.Application.Relato.Commands.CreateRelato
                         HorOcorrencia = request.HorOcorrencia,
                         DscEnvolvidosOcorrencia = request.DscEnvolvidosOcorrencia,
                         DscLocalOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
-                        DscOcorrenciaRelator = request.DscLocalOcorrenciaRelator,
+                        DscOcorrenciaRelator = request.DscOcorrenciaRelator,
                         NomRelator = request.NomRelator,
                         EmailRelator = request.EmailRelator,
                         NumTelefoneRelator = request.NumTelefoneRelator,
