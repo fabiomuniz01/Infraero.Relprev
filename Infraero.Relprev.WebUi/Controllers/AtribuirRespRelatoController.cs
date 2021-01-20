@@ -76,7 +76,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
             var resultVinculoResponsavelEmpresa = ApiClientFactory.Instance.GetVinculoResponsavelEmpresaAll();
 
-           
+
             var resultResponsavel = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id).Where(a => a.ResponsavelTecnico.FlagGestorSgso == false);
 
 
@@ -149,7 +149,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 await ApiClientFactory.Instance.UpdateRelatoAtribuido(commandUpdateRelato);
 
-        
+
                 return RedirectToAction(nameof(Index), new { id = int.Parse(collection["CodRelato"].ToString()) });
 
             }
@@ -181,7 +181,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 }
 
 
-        
+
                 return RedirectToAction(nameof(Index), new { id = Convert.ToInt32(idRelato) });
             }
             catch (Exception ex)
@@ -195,7 +195,7 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                var listAtribuicao = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id).Where(s => s.FlagAtivo == false);
+                var listAtribuicao = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
                 if (listAtribuicao.Count() == 0)
                 {
                     return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, id = id, message = "Nenhum responsável técnico foi indicado." });
@@ -228,7 +228,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         [ClaimsAuthorize("AtribuirResponsavelRelato", "Consultar")]
         public JsonResult GetListResponsavelTecnicoByEmpresa(int idEmpresa, int idRelato)
         {
-            var resultResponsavel = ApiClientFactory.Instance.GetResponsavelTecnicoByIdEmpresa(idEmpresa);
+            var resultResponsavel = ApiClientFactory.Instance.GetResponsavelTecnicoByIdEmpresa(idEmpresa).Where(e => e.ListVinculoResponsavelEmpresa[0].Empresa.CodEmpresa == idEmpresa).ToList();
+            //List<ResponsavelTecnicoDto> resultResponsavel2 = new List<ResponsavelTecnicoDto>();
+
+            //resultResponsavel2 = resultResponsavel.Where(e => e.ListVinculoResponsavelEmpresa[0].Empresa.CodEmpresa == idEmpresa).ToList();
 
             var resultResponsavelAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(idRelato);
 

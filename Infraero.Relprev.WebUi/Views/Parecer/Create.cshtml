@@ -65,7 +65,7 @@
                                        data-plugin-masked-input data-input-mask="99/99/9999"
                                        placeholder="eg.: Data da ocorrência de prevenção"
                                        class="form-control"
-                                       value="@Model.Relato.DatOcorrencia.ToShortDateString()">
+                                       value="@Model.Relato.DatOcorrencia">
                             </div>
                         </div>
 
@@ -125,8 +125,7 @@
                                       class="form-control"
                                       placeholder="eg.: Descrição do parecer técnico"
                                       required
-                                      maxlength="500">
-                            </textarea>
+                                      maxlength="500">@Model.Parecer.DscParecer</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -202,19 +201,19 @@ Theme Version: 	2.0.0
 
             if (crud===1) {
                 new PNotify({
-                    title: 'Parecer',
+                    title: 'Relato',
                     text: 'Cadastro realizado com sucesso!',
                     type: 'success'
                 });
             }else if (crud === 2) {
                 new PNotify({
-                    title: 'Parecer',
+                    title: 'Relato',
                     text: 'Dados alterados com sucesso.',
                     type: 'warning'
                 });
             }else if (crud === 3) {
                 new PNotify({
-                    title: 'Parecer',
+                    title: 'Relato',
                     text: 'Registro excluído com sucesso.',
                     type: 'error'
                 });
@@ -225,19 +224,19 @@ Theme Version: 	2.0.0
 
             if (notify===0) {
                 new PNotify({
-                    title: 'Parecer',
+                    title: 'Relato',
                     text: messagem,
                     type: 'success'
                 });
             }else if (notify === 1) {
                 new PNotify({
-                    title: 'Parecer',
+                    title: 'Relato',
                     text: messagem,
                     type: 'warning'
                 });
             }else if (notify === 2) {
                 new PNotify({
-                    title: 'Parecer',
+                    title: 'Relato',
                     text: messagem,
                     type: 'error'
                 });

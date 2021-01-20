@@ -1,6 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Infraero.Relprev.WebUi.Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using SendGrid;
@@ -17,6 +20,7 @@ namespace Infraero.Relprev.WebUi.Services
             _settings = settings.Value;
         }
 
+        //metodo para teste de envio de email local usando apisendgrid
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var apiKey = _settings.ApiKey;
@@ -30,5 +34,27 @@ namespace Infraero.Relprev.WebUi.Services
             var transportWeb = new SendGridClient(apiKey);
             await transportWeb.SendEmailAsync(myMessage);
         }
+
+        //metodo para teste de envio de email ambiente infraero
+        //public async Task SendEmailAsync(string toAddress, string subject, string message)
+        //{
+        //    using (var client = new System.Net.Mail.SmtpClient(_settings.Host, Convert.ToInt32(_settings.Port)))
+        //    using (var mailMessage = new MailMessage(_settings.FromEmail, toAddress, subject, message))
+        //    {
+        //        //client.Credentials = new NetworkCredential(configuration["Email:Username"], configuration["Email:Password"]);
+        //        //client.EnableSsl = true;
+
+        //        mailMessage.IsBodyHtml = true;
+
+        //        try
+        //        {
+        //            await client.SendMailAsync(mailMessage);
+        //        }
+        //        catch (SmtpException)
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //}
     }
 }

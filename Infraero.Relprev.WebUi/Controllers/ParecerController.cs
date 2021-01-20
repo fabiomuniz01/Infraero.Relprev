@@ -3,31 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Enumerators;
 using Infraero.Relprev.CrossCutting.Models;
 using Infraero.Relprev.Infrastructure.Identity;
+using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
 using Infraero.Relprev.WebUi.Models;
 using Infraero.Relprev.WebUi.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Infraero.Relprev.Application.ParecerArquivo.Queries.GetParecerArquivos;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Linq;
+using IdentityServer4.Extensions;
+using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.CrossCutting.Extensions;
+using Infraero.Relprev.CrossCutting.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
+using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
+using System.Security.Claims;
 using System.IO;
 using Infraero.Relprev.Application.Parecer.Commands.CreateParecer;
 using Infraero.Relprev.Application.Parecer.Commands.AvaluateParecer;
 using Infraero.Relprev.Application.Parecer.Commands.CompleteParecer;
-using Infraero.Relprev.Application.Parecer.Queries.GetParecer;
+
 using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
-using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
-using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
+using Infraero.Relprev.Domain.Entities;
+using Infraero.Relprev.Application.HistoricoParecer.Queries.GetHistoricoParecer;
+using Infraero.Relprev.Application.Parecer.Queries.GetParecer;
 
 namespace Infraero.Relprev.WebUi.Controllers
 {
@@ -47,16 +57,22 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         //[ClaimsAuthorize("Parecer", "Cadastrar")]
-        public async Task<ActionResult> Create(int id)
+        public async Task<ActionResult> Create(int id, int? crud, int? notify, string message = null)
         {
             try
             {
+
+                SetNotifyMessage(notify, message);
+                SetCrudMessage(crud);
                 var obj = ApiClientFactory.Instance.GetRelatoById(id);
 
                 var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
                 var resultLocal = ApiClientFactory.Instance.GetLocalAll();
                 var resultAssunto = ApiClientFactory.Instance.GetAssuntoAll();
-                var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
+                //var resultAtribuido = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(id);
+                var resultParecer = ApiClientFactory.Instance.GetParecerByIdRelato(id);
+
+
 
                 var resultLocalUnidade = resultLocal
                     .Where(x => x.UnidadeInfraestrutura.CodUnidadeInfraestrutura == obj.CodUnidadeInfraestrutura)
@@ -147,7 +163,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             try
             {
                 var objParecer = ApiClientFactory.Instance.GetParecerById(id);
-
+                //objParecer.HistoricoParecer = ApiClientFactory.Instance.getpa
                 var obj = ApiClientFactory.Instance.GetRelatoById(objParecer.CodRelato);
 
                 var resultUnidade = ApiClientFactory.Instance.GetUnidadeInfraEstruturaById(obj.CodUnidadeInfraestrutura);
@@ -214,20 +230,10 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        public IActionResult Complete(int id, int? crud, int? notify, string message = null)
+        public IActionResult Complete(int id)
         {
             try
             {
-                ParecerModel model = new ParecerModel();
-                model.Relato = new RelatoDto();
-                model.Parecer = new ParecerDto();
-                model.Relato.UnidadeInfraestrutura = new UnidadeInfraEstruturaDto();
-
-                SetNotifyMessage(notify, message);
-                SetCrudMessage(crud);
-
-                if (id == 0) return View(model);
-
                 var objParecer = ApiClientFactory.Instance.GetParecerById(id);
 
                 var obj = ApiClientFactory.Instance.GetRelatoById(objParecer.CodRelato);
@@ -246,7 +252,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                     }).ToList();
                 //.StatusParecer = ((EnumStatusRelato)s.FlgStatusRelato).GetDescription();
 
-                model = new ParecerModel
+                var model = new ParecerModel
                 {
                     Relato = obj,
                     Parecer = objParecer,
@@ -314,6 +320,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return RedirectToAction(nameof(Complete), new { notify = (int)EnumNotify.Error, message = ex.Message });
             }
         }
+
         public IActionResult Reply(int id, int? crud, int? notify, string message = null)
         {
             try
@@ -326,9 +333,14 @@ namespace Infraero.Relprev.WebUi.Controllers
                 SetNotifyMessage(notify, message);
                 SetCrudMessage(crud);
 
-                var obj = ApiClientFactory.Instance.GetRelatoById(id);
+                //var obj = ApiClientFactory.Instance.GetRelatoById(id);
+                var resultRelato = ApiClientFactory.Instance.GetRelatoById(id);
 
-                return View();
+                var modelRelato = new RelatoModel
+                {
+                    Relato = resultRelato
+                };
+                return View(modelRelato);
             }
             catch (Exception ex)
             {
@@ -336,42 +348,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
         }
 
-        #region Método públicos
 
-        public JsonResult GetRelatoByNumRelato(string numRelato)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(numRelato))
-                {
-                    throw new Exception(
-                        "Número do relato não informado.");
-                }
 
-                var result = ApiClientFactory.Instance.GetRelatoByNumRelato(numRelato.ToUpper().Trim());
-
-                if (result == null)
-                {
-                    throw new Exception(
-                        "Relato não encontrado.");
-                }
-
-                var configAmbiente = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
-
-                //Rn0100
-                if (configAmbiente == null)
-                {
-                    throw new Exception(
-                        "Não existe configuração de ambiente registrada. Favor realizar a configuração do ambiente.");
-                }
-
-                return Json(result.CodRelato);
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message);
-            }
-        }
-        #endregion
     }
 }
