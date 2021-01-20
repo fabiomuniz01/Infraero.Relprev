@@ -26,7 +26,7 @@
                         <div class="col-sm-9">
                             <input type="text" name="NomResponsavelTecnico" class="form-control" placeholder="eg.: Nome do responsável técnico "
                                    maxlength="60"
-                                   title="Por favor informe a descrição completa do nome do usuário." required />
+                                   title="Por favor informe a descrição completa do nome do responsável técnico." required />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -50,13 +50,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label text-sm-right pt-2">Email </label>
+                        <label class="col-lg-3 control-label text-sm-right pt-2">E-mail </label>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do usuário"
+                                <input type="text" name="EndEmail" class="form-control" placeholder="eg.: Endereço eletrônico válido do responsável técnico"
                                        maxlength="60" />
                             </div>
                         </div>
@@ -66,9 +66,9 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input id="NumTelefone" name="NumTelefone" placeholder="eg.: Telefone de contato do usuário" class="form-control"
+                                <input id="NumTelefone" name="NumTelefone" placeholder="eg.: Telefone de contato do responsável técnico" class="form-control"
                                        maxlength="14"
-                                       title="Por favor informe o telefone de contato do usuário" required>
+                                       title="Por favor informe o telefone de contato do responsável técnico" required>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
         }
 
         var notify = @ViewBag.NotifyMessage;
-        var messagem = @ViewBag.Notify;
+        var messagem = '@ViewBag.Notify';
 
         if (notify===0) {
             new PNotify({

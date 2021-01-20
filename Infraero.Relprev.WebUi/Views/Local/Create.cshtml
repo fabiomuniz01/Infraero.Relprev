@@ -37,7 +37,7 @@
                             <textarea type="text" rows="3" name="DscLocal" class="form-control" 
                                       placeholder="eg.: Nome do local da ocorrência cadastrado" 
                                       title="Por favor informe o nome do local da ocorrência cadastrado" 
-                                      required maxlength="255"></textarea>
+                                      required maxlength="100"></textarea>
                         </div>
                         <label class="col-sm-3 control-label text-sm-right pt-2"></label>
 
@@ -95,7 +95,16 @@
                 $(this).trigger('blur');
             });
 
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value == '' || value.trim().length != 0;
+            }, "Sem espaço por favor e não o deixe vazio");
+
             $("#form").validate({
+                rules: {
+                    DscLocal: {
+                        noSpace: true
+                    }
+                },
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },

@@ -47,17 +47,41 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
-                var command = new CreateConfigurarAmbienteCommand
+                var conf = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
+                if (conf!=null)
                 {
-                    ParecerTecnico = int.Parse(collection["ParecerTecnico"].ToString()),
-                    DevolvidoParaComplemento = int.Parse(collection["DevolvidoParaComplemento"].ToString()),
-                    TempoNotificacaoParaResponder = int.Parse(collection["TempoNotificacaoParaResponder"].ToString()),
-                    TextoMotivoCancelamento = collection["TextoMotivoCancelamento"].ToString(),
-                    CriadoPor = User.Identity.Name
-                };
-                ApiClientFactory.Instance.CreateConfigurarAmbiente(command);
+                    var command = new UpdateConfigurarAmbienteCommand
+                    {
+                        CodConfigurarAmbiente = conf.CodConfigurarAmbiente,
+                        ParecerTecnico = int.Parse(collection["ParecerTecnico"].ToString()),
+                        DevolvidoParaComplemento = int.Parse(collection["DevolvidoParaComplemento"].ToString()),
+                        TempoNotificacaoParaResponder = int.Parse(collection["TempoNotificacaoParaResponder"].ToString()),
+                        TextoMotivoCancelamento = collection["TextoMotivoCancelamento"].ToString(),
+                        AlteradoPor = User.Identity.Name
+                    };
+                    ApiClientFactory.Instance.UpdateConfigurarAmbiente(command);
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+                    return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+
+                }
+                else
+                {
+
+                    var command = new CreateConfigurarAmbienteCommand
+                    {
+                        ParecerTecnico = int.Parse(collection["ParecerTecnico"].ToString()),
+                        DevolvidoParaComplemento = int.Parse(collection["DevolvidoParaComplemento"].ToString()),
+                        TempoNotificacaoParaResponder =
+                            int.Parse(collection["TempoNotificacaoParaResponder"].ToString()),
+                        TextoMotivoCancelamento = collection["TextoMotivoCancelamento"].ToString(),
+                        CriadoPor = User.Identity.Name
+                    };
+                    ApiClientFactory.Instance.CreateConfigurarAmbiente(command);
+
+                    return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+
+                }
+
             }
             catch (Exception e)
             {

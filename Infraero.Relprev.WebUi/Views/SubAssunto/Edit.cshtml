@@ -16,7 +16,7 @@
                         <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
                     </div>
 
-                    <h2 class="card-title">Editar assunto da Ocorrência</h2>
+                    <h2 class="card-title">Editar subassunto da ocorrência</h2>
 
                 </header>
                 <div class="card-body">
@@ -33,10 +33,11 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Sub Assunto <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="DscSubAssunto" class="form-control" 
-                                      placeholder="eg.: Descrição do  sub assunto relacionado as  ocorrências  "
-                                      placeholder="Por favor informe a descrição do  sub assunto relacionado as  ocorrências"
-                                      required maxlength="255">@Model.SubAssunto.DscSubAssunto</textarea>
+
+                            <textarea type="text" rows="3" name="DscSubAssunto" class="form-control"
+                                      placeholder="eg.: Descrição do  sub assunto relacionado as  ocorrências"
+                                      title="Favor informar a descrição do  sub assunto relacionado as  ocorrências"
+                                      required maxlength="50">@Model.SubAssunto.DscSubAssunto</textarea>
                         </div>
                     </div>
                 </div>
@@ -91,25 +92,35 @@
                 $(this).trigger('blur');
             });
 
-            $("#form").validate({
-                highlight: function (label) {
-                    $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
-                },
-                success: function (label) {
-                    $(label).closest('.form-group').removeClass('has-error');
-                    label.remove();
-                },
-                errorPlacement: function (error, element) {
-                    var placement = element.closest('.input-group');
-                    if (!placement.get(0)) {
-                        placement = element;
-                    }
-                    if (error.text() !== '') {
-                        placement.after(error);
-                    }
-                }
-            });
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value == '' || value.trim().length != 0;
+            }, "Sem espaço por favor e não o deixe vazio");
 
+            // checkbox, radio and selects
+            $("#form").each(function () {
+                $(this).validate({
+                    rules: {
+                        DscSubAssunto: {
+                            noSpace: true
+                        }
+                    },
+                    highlight: function (element) {
+                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    },
+                    success: function (element) {
+                        $(element).closest('.form-group').removeClass('has-error');
+                    },
+                    errorPlacement: function (error, element) {
+                        var placement = element.closest('.input-group');
+                        if (!placement.get(0)) {
+                            placement = element;
+                        }
+                        if (error.text() !== '') {
+                            placement.after(error);
+                        }
+                    }
+                });
+            });
 
         }).apply(this, [jQuery]);
         (function ($) {

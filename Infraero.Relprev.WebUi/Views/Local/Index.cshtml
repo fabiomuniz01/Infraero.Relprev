@@ -67,27 +67,48 @@
         (function ($) {
 
             'use strict';
-            var crub = @ViewBag.CrudMessage;
+            var crud = @ViewBag.CrudMessage;
 
-            if (crub===1) {
+            if (crud===1) {
                 new PNotify({
                     title: 'Local',
                     text: 'Cadastro realizado com sucesso!',
                     type: 'success'
                 });
-            }else if (crub === 2) {
+            }else if (crud === 2) {
                 new PNotify({
                     title: 'Local',
                     text: 'Dados alterados com sucesso.',
-                    type: 'warning',
-                    icon: 'fa fa-pencil'
+                    type: 'warning'
                 });
-            }else if (crub === 3) {
+            }else if (crud === 3) {
                 new PNotify({
                     title: 'Local',
                     text: 'Registro excluído com sucesso.',
-                    type: 'error',
-                    icon: 'fa fa-trash-o'
+                    type: 'error'
+                });
+            }
+
+            var notify = @ViewBag.NotifyMessage;
+            var messagem = '@ViewBag.Notify';
+
+            if (notify===0) {
+                new PNotify({
+                    title: 'Local',
+                    text: messagem,
+                    type: 'success'
+                });
+            }else if (notify === 1) {
+                new PNotify({
+                    title: 'Local',
+                    text: messagem,
+                    type: 'warning'
+                });
+            }else if (notify === 2) {
+                new PNotify({
+                    title: 'Local',
+                    text: messagem,
+                    type: 'error'
                 });
             }
             if ($.isFunction($.fn['tooltip'])) {

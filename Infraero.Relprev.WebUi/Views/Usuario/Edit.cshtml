@@ -58,7 +58,7 @@
                                     <i class="fa fa-phone"></i>
                                 </span>
                                 <input id="NumTelefone" name="NumTelefone" placeholder="eg.: Telefone de contato do usuário" class="form-control"
-                                       maxlength="14"
+                                       maxlength="15"
                                        value="@Model.Usuario.NumTelefone"
                                        title="Por favor informe o telefone de contato do usuário" required />
                             </div>
@@ -172,7 +172,7 @@
             });
 
             var $numTel = $("#NumTelefone");
-            $numTel.mask('(00) 0000-0000');
+            $numTel.mask('(00) 00000-0000');
 
             $("#form").validate({
                 rules: {

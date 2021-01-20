@@ -21,8 +21,12 @@ namespace Infraero.Relprev.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration, IWebHostEnvironment environment)
         {
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        configuration.GetConnectionString("RelprevDbConnectionString"),
+            //        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseNpgsql(
                     configuration.GetConnectionString("RelprevDbConnectionString"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 

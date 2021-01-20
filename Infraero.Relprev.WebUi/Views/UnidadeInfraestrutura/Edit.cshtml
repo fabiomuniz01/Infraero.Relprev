@@ -65,11 +65,11 @@
                                     <i class="fa fa-calendar"></i>
                                 </span>
                                 <input id="DtIniVigencia" name="DtIniVigencia"
-                                       title="Por favor informe a data início de vigência." required
+                                       required
                                        style="z-index: auto;"
                                        value="@Model.DtIniVigencia"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
-                                       placeholder="__/__/____" class="form-control">
+                                       placeholder="__/__/____" class="form-control startdate">
                             </div>
                         </div>
 
@@ -80,11 +80,11 @@
                                     <i class="fa fa-calendar"></i>
                                 </span>
                                 <input id="DtFimVigencia" name="DtFimVigencia"
-                                       title="Por favor informe a data fim de vigência." required
+                                       required
                                        style="z-index: auto;"
                                        value="@Model.DtFimVigencia"
                                        data-plugin-datepicker data-date-format="dd/mm/yyyy" data-plugin-options='{"language": "pt-BR"}'
-                                       placeholder="__/__/____" class="form-control">
+                                       placeholder="__/__/____" class="form-control enddate">
                             </div>
                         </div>
                     </div>
@@ -103,6 +103,7 @@
         }
     </div>
 </div>
+
 @section CssSpecificVendor {
     <link href="~/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 }
@@ -112,6 +113,8 @@
     <script src="~/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="~/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="~/vendor/jquery-mask/jquery.mask.js"></script>
     <script src="~/js/unidade.js"></script>
 
 }
+

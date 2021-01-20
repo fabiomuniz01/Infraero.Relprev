@@ -46,16 +46,19 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Usuario", "Consultar")]
-        public IActionResult Index(int? crud)
+        public IActionResult Index(int? crud, int? notify, string message = null)
         {
+            SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridUsuario();
             return View(response);
         }
 
         [ClaimsAuthorize("Usuario", "Incluir")]
-        public ActionResult Create()
+        public ActionResult Create(int? crud, int? notify, string message = null)
         {
+            SetNotifyMessage(notify, message);
+            SetCrudMessage(crud);
             var resultEmpresa = ApiClientFactory.Instance.GetEmpresaAll();
             var resultPerfil = ApiClientFactory.Instance.GetPerfilAll();
 
@@ -100,6 +103,22 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CriadoPor = User.Identity.Name
                 };
 
+                var result = await ApiClientFactory.Instance.GetUsuarioByCpf(command.Cpf);
+
+                if (result)
+                {
+                    return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = "Já existe um usuário cadastrado com esse cpf." });
+
+                }
+
+                var result2 = await ApiClientFactory.Instance.GetUsuarioByEmail(command.Email.Trim());
+
+                if (result2)
+                {
+                    return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = "Já existe usuários com o E-mail informado cadastrado na base de dados!" });
+
+                }
+
                 var obj = ApiClientFactory.Instance.GetPerfilById(command.CodPerfil);
 
                 if (obj.NomPerfil == UserRoles.GestorSgsoSite)
@@ -122,7 +141,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             }
             catch (Exception e)
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 
@@ -195,6 +214,15 @@ namespace Infraero.Relprev.WebUi.Controllers
                     CodPerfil = collection["ddlPerfil"].ToString(),
                     AlteradoPor = User.Identity.Name
                 };
+
+                var result = await ApiClientFactory.Instance.GetUsuarioByCpf(command.NumCpf);
+
+                if (result)
+                {
+                    return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = "Já existe um usuário cadastrado com esse cpf." });
+
+                }
+
                 ApiClientFactory.Instance.UpdateUsuario(command);
 
                 //var user = await _userManager.FindByEmailAsync(command.Email);

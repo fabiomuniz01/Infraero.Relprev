@@ -12,8 +12,8 @@
     <title>@ViewData["Title"]</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
     <meta name="keywords" content="Infraero" />
-    <meta name="description" content="Infraero Relprev">
-    <meta name="author" content="Binnovation - NtitSolutions">
+    <meta name="description" content="Relprev - Cadastro de relato de prevenção">
+    <meta name="author" content="NtitSolutions|Binnovation">
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -86,9 +86,9 @@
                                 &nbsp;
                             </li>
                             <li class="divider"></li>
-                            <li>
+                            @*<li>
                                 <a role="menuitem" tabindex="-1" href="@Url.Action("Index", "ConfigurarAmbiente")"><i class="fa fa-gear"></i> Configurar Ambiente</a>
-                            </li>
+                            </li>*@
                             <li>
                                 <a role="menuitem" tabindex="-1" href="#" onclick="document.forms['nav-logout'].submit();"><i class="fa fa-power-off"></i> Sair</a>
                                 <form class="form-inline" name="nav-logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})"></form>
@@ -184,6 +184,11 @@
                                                     Perfil
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "ConfigurarAmbiente")">
+                                                    Configurar Ambiente
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
 
@@ -226,14 +231,14 @@
                                     </li>
                                 }
                                 @*@if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
-                                {
-                                    <li>
-                                        <a class="nav-link" href="@Url.Action("Index", "AtribuirRespRelato")">
-                                            <i class="fa fa-plug" aria-hidden="true"></i>
-                                            <span>Atribuir <br />Responsável/Relato</span>
-                                        </a>
-                                    </li>
-                                }*@
+                                    {
+                                        <li>
+                                            <a class="nav-link" href="@Url.Action("Index", "AtribuirRespRelato")">
+                                                <i class="fa fa-plug" aria-hidden="true"></i>
+                                                <span>Atribuir <br />Responsável/Relato</span>
+                                            </a>
+                                        </li>
+                                    }*@
                                 @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
                                 {
                                     <li>
@@ -245,29 +250,30 @@
                                 }
                                 @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
                                 {
-                                    <li class="nav-parent nav-expanded">
+                                    <li class="nav-parent nav-expanded" id="parecer">
                                         <a class="nav-link" href="#">
                                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                                             <span>Parecer Técnico</span>
                                         </a>
                                         <ul class="nav nav-children">
                                             <li>
-                                                <a class="nav-link" href="@Url.Action("Complete", "Parecer")">
+                                                <a class="nav-link" v-on:click="CompleteParecer">
                                                     Complementar
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="@Url.Action("Evaluate", "Parecer")">
+                                                <a class="nav-link" v-on:click="EvaluateParecer">
                                                     Avaliar
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="@Url.Action("Reply", "Parecer")">
+                                                <a class="nav-link" v-on:click="ReplyParecer">
                                                     Responder
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
+
                                 }
                                 @if ((await AuthorizationService.AuthorizeAsync(User, new string[] { UserRoles.Administrator, UserRoles.GestorSgsoSite }, requirement)).Succeeded)
                                 {
@@ -321,7 +327,7 @@
                     <div class="right-wrapper text-right">
                         <ol class="breadcrumbs">
                             <li>
-                                <a href="index.html">
+                                <a href="@Url.Action("Index", "Home")">
                                     <i class="fa fa-home"></i>
                                 </a>
                             </li>
@@ -339,7 +345,7 @@
         </div>
 
     </section>
-
+    @Html.Partial("_ModalNumRelatoPartial")
     <!-- Vendor -->
     <script src="~/vendor/jquery/jquery.js"></script>
     <script src="~/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
@@ -358,14 +364,14 @@
     <!-- Theme Base, Components and Settings -->
     <script src="~/js/theme.js"></script>
 
-    <!-- Theme Custom -->
-    <script src="~/js/custom.js"></script>
-
     <!-- Theme Initialization Files -->
     <script src="~/js/theme.init.js"></script>
     <script src="~/vendor/vue/vue.js"></script>
     <script src="~/vendor/axios/axios.min.js"></script>
     <script src="~/js/main.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="~/js/custom.js"></script>
 
     <!-- Specific Page Vendor -->
     @RenderSection("ScriptsSpecificVendor", required: false)

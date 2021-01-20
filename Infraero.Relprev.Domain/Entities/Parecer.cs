@@ -12,9 +12,9 @@ namespace Infraero.Relprev.Domain.Entities
         public int CodParecer { get; set; }
 
         public int CodRelato { get; set; }
-        [ForeignKey("CodRelato")]
-        public Relato Relato { get; set; }
-        
+        //[ForeignKey("CodRelato")]
+        //public Relato Relato { get; set; }
+
         public string DscParecer { get; set; }
         public string DscComplemento { get; set; }
         public string DscMotivoDevolucao { get; set; }
@@ -22,8 +22,6 @@ namespace Infraero.Relprev.Domain.Entities
 
         [ForeignKey("CodParecer")]
         public virtual ICollection<ParecerArquivo> ListArquivo { get; set; }
-        [ForeignKey("CodParecer")]
-        public virtual ICollection<HistoricoParecer> HistoricoParecer { get; set; }
 
     }
 }

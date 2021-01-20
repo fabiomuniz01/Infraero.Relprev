@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Elasticsearch.Net;
 using Infraero.Relprev.Application.Relato.Commands.CreateRelato;
 using Infraero.Relprev.Application.Relato.Commands.CancelRelato;
-using Infraero.Relprev.Application.Relato.Commands.UpdateRelato;
-using Infraero.Relprev.Application.RelatoArquivo.Commands.CreateRelatoArquivo;
 using Infraero.Relprev.Application.UnidadeInfraEstrutura.Queries.GetUnidadeInfraEstruturas;
 using Infraero.Relprev.CrossCutting.Enumerators;
-using Infraero.Relprev.CrossCutting.Filter;
 using Infraero.Relprev.CrossCutting.Models;
-using Infraero.Relprev.Domain.Entities;
 using Infraero.Relprev.Infrastructure.Identity;
 using Infraero.Relprev.WebUi.Authorization;
 using Infraero.Relprev.WebUi.Factory;
@@ -23,7 +18,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using Infraero.Relprev.Application.RelatoArquivo.Queries.GetRelatoArquivos;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Linq;
@@ -31,18 +25,14 @@ using IdentityServer4.Extensions;
 using Infraero.Relprev.Application.Local.Queries.GetLocals;
 using Infraero.Relprev.Application.SubLocal.Queries.GetSubLocals;
 using Infraero.Relprev.Application.SubAssunto.Queries.GetSubAssuntos;
-using Infraero.Relprev.Application.Assunto.Queries.GetAssuntos;
-using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Queries.GetResponsavelTecnicos;
 using Infraero.Relprev.Application.Relato.Commands.ClassificarRelato;
 using Infraero.Relprev.Application.AtribuicaoRelato.Queries.GetAtribuicaoRelatos;
-using Infraero.Relprev.Application.ConfigurarAmbiente.Commands.CreateConfigurarAmbiente;
 using Infraero.Relprev.Application.Relato.Commands.FinalizeRelato;
 using Infraero.Relprev.Application.Relato.Queries.GetRelatos;
 using Infraero.Relprev.CrossCutting.Extensions;
 using Infraero.Relprev.CrossCutting.Helpers;
 using Microsoft.AspNetCore.Hosting;
-using EnumSituacaoAtribuicao = Infraero.Relprev.CrossCutting.Enumerators.EnumSituacaoAtribuicao;
 using System.Security.Claims;
 
 //using Infraero.Relprev.Application.Relato.Commands.RemoverResponsavelTecnico;
@@ -257,7 +247,7 @@ namespace Infraero.Relprev.WebUi.Controllers
 
                 var idRelato = await ApiClientFactory.Instance.ClassificarRelato(command);
 
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+                return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Success, message = "Relato de prevenção classificado com sucesso!" });//[MSG1029]
             }
             catch (Exception e)
             {
@@ -336,7 +326,7 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Warning, message = "O relato poderá ser cancelado somente antes de ser iniciado (Classificado)." });
             }
 
-            return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });
+            return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Success, message = "Relato cancelado com sucesso." });
 
         }
 
@@ -396,7 +386,82 @@ namespace Infraero.Relprev.WebUi.Controllers
                 return View();
             }
         }
+        public JsonResult GetRelatoByNumRelato(string numRelato)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(numRelato))
+                {
+                    throw new Exception(
+                        "Número do relato não informado.");
+                }
 
+                var result = ApiClientFactory.Instance.GetRelatoByNumRelato(numRelato.ToUpper().Trim());
+
+                if (result == null)
+                {
+                    throw new Exception(
+                        "Relato não encontrado.");
+                }
+
+                var configAmbiente = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
+
+                //Rn0100
+                if (configAmbiente == null)
+                {
+                    throw new Exception(
+                        "Não existe configuração de ambiente registrada. Favor realizar a configuração do ambiente.");
+                }
+
+                return Json(result.CodRelato);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+
+
+        }
+
+        public JsonResult GetResponsavelByEmpresa(int id)
+        {
+            var listResposavel = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
+
+            listResposavel = listResposavel
+                //.Where(x => x.Empresa.CodEmpresa == id)
+                .Select(s => new ResponsavelTecnicoDto
+                {
+                    CodResponsavelTecnico = s.CodResponsavelTecnico,
+                    NomResponsavelTecnico = s.NomResponsavelTecnico
+                }).ToList();
+            var texto = "Selecione o responsável técnico";
+            if (listResposavel.Count == 0)
+            {
+                texto = "Nenhum responsável técnico cadastrado nesse empresa";
+            }
+
+            return Json(new SelectList(listResposavel, "CodResponsavelTecnico", "NomResponsavelTecnico"));
+        }
+
+        [HttpGet]
+        public JsonResult AtribuirResponsavelTecnico(int id)
+        {
+
+            var listSublocal = ApiClientFactory.Instance.GetSubLocalAll();
+
+            var listDdlSubLocal = listSublocal
+                .Where(x => x.Local.CodLocal == id)
+                .Select(s => new SubLocalDto
+                {
+                    CodSubLocal = s.CodSubLocal,
+                    DscSubLocal = s.DscSubLocal
+                }).ToList();
+
+
+            //return Json(new { data = listaClientes }, JsonRequestBehavior.AllowGet);
+            return Json(listDdlSubLocal);
+
+        }
         #endregion
 
         #region Métodos Privados
@@ -518,87 +583,5 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
         #endregion
 
-        #region Método públicos
-
-        public JsonResult GetRelatoByNumRelato(string numRelato)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(numRelato))
-                {
-                    throw new Exception(
-                        "Número do relato não informado.");
-                }
-
-                var result = ApiClientFactory.Instance.GetRelatoByNumRelato(numRelato.ToUpper().Trim());
-
-                if (result == null)
-                {
-                    throw new Exception(
-                        "Relato não encontrado.");
-                }
-
-                var configAmbiente = ApiClientFactory.Instance.GetConfigurarAmbienteAll().FirstOrDefault();
-
-                //Rn0100
-                if (configAmbiente == null)
-                {
-                    throw new Exception(
-                        "Não existe configuração de ambiente registrada. Favor realizar a configuração do ambiente.");
-                }
-
-                return Json(result.CodRelato);
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message);
-            }
-
-
-        }
-        #endregion
-
-
-
-        public JsonResult GetResponsavelByEmpresa(int id)
-        {
-            var listResposavel = ApiClientFactory.Instance.GetResponsavelTecnicoAll();
-
-            listResposavel = listResposavel
-                //.Where(x => x.Empresa.CodEmpresa == id)
-                .Select(s => new ResponsavelTecnicoDto
-                {
-                    CodResponsavelTecnico = s.CodResponsavelTecnico,
-                    NomResponsavelTecnico = s.NomResponsavelTecnico
-                }).ToList();
-            var texto = "Selecione o responsável técnico";
-            if (listResposavel.Count == 0)
-            {
-                texto = "Nenhum responsável técnico cadastrado nesse empresa";
-            }
-
-            return Json(new SelectList(listResposavel, "CodResponsavelTecnico", "NomResponsavelTecnico"));
-        }
-
-
-        [HttpGet]
-        public JsonResult AtribuirResponsavelTecnico(int id)
-        {
-
-            var listSublocal = ApiClientFactory.Instance.GetSubLocalAll();
-
-            var listDdlSubLocal = listSublocal
-                .Where(x => x.Local.CodLocal == id)
-                .Select(s => new SubLocalDto
-                {
-                    CodSubLocal = s.CodSubLocal,
-                    DscSubLocal = s.DscSubLocal
-                }).ToList();
-
-
-            //return Json(new { data = listaClientes }, JsonRequestBehavior.AllowGet);
-            return Json(listDdlSubLocal);
-
-        }
     }
 }

@@ -232,8 +232,8 @@ namespace Infraero.Relprev.WebApi.Controllers
             }
         }
 
-        [HttpGet("GetUsuarioByEmail")]
-        public async Task<bool> GetUsuarioByEmail(string email)
+        [HttpPost("GetUsuarioByEmail")]
+        public async Task<bool> GetUsuarioByEmail([FromBody] string email)
         {
             try
             {

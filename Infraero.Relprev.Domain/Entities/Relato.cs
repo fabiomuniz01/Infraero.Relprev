@@ -24,15 +24,19 @@ namespace Infraero.Relprev.Domain.Entities
         public string DscMotivoCancelamento { get; set; }
         public int FlgStatusRelato { get; set; }
         public int CodUnidadeInfraestrutura { get; set; }
-        [ForeignKey("CodUnidadeInfraestrutura")]
-        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
         public int CodLocal { get; set; }
         public int CodSubLocal { get; set; }
         public int CodAssunto { get; set; }
         public int CodSubAssunto { get; set; }
+        public string DscAcoesCorretivasRecomendadas { get; set; }
+
+        //[ForeignKey("CodParecer")]
+        //public Parecer Parecer { get; set; }
 
         [ForeignKey("CodRelato")]
         public virtual ICollection<RelatoArquivo> ListArquivo { get; set; }
-        public string DscAcoesCorretivasRecomendadas { get; set; }
+
+        [ForeignKey("CodUnidadeInfraestrutura")]
+        public UnidadeInfraestrutura UnidadeInfraestrutura { get; set; }
     }
 }

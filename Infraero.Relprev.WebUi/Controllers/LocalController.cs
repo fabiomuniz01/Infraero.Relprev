@@ -31,8 +31,9 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("Local", "Consultar")]
-        public ActionResult Index(int? crud)
+        public ActionResult Index(int? crud, int? notify, string message = null)
         {
+            SetNotifyMessage(notify, message);
             SetCrudMessage(crud);
             var response = ApiClientFactory.Instance.GetGridLocal();
             return View(response);
@@ -116,6 +117,13 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+                var local = ApiClientFactory.Instance.GetSubLocalAll().Any(x=>x.Local.CodLocal.Equals(id));
+
+                if (local)
+                {
+                    return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Warning, message = "Esse Local de Ocorrência possui um Sub Local de Ocorrência a ele vinculado e por isso não pode ser excluído." });
+                }
+
                 ApiClientFactory.Instance.DeleteLocal(new DeleteLocalCommand {Id = id});
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Deleted });

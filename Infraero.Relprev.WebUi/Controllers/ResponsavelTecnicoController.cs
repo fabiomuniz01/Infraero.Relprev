@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Infraero.Relprev.Application.Empresa.Queries.GetEmpresas;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.CreateResponsavelTecnico;
 using Infraero.Relprev.Application.ResponsavelTecnico.Commands.DeleteResponsavelTecnico;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Options;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 
@@ -44,11 +46,12 @@ namespace Infraero.Relprev.WebUi.Controllers
         }
 
         [ClaimsAuthorize("ResponsavelTecnico", "Incluir")]
-        public ActionResult Create(int? notify, string message = null)
+        public ActionResult Create(int? crud, int? notify, string message = null)
         {
             try
             {
                 SetNotifyMessage(notify, message);
+                SetCrudMessage(crud);
 
                 //[RN1013]
                 var usuario = ApiClientFactory.Instance.GetUsuarioById(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -88,11 +91,14 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         [ClaimsAuthorize("ResponsavelTecnico", "Incluir")]
         [HttpPost]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
             {
                 var listEmpresa = collection["ddlEmpresa[]"].ToArray();
+
+                
+
                 var command = new CreateResponsavelTecnicoCommand
                 {
 
@@ -106,6 +112,14 @@ namespace Infraero.Relprev.WebUi.Controllers
                     arrEmpresa = listEmpresa,
                     CriadoPor = User.Identity.Name
                 };
+
+                var result = await ApiClientFactory.Instance.GetResponsavelByCpf(command.NumCpf);
+
+                if (result.CodUnidadeInfraestrutura != 0)
+                {
+                    return RedirectToAction(nameof(Create), new { notify = (int)EnumNotify.Error, message = "Já existe um responsável cadastrado com esse cpf." });
+
+                }
 
                 ApiClientFactory.Instance.CreateResponsavelTecnico(command);
 
@@ -141,7 +155,7 @@ namespace Infraero.Relprev.WebUi.Controllers
             model = new ResponsavelTecnicoModel
             {
                 ListUnidadeInfraestrutura = new SelectList(new[] { resultUnidade }, "CodUnidadeInfraestrutura", "NomUnidadeÌnfraestrutura", obj.CodUnidadeInfraestrutura),
-                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial", obj.ListVinculoResponsavelEmpresa.Select(s => s.CodEmpresa)),
+                ListEmpresa = new SelectList(result5, "CodEmpresa", "NomRazaoSocial"),
                 ResponsavelTecnico = obj
             };
 
@@ -155,6 +169,10 @@ namespace Infraero.Relprev.WebUi.Controllers
         {
             try
             {
+                var listEmpresa = collection["ddlEmpresa[]"].ToArray();
+
+                var obj = ApiClientFactory.Instance.GetResponsavelTecnicoById(id);
+
                 var command = new UpdateResponsavelTecnicoCommand
                 {
                     Id = id,
@@ -164,9 +182,28 @@ namespace Infraero.Relprev.WebUi.Controllers
                     NumCpf = collection["NumCpf"].ToString(),
                     NumTelefone = collection["NumTelefone"].ToString(),
                     CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    CodEmpresa = int.Parse(collection["ddlEmpresa"].ToString()),
+                    arrEmpresa = listEmpresa,
+                    ListVinculoResponsavelEmpresa = obj.ListVinculoResponsavelEmpresa,
                     AlteradoPor = User.Identity.Name
                 };
+
+                var emps = obj.ListVinculoResponsavelEmpresa.Select(s => s.CodEmpresa.ToString()).ToList();
+                var arrEmps = command.arrEmpresa.ToList();
+
+                foreach (var emp in emps)
+                {
+                    var fim = arrEmps.Find(
+                        delegate (string bk) { return bk == emp; });
+
+                    if (emp != null)
+                    {
+                        return RedirectToAction(nameof(Edit), new { notify = (int)EnumNotify.Error, message = "Já existe um responsável cadastrado." });
+                    }
+                }
+
+
+
+
                 ApiClientFactory.Instance.UpdateResponsavelTecnico(command);
 
                 return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Updated });

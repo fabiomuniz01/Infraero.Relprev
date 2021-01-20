@@ -44,8 +44,12 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-sm-right pt-2">Sub local da ocorrência <span class="required">*</span></label>
                         <div class="col-sm-9">
-                            <textarea type="text" rows="3" name="DscSubLocal" class="form-control" placeholder="eg.: Descrição do sub local de ocorrência  "
-                                      title="Por favor informe a descrição do sub local de ocorrência." required maxlength="255"></textarea>
+                            <textarea type="text" rows="3" 
+                                      name="DscSubLocal" 
+                                      class="form-control" 
+                                      placeholder="eg.: Descrição do sub local de ocorrência  "
+                                      title="Por favor informe a descrição do sub local de ocorrência." 
+                                      required maxlength="100"></textarea>
                         </div>
                     </div>
                 </div>
@@ -74,73 +78,82 @@
 
     <script>
 
-            // Select2
-            (function ($) {
+        (function ($) {
 
-                'use strict';
+            'use strict';
 
-                var $select = $(".select2").select2({
-                    allowClear: true
-                });
+            var $select = $(".select2").select2({
+                allowClear: true
+            });
 
-                $(".select2").each(function () {
-                    var $this = $(this),
-                        opts = {};
+            $(".select2").each(function () {
+                var $this = $(this),
+                    opts = {};
 
-                    var pluginOptions = $this.data('plugin-options');
-                    if (pluginOptions)
-                        opts = pluginOptions;
+                var pluginOptions = $this.data('plugin-options');
+                if (pluginOptions)
+                    opts = pluginOptions;
 
-                    $this.themePluginSelect2(opts);
-                });
+                $this.themePluginSelect2(opts);
+            });
+
+            $("#ddlUnidadeInfraestrutura").change(function () {
+
+                var url = '@Url.Content("~/")' + "SubLocal/GetListLocalById";
+
+                var ddlSource = "#ddlUnidadeInfraestrutura";
+
+                $.getJSON(url,
+                    { id: $(ddlSource).val() },
+                    function(data) {
+                        var items = '';
+                        $("#ddlLocal").empty;
+                        $.each(data,
+                            function(i, row) {
+                                items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                            });
+                        $("#ddlLocal").html(items);
+                    });
+            });
 
             /*
              * When you change the value the select via select2, it triggers
              * a 'change' event, but the jquery validation plugin
              * only re-validates on 'blur'*/
-             
-            $select.on('change', function() {
+
+            $select.on('change', function () {
                 $(this).trigger('blur');
             });
 
-            $('#form').validate({
-                ignore: 'input[type=hidden], .select2-input, .select2-focusser'
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value == '' || value.trim().length != 0;
+            }, "Sem espaço por favor e não o deixe vazio");
+
+            $("#form").validate({
+                rules: {
+                    DscSubLocal: {
+                        noSpace: true
+                    }
+                },
+                highlight: function (label) {
+                    $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                success: function (label) {
+                    $(label).closest('.form-group').removeClass('has-error');
+                    label.remove();
+                },
+                errorPlacement: function (error, element) {
+                    var placement = element.closest('.input-group');
+                    if (!placement.get(0)) {
+                        placement = element;
+                    }
+                    if (error.text() !== '') {
+                        placement.after(error);
+                    }
+                }
             });
 
-            $select.rules('add', 'required');
-
-                $("#ddlUnidadeInfraestrutura").change(function () {
-
-                    var url = '@Url.Content("~/")' + "SubLocal/GetListLocalById";
-
-                    var ddlSource = "#ddlUnidadeInfraestrutura";
-
-                    $.getJSON(url,
-                        { id: $(ddlSource).val() },
-                        function(data) {
-                            var items = '';
-                            $("#ddlLocal").empty;
-                            $.each(data,
-                                function(i, row) {
-                                    items += "<option value='" + row.value + "'>" + row.text + "</option>";
-                                });
-                            $("#ddlLocal").html(items);
-                        });
-                });
-
-                // checkbox, radio and selects
-                $("#chk-radios-form, #form").each(function() {
-                    $(this).validate({
-                        highlight: function(element) {
-                            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                        },
-                        success: function(element) {
-                            $(element).closest('.form-group').removeClass('has-error');
-                        }
-                    });
-                });
-
-            }).apply(this, [jQuery]);
+        }).apply(this, [jQuery]);
 
     </script>
 }

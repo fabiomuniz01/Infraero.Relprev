@@ -11,10 +11,13 @@
   <ItemGroup>
     <Compile Remove="bin\**" />
     <Compile Remove="obj\**" />
+    <Compile Remove="Persistence\MigrationsPg\**" />
     <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="obj\**" />
+    <EmbeddedResource Remove="Persistence\MigrationsPg\**" />
     <None Remove="bin\**" />
     <None Remove="obj\**" />
+    <None Remove="Persistence\MigrationsPg\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -47,7 +47,7 @@ namespace Infraero.Relprev.WebUi
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("RelprevDbConnectionString")));
+                options.UseNpgsql(Configuration.GetConnectionString("RelprevDbConnectionString")));
 
             //services.AddDbContext<ApplicationDbContextPg>(options =>
             //    options.UseSqlServer(Configuration.GetConnectionString("RelprevDbConnectionString")));
@@ -104,7 +104,7 @@ namespace Infraero.Relprev.WebUi
 
                 // Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
-                options.Lockout.MaxFailedAccessAttempts = 4;
+                options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.AllowedForNewUsers = true;
 
                 // User settings.
