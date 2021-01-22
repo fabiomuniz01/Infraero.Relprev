@@ -76,10 +76,19 @@
 
             'use strict';
 
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value == '' || value.trim().length != 0;
+            }, "Sem espaço por favor e não o deixe vazio");
+
             var $numTel = $("#Telefone");
             $numTel.mask('(00) 0000-0000');
 
             $("#form").validate({
+                rules: {
+                    Empresa: {
+                        noSpace: true
+                    }
+                },
                 highlight: function (label) {
                     $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },

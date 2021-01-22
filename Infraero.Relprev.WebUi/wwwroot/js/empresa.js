@@ -13,6 +13,10 @@ var vm = new Vue({
 
             'use strict';
 
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value == '' || value.trim().length != 0;
+            }, "Sem espaço por favor e não o deixe vazio");
+
             var $numCnpj = $("#cnpj");
             $numCnpj.mask('00.000.000/0000-00', { reverse: false });
 
@@ -21,7 +25,10 @@ var vm = new Vue({
 
             $("#form").validate({
                 rules: {
-                    cnpj: { cnpj: true, required: true }
+                    cnpj: { cnpj: true, required: true },
+                    Empresa: {
+                        noSpace: true
+                    }
                 },
                 messages: {
                     cnpj: { cnpj: 'CNPJ inválido', required: "Por favor informe o CNPJ da empresa / órgão público" }
