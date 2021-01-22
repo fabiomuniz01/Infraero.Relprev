@@ -1,4 +1,3 @@
-/* Add here all your JS customizations */
 
 var vm = new Vue({
     el: "#parecer",
@@ -53,6 +52,13 @@ var vm = new Vue({
             document.getElementById('tituloNumRelato').innerHTML =
                 "<i class='fa fa-fw fa-reply-all'></i>&nbsp;&nbsp;Responder Parecer Técnico";
             $('#myMsgNumRelatoModal').modal('show');
+        },
+        CreateParecer: function () {
+            var self = this;
+            document.getElementById("acao").value = "create";
+            document.getElementById('tituloNumRelato').innerHTML =
+                "<i class='fa fa-fw fa-reply-all'></i>&nbsp;&nbsp;Responder Parecer Técnico";
+            $('#myMsgNumRelatoModal').modal('show');
         }
     }
 });
@@ -104,13 +110,16 @@ var vmModal = new Vue({
                 }
                 switch (acao) {
                     case "complete":
-                        window.location.href = "Parecer/Complete/?id=" + result.data;
+                        window.location.href = "Parecer/Complete/" + result.data;
                         break;
                     case "reply":
-                        window.location.href = "Parecer/Reply/?id=" + result.data;
+                        window.location.href = "Parecer/Reply/" + result.data;
+                        break;
+                    case "create":
+                        window.location.href = "Parecer/create/" + result.data;
                         break;
                     case "evaluate":
-                        window.location.href = "Parecer/Evaluate/?id=" + result.data;
+                        window.location.href = "Parecer/Evaluate/" + result.data;
                         break;
                     default:
                 }
