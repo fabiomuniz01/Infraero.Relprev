@@ -115,74 +115,83 @@ namespace Infraero.Relprev.WebUi.Controllers
 
         [ClaimsAuthorize("Relatos", "Cadastrar")]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        [ValidateAntiForgeryToken]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Create(IFormCollection collection)
         {
+            
             try
             {
-                string uniqueFileName = null;
-                var listRelatoArquivo = new List<RelatoArquivoDto>();
-
-                if (collection.Files.Count > 0)
+                if (ModelState.IsValid)
                 {
-                    var file = collection.Files;
+                    string uniqueFileName = null;
+                    var listRelatoArquivo = new List<RelatoArquivoDto>();
 
-                    foreach (var item in file)
+                    if (collection.Files.Count > 0)
                     {
-                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "RelatoArquivo");
-                        string extension = Path.GetExtension(item.FileName);
-                        uniqueFileName = Guid.NewGuid().ToString() + extension;
-                        var realName = item.GetFilename();
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        item.CopyTo(new FileStream(filePath, FileMode.Create));
+                        var file = collection.Files;
 
-                        listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
+                        foreach (var item in file)
+                        {
+                            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "RelatoArquivo");
+                            string extension = Path.GetExtension(item.FileName);
+                            uniqueFileName = Guid.NewGuid().ToString() + extension;
+                            var realName = item.GetFilename();
+                            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                            item.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                            listRelatoArquivo.Add(new RelatoArquivoDto { NomeArquivo = uniqueFileName, Arquivo = realName, Caminho = "RelatoArquivo" });
+                        }
                     }
-                }
 
-                var command = new CreateRelatoCommand
-                {
-                    CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
-                    DatOcorrencia = collection["DtOcorrencia"].ToString(),
-                    HorOcorrencia = collection["HorOcorrencia"].ToString(),
-                    DscEnvolvidosOcorrencia = collection["DscEnvolvidosOcorrencia"].ToString(),
-                    DscLocalOcorrenciaRelator = collection["DscLocalOcorrenciaRelator"].ToString(),
-                    DscOcorrenciaRelator = collection["DscOcorrenciaRelator"].ToString(),
-                    DscRelato = collection["DscOcorrenciaRelator"].ToString(),
-                    NomRelator = collection["NomRelator"].ToString(),
-                    EmailRelator = collection["EmailRelator"].ToString(),
-                    CodUsuarioAtribuidor = User.FindFirst(ClaimTypes.NameIdentifier).Value,
-                    //Rn0079
-                    NumTelefoneRelator = Criptografia.Encriptar(collection["NumTelefoneRelator"].ToString()),
-                    NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
-                    ListRelatoArquivo = listRelatoArquivo,
-                    //Rn0033
-                    FlgStatusRelato = (int)EnumStatusRelato.NaoIniciado,
-                    DscOcorrenciaStatus = EnumStatusRelato.NaoIniciado.GetDescription() + ", " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
-                    CriadoPor = User.Identity.Name
-                };
-
-                var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
-
-                //Rn0064
-                var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato));
-                if (listAtribuicaoSgso.Count > 0)
-                {
-                    foreach (var atribuicao in listAtribuicaoSgso)
+                    var command = new CreateRelatoCommand
                     {
-                        await SendRn0064Email(atribuicao);
+                        CodUnidadeInfraestrutura = int.Parse(collection["ddlUnidadeInfraestrutura"].ToString()),
+                        DatOcorrencia = collection["DtOcorrencia"].ToString(),
+                        HorOcorrencia = collection["HorOcorrencia"].ToString(),
+                        DscEnvolvidosOcorrencia = collection["DscEnvolvidosOcorrencia"].ToString(),
+                        DscLocalOcorrenciaRelator = collection["DscLocalOcorrenciaRelator"].ToString(),
+                        DscOcorrenciaRelator = collection["DscOcorrenciaRelator"].ToString(),
+                        DscRelato = collection["DscOcorrenciaRelator"].ToString(),
+                        NomRelator = collection["NomRelator"].ToString(),
+                        EmailRelator = collection["EmailRelator"].ToString(),
+                        CodUsuarioAtribuidor = User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                        //Rn0079
+                        NumTelefoneRelator = Criptografia.Encriptar(collection["NumTelefoneRelator"].ToString()),
+                        NomEmpresaRelator = collection["NomEmpresaRelator"].ToString(),
+                        ListRelatoArquivo = listRelatoArquivo,
+                        //Rn0033
+                        FlgStatusRelato = (int)EnumStatusRelato.NaoIniciado,
+                        DscOcorrenciaStatus = EnumStatusRelato.NaoIniciado.GetDescription() + ", " + DateTime.Now.ToString("dd/MM/yyyy") + ", " + DateTime.Now.ToString("hh:mm"),
+                        CriadoPor = User.Identity.Name
+                    };
+
+                    var idRelato = await ApiClientFactory.Instance.CreateRelato(command);
+
+                    //Rn0064
+                    var listAtribuicaoSgso = ApiClientFactory.Instance.GetAtribuicaoByIdRelato(Convert.ToInt32(idRelato));
+                    if (listAtribuicaoSgso.Count > 0)
+                    {
+                        foreach (var atribuicao in listAtribuicaoSgso)
+                        {
+                            await SendRn0064Email(atribuicao);
+                        }
                     }
+
+
+                    //Rn0065
+                    if (!string.IsNullOrEmpty(command.EmailRelator))
+                    {
+                        await SendRn0065Email(idRelato);
+                    }
+
+                    return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
                 }
-
-
-                //Rn0065
-                if (!string.IsNullOrEmpty(command.EmailRelator))
+                else
                 {
-                    await SendRn0065Email(idRelato);
+                    return RedirectToAction(nameof(Index), new { notify = (int)EnumNotify.Error, message = "Google ReCaptch validação FALHOU!" });
                 }
-
-                return RedirectToAction(nameof(Index), new { crud = (int)EnumCrud.Created });
+                
             }
             catch (Exception ex)
             {

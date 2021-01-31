@@ -22,7 +22,7 @@ namespace Infraero.Relprev.CrossCutting.Filter
                 throw new ArgumentNullException("configuration");
             }
             this.m_configuration = configuration;
-            this.m_reCaptchaSecret = new Lazy<string>(() => m_configuration["ReCaptcha:Secret"]);
+            this.m_reCaptchaSecret = new Lazy<string>(() => m_configuration["ReCaptcha:SecretKey"]);
         }
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {

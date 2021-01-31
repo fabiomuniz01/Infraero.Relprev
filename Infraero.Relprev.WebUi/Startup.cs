@@ -152,8 +152,10 @@ namespace Infraero.Relprev.WebUi
             services.AddSingleton<IAuthorizationHandler, UserInRoleHandler>();
 
             //Dependency Injection to obtain Configuration object ValidateReCaptchaAttribute
+            services.AddSingleton<IConfigurationRoot>((IConfigurationRoot)Configuration);
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<ValidateReCaptchaAttribute>();
+
 
             // Create an admins policy group for high level security requirements
             services.AddAuthorization(options =>
