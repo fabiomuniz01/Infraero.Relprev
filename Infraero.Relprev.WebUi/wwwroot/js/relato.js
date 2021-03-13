@@ -10,8 +10,6 @@
         var self = this;
         (function ($) {
 
-
-
             'use strict';
             if ($.isFunction($.fn['timepicker'])) {
 
@@ -29,8 +27,7 @@
                 });
 
             }
-
-
+            
 
 
             var $DtOcorrencia = $("#DtOcorrencia");
@@ -42,28 +39,28 @@
                 orientation: "bottom left",
                 autoclose: true
             });
+            
 
             $('#custom-file-input').on("change", function () {
 
                 var files = $(this)[0].files;
 
+                $('#arquivosDatatable').DataTable().destroy();
+
                 $('#arquivosDatatable').DataTable({
                     data: files,
                     "columns": [
                         { "data": "name" },
-                        {
-                            "data": null,
-                            "sortable": false,
-                            "render": function (c) {
-                                return "<a style='color:#d43f3a' href='javascript:(crud.deleteModal(" +
-                                    c.Id +
-                                    "))'><i class='fa fa-trash'></i></a>";
-                            }
-                        }
+                        //{
+                        //    "data": null,
+                        //    "sortable": false,
+                        //    "render": function (c) {
+                        //        return "<a style='color:#d43f3a' href='javascript:(remove(\""+c.name+"\"))'><i class='fa fa-trash'></i></a>";
+                        //    }
+                        //}
                     ],
+                    "paging": false,
                     "searching": false,
-                    "lengthChange": false,
-                    "pageLength": 3,
                     "language": {
                         "sEmptyTable": "Nenhum registro encontrado",
                         "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -90,7 +87,20 @@
                         }
                     }
                 });
+
+                $('#arquivosDatatable').DataTable().draw();
             });
+
+            //var table = $('#arquivosDatatable').DataTable();
+
+            //$('#arquivosDatatable tbody').on('click', 'tr', function () {
+            //    //alert('Row index: ' + table.row(this).index());
+            //    var index = table.row(this).index();
+            //    table.row(index).remove().draw();
+            //});
+
+            
+
 
             var $select = $(".select2").select2({
                 allowClear: true
@@ -139,7 +149,7 @@
             $numCpf.mask('000.000.000-00', { reverse: false });
 
             var $numTel = $("#NumTelefoneRelator");
-            $numTel.mask('(00) 0000-0000');
+            $numTel.mask('(00) 00000-0000');
 
             $("#form").validate({
                 rules: {
@@ -194,6 +204,14 @@
                 self.loading = flag;
             }
         },
+        Remover: function() {
+            document.getElementById("custom-file-input").value = "";
+
+            var myTable = $('#arquivosDatatable').DataTable();
+            myTable.rows()
+                .remove()
+                .draw();
+        },
         ExisteCpf: function () {
             var self = this;
             self.ShowLoad(true, "vUsuario");
@@ -218,55 +236,59 @@
     }
 });
 
-function UploadFile() {
+function remove(name) {
 
-    var fileUpload = $("#files").get(0);
+    document.getElementById("custom-file-input").value = "";
 
-    var files = fileUpload.files;
+    var myTable = $('#arquivosDatatable').DataTable();
+        myTable.rows()
+            .remove()
+            .draw();
 
-    var data = new FormData();
+    //$('#arquivosDatatable').on('click', 'tbody tr', function () {
+    //});
+}
 
-    data.append(files[0].name, files[0]);
+var crud = {
+    
+    deleteModal: function (id) {
+        alert.message("Exclusão", "Tem certeza que deseja <b>excluir</b> o registro selecionado?" + id);
+    }
+};
 
-    $.ajax({
+$(document).on('click', '.close', function () {
+    $(this).parents('span').remove();
 
-        type: "POST",
+})
 
-        url: "UploadFile",
+document.getElementById('uploadBtn').onchange = uploadOnChange;
 
-        contentType: false,
+function uploadOnChange() {
+    document.getElementById("uploadFile").value = this.value;
+    var filename = this.value;
+    var lastIndex = filename.lastIndexOf("\\");
+    if (lastIndex >= 0) {
+        filename = filename.substring(lastIndex + 1);
+    }
+    var files = $('#uploadBtn')[0].files;
+    for (var i = 0; i < files.length; i++) {
+        $("#upload_prev").append('<span>' + '<div class="filenameupload">' + files[i].name + '</div>' + '<p class="close" >X</p></span>');
+    }
+    document.getElementById('filename').value = filename;
+}
 
-        processData: false,
-
-        data: data,
-
-        async: false,
-
-        beforeSend: function () {
-
-            $("#divloader").show()
-
-        },
-
-        success: function (message) {
-
-            alert(message);
-            $('input[name="hidenFile"]').val(message);
-
-        },
-
-        error: function () {
-
-            alert("Error!");
-
-        },
-
-        complete: function () {
-
-            $("#divloader").hide()
-
-        }
-
+$(document).ready(function() {
+    var table = $('#example').DataTable();
+    $('#example tbody').on('click', 'tr', function() {
+         if ($(this).hasClass('selected')) {
+             $(this).removeClass('selected');
+         } else {
+             table.$('tr.selected').removeClass('selected');
+             $(this).addClass('selected');
+         }
     });
 
-}
+    $('#button').click(function () {
+         table.row('.selected').remove().draw(false);
+    });
+});

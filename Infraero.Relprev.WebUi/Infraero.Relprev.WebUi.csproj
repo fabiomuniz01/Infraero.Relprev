@@ -214,7 +214,17 @@
     <Folder Include="wwwroot\ParecerArquivo\" />
     <Folder Include="wwwroot\RelatoArquivo\" />
     <Folder Include="wwwroot\pdf\" />
+    <Folder Include="wwwroot\vendor\fileuploader\" />
     <Folder Include="wwwroot\vendor\graficos\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\vendor\dropzone\dropzone-amd-module.js" />
+    <None Include="wwwroot\vendor\dropzone\dropzone.js" />
+    <None Include="wwwroot\vendor\dropzone\min\dropzone-amd-module.min.js" />
+    <None Include="wwwroot\vendor\dropzone\min\dropzone.min.js" />
+    <None Include="wwwroot\vendor\dropzone\readme.md" />
   </ItemGroup>
 
 </Project>
